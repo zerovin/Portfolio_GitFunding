@@ -44,30 +44,36 @@
     align-items:center;
 }
 #join .join_wrap form .center > div + div{
-    margin-top:35px;
+    margin-top:55px;
 }
 #join .join_wrap form .hasBtn{
     display:flex;
+    align-items:center;
 }
 #join .join_wrap form .hasBtn input[type="button"]{
     width:150px;
     height:40px;
     line-height:36px;
     text-align:center;
-    border:1px solid #1E1A1A;
+	border-radius:5px;
     background:#F8C200;
     font-size:15px;
     color:#1E1A1A;
     cursor:pointer;
 }
-#join .join_wrap form .id_check{
+#join .join_wrap form .hasMsg{
+	position:relative;
+}
+#join .join_wrap form .check_msg{
+	position:absolute;
+	top:calc(100% + 10px);
+	left:150px;
 	background: #f8c2005e;
-    padding: 5px;
     color: #ff0000;
 }
 #join .join_wrap .input_wrap{
     display:grid;
-    grid-template-columns:150px 350px;
+    grid-template-columns:150px 400px;
     margin-right:20px;
     align-items:center;
 }
@@ -84,6 +90,11 @@
     flex-direction:row-reverse;
     gap:5px;
 }
+#join .join_wrap select{
+	width:199px;
+	border-bottom:1px solid #1E1A1A;
+	padding:5px;
+}
 #join .join_wrap .center > div:nth-last-child(2){
     margin-bottom:70px;
 }
@@ -95,7 +106,7 @@
 #join .join_wrap form .form_btns button{
     font-size:18px;
     padding:10px 50px;
-    border:1px solid #1E1A1A;
+    border-radius:5px;
     background:#dcdcdc;
     cursor:pointer;
 }
