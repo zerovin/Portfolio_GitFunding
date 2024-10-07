@@ -1,0 +1,332 @@
+/* ---------------- SEARCH ---------------- */
+#main #search_cate{
+    margin-bottom:50px;
+}
+#main #search_cate .search{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:40px;
+    margin-bottom:30px;
+}
+#main #search_cate .search form{
+    display:flex;
+    align-items:center;
+    gap:20px;
+    position:relative;
+}
+#main #search_cate .search form label{
+    display:none;
+}
+#main #search_cate .search form input{
+    width:550px;
+    height:50px;
+    border:2px solid #F8C200;
+    border-radius:27px;
+    padding:25px;
+    padding-right:40px;
+}
+#main #search_cate .search form button{
+    width:24px;
+    height:23px;
+    background:url(../images/search.png) no-repeat;
+    text-indent:-9999em;
+    position:absolute;
+    right:20px;
+    top:50%;
+    transform:translateY(-50%);
+}
+#main #search_cate .best_search{
+    position:relative;
+    padding:10px;
+    padding-right:20px;
+}
+#main #search_cate .rolling{
+    overflow:hidden;
+    height:54px;
+}
+#main #search_cate .rolling li{
+    width:200px;
+}
+#main #search_cate .rolling img{
+    position:absolute;
+    top:50%;
+    right:0;
+    transform:translateY(-50%);
+    cursor: pointer;
+    transition:.3s;
+}
+#main #search_cate .rolling img.rotate{
+    transform:translateY(-50%) rotate(180deg);
+}
+#main #search_cate .search .rolling a{
+    height:54px;
+    line-height:54px;
+}
+#main #search_cate .search a{
+    display:inline-flex;
+    gap:15px;
+    font-weight:500;
+    font-size:18px;
+}
+#main #search_cate .search a > p{
+    white-space: nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+#main #search_cate .search span{
+    color:#F8C200;
+}
+#main #search_cate .search_list{
+    display:none;
+    position:absolute;
+    top:calc(100% + 10px);
+    left:0;
+    padding:40px 30px;
+    border-radius:10px;
+    box-shadow: 1px 1px 5px rgba(201, 173, 73, .3);
+    background:#fff;
+    z-index:1;
+}
+#main #search_cate .search_list .top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+#main #search_cate .search_list h3{
+    font-weight:500;
+    font-size:18px;
+    padding-left:5px;
+}
+#main #search_cate .search_list button{
+    color:#aba3a3;
+}
+#main #search_cate .search_list li{
+    width:200px;
+}
+#main #search_cate .search_list a{
+    padding:5px 0;
+    margin-bottom:5px;
+    font-weight:400;
+    font-size:16px;
+}
+#main #search_cate .search span{
+    width:20px;
+    text-align:right;
+}
+
+
+/* ---------------- CATE ---------------- */
+#main #search_cate .category{
+    overflow:hidden;
+    position:relative;
+    height:90px;
+}
+#main #search_cate .category .cate_list{
+    position:absolute;
+    top:0;
+    right:-35%;
+    display:flex;
+    gap:30px;
+    flex-wrap:nowrap;
+    width:max-content;
+    transition:.3s;
+}
+#main #search_cate .category .cate_list.scroll{
+    right:0;
+}
+#main #search_cate .category .cate_list a{
+    padding:5px;
+    text-align:center;
+}
+#main #search_cate .category .cate_list a p:first-child{
+    font-size:32px;
+    margin-bottom:10px;
+}
+#main #search_cate .category .cate_list a:hover p:last-child{
+    font-weight:500;
+}
+#main #search_cate .category button.control{
+    background:no-repeat;
+    width:30px;
+    height:100%;
+    text-indent:-9999em;
+    cursor: pointer;
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    z-index:1;
+}
+#main #search_cate .category button.prev{
+    display:none;
+    background-image:url(../images/prev.png), linear-gradient(to right, rgba(255,255,255,1) 75%, rgba(255,255,255,0) 100%);
+    background-position:left center;
+    left:0;
+}
+#main #search_cate .category button.next{
+    background-image:url(../images/next.png), linear-gradient(to left, rgba(255,255,255,1) 75%, rgba(255,255,255,0) 100%);
+    background-position:right center;
+    right:0;
+}
+/* ---------------- BANNER ---------------- */
+#main #banner{
+    display:grid;
+    grid-template-columns: 2.5fr 1fr;
+    gap:30px;
+}
+#main #banner .main_slide{
+    display:grid;
+    border-radius:20px;
+    overflow:hidden;
+}
+#main #banner .main_slide .slick-arrow{
+    position:absolute;
+    bottom:30px;
+    background:no-repeat;
+    width:41px;
+    height:41px;
+    text-indent:-9999em;
+    z-index:1;
+}
+#main #banner .main_slide .slick-prev{
+    background-image:url(../images/banner_prev.png);
+    right:100px;
+}
+#main #banner .main_slide .slick-next{
+    background-image:url(../images/banner_next.png);
+    right:50px;
+}
+#main #banner .main_slide .slides a{
+    display:block;
+    position:relative;
+}
+#main #banner .main_slide .slides a > img{
+    filter:brightness(.7);
+    width:100%;
+}
+#main #banner .main_slide .slides a > p{
+    position:absolute;
+    bottom:30px;
+    left:30px;
+    font-size:24px;
+    font-weight:500;
+    color:#fefefe;
+    line-height:1.25em;
+}
+#main #banner .adv{
+    border:1px solid #000;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+/* ---------------- TREND ---------------- */
+#main #trend_rank{
+    display:grid;
+    grid-template-columns: 2.5fr 1fr;
+    gap:30px;
+}
+#main #trend_rank .trend .best_wish{
+    margin-bottom:30px;
+}
+#main #trend_rank .trend .desc{
+    margin-bottom:10px;
+}
+#main #trend_rank .trend .desc span{
+    font-weight:400;
+    color:#F8C200;
+    background:#1E1A1A;
+    padding:3px;
+    border-radius:3px;
+}
+#main #trend_rank .trend ul{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:10px;
+}
+#main #trend_rank .trend ul .f_list img{
+    height:110px;
+}
+/* ---------------- RANK ---------------- */
+#main #trend_rank .rank .rank_tab{
+    display:flex;
+    gap:10px;
+    margin-bottom:20px;
+}
+#main #trend_rank .rank .rank_tab li{
+    padding-bottom:10px;
+    border-bottom:2px solid transparent;
+}
+#main #trend_rank .rank .rank_tab li.active{
+    font-weight:500;
+    border-color:#1E1A1A;
+}
+#main #trend_rank .rank .rank_list li + li{
+    margin-top:23px;
+}
+#main #trend_rank .rank .rank_list a{
+    display:flex;
+    gap:10px;
+}
+#main #trend_rank .rank .rank_list .number{
+    font-weight:700;
+    line-height:20px;
+    padding:0 5px;
+}
+#main #trend_rank .rank .rank_list .rank_content{
+    display:grid;
+    grid-template-columns: 2fr 1fr;
+    gap:10px;
+}
+#main #trend_rank .rank .rank_list .rank_content .title{
+    font-size:15px;
+    line-height:20px;
+    max-height: 50px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical; 
+    -webkit-line-clamp: 2;
+    margin-bottom:5px;
+}
+#main #trend_rank .rank .rank_list .rank_content .headcount{
+    color:#F8C200;
+    font-weight:700;
+}
+#main #trend_rank .rank .rank_list .rank_content img{
+    width:100%;
+    object-fit: cover;
+    border-radius:3px;
+}
+
+/* ----------------OPEN & DEADLINE & LATEST ---------------- */
+#main .multiple_slide .slick-slide{
+    margin:0 5px;
+}
+#main .multiple_slide .slick-arrow{
+    position:absolute;
+    bottom:calc(100% + 10px);
+    background:no-repeat;
+    width:41px;
+    height:41px;
+    text-indent:-9999em;
+}
+#main .multiple_slide .slick-prev{
+    background-image: url(../images/multiple_prev.png);
+    right:50px;
+}
+#main .multiple_slide .slick-next{
+    background-image: url(../images/multiple_next.png);
+    right:0;
+}
+#main #deadline .time{
+    margin-bottom:15px;
+}
+#main #deadline .time .clock{
+    font-size:20px;
+    font-weight:500;
+    color:#F8C200;
+    background:#1E1A1A;
+    padding:5px;
+    border-radius:3px;
+}
