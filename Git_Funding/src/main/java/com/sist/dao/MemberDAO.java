@@ -1,5 +1,6 @@
 package com.sist.dao;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -9,6 +10,23 @@ import com.sist.vo.*;
 public class MemberDAO {
 	@Autowired
 	private MemberMapper mapper;
+	
+	/*
+	@Insert("INSERT INTO funding_member(userId, userName, userPwd, enable, gender, email, post, addr1, addr2, phone, profile, nickname) "
+			+ "VALUES(#{userId}, #{userName}, #{userPwd}, 1, #{gender}, #{email}, #{post}, #{add1}, #{addr2}, #{phone}, '../images/profile.png', #{userName})")
+	public void memberInsert(MemberVO vo);
+	*/
+	public void memberInsert(MemberVO vo) {
+		mapper.memberInsert(vo);
+	}
+	
+	/*
+	@Insert("INSERT INTO authority VALUES(#{userId}, 'ROLE_USER')")
+	public void memberAuthorityInsert(String userId); 
+	 */
+	public void memberAuthorityInsert(String userId) {
+		mapper.memberAuthorityInsert(userId);
+	}
 	
 	/*
 	@Select("SELECT COUNT(*) FROM funding_member "

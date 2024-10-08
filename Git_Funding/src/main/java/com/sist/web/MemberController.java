@@ -1,14 +1,38 @@
 package com.sist.web;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.sist.service.MemberService;
+import com.sist.vo.*;
 @Controller
 public class MemberController {
+	@Autowired
+	private MemberService mService;
+	
+	@Autowired
+	private BCryptPasswordEncoder encoder;
+	
 	@GetMapping("member/join.do")
 	public String member_join() {
 		return "member/join";
+	}
+	
+	@PostMapping("member/join_ok.do")
+	public String member_join_ok(MemberVO vo) {
+		vo.setEmail(vo.getEmail_id()+"@"+vo.getEmail_domain());
+		
+		String enPwd=encoder.encode(vo.getUserPwd());
+		vo.setUserPwd(enPwd);
+		
+		mService.memberInsert(vo);
+		mService.memberAuthorityInsert(vo.getUserId());
+		
+		return "redirect:../main/main.do";
 	}
 	
 	@RequestMapping("member/login.do")

@@ -43,7 +43,7 @@
                         <div class="radios">
                             <div class="radio_btn">
                                 <label for="man">남자</label>
-                                <input type="radio" id="man" name="gender" v-model="gender" value="남자">
+                                <input type="radio" id="man" name="gender" v-model="gender" value="남자" checked>
                             </div>
                             <div class="radio_btn">
                                 <label for="woman">여자</label>
@@ -51,16 +51,19 @@
                             </div>
                         </div>
                     </div>
-                    <div class="input_wrap">
-                        <label for="phone">휴대폰<span>*</span></label>
-                        <input type="text" id="phone" name="phone" v-model="phone" placeholder="숫자만 입력해주세요" required>
+                    <div class="hasMsg">
+	                    <div class="input_wrap">
+	                        <label for="phone">휴대폰<span>*</span></label>
+	                        <input type="text" id="phone" name="phone" v-model="phone" @keyup="phoneValidate()" placeholder="숫자만 입력해주세요" required>
+	                    </div>
+	                    <p class="check_msg">{{phoneValidateMsg}}</p>
                     </div>
                     <div class="input_wrap">
                         <label for="email_id">이메일<span>*</span></label>
                         <div>
                             <input type="text" id="email_id" name="email_id" ref="email_id" v-model="email_id" placeholder="ex&#41; git_funding" required>@
                             <select name="email_domain" v-model="email_domain">
-                                <option selected value="naver.com">naver.com</option>
+                                <option value="naver.com" selected>naver.com</option>
                                 <option value="gmail.com">gmail.com</option>
                                 <option value="hanmail.net">hanmail.net</option>
                                 <option value="kakao.com">kakao.com</option>
@@ -70,10 +73,10 @@
                             </select>
                         </div>
                     </div>
-                    <div class="hasMsg">
+                    <div class="hasBtn">
                         <div class="input_wrap">
                             <label for="post">우편번호<span>*</span></label>
-                            <input type="text" id="post" name="post" v-model="post" placeholder="검색버튼을 눌러주세요" required readonly>
+                            <input type="text" id="post" name="post" v-model="post" ref="post" placeholder="검색버튼을 눌러주세요" required readonly>
                         </div>
                         <input type="button" class="post_search" value="우편번호 검색" @click="postSearch()">
                     </div>
@@ -106,6 +109,7 @@
     				userName:'',
     				gender:'',
     				phone:'',
+    				phoneValidateMsg:'',
     				email_id:'',
     				email_domain:'',
     				post:'',
@@ -130,8 +134,6 @@
 	    						this.idCheckMsg='사용 가능한 아이디입니다.'
 	    					}else{
 	    						this.idCheckMsg='이미 사용중인 아이디입니다.'
-	    						this.userId=""
-	    						this.$refs.userId.focus()
 	    					}       						
        					}
     				}).catch(error=>{
@@ -171,19 +173,26 @@
     			},
     			pwCheck(){
     				if(this.userPwd!=this.pw_check){
-    					this.pwCheckMsg="비밀번호가 일치하지 않습니다"
+    					this.pwCheckMsg="비밀번호가 일치하지 않습니다."
     				}else{
     					this.pwCheckMsg=""
     				}
     			},
     			phoneValidate(){
-    				$event.target.value = $event.target.value.replace(/[^0-9]/g, '')
+    				let phone=$('#phone').val()
+    				if(phone===''){
+    					this.phoneValidateMsg=""	
+    				}else if(isNaN(phone)){
+    					this.phoneValidateMsg="숫자만 입력하세요."
+    					return
+    				}
     			},
     			submitForm(e){
     				if(this.userId && this.userName && this.userPwd && this.pw_check && this.gender && this.email_id 
     						&& this.post && this.addr1 && this.addr2 && this.idCheckMsg=='사용 가능한 아이디입니다.' && this.pwValidateMsg==""){
-	   					alert("정상 수행")
 	   					return true
+	   				}else{	   					
+	    				e.preventDefault()
 	   				}
 	   				if(this.userId==='' || this.idCheckMsg!='사용 가능한 아이디입니다.'){
 	   					this.$refs.userId.focus()
@@ -200,8 +209,9 @@
 	   					this.$refs.phone.focus()
 	   				}else if(this.email_id===''){
 	   					this.$refs.email_id.focus()
+	   				}else if(this.post===''){
+		   				e.preventDefault()
 	   				}
-	   				e.preventDefault() 
     			}
     		}
     	}).mount('#join')
