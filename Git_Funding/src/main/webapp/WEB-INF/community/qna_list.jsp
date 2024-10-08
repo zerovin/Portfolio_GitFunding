@@ -250,6 +250,7 @@
                 <button>검색</button>
             </form>
             <button id="qnaBtn">문의 하기</button>
+            <a href="../community/qna_insert.do">눌러봐~</a>
        </div>
     </div>
 </div>
