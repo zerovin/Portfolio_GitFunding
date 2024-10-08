@@ -9,7 +9,7 @@
                     <li><a href="">오픈예정</a></li>
                     <li><a href="">펀딩</a></li>
                     <li><a href="">스토어</a></li>
-                    <li><a href="">커뮤니티</a></li>
+                    <li><a href="../site/qna_list.do">커뮤니티</a></li>
                 </ul>
             </nav>
         </div>    

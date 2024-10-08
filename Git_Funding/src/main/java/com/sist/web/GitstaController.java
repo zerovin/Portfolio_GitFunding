@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class GitstaController {
 	@GetMapping("main.do")
 	public String gitsta_main() {
-		return "gitsta_main";
+		return "gitsta/main";
 	}
 	@GetMapping("feed.do")
 	public String gitsta_feed() {
-		return "gitsta_feed";
+		return "gitsta/feed";
 	}
 }

@@ -118,23 +118,21 @@ body {
 <div class="instagram-page">
     <div class="header">
         <a href="../gitsta/main.do"><img src="../images/back.png" alt="뒤로가기"></a>
-        <h1>My Feed</h1>
-        <img src="../images/notification_icon.png" alt="알림">
     </div>
 
     <div class="profile-info">
         <img src="../images/favicon.png" alt="내 프로필">
-        <h2>29CM HOME</h2>
-        <p>무엇을 그리든 나의 집<br>반 발짝 가까이 29CM HOME에서</p>
+        <h2>닉네임</h2>
+        <p>내 피드를<br>구경하셔라</p>
     </div>
 
     <div class="profile-stats">
         <div>
-            <span>104</span>
+            <span>9</span>
             게시물
         </div>
         <div>
-            <span>1.2만</span>
+            <span>3</span>
             팔로워
         </div>
         <div>

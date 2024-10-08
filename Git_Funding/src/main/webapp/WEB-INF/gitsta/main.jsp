@@ -138,7 +138,7 @@
 <div class="instagram-page">
     <div class="user-info">
         <div>
-            <a href="../gitsta/myfeed.do"><img src="../images/favicon.png" alt="사용자 프로필" class="profile-pic"></a>
+            <a href="../gitsta/feed.do"><img src="../images/favicon.png" alt="사용자 프로필" class="profile-pic"></a>
             <p><span style="font-weight: bold;">나</span></p>
         </div>
         <div>
