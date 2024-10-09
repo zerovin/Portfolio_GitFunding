@@ -18,7 +18,7 @@
                 <li><a href="../member/login.do">로그인</a></li>
                 <li><a href="../member/join.do">회원가입</a></li>
             </ul>
-            <a href="" class="make_btn">프로젝트 만들기</a>
+            <a href="../project/home.do" class="make_btn">프로젝트 관리</a>
         </div>
     </div>
 </header>
