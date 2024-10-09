@@ -116,59 +116,6 @@
     text-align:right;
 }
 
-
-/* ---------------- CATE ---------------- */
-#main #search_cate .category{
-    overflow:hidden;
-    position:relative;
-    height:90px;
-}
-#main #search_cate .category .cate_list{
-    position:absolute;
-    top:0;
-    right:-35%;
-    display:flex;
-    gap:30px;
-    flex-wrap:nowrap;
-    width:max-content;
-    transition:.3s;
-}
-#main #search_cate .category .cate_list.scroll{
-    right:0;
-}
-#main #search_cate .category .cate_list a{
-    padding:5px;
-    text-align:center;
-}
-#main #search_cate .category .cate_list a p:first-child{
-    font-size:32px;
-    margin-bottom:10px;
-}
-#main #search_cate .category .cate_list a:hover p:last-child{
-    font-weight:500;
-}
-#main #search_cate .category button.control{
-    background:no-repeat;
-    width:30px;
-    height:100%;
-    text-indent:-9999em;
-    cursor: pointer;
-    position:absolute;
-    top:50%;
-    transform:translateY(-50%);
-    z-index:1;
-}
-#main #search_cate .category button.prev{
-    display:none;
-    background-image:url(../images/prev.png), linear-gradient(to right, rgba(255,255,255,1) 75%, rgba(255,255,255,0) 100%);
-    background-position:left center;
-    left:0;
-}
-#main #search_cate .category button.next{
-    background-image:url(../images/next.png), linear-gradient(to left, rgba(255,255,255,1) 75%, rgba(255,255,255,0) 100%);
-    background-position:right center;
-    right:0;
-}
 /* ---------------- BANNER ---------------- */
 #main #banner{
     display:grid;

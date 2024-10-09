@@ -4,7 +4,7 @@ import org.apache.ibatis.annotations.Select;
 
 import com.sist.vo.*;
 public interface MemberMapper {
-	// 아이디 중복체
+	// 아이디 중복체크 
 	@Select("SELECT COUNT(*) FROM funding_member "
 			+ "WHERE userId=#{userId}")
 	public int idCheck(String userId);

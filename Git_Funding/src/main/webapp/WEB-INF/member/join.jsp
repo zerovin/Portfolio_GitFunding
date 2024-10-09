@@ -11,7 +11,7 @@
         </div>
         <section class="join_wrap">
             <p><span>*</span> 필수입력사항</p>
-            <form method="POST" action="../member/join_ok.do" id="join_form" @submit="submitForm()">
+            <form method="POST" action="../member/join_ok.do" id="join_form" @submit="submitForm">
                 <div class="center">
                     <div class="hasMsg">
                         <div class="input_wrap">
@@ -43,7 +43,7 @@
                         <div class="radios">
                             <div class="radio_btn">
                                 <label for="man">남자</label>
-                                <input type="radio" id="man" name="gender" v-model="gender" value="남자" checked>
+                                <input type="radio" id="man" name="gender" v-model="gender" value="남자">
                             </div>
                             <div class="radio_btn">
                                 <label for="woman">여자</label>
@@ -54,7 +54,7 @@
                     <div class="hasMsg">
 	                    <div class="input_wrap">
 	                        <label for="phone">휴대폰<span>*</span></label>
-	                        <input type="text" id="phone" name="phone" v-model="phone" @keyup="phoneValidate()" placeholder="숫자만 입력해주세요" required>
+	                        <input type="text" id="phone" name="phone" v-model="phone" @keydown="phoneValidate" placeholder="숫자만 입력해주세요" required>
 	                    </div>
 	                    <p class="check_msg">{{phoneValidateMsg}}</p>
                     </div>
@@ -73,23 +73,24 @@
                             </select>
                         </div>
                     </div>
-                    <div class="hasBtn">
+                    <div class="hasBtn hasMsg">
                         <div class="input_wrap">
                             <label for="post">우편번호<span>*</span></label>
                             <input type="text" id="post" name="post" v-model="post" ref="post" placeholder="검색버튼을 눌러주세요" required readonly>
                         </div>
                         <input type="button" class="post_search" value="우편번호 검색" @click="postSearch()">
+                        <p class="check_msg">{{postValidateMsg}}</p>
                     </div>
                     <div class="input_wrap">
                         <label for="addr1">기본주소<span>*</span></label>
-                        <input type="text" id="addr1" name="addr1" v-model="addr1" readonly>
+                        <input type="text" id="addr1" name="addr1" v-model="addr1" required readonly>
                     </div>
                     <div class="input_wrap">
                         <label for="add2">상세주소</label>
                         <input type="text" id="addr2" name="addr2" v-model="addr2">
                     </div>
                     <div class="form_btns">
-                        <button class="join_btn">회원가입</button>
+                        <button type="submit" class="join_btn">회원가입</button>
                         <button onclick="javascript:history.back()">취소</button>
                     </div>
                 </div>
@@ -113,6 +114,7 @@
     				email_id:'',
     				email_domain:'',
     				post:'',
+    				postValidateMsg:'',
     				addr1:'',
     				addr2:''
     			}
@@ -146,6 +148,11 @@
     					oncomplete:function(data){
     						_this.post=data.zonecode
     						_this.addr1=data.address
+		    				if(_this.post!=''){
+		    					_this.postValidateMsg=''
+		    				}else{
+		        				_this.postValidateMsg='우편번호 검색 버튼을 눌러주세요.'
+		    				}    					
     					}
     				}).open()
     			},
@@ -184,16 +191,30 @@
     					this.phoneValidateMsg=""	
     				}else if(isNaN(phone)){
     					this.phoneValidateMsg="숫자만 입력하세요."
-    					return
+    				}else{
+    					this.phoneValidateMsg=""
     				}
     			},
     			submitForm(e){
-    				if(this.userId && this.userName && this.userPwd && this.pw_check && this.gender && this.email_id 
-    						&& this.post && this.addr1 && this.addr2 && this.idCheckMsg=='사용 가능한 아이디입니다.' && this.pwValidateMsg==""){
+    				if(this.userId && this.userName && this.userPwd && this.pw_check && this.gender && this.email_id && this.post && this.addr1 
+    						&& this.idCheckMsg=='사용 가능한 아이디입니다.' && this.pwValidateMsg=="" && this.pwCheckMsg=="" && this.phoneValidateMsg==""){
 	   					return true
-	   				}else{	   					
-	    				e.preventDefault()
+	   				}else{
+	   					e.preventDefault()
+	   					console.log("userId "+this.userId)
+	   					console.log("userName "+this.userName)
+	   					console.log("userPwd "+this.userPwd)
+	   					console.log("pw_check "+this.pw_check)
+	   					console.log("gender "+this.gender)
+	   					console.log("email_id "+this.email_id)
+	   					console.log("post "+this.post)
+	   					console.log("addr1 "+this.addr1)
+	   					console.log("idCheckMsg "+this.idCheckMsg)
+	   					console.log("pwValidateMsg "+this.pwValidateMsg)
+	   					console.log("pwCheckMsg "+this.pwCheckMsg)
+	   					console.log("phoneValidateMsg "+this.phoneValidateMsg)
 	   				}
+    				
 	   				if(this.userId==='' || this.idCheckMsg!='사용 가능한 아이디입니다.'){
 	   					this.$refs.userId.focus()
 	   				}else if(this.userName===''){
@@ -203,15 +224,15 @@
 	   				}else if(this.pw_check===''){
 	   					this.$refs.pw_check.focus()
 	   				}else if(this.userPwd!==this.pw_check){
-	   					this.userPwd=''
 	   					this.pw_check=''
-	   				}else if(this.phone===''){
+	   				}else if(this.phone==='' || this.phoneValidateMsg==='숫자만 입력하세요.'){
 	   					this.$refs.phone.focus()
 	   				}else if(this.email_id===''){
 	   					this.$refs.email_id.focus()
 	   				}else if(this.post===''){
-		   				e.preventDefault()
+		   				this.postValidateMsg='우편번호 검색 버튼을 눌러주세요.'
 	   				}
+	   				e.preventDefault()
     			}
     		}
     	}).mount('#join')

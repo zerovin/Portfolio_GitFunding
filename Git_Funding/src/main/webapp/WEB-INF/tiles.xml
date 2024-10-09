@@ -6,9 +6,15 @@
 		<put-attribute name="home" value="/WEB-INF/main/home.jsp"/>
 		<put-attribute name="footer" value="/WEB-INF/main/footer.jsp"/>
 	</definition>
+
+	<definition name="home" template="/WEB-INF/main/home.jsp">
+		<put-attribute name="category" value="/WEB-INF/funding/category.jsp"/>
+	</definition>
+	
 	<definition name="*/*" extends="main">
 		<put-attribute name="home" value="/WEB-INF/{1}/{2}.jsp"/>
 	</definition>
+	
 	
 	<!-- 2중 Include  -->
 	<!-- 

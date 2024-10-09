@@ -31,9 +31,8 @@ public class LoginFailureHandler implements AuthenticationFailureHandler{
 			}else if(exception instanceof DisabledException) {
 				errorMsg="휴면 계정입니다";
 			}
-		}catch(Exception ex) {
-			request.setAttribute("msg", errorMsg);
-			request.getRequestDispatcher(defaultFailureUrl).forward(request, response);
-		}
+		}catch(Exception ex) {}
+		request.setAttribute("errorMsg", errorMsg);
+		request.getRequestDispatcher(defaultFailureUrl).forward(request, response);
 	}
 }

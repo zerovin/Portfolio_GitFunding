@@ -43,7 +43,7 @@
 
 	<jdbc-user-service data-source-ref="ds"
 		id="userService"
-		users-by-username-query="SELECT userId as username, userPwd as password, enabled FROM spring_member WHERE userId=?"
+		users-by-username-query="SELECT userId as username, userPwd as password, enabled FROM funding_member WHERE userId=?"
 		authorities-by-username-query="SELECT userId as username, authority FROM authority WHERE userId=?"
 	/>
 
