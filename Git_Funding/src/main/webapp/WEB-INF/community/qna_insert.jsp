@@ -33,9 +33,10 @@
     padding: 15px;
     text-align: left;
     border-bottom: 1px solid #ddd;
-
 }
-
+.qna-table th {
+    vertical-align: middle;
+}
 .qna-tablee th {
     background-color: rgb(78, 107, 63);
     color: white;
@@ -74,6 +75,14 @@
 .qnaBtns>td{
 	text-align: center;
 }
+.qna-checkbox-container {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+.qna-checkbox-container input[type="checkbox"] {
+    margin: 0;
+}
 </style>
 </head>
 <body>
@@ -86,11 +95,11 @@
 						<th width="20%">구분</th>
 						<td width="80%">
 							<select name="type" class="qna-select">
-								<option value="1">전체</option>
-								<option value="2">웨딩홀</option>
-								<option value="3">드레스/예복</option>
-								<option value="4">스튜디오/헤메</option>
-								<option value="5">혼수</option>
+								<option value="1">사이트</option>
+								<option value="2">펀딩</option>
+								<option value="3">상품</option>
+								<option value="4">정산</option>
+								<option value="5">기타</option>
 							</select>
 						</td>
 					</tr>
@@ -101,16 +110,19 @@
 						</td>
 					</tr>
 					<tr>
-						<th width="20%" style="vertical-align: middle;">내용</th>
+						<th width="20%">내용</th>
 						<td width="80%">
 							<textarea rows="10" cols="50" name="content" class="notice-form-textarea" required></textarea>
 						</td>
 					</tr>
 					<tr>
-					    <td colspan="2">
-					    	<label>비밀글 여부</label>
-					       	<input type="checkbox"/>
-					    </td>
+						<th width="20%" style="vertical-align: middle;">비밀글</th>
+						<td width="80%" style="text-align: left;">
+							<div class="qna-checkbox-container">
+								<input type="checkbox" name="secret" id="secret" />
+							</div>
+						<label style="color: gray">&nbsp;[체크 시 문의가 비밀글로 작성됩니다]</label>
+						</td>
 					</tr>
 					<tr class="qnaBtns">
 						<td colspan="2">

@@ -15,4 +15,8 @@ public class CommunityController {
 	public String qna_insert() {
 		return "community/qna_insert";
 	}
+	@GetMapping("faq_list.do")
+	public String faq_list() {
+		return "community/faq_list";
+	}
 }

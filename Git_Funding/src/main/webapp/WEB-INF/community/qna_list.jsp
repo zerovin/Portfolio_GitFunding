@@ -43,12 +43,12 @@
 	background-color : #f8c200;
 	border-bottom: 3px solid;
     height: 40px;
-    vertical-align: middle; /*수직 정렬*/
+    vertical-align: middle; 
 }
 .qnaTh>th{
     display: table-cell;
-    vertical-align: middle; /* 수직 정렬 */
-    text-align: center; /* 가로 정렬 */
+    vertical-align: middle; 
+    text-align: center; 
 }
 .qnaTd {
 	border : 1px solid gray;
@@ -103,19 +103,19 @@
 }
 .qnaTable select {
     border: none;
-    padding: 5px; /* 패딩 추가 */
-    text-align: center; /* 가로 정렬 */
-    background-color: #f8c200; /* 배경색 */
+    padding: 5px; 
+    text-align: center; 
+    background-color: #f8c200;
 }
 </style>
 </head>
 <body>
 <div class="commu_list">
     <h1>묻고 답하기</h1>
-    <div class="commu_tab">
-		<button>NOTICE</button>
-		<button>FAQ</button>
-		<button style="color:#f8c200 ">Q&A</button>
+	<div class="commu_tab">
+	    <button onclick="location.href='#'">NOTICE</button>
+	    <button onclick="location.href='../community/faq_list.do'">FAQ</button>
+	    <button onclick="location.href='../community/qna_list.do'" style="color:#f8c200">Q&A</button>
 	</div>
     <div class="qna_list">
 	    <table class="qnaTable">
@@ -133,7 +133,7 @@
 				    <th style="width: 200px;">제목</th>
 				    <th style="width: 100px;">작성자</th>
 				    <th style="width: 70px;">등록일</th>
-				    <th style="width: 100px;">답변 여부</th> <!-- 새로운 열 추가 -->
+				    <th style="width: 100px;">답변 여부</th> 
 	            </tr>
 	        </thead>
 	        <tbody class="qnaTd">
@@ -249,8 +249,7 @@
                 <input type="search" name="search" id="search">
                 <button>검색</button>
             </form>
-            <button id="qnaBtn">문의 하기</button>
-            <a href="../community/qna_insert.do">눌러봐~</a>
+            <button id="qnaBtn" onclick="location.href='../community/qna_insert.do'">문의 하기</button>
        </div>
     </div>
 </div>
