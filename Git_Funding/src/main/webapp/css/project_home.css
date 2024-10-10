@@ -1,0 +1,212 @@
+
+		#ProjectHome{
+            display: grid;
+            grid-template-columns:1fr 2.5fr;
+            gap:50px;
+        }
+
+/* ----------------- 화면 좌측 ------------------- */
+      #ProjectHome .LeftArea{
+      	text-align:center;
+      }
+      #ProjectHome .LeftArea .profile_wrap{
+      	position:relative;
+      	margin-bottom:30px;
+      }
+      #ProjectHome .LeftArea img{
+      	width: 200px;
+      	border-radius:100px;
+      	border:2px soild #ccc;
+      }
+      #ProjectHome .LeftArea .profile_edit{
+      	position:absolute;
+      	bottom:30px;
+      	right:70px;
+      }
+      #ProjectHome .LeftArea .profile_edit i{
+			display:block;
+			width:50px;
+			height:50px;
+			text-align:center;
+			line-height:50px;
+			background:#fff;
+			font-size:20px;
+			color:#1E1A1A;
+			border-radius:25px;
+			border:1px solid #000;   	
+       }
+       #ProjectHome .LeftArea .user_name{
+       		display:flex;
+       		gap:10px;
+       		justify-content:center;
+       		align-items:center;
+       		font-size:20px;
+       		color:#1E1A1A;
+       		font-weight:500;
+       		margin-bottom:50px;
+       }
+       #ProjectHome .LeftArea .logout_btn{
+       		border:2px solid #F8C200;
+       		color:#333;
+       		font-weight:500;
+       		width:200px;
+       		height:50px;
+       		line-height:50px;
+       		text-align:center;
+       		border-radius:25px;
+       		transition:.3s;
+       }
+       #ProjectHome .LeftArea .logout_btn:hover{
+       		background:#F8C200;
+       }
+      
+
+
+/* ----------------- 화면 중앙 ------------------- */
+        .CenterArea {
+		}
+		/*
+        .CenterArea::before {
+            content: '';
+            position: absolute;
+            width: 2px;
+            height: 100%;
+            background-color: gray;
+        }*/
+/* ----------------- 화면 중앙 최상단 탭 ------------------- */
+        .CenterAreaTopContainer {
+            padding: 0 10px;
+            border-bottom: 2px solid gray;
+        }
+
+        .CenterAreaTopContainerWrapper {
+		    display: flex;
+		    align-items: center;
+		}
+		
+		.CenterAreaTopContainerWrapper ul {
+		 
+		    display: flex;
+		}
+		
+		.CenterAreaTopContainerWrapper li {
+		    margin-right: 20px;
+		}
+
+        .Tabsbutton {
+		    display: flex;
+		    justify-content: center;
+		    background: none;
+		    border: none;
+		    cursor: pointer;
+		    padding: 10px;
+		}
+
+		.Tabsicon {
+		    width: 24px;
+		    height: 24px;
+		    margin-right: 5px;
+		}
+		
+		.Tabsbutton-text {
+		    font-size: 24px;
+		    font-weight: bold;
+		}
+/* ----------------- 화면 중앙 상단 ------------------- */
+        .CenterAreaCenterContainer {
+		    
+		}
+		
+		.CenterAreaCenter1st, .CenterAreaCenter2nd {
+		    padding: 10px; /* 내부 여백 추가 */
+		    min-height: 100px; /* 최소 높이 설정 */
+		}
+		
+		.CenterAreaCenter1st {
+		    padding: 20px; /* 내부 여백 추가 */
+		    border:1px solid #ccc;
+		    border-radius:10px;
+		    margin:50px 0 30px;
+		}
+		
+		.CenterAreaCenter1st ul {
+			display:flex;
+			justify-content:center;
+			align-items:center;
+		}
+		
+		.ViewTodaysDataButton {
+			display:flex;
+			justify-content:space-between;
+			align-items:center;
+			margin-bottom:30px;
+		}
+		
+		.ViewTodayDataContainer {
+	        display:flex;
+	        justify-content:end;
+	    }
+	
+	    .ViewTodayData { 
+	        border: 1px solid #ccc; /* 전체 테두리 */
+	        padding: 10px;
+	    }
+	
+	    .ViewTodayData li { 
+	        text-align: center;
+	        border-right: 1px solid #ccc; /* 항목 사이의 경계선 */
+	        padding: 0 10px;
+	    }
+	
+	    .ViewTodayData li:last-child {
+	        border-right: none; /* 마지막 항목은 경계선 제거 */
+	    }
+	
+	    .ViewTodayData dt { 
+	        font-weight: bold;
+	        color: #868e96;
+	        margin-bottom: 5px;
+	    }
+	
+	    .ViewTodayData dd { 
+	        margin-top: 5px;
+	        font-size: 16px;
+	        color: #333;
+	        line-height:1.7em;
+	    }
+		
+/* ----------------- 화면 중앙 중단 ------------------- */
+		.CenterAreaCenter2nd {
+			border:1px solid #ccc;
+			border-radius:10px;
+			padding:20px;
+			margin-bottom:30px;
+		}
+        
+        .CenterAreaCenter1st button {
+            font-size: 14px;
+            padding: 5px 10px;
+            background: #f0f0f0;
+            border: 1px solid gray;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .CenterAreaCenter1st button:hover {
+            background-color: #e0e0e0;
+        }
+
+/* ----------------- 화면 중앙 하단 ------------------- */
+        .CenterAreaBottomContainer {
+		    border:1px solid #ccc;
+			border-radius:10px;
+		    padding: 20px; /* 필요에 따라 조정 */
+		}
+        
+/* ----------------- 화면 우측 ------------------- */
+        .RightArea {
+    	    flex: 0 0 10%;
+            background-color: #fff;
+            padding: 20px;
+        }

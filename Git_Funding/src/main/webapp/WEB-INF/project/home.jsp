@@ -3,285 +3,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" href="../css/main.css">
-	<style type="text/css">
-		.ProjectHomeLayout {
-            display: flex;
-            height: 100vh;
-        }
-
-/* ----------------- 화면 좌측 ------------------- */
-        .LeftArea {
-            flex: 0 0 20%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .LeftAreaTop {
-            flex: 0 0 70%;
-            position: relative;
-        }
-
-        .LeftAreaTop h2 {
-            position: absolute;
-            top: 15%;
-            left: 60%;
-            font-size: 35px;
-            transform: translateX(-50%);
-            margin: 0;
-        }
-
-        .ProjectProfileThumbnail {
-            position: absolute;
-            top: 35%;
-            left: 60%;
-            transform: translateX(-50%);
-            width: 120px;
-            height: 120px;
-            background-color: #ccc;
-            border-radius: 50%;
-            margin-bottom: 15px;
-        }
-
-        .ProjectProfileUserId {
-            position: absolute;
-            top: 60%;
-            left: 60%;
-            transform: translateX(-50%);
-            font-size: 16px;
-            font-weight: bold;
-        }
-
-        .LogoutButton {
-		    position: absolute;
-		    top: 80%;
-		    left: 60%;
-		    transform: translateX(-50%);
-		    font-size: 16px;
-		    padding: 15px 30px;
-		    background-color: white;
-		    color: #f44336;
-		    border: 2px solid gray;
-		    border-radius: 10px;
-		    cursor: pointer;
-		    transition: background-color 0.3s, color 0.3s;
-		}
-		
-		.LogoutButton:hover {
-		    background-color: #f44336;
-		    color: white;
-		}
-
-/* ----------------- 화면 좌측, 중앙 사이의 공간 ------------------- */
-        .SpaceArea {
-            flex: 0 0 5%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-        }
-
-        .SpaceArea::before {
-            content: '';
-            position: absolute;
-            width: 2px;
-            height: 100%;
-            background-color: gray;
-        }
-
-/* ----------------- 화면 중앙 ------------------- */
-        .CenterArea {
-		    flex: 0 0 65%;
-		    background-color: #fff;
-		    padding: 20px;
-		    display: flex; /* 내부 요소 배치를 위한 flex 사용 */
-		    flex-direction: column; /* 수직 정렬 */
-		}
-/* ----------------- 화면 중앙 최상단 탭 ------------------- */
-        .CenterAreaTopContainer {
-            flex: 0 0 5%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 10px;
-            border-bottom: 2px solid gray;
-        }
-
-        .CenterAreaTopContainerWrapper {
-		    display: flex;
-		    align-items: center;
-		}
-		
-		.CenterAreaTopContainerWrapper ul {
-		    list-style-type: none;
-		    padding: 0;
-		    margin: 0;
-		    display: flex;
-		}
-		
-		.CenterAreaTopContainerWrapper li {
-		    margin-right: 20px;
-		}
-
-        .Tabsbutton {
-		    display: flex;
-		    justify-content: center;
-		    background: none;
-		    border: none;
-		    cursor: pointer;
-		    padding: 10px;
-		}
-
-		.Tabsicon {
-		    width: 24px;
-		    height: 24px;
-		    margin-right: 5px;
-		}
-		
-		.Tabsbutton-text {
-		    font-size: 24px;
-		    font-weight: bold;
-		}
-/* ----------------- 화면 중앙 상단 ------------------- */
-        .CenterAreaCenterContainer {
-		    flex: 0 0 1; /* 최대 100% 차지 */
-		    background-color: #f0f0f0;
-		    border: 1px solid gray;
-		    border-radius: 15px;
-		    padding: 20px;
-		    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-		    margin-top: 10px;
-		    display: flex; /* 플렉스 레이아웃 사용 */
-		    flex-direction: column; /* 수직 정렬 */
-		    height: 100%; /* 높이 설정 */
-		}
-		
-		.CenterAreaCenter1st, .CenterAreaCenter2nd {
-		    display: flex; /* 플렉스 레이아웃 사용 */
-		    justify-content: center; /* 수평 정렬 */
-		    align-items: center; /* 수직 정렬 */
-		    padding: 10px; /* 내부 여백 추가 */
-		    min-height: 100px; /* 최소 높이 설정 */
-		}
-		
-		.CenterAreaCenter1st {
-			flex: 1;
-			position: relative; /* 상대 위치 지정 */
-		    background-color: #ccffcc; /* 두 번째 영역 배경색 */
-		    padding: 20px; /* 내부 여백 추가 */
-		    overflow: hidden; /* 자식 요소가 영역을 넘지 않도록 */
-		}
-		
-		.CenterAreaCenter1st ul {
-		    position: absolute; /* 절대 위치 지정 */
-		    bottom: 10px; /* 하단으로부터의 거리 */
-		    right: 10px; /* 우측으로부터의 거리 */
-		    list-style-type: none; /* 리스트 스타일 제거 */
-		    padding: 0; /* 패딩 제거 */
-		    margin: 0; /* 마진 제거 */
-		}
-		
-		.ViewTodaysDataButton {
-		    position: absolute; /* 절대 위치 지정 */
-		    top: 0; /* 상단에 위치 */
-		    left: 0; /* 좌측에 위치 */
-		    margin: 5%; /* 공백을 퍼센트로 조절 (5%는 예시) */
-		}
-		
-		.ViewTodayDataContainer {
-	        display: flex;
-	        justify-content: center;
-	        margin-top: 20px;
-	    }
-	
-	    .ViewTodayData { 
-	        display: flex;
-	        justify-content: space-between;
-	        border: 1px solid #ccc; /* 전체 테두리 */
-	        padding: 10px;
-	        width: 50%; /* 가로 전체를 사용 */
-	    }
-	
-	    .ViewTodayData li { 
-	        flex: 1;
-	        text-align: center;
-	        border-right: 1px solid #ccc; /* 항목 사이의 경계선 */
-	        padding: 0 10px;
-	    }
-	
-	    .ViewTodayData li:last-child { 
-	        border-right: none; /* 마지막 항목은 경계선 제거 */
-	    }
-	
-	    .ViewTodayData dt { 
-	        font-weight: bold;
-	        color: #868e96;
-	        margin-bottom: 5px;
-	    }
-	
-	    .ViewTodayData dd { 
-	        margin-top: 5px;
-	        font-size: 16px;
-	        color: #333;
-	    }
-		
-/* ----------------- 화면 중앙 중단 ------------------- */
-		.CenterAreaCenter2nd {
-			flex: 1;
-		    background-color: #ccccff; /* 세 번째 영역 배경색 */
-		}
-        
-        .CenterAreaCenter1st button {
-            font-size: 14px;
-            padding: 5px 10px;
-            background: #f0f0f0;
-            border: 1px solid gray;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .CenterAreaCenter1st button:hover {
-            background-color: #e0e0e0;
-        }
-
-/* ----------------- 화면 중앙 하단 ------------------- */
-        .CenterAreaBottomContainer {
-		    flex: 0 1 auto%; /* 하단 영역 비율 설정 (원하는 비율로 조정 가능) */
-		    background-color: pink;
-		    margin-bottom: 10px; /* footer의 높이보다 크게 설정 */
-		    padding: 20px; /* 필요에 따라 조정 */
-		}
-        
-/* ----------------- 화면 우측 ------------------- */
-        .RightArea {
-    	    flex: 0 0 10%;
-            background-color: #fff;
-            padding: 20px;
-        }
-        
-	</style>
+	<link rel="stylesheet" href="../css/project_home.css">
 </head>
 <body>
-	<div id="ProjectHome">
-		<section class="ProjectHomeLayout">
+	<div id="ProjectHome" class="container">
+	
 			<div class="LeftArea">
-				<div class="LeftAreaTop">
-					<h2>메이커 홈</h2>
-					<div class="ProjectProfileThumbnail">
-						<img src="../project/ProjectProvisionalProfileThumbnail.jpg" alt="프로필 이미지 출력 오류">
-					</div>
-					<div class="ProjectProfileUserId">사용자 아이디를 출력합니다.</div>
-					
-					<!-- 로그아웃 버튼 -->
-					<button class="LogoutButton" @click="logout">로그아웃</button>
+				<div class="profile_wrap">
+					<img src="../images/profile.png" alt="프로필이미지">		
+					<a href="#" class="profile_edit"><i class="fa-regular fa-pen-to-square"></i></a>	
 				</div>
-				<div class="BottomHalf"></div>
+				<a href="#" class="user_name">서원진님 <i class="fa-solid fa-chevron-right"></i></a>
+				<button class="logout_btn">로그아웃</button>
 			</div>
-
-			<div class="SpaceArea"></div>
-
 			<div class="CenterArea">
 				<section>
 					<div class="CenterAreaTopContainer">
@@ -299,12 +33,12 @@
 
 					<div class="CenterAreaCenterContainer"> 
 					    <div class="CenterAreaCenter1st">
-					        <div class="ViewTodaysDataButton" style="display: flex; align-items: center;">
+					        <div class="ViewTodaysDataButton">
 					            <button type="button">
 					                오늘 데이터 한번에 보기
 					                <span style="font-weight: bold;">새로 고침</span>
 					            </button>
-					            <span style="margin-left: 800px; font-size: larger;">-건</span>
+					            <span>10건</span>
 					        </div>
 					        
 					        <!-- 우측 하단 부분을 2행으로 나눔 -->
@@ -429,10 +163,8 @@
 					</div>
 				</section>
 			</div>
-			<div class="RightArea"></div>
-		</section>
-	</div>
 
+	</div>
 	<script>
 	    let ProjectHomeApp = Vue.createApp({
 	        data() {
