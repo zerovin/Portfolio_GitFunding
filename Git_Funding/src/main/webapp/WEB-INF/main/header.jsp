@@ -10,7 +10,7 @@
                     <li><a href="../funding/open_list.do">오픈예정</a></li>
                     <li><a href="../funding/funding_list.do">펀딩</a></li>
                     <li><a href="../goods/list.do">스토어</a></li>
-                    <li><a href="../community/qna_list.do">커뮤니티</a></li>
+                    <li><a href="../community/faq_list.do">커뮤니티</a></li>
                 </ul>
             </nav>
         </div>    
