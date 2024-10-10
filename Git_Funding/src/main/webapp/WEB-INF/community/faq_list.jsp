@@ -83,6 +83,8 @@
     border-radius: 5px;
     text-decoration: none;
     font-weight: bold;
+    width: 600px;
+    height: 50px;
 }
 .view-all:hover {
     background-color: #FFA500;
@@ -93,8 +95,8 @@
 <div class="commu_list" id="faqApp">
     <h1>자주 묻는 질문</h1>
 	<div class="commu_tab">
-	    <button onclick="location.href='#'">NOTICE</button>
 	    <button onclick="location.href='../community/faq_list.do'" style="color:#f8c200">FAQ</button>
+	    <button onclick="location.href='#'">NOTICE</button>
 	    <button onclick="location.href='../community/qna_list.do'">Q&A</button>
 	</div>
     <div class="faq-tabs">
@@ -111,20 +113,30 @@
         <p>A. {{ item.answer }}</p>
     </div>
  
-    <a href="../community/qna_insert.do" class="view-all">다른 문의하기 &gt;</a>
+    <button @click="checkLogin()" class="view-all" style="margin: 0px auto;">다른 문의하기 &gt;</button>
 </div>
 <script>
 let faqApp = Vue.createApp({
     data() {
         return {
             faq_list: [],
-            cate: '회원정보' 
+            cate: '회원정보',
+            sessionId:'${sessionId}'
         }
     },
     mounted() {
         this.dataRecv();
     },
     methods: {
+		checkLogin() {
+			if (this.sessionId === 'null' || !this.sessionId) {
+				alert("로그인이 필요합니다.");
+				window.location.href = '../member/login.do'; // 로그인 페이지로 이동
+			} else {
+				// sessionId가 null이 아닐 경우 insert로 이동
+				window.location.href = '../community/qna_insert.do'; // insert 페이지로 이동
+			}
+		},
         changeCategory(category) {
             this.cate = category
             this.dataRecv()
