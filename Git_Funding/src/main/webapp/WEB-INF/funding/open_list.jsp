@@ -130,7 +130,7 @@
                 </li>
             </ul>
             <ul class="pagination">
-                <li><a href="">&lt;&lt;</a></li>
+                <li><a href=""><i class="fa-solid fa-angles-left"></i></a></li>
                 <li class="active"><a href="">1</a></li>
                 <li><a href="">2</a></li>
                 <li><a href="">3</a></li>
@@ -141,7 +141,7 @@
                 <li><a href="">8</a></li>
                 <li><a href="">9</a></li>
                 <li><a href="">10</a></li>
-                <li><a href="">&gt;&gt;</a></li>
+                <li><a href=""><i class="fa-solid fa-angles-right"></i></a></li>
             </ul>
         </div>
     </div>

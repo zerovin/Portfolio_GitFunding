@@ -7,11 +7,11 @@
 .category .cate_list{
     position:absolute;
     top:0;
-    right:-35%;
+    right:-46%;
     display:flex;
     gap:30px;
     flex-wrap:nowrap;
-    width:1590px;
+    width:1750px;
     transition:.3s;
 }
 .category .cate_list.scroll{

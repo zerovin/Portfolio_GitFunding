@@ -54,8 +54,8 @@
     gap:20px;
     margin-bottom:30px;
 }
-#funding_list .list_wrap .pagination li:first-child a,
-#funding_list .list_wrap .pagination li:last-child a{
+#funding_list .list_wrap .pagination li:first-child i,
+#funding_list .list_wrap .pagination li:last-child i{
     background:#F8C200;
     color:#fff;
     display:block;

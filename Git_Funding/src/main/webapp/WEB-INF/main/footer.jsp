@@ -3,7 +3,7 @@
 <footer id="footer">
     <div class="container">
         <div class="desc">
-            <p class="copyright">copyright &copy; 2024 Git Funding. all rights reserved.</p>
+            <p class="copyright">copyright <i class="fa-regular fa-copyright"></i> 2024 Git Funding. all rights reserved.</p>
             <p>본 사이트는 포트폴리오 사이트로 제작되어 상업적 목적이 아닙니다.<br>
                 사용된 이미지 및 폰트 등은 별도의 출처가 있음을 밝혀 드립니다.</p>
         </div>

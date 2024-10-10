@@ -1,6 +1,6 @@
 @import url('./normalize.css');
 @import url('./reset.css');
-@import url('https://webfontworld.github.io/NexonLv2Gothic/NexonLv2Gothic.css');
+@import url('https://cdn.jsdelivr.net/gh/fonts-archive/NEXONLv2Gothic/NEXONLv2Gothic.css');
 /* font-family: 'NexonLv2Gothic'; 300 400 500 700*/
 
 /* ----------------- SCROLL ------------------- */
@@ -19,7 +19,7 @@ body{
 	overflow-x:hidden;
 }
 *, a{
-    font-family: 'NexonLv2Gothic';
+	font-family: 'NEXON Lv2 Gothic';
     color:#1E1A1A;
 }
 .container{
@@ -139,9 +139,6 @@ h2{
     line-height:1.5em;
     margin-top:150px;
 }
-#footer p{
-	font-family: 'NexonLv2Gothic';
-}
 #footer .container{
     width:auto;
     display:flex;
@@ -155,6 +152,10 @@ h2{
 }
 #footer .info{
     text-align:right;
+}
+#footer p,
+#footer address{
+	font-family: 'NEXON Lv2 Gothic';
 }
 #footer .info p:last-of-type{
     font-weight:500;
