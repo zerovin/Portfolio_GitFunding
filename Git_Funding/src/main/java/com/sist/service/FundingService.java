@@ -1,5 +1,11 @@
 package com.sist.service;
 
-public interface FundingService {
+import java.util.*;
+import com.sist.vo.*;
 
+public interface FundingService {
+	public List<FundingVO> openListData(Map map);
+	public int openTotalPage();
+	public List<FundingVO> fundingListData(Map map);
+	public int fundingTotalPage();
 }

@@ -8,177 +8,12 @@
 		<jsp:include page="../funding/category.jsp"></jsp:include>
         <div class="list_wrap">
             <ul class="list">
-                <li>
+                <li v-for="vo in list">
                     <a href="" class="f_list">
-                        <img src="../images/trend.jpeg" alt="">
-                        <p class="percent">2,177명이 참여했어요!</p>
-                        <p class="title">[코카콜라 IP] 캠핑 더 엣지있게! 기능은 덤 | 코카콜라 아웃도어 콜라보</p>
-                        <p class="p_admin">새비스타일</p>
-                        <div class="progress">
-                            <div class="top">
-                                <p class="current"><span class="num">329%</span>3,290,000원</p>
-                                <p class="remain">13일 남음</p>
-                            </div>
-                            <div class="progress_bar" data-rate="329"></div>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="" class="f_list">
-                        <img src="../images/trend.jpeg" alt="">
-                        <p class="percent">2,177명이 참여했어요!</p>
-                        <p class="title">[코카콜라 IP] 캠핑 더 엣지있게! 기능은 덤 | 코카콜라 아웃도어 콜라보</p>
-                        <p class="p_admin">새비스타일</p>
-                        <div class="progress">
-                            <div class="top">
-                                <p class="current"><span class="num">88%</span>3,290,000원</p>
-                                <p class="remain">13일 남음</p>
-                            </div>
-                            <div class="progress_bar" data-rate="88"></div>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="" class="f_list">
-                        <img src="../images/trend.jpeg" alt="">
-                        <p class="percent">2,177명이 참여했어요!</p>
-                        <p class="title">[코카콜라 IP] 캠핑 더 엣지있게! 기능은 덤 | 코카콜라 아웃도어 콜라보</p>
-                        <p class="p_admin">새비스타일</p>
-                        <div class="progress">
-                            <div class="top">
-                                <p class="current"><span class="num">30%</span>3,290,000원</p>
-                                <p class="remain">13일 남음</p>
-                            </div>
-                            <div class="progress_bar" data-rate="30"></div>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="" class="f_list">
-                        <img src="../images/trend.jpeg" alt="">
-                        <p class="percent">2,177명이 참여했어요!</p>
-                        <p class="title">[코카콜라 IP] 캠핑 더 엣지있게! 기능은 덤 | 코카콜라 아웃도어 콜라보</p>
-                        <p class="p_admin">새비스타일</p>
-                        <div class="progress">
-                            <div class="top">
-                                <p class="current"><span class="num">329%</span>3,290,000원</p>
-                                <p class="remain">13일 남음</p>
-                            </div>
-                            <div class="progress_bar" data-rate="329"></div>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="" class="f_list">
-                        <img src="../images/trend.jpeg" alt="">
-                        <p class="percent">2,177명이 참여했어요!</p>
-                        <p class="title">[코카콜라 IP] 캠핑 더 엣지있게! 기능은 덤 | 코카콜라 아웃도어 콜라보</p>
-                        <p class="p_admin">새비스타일</p>
-                        <div class="progress">
-                            <div class="top">
-                                <p class="current"><span class="num">329%</span>3,290,000원</p>
-                                <p class="remain">13일 남음</p>
-                            </div>
-                            <div class="progress_bar" data-rate="329"></div>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="" class="f_list">
-                        <img src="../images/trend.jpeg" alt="">
-                        <p class="percent">2,177명이 참여했어요!</p>
-                        <p class="title">[코카콜라 IP] 캠핑 더 엣지있게! 기능은 덤 | 코카콜라 아웃도어 콜라보</p>
-                        <p class="p_admin">새비스타일</p>
-                        <div class="progress">
-                            <div class="top">
-                                <p class="current"><span class="num">329%</span>3,290,000원</p>
-                                <p class="remain">13일 남음</p>
-                            </div>
-                            <div class="progress_bar" data-rate="329"></div>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="" class="f_list">
-                        <img src="../images/trend.jpeg" alt="">
-                        <p class="percent">2,177명이 참여했어요!</p>
-                        <p class="title">[코카콜라 IP] 캠핑 더 엣지있게! 기능은 덤 | 코카콜라 아웃도어 콜라보</p>
-                        <p class="p_admin">새비스타일</p>
-                        <div class="progress">
-                            <div class="top">
-                                <p class="current"><span class="num">329%</span>3,290,000원</p>
-                                <p class="remain">13일 남음</p>
-                            </div>
-                            <div class="progress_bar" data-rate="329"></div>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="" class="f_list">
-                        <img src="../images/trend.jpeg" alt="">
-                        <p class="percent">2,177명이 참여했어요!</p>
-                        <p class="title">[코카콜라 IP] 캠핑 더 엣지있게! 기능은 덤 | 코카콜라 아웃도어 콜라보</p>
-                        <p class="p_admin">새비스타일</p>
-                        <div class="progress">
-                            <div class="top">
-                                <p class="current"><span class="num">329%</span>3,290,000원</p>
-                                <p class="remain">13일 남음</p>
-                            </div>
-                            <div class="progress_bar" data-rate="329"></div>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="" class="f_list">
-                        <img src="../images/trend.jpeg" alt="">
-                        <p class="percent">2,177명이 참여했어요!</p>
-                        <p class="title">[코카콜라 IP] 캠핑 더 엣지있게! 기능은 덤 | 코카콜라 아웃도어 콜라보</p>
-                        <p class="p_admin">새비스타일</p>
-                        <div class="progress">
-                            <div class="top">
-                                <p class="current"><span class="num">329%</span>3,290,000원</p>
-                                <p class="remain">13일 남음</p>
-                            </div>
-                            <div class="progress_bar" data-rate="329"></div>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="" class="f_list">
-                        <img src="../images/trend.jpeg" alt="">
-                        <p class="percent">2,177명이 참여했어요!</p>
-                        <p class="title">[코카콜라 IP] 캠핑 더 엣지있게! 기능은 덤 | 코카콜라 아웃도어 콜라보</p>
-                        <p class="p_admin">새비스타일</p>
-                        <div class="progress">
-                            <div class="top">
-                                <p class="current"><span class="num">329%</span>3,290,000원</p>
-                                <p class="remain">13일 남음</p>
-                            </div>
-                            <div class="progress_bar" data-rate="329"></div>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="" class="f_list">
-                        <img src="../images/trend.jpeg" alt="">
-                        <p class="percent">2,177명이 참여했어요!</p>
-                        <p class="title">[코카콜라 IP] 캠핑 더 엣지있게! 기능은 덤 | 코카콜라 아웃도어 콜라보</p>
-                        <p class="p_admin">새비스타일</p>
-                        <div class="progress">
-                            <div class="top">
-                                <p class="current"><span class="num">329%</span>3,290,000원</p>
-                                <p class="remain">13일 남음</p>
-                            </div>
-                            <div class="progress_bar" data-rate="329"></div>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="" class="f_list">
-                        <img src="../images/trend.jpeg" alt="">
-                        <p class="percent">2,177명이 참여했어요!</p>
-                        <p class="title">[코카콜라 IP] 캠핑 더 엣지있게! 기능은 덤 | 코카콜라 아웃도어 콜라보</p>
-                        <p class="p_admin">새비스타일</p>
+                        <img :src="vo.thumb" alt="">
+                        <p class="percent">{{vo.headcount}}명이 참여했어요!</p>
+                        <p class="title">{{vo.title}}</p>
+                        <p class="p_admin">{{vo.p_admin}}</p>
                         <div class="progress">
                             <div class="top">
                                 <p class="current"><span class="num">329%</span>3,290,000원</p>
@@ -205,5 +40,35 @@
             </ul>
         </div>
     </div>
+    <script>
+    	let funding_list=Vue.createApp({
+    		data(){
+    			return{
+    				list:[],
+    				curpage:1,
+    				totalpage:0,
+    				startpage:0,
+    				endpage:0,
+    				percent:0,
+    				
+    			}
+    		},
+    		mounted(){
+    			axios.get('../funding/funding_list_vue.do',{
+    				params:{
+    					page:this.curpage
+    				}
+    			}).then(response=>{
+    				this.list=response.data.list
+    				this.curpage=response.data.curpage
+    				this.totalpage=response.data.totalpage
+    				this.startpage=response.data.startpage
+    				this.endpage=response.data.endpage
+    			}).catch(error=>{
+    				console.log(error.response)		
+    			})
+    		}
+    	}).mount('#funding_list')
+    </script>
 </body>
 </html>
