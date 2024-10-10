@@ -15,12 +15,12 @@ public class GoodsDAO {
 		this.mapper=mapper;
 	}
 	
-	public List<GoodsVO> goodsListData(int start,int end){
-		return mapper.goodsListData(start, end);
+	public List<GoodsVO> goodsListData(int start,int end,String cate1){
+		return mapper.goodsListData(start, end , cate1);
 		
 	}
 	
-	public String goodsImgdata(int fgno) {
-		return mapper.goodsImgdata(fgno);
+	public int goodsTotalData(String cate1) {
+		return mapper.goodsTotalData(cate1);
 	}
 }

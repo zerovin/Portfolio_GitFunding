@@ -5,14 +5,47 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-	<link rel="stylesheet" href="../css/funding_list.css">
+<link rel="stylesheet" href="../css/funding_list.css">
+<style type="text/css">
+a{
+	cursor: pointer;
+}
+.faq-tabs {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+.faq-tabs div {
+    background-color: #f1f1f1;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+.faq-tabs div.active {
+    background-color: #f8c200;
+    color: white;
+    font-weight: bold;
+}
+</style>
 </head>
 <body>
   <div class="container" id="funding_list">
 	<div class="list_wrap">
+			<div class="faq-tabs">
+				   <div :class="{active: cate===''}" @click="changeCategory('')">
+				   전체
+				   </div>
+				   <div v-for="category in cate_list" :class="{ active: cate === category }" @click="changeCategory(category)">
+				  	{{category}}
+				   </div>
+			</div>
             <ul class="list">
                 <li v-for="vo in goods_list">
-                    <a href="" class="f_list">
+                    <a href="../goods/cart.do" class="f_list">
                         <img :src="vo.img" alt="">
                         <p class="percent"></p>
                         <p class="title">{{vo.title}}</p>
@@ -28,6 +61,17 @@
                     </a>
                 </li>
             </ul>
+            <ul class="pagination">
+                <li>
+                   <a class="page-link" @click="prev()">&lt;</a>
+                 </li>
+                <li :class="i===curpage?'page-item active':'page-item'" v-for="i in range(startpage,endpage)">
+                   <a class="page-link" @click="pageChange(i)">{{i}}</a>
+                </li>
+                <li>
+                   <a class="page-link" @click="next()">&gt;</a>
+                </li>
+            </ul>
     </div>
   </div>
 	<script>
@@ -35,22 +79,78 @@
 			data(){
 				return{
 					goods_list:[],
-					curpage:1
+					cate:'',
+					curpage:1,
+					totalpage:0,
+					startpage:0,
+					endpage:0,
+					cate_list:['디자인문구',
+						 '패션잡화',
+						 '토이/취미',
+						 '데코/조명',
+						 '키친',
+						 '가구/수납',
+						 '패브릭/생활',
+						 '디자인가전',
+						 '디지털/핸드폰',
+						 'Cat & Dog',
+						 '패션의류',
+						 '푸드',
+						 '주얼리/시계',
+						 '캠핑',
+						 '뷰티']
 				}
 			},
 			mounted(){
 				this.dataRecv()
 			},
 			methods:{
+				 changeCategory(category) {
+						this.curpage=1
+		            	this.cate = category
+		            	this.dataRecv()
+		           
+		         },
+				 prev(){
+					 if(this.startpage>1){
+	    			 	this.curpage=this.startpage-1
+	    			 	this.dataRecv()
+					 }
+	    		 },
+	    		 next(){
+	    			 if(this.endpage<this.totalpage){
+	    			 	this.curpage=this.endpage+1
+	    			 	this.dataRecv()
+	    			 }
+	    		 },
+	    		 pageChange(page){
+	    			 this.curpage=page
+	    			 this.dataRecv()
+	    		 },
+	    		 range(start,end){
+	    			 let arr=[]
+	    			 let len=end-start
+	    			 for(let i=0;i<=len;i++)
+	    			 {
+	    				 arr[i]=start
+	    				 start++;
+	    			 }
+	    			 return arr
+	    		 },
 				dataRecv(){
 					axios.get("../goods/list_vue.do",{
 						params:{
-							page:this.curpage
+							page:this.curpage,
+							cate:this.cate
 						}
 					}).then(response=>{
 						console.log(response)
 						this.goods_list=response.data.list
-						console.log(this.list)
+						this.curpage=response.data.curpage
+	    				this.totalpage=response.data.totalpage
+	    				this.startpage=response.data.startpage
+	    				this.endpage=response.data.endpage
+						
 					})
 				}
 			}

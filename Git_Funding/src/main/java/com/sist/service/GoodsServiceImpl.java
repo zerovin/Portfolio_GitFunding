@@ -15,14 +15,15 @@ public class GoodsServiceImpl implements GoodsService{
 		this.gDao=dao;
 	}
 	@Override
-	public List<GoodsVO> goodsListData(int start, int end) {
+	public List<GoodsVO> goodsListData(int start, int end, String cate1) {
 		// TODO Auto-generated method stub
-		return gDao.goodsListData(start, end);
+		return gDao.goodsListData(start, end , cate1);
 	}
 	@Override
-	public String goodsImgdata(int fgno) {
+	public int goodsTotalData(String cate1) {
 		// TODO Auto-generated method stub
-		return gDao.goodsImgdata(fgno);
+		return gDao.goodsTotalData(cate1);
 	}
+
 	
 }

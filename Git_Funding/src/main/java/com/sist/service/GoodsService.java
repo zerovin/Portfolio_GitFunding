@@ -3,6 +3,6 @@ import java.util.*;
 import com.sist.vo.*;
 
 public interface GoodsService {
-	public List<GoodsVO> goodsListData(int start,int end);
-	public String goodsImgdata(int fgno);
+	public List<GoodsVO> goodsListData(int start,int end, String cate1);
+	public int goodsTotalData(String cate1);
 }
