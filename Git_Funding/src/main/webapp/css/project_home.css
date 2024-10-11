@@ -112,7 +112,7 @@
 		    font-size: 24px;
 		    font-weight: bold;
 		}
-/* ----------------- 화면 중앙 상단 ------------------- */
+/* ----------------- 화면 중앙 첫 번째 컨테이너 ------------------- */
         .CenterAreaCenterContainer {
 		    
 		}
@@ -128,6 +128,23 @@
 		    border-radius:10px;
 		    margin:50px 0 30px;
 		}
+		.RefreshTodaysDataContainer {
+            padding: 10px 10px;
+			display:flex;
+			justify-content:space-between;
+			align-items:center;
+			margin-bottom:200px;
+			font-size: 40px;
+		}
+		
+		.CenterAreaCenter1st button {
+			font-weight: bold;
+            background: none;
+            cursor: pointer;
+            font-size: 30px;
+			justify-content: space-between;
+/*             transition: background-color 0.3s; */
+        }
 		
 		.CenterAreaCenter1st ul {
 			display:flex;
@@ -135,20 +152,12 @@
 			align-items:center;
 		}
 		
-		.ViewTodaysDataButton {
-			display:flex;
-			justify-content:space-between;
-			align-items:center;
-			margin-bottom:30px;
-		}
-		
 		.ViewTodayDataContainer {
 	        display:flex;
 	        justify-content:end;
 	    }
 	
-	    .ViewTodayData { 
-	        border: 1px solid #ccc; /* 전체 테두리 */
+	    .ViewTodayData { 	
 	        padding: 10px;
 	    }
 	
@@ -175,27 +184,14 @@
 	        line-height:1.7em;
 	    }
 		
-/* ----------------- 화면 중앙 중단 ------------------- */
+/* ----------------- 화면 중앙 두 번째 컨테이너 ------------------- */
+
 		.CenterAreaCenter2nd {
 			border:1px solid #ccc;
 			border-radius:10px;
 			padding:20px;
 			margin-bottom:30px;
 		}
-        
-        .CenterAreaCenter1st button {
-            font-size: 14px;
-            padding: 5px 10px;
-            background: #f0f0f0;
-            border: 1px solid gray;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .CenterAreaCenter1st button:hover {
-            background-color: #e0e0e0;
-        }
 
 /* ----------------- 화면 중앙 하단 ------------------- */
         .CenterAreaBottomContainer {

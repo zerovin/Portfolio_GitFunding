@@ -10,7 +10,7 @@
 	
 			<div class="LeftArea">
 				<div class="profile_wrap">
-					<img src="../images/profile.png" alt="프로필이미지">		
+					<img src="../images/ProfileThumbnail.jpg" alt="프로필이미지">		
 					<a href="#" class="profile_edit"><i class="fa-regular fa-pen-to-square"></i></a>	
 				</div>
 				<a href="#" class="user_name">서원진님 <i class="fa-solid fa-chevron-right"></i></a>
@@ -21,11 +21,11 @@
 					<div class="CenterAreaTopContainer">
 					    <nav class="CenterAreaTopContainerWrapper">
 					        <button type="button" class="Tabsbutton" @click="navigateTo('Home')">
-					            <img src="../project/MakerHomeIcon.jpg" alt="메이커 홈 아이콘" class="Tabsicon" />
+					            <img src="../images/MakerHomeIcon.jpg" alt="메이커 홈 아이콘" class="Tabsicon" />
 					            <span class="Tabsbutton-text">메이커 홈</span>
 					        </button>
 					        <button type="button" class="Tabsbutton" @click="navigateTo('settlementDate')">
-					            <img src="../project/SettlementDateIcon.png" alt="정산일 아이콘" class="Tabsicon" />
+					            <img src="../images/SettlementDateIcon.png" alt="정산일 아이콘" class="Tabsicon" />
 					            <span class="Tabsbutton-text">정산일</span>
 					        </button>
 					    </nav>
@@ -33,10 +33,9 @@
 
 					<div class="CenterAreaCenterContainer"> 
 					    <div class="CenterAreaCenter1st">
-					        <div class="ViewTodaysDataButton">
+					        <div class="RefreshTodaysDataContainer">
 					            <button type="button">
-					                오늘 데이터 한번에 보기
-					                <span style="font-weight: bold;">새로 고침</span>
+									<span>오늘 데이터 한번에 보기<i class="fa-solid fa-arrows-rotate"></i></span>
 					            </button>
 					            <span>10건</span>
 					        </div>
