@@ -15,5 +15,5 @@ public interface CommunityMapper {
     public List<QnaVO> qnaListData(@Param("start") int start, @Param("end") int end);
 
     @Select("SELECT COUNT(*) FROM site_qna WHERE admin = 0")
-    public int qnaRowCount();
-}
+    public int qnaRowCount();   
+} 

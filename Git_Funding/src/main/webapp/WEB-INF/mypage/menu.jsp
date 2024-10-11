@@ -46,7 +46,7 @@
     .mymenu {
         width: 100%;
     }
-    .mymenu ol {
+    .mymenu_p {
         font-weight: bold;
         border-bottom: 1px solid #e0e0e0;
         padding-bottom: 10px;
@@ -67,6 +67,7 @@
         cursor: point;
     }
     .gitsta-button {
+    	display : block;
         width: 90%;
         padding: 10px;
         border: 1px solid #e0e0e0;
@@ -76,7 +77,7 @@
         margin-top: 20px;
         cursor: pointer;
         transition: background-color 0.3s;
-        margin-bottom: 15px;
+        margin-bottom: 30px;
     }
     .gitsta-button:hover {
         background-color: #f0f0f0;
@@ -96,21 +97,27 @@
         </div>
         <p>햄짱짱님</p>
         <div class="mymenu">
-        	<div class="gitsta-button"><a href="../project/home.do">펀딩 관리자</a></div>
+        	<a href="../project/home.do" class="gitsta-button">프로젝트 관리자</a>
         	<div class="mymenu-detail">
-	            <ol>나의 활동</ol>
-	            <li>최근 본</li>
-	            <li>찜·알림신청</li>
-	            <li>펀딩</li>
-	            <li>스토어</li>
-	            <li></li>
+        		<p class="mymenu_p">나의 활동</p>
+	            <ul> 
+	            	<li>최근 본</li>
+		            <li>찜·알림신청</li>
+		            <li>지지 프로젝트</li>
+		            <li>펀딩</li>
+		            <li>스토어</li>
+	            </ul>
+
             </div>
             <div class="mymenu-detail">
-	            <ol>커뮤니티</ol>
-	            <li>나의 리뷰</li>
-	            <li>문의 내역</li>
-	            <li>정보 수정</li>
-	            <li>회원 탈퇴</li>
+        		<p class="mymenu_p" style="margin-top: 25px;">커뮤니티</p>
+	            <ul>
+		            <li>나의 리뷰</li>
+		            <li>문의 내역</li>
+		            <li>정보 수정</li>
+		            <li>회원 탈퇴</li>
+	            </ul>
+
 	        </div>
         </div>
     </div>

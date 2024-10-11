@@ -17,15 +17,14 @@
 	
 	
 	<!-- 2중 Include  -->
-	<!-- 
-	<definition name="mypage" template="/WEB-INF/mypage/mypage_main.jsp">
+ 
+	<definition name="mypage" template="/WEB-INF/mypage/main.jsp">
 		<put-attribute name="header" value="/WEB-INF/main/header.jsp"/>
-		<put-attribute name="mypage_menu" value="/WEB-INF/mypage/mypage_menu.jsp"/>
-		<put-attribute name="mypage_home" value="/WEB-INF/mypage/mypage_home.jsp"/>
+		<put-attribute name="mypage_menu" value="/WEB-INF/mypage/menu.jsp"/>
+		<put-attribute name="mypage_home" value="/WEB-INF/mypage/home.jsp"/>
 		<put-attribute name="footer" value="/WEB-INF/main/footer.jsp"/>
 	</definition>
 	<definition name="mypage/*" extends="mypage">
 		<put-attribute name="mypage_home" value="/WEB-INF/mypage/{1}.jsp"/>
 	</definition>
-	-->
 </tiles-definitions>

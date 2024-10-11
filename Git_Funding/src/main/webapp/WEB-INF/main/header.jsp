@@ -23,7 +23,7 @@
                 <c:if test="${sessionScope.userId!=null}">
                 	<li><a href="" class="icon alert">알림</a></li>
                 	<li><a href="" class="icon wish">위시리스트</a></li>
-                	<li><a href="../mypage/menu.do" class="mypage"><img src="../images/profile.png" alt="마이페이지"></a></li>
+                	<li><a href="../mypage/main.do" class="mypage"><img src="../images/profile.png" alt="마이페이지"></a></li>
 		            <li><a href="../member/logout.do">로그아웃</a></li>
                 </c:if>
             </ul>
