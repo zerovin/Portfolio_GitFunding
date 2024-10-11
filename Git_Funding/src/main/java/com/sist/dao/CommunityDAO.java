@@ -3,6 +3,7 @@ package com.sist.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -24,5 +25,14 @@ public class CommunityDAO {
 	}
 	public int qnaRowCount() {
 		return mapper.qnaRowCount();
+	}
+	
+	// Qna 추가
+    public String nicknameNullCheck(String id) {
+    	return mapper.nicknameNullCheck(id);
+    }
+
+	public void qnaInsert(QnaVO vo) {
+		mapper.qnaInsert(vo);
 	}
 }

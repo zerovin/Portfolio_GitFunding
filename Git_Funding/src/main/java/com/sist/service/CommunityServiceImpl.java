@@ -29,6 +29,18 @@ public class CommunityServiceImpl implements CommunityService{
 	public int qnaRowCount() {
 		return cDao.qnaRowCount();
 	}
+
+	@Override
+	public String nicknameNullCheck(String id) {
+		return cDao.nicknameNullCheck(id);
+	}
+
+	@Override
+	public void qnaInsert(QnaVO vo) {
+	    String nickname = nicknameNullCheck(vo.getId());
+	    vo.setNickname(nickname); // 닉네임 설정
+	    cDao.qnaInsert(vo); // DAO 호출
+	}
 	
 	
 }

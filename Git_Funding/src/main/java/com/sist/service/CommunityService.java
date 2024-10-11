@@ -10,4 +10,6 @@ public interface CommunityService {
 	public List<FaqVO> faqListData(String cate);
 	public List<QnaVO> qnaListData(int start,int end);
 	public int qnaRowCount();
+    public String nicknameNullCheck(String id);
+	public void qnaInsert(QnaVO vo);
 }

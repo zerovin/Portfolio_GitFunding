@@ -2,8 +2,11 @@ package com.sist.web;
 import com.sist.vo.*;
 import java.util.*;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -54,5 +57,19 @@ public class CommunityRestController {
 		ObjectMapper mapper=new ObjectMapper();
 		String json=mapper.writeValueAsString(map);
 		return json;
+	}
+	@PostMapping(value="qna_insert_vue.do", produces = "text/plain;charset=UTF-8")
+	public String qnaInsert(QnaVO qnaVO, HttpSession session) throws Exception {
+	    // 세션에서 ID 가져오기
+	    String id = (String) session.getAttribute("userId");
+	    qnaVO.setId(id); // QnaVO에 ID 설정
+	    String name = (String) session.getAttribute("userName");
+	    qnaVO.setName(name); // QnaVO에 ID 설정
+	    String nickname = cService.nicknameNullCheck(id);
+	    qnaVO.setNickname(nickname); // nickname 설정
+	    // 서비스에서 닉네임 체크 및 QnaVO에 설정
+	    cService.qnaInsert(qnaVO); // QnaService 호출
+	    
+	    return "success";
 	}
 }

@@ -171,7 +171,10 @@
                     <td v-if="vo.type === 2">[펀딩]</td>
                     <td v-if="vo.type === 3">[상품]</td>
                     
-                    <td style="text-align: left;">{{ vo.subject }}</td>
+                    <td style="text-align: left;">
+					    <span v-if="vo.secret == 1 && vo.id !== sessionId" style="color: gray">비밀글입니다</span>
+			            <span v-else><a href="">{{ vo.subject }}</a></span>
+					</td>
                     
                     <td v-if="vo.nickname===null">{{ vo.name }}</td>
                     <td v-else>{{vo.nickname}}</td>

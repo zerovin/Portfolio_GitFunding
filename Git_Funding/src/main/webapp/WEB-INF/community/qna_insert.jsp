@@ -6,6 +6,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
+body {
+	font-family: 'NexonLv2Gothic';
+}
 .qna-input {
 	width: 600px;
 	margin: 0 auto;
@@ -86,53 +89,97 @@
 </style>
 </head>
 <body>
-	<div class="qna-input">
+	<div class="qna-input" id="insertApp">
 		<h1>문의 하기</h1>
 		<div class="qna-form">
-			<form method="post" action="../notice/notice_insert_ok.do">
-				<table class="qna-table">
-					<tr>
-						<th width="20%">구분</th>
-						<td width="80%">
-							<select name="type" class="qna-select">
-								<option value="1">사이트</option>
-								<option value="2">펀딩</option>
-								<option value="3">상품</option>
-								<option value="4">정산</option>
-								<option value="5">기타</option>
-							</select>
-						</td>
-					</tr>
-					<tr id=white>
-						<th width="20%">제목</th>
-						<td width="80%">
-							<input type="text" name="subject" class="notice-form-input" size="50" required>
-						</td>
-					</tr>
-					<tr>
-						<th width="20%">내용</th>
-						<td width="80%">
-							<textarea rows="10" cols="50" name="content" class="notice-form-textarea" required></textarea>
-						</td>
-					</tr>
-					<tr>
-						<th width="20%" style="vertical-align: middle;">비밀글</th>
-						<td width="80%" style="text-align: left;">
-							<div class="qna-checkbox-container">
-								<input type="checkbox" name="secret" id="secret" />
-							</div>
-						<label style="color: gray">&nbsp;[체크 시 문의가 비밀글로 작성됩니다]</label>
-						</td>
-					</tr>
-					<tr class="qnaBtns">
-						<td colspan="2">
-							<button type="submit" class="notice-form-button">등록</button> 
-							<input type="button" value="취소" class="notice-form-cancel-button" onclick="javascript:history.back()">
-						</td>
-					</tr>
-				</table>
-			</form>
+			<table class="qna-table">
+				<tr>
+					<th width="20%">구분</th>
+					<td width="80%">
+						<select name="type" class="qna-select" v-model="selectCate">
+							<option value="1">사이트</option>
+							<option value="2">펀딩</option>
+							<option value="3">상품</option>
+						</select>
+					</td>
+				</tr>
+				<tr id=white>
+					<th width="20%">제목</th>
+					<td width="80%">
+						<input type="text" name="subject" class="notice-form-input" size="50" required
+						ref="subject" v-model="subject">
+					</td>
+				</tr>
+				<tr>
+					<th width="20%">내용</th>
+					<td width="80%">
+						<textarea rows="10" cols="50" name="content" class="notice-form-textarea" required
+						v-model="content"></textarea>
+					</td>
+				</tr>
+				<tr>
+				    <th width="20%" style="vertical-align: middle;">비밀글</th>
+				    <td width="80%" style="text-align: left;">
+				        <div class="qna-checkbox-container">
+				            <input type="checkbox" v-model="secret" :true-value="1" :false-value="0">
+				        </div>
+				        <label style="color: gray">&nbsp;[체크 시 문의가 비밀글로 작성됩니다]</label>
+				    </td>
+				</tr>
+				<tr class="qnaBtns">
+					<td colspan="2">
+						<button class="notice-form-button" @click="boardInsert()">등록</button> 
+						<input type="button" value="취소" class="notice-form-cancel-button" onclick="javascript:history.back()">
+					</td>
+				</tr>
+			</table>
 		</div>
 	</div>
+	<script>
+		let insertApp=Vue.createApp({
+			data(){
+				return {
+		            subject: '',
+		            content: '',
+		            selectCate:'',
+		            secret:0,
+		            sessionId: ''
+				}
+			},
+			methods:{
+			    updateSecret(event) {
+			        this.secret = event.target.checked ? 1 : 0; 
+			    },
+				boardInsert(){
+			        if (!this.subject || !this.content) {
+			            alert('제목과 내용을 입력해 주세요.'); // 필수 입력 확인
+			            return;
+			        }
+			        const qnaVO = {
+			                subject: this.subject,
+			                content: this.content,
+			                type: this.selectCate,
+			                id: this.sessionId,
+			                nickname: this.nickname, 
+			                name: this.name,
+			                secret: this.secret
+			            }
+
+			            axios.post('../community/qna_insert_vue.do', null, {
+			                params: qnaVO
+			            }).then(res => {
+			                if (res.data === 'success') {
+			                    alert('Q&A가 성공적으로 등록되었습니다!'); 
+			                    location.href="../community/qna_list.do"
+			                } else {
+			                    alert('Q&A 등록에 실패했습니다.');
+			                }
+			            }).catch(error => {
+			                console.log(error.response);
+			            })
+				}
+			}
+		}).mount('#insertApp')
+	</script>
 </body>
 </html>
