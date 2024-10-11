@@ -96,7 +96,7 @@
         </div>
         <p>햄짱짱님</p>
         <div class="mymenu">
-        	<div class="gitsta-button"><a href="../gitsta/main.do">깃스타그램</a></div>
+        	<div class="gitsta-button"><a href="../project/home.do">펀딩 관리자</a></div>
         	<div class="mymenu-detail">
 	            <ol>나의 활동</ol>
 	            <li>최근 본</li>
