@@ -10,7 +10,7 @@
 	
 			<div class="LeftArea">
 				<div class="profile_wrap">
-					<img src="../images/ProfileThumbnail.jpg" alt="프로필이미지">		
+					<img src="../images/profile.png" alt="프로필이미지">		
 					<a href="#" class="profile_edit"><i class="fa-regular fa-pen-to-square"></i></a>	
 				</div>
 				<a href="#" class="user_name">서원진님 <i class="fa-solid fa-chevron-right"></i></a>
@@ -35,7 +35,7 @@
 					    <div class="CenterAreaCenter1st">
 					        <div class="RefreshTodaysDataContainer">
 					            <button type="button">
-									<span>오늘 데이터 한번에 보기<i class="fa-solid fa-arrows-rotate"></i></span>
+									<span>오늘 데이터 한번에 보기<i class="fa-solid fa-rotate-right" style="margin-left: 20px; font-size: 20px"></i></span>
 					            </button>
 					            <span>10건</span>
 					        </div>
@@ -45,7 +45,7 @@
 					            <ul class="ViewTodayData"> 
 					                <li> 
 					                    <dl>
-					                        <dt>찜 ・ 알림신청</dt>
+					                        <dt>찜・알림신청</dt>
 					                        <dd>- 0 <br>(구현 예정)</dd>
 					                    </dl>
 					                </li>
@@ -70,9 +70,18 @@
 					            </ul>
 					        </div>
 					    </div>
-					    <div class="CenterAreaCenter2nd">
-					        <!-- 세 번째 부분 내용 -->
-					        <h3>두 번째 부분 내용</h3>
+					    <div class="CenterAreaCenter2nd">		    	 
+					    	<ul>
+					            <li :class="{ active: selectedTab === 'funding' }" @click="selectTab('funding')">
+					                <dl>펀딩・프리오더</dl>
+					            </li>
+					            <li :class="{ active: selectedTab === 'store' }" @click="selectTab('store')">
+					                <dl>스토어</dl>
+					            </li>
+					        </ul>
+					        <div class="FundingStoreViewContainer" id=FundingStoreView>
+					        	펀딩・프리오더
+					    	</div>
 					    </div>
 					</div>
 					
@@ -162,13 +171,13 @@
 					</div>
 				</section>
 			</div>
-
 	</div>
 	<script>
 	    let ProjectHomeApp = Vue.createApp({
 	        data() {
 	            return {
 	                // 데이터가 필요할 경우 추가
+	            	selectedTab: 'funding'
 	            }
 	        },
 	        methods: {
@@ -183,6 +192,10 @@
 	                    .catch(error => {
 	                        console.log(error.response);
 	                    });
+	            },
+	            selectTab(tab) {
+	                this.selectedTab = tab; // 탭 선택 상태 업데이트
+	                this.navigateTo(tab); // 선택한 탭의 페이지로 이동
 	            }
 	        }
 	    }).mount('#ProjectHome');
