@@ -7,12 +7,12 @@
 <title>Insert title here</title>
 <style>
 .cartHead{
+	padding-left:20px;
 	margin-top: 20px;
-	grid-template-columns: 2fr 2fr 2fr 3fr;
     display: flex; /* 플렉스 박스 사용 */
     justify-content: space-around; /* 각 div를 고르게 분배 */
-    align-items: flex-end; /* 아이템을 아래쪽으로 정렬 */
     height: 100px; /* div의 높이 설정 (필요에 따라 조정) */
+    background-color: #F8C200;
 }
 .cartHead div {
     flex: 1; /* 각 div의 너비를 동일하게 설정 */
@@ -21,6 +21,7 @@
 	font-weight: bold;
 	font-size: 35px;
 	font-family: 'NexonLv2Gothic';
+	
 }
 .cartBox{
 	padding: 20px;
@@ -31,166 +32,120 @@
 	background-color: white;
 	font-family: 'NexonLv2Gothic';
 }
+.cartHeadInfo{
+	padding-top: 40px;
+}
 .commu_list {
 	width: 960px;
     margin: 0 auto;
     padding: 20px;
     font-family: 'NexonLv2Gothic';
 }
-.commu_list>h1{
+.cartList{
+	border-top: 1px solid #F8C200;
+}
+.cartList > th{
+	padding: 9px;
+	font-family: 'NEXON Lv2 Gothic';
+}
+.cartList > td{
+	height:80px;
+	font-family: 'NEXON Lv2 Gothic';
 	text-align: center;
-	font-weight: bold;
-	font-size: 35px;
-	font-family: 'NexonLv2Gothic';
-	
+	vertical-align: middle;
 }
-.commu_tab {
-	margin-top : 10px;
-    text-align : center;
-    margin-bottom: 20px;
-}
-.commu_tab button {
-    margin: 5px;
-    font-size: 20px;
-}
-.commu_tab button:hover{
-	color : #f8c200;
-}
-.faq-tabs {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 15px;
-    margin-bottom: 30px;
-}
-.faq-tabs button {
-    background-color: #f1f1f1;
-    border: none;
-    border-radius: 20px;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-}
-.faq-tabs button.active {
-    background-color: #f8c200;
-    color: white;
-    font-weight: bold;
-}
-.faq-content {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-}
-.faq-item {
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    margin-bottom: 20px;
-}
-.faq-item h3 {
-    font-size: 18px;
-    margin-bottom: 10px;
-}
-.faq-item p {
-    font-size: 14px;
-    color: #666;
-    line-height: 1.6;
-}
-.view-all {
-    display: block;
-    text-align: center;
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #f8c200;
-    color: white;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: bold;
-}
-.view-all:hover {
-    background-color: #FFA500;
+.cartList input[type="button"]:hover {
+	filter: brightness(0.9);
 }
 </style>
 </head>
 <body>
-        <div class="container commu_list" style="margin-top: 20px;">
+      <div class="container commu_list" style="margin-top: 20px;">
             <div class="cartHead">
-            	<div><h1>장바구니</h1></div>
-            	<div><h1>주문결제</h1></div>
-            	<div><h1>주문완료</h1></div>
+            	<div class="cartHeadInfo">
+	            	<p>STEP1</p>
+	            	<h1>장바구니</h1>
+            	</div>
+            	<div class="cartHeadInfo">
+	            	<p>STEP2</p>
+	            	<h1>주문결제</h1>
+            	</div>
+            	<div class="cartHeadInfo">
+	            	<p>STEP3</p>
+	            	<h1>주문완료</h1>
+            	</div>
             	<div></div>
             </div>
-          <div class="cartBox">
-        	<div class="cart">
-             <div>불고기</div>
-        	     <div>
-           			<ol class="rank_list">
-	                    <li>
-	                        <a href="#">
-	                            <p class="number">1</p>
-	                            <div class="rank_content">
-	                                <div class="text">
-	                                    <p class="title">지퍼백 한번 쓰고 버리세요? 열탕소독으로 평생 쓰는 &lt;플래티넘 실리콘백&gt;</p>
-	                                    <p class="headcount">4,660명 참여</p>
-	                                </div>
-	                                <img src="../images/rank.jpeg" alt="">
-	                            </div>
-	                        </a>
-	                    </li>
-	                    <li>
-	                        <a href="#">
-	                            <p class="number">2</p>
-	                            <div class="rank_content">
-	                                <div class="text">
-	                                    <p class="title">지퍼백 한번 쓰고 버리세요? 열탕소독으로 평생 쓰는 &lt;플래티넘 실리콘백&gt;</p>
-	                                    <p class="headcount">4,660명 참여</p>
-	                                </div>
-	                                <img src="../images/rank.jpeg" alt="">
-	                            </div>
-	                        </a>
-	                    </li>
-	                    <li>
-	                        <a href="#">
-	                            <p class="number">3</p>
-	                            <div class="rank_content">
-	                                <div class="text">
-	                                    <p class="title">지퍼백 한번 쓰고 버리세요? 열탕소독으로 평생 쓰는 &lt;플래티넘 실리콘백&gt;</p>
-	                                    <p class="headcount">4,660명 참여</p>
-	                                </div>
-	                                <img src="../images/rank.jpeg" alt="">
-	                            </div>
-	                        </a>
-	                    </li>
-	                    <li>
-	                        <a href="#">
-	                            <p class="number">4</p>
-	                            <div class="rank_content">
-	                                <div class="text">
-	                                    <p class="title">지퍼백 한번 쓰고 버리세요? 열탕소독으로 평생 쓰는 &lt;플래티넘 실리콘백&gt;</p>
-	                                    <p class="headcount">4,660명 참여</p>
-	                                </div>
-	                                <img src="../images/rank.jpeg" alt="">
-	                            </div>
-	                        </a>
-	                    </li>
-	                    <li>
-	                        <a href="#">
-	                            <p class="number">5</p>
-	                            <div class="rank_content">
-	                                <div class="text">
-	                                    <p class="title">지퍼백 한번 쓰고 버리세요? 열탕소독으로 평생 쓰는 &lt;플래티넘 실리콘백&gt;</p>
-	                                    <p class="headcount">4,660명 참여</p>
-	                                </div>
-	                                <img src="../images/rank.jpeg" alt="">
-	                            </div>
-	                        </a>
-	                    </li>
-	                </ol>
+            <div class="cartBox">
+	            <div class="cart">
+	            	<table style="width: 100%">
+	            	  <tr class="cartList" style="height: 36px;">
+	            	    <th width="5%">
+	            	    </th>
+	            	    <th width="10%">
+	            	     상품코드
+	            	    </th>
+	            	    <th width="10%">
+	            	      브랜드
+	            	    </th>
+	            	    <th width="37%" colspan="2">
+	            	      상품정보
+	            	    </th>
+	            	    <th width="10%">
+	            	      판매가격
+	            	    </th>
+	            	    <th width="10%">
+	            	      수량
+	            	    </th>
+	            	    <th width="10%">
+	            	      주문금액
+	            	    </th>
+	            	    <th width="8%">
+	            	    </th>
+	            	  </tr>
+	            	  <tr class="cartList">
+	            	    <td width="5%">
+	            	      <input type="checkbox" class="buyCheck" style="height: 80px;">
+	            	    </td>
+	            	    <td width="10%">
+	            	      <p>1234546243</p>
+	            	    </td>
+	            	    <td width="10%">
+	            	      <p>SANRIO</p>
+	            	    </td>
+	            	    <td width="12%">
+	            	      <img src="http://webimage.10x10.co.kr/image/small/347/S003471382-1.jpg" style="width: 60px;height: 60px">
+	            	    </td>
+	            	    <td width="25%" style="text-align: left;padding-left: 5px ">
+	            	      <p>크아아아아아악</p>
+	            	    </td>
+	            	    <td width="10%">
+	            	      <p style="text-decoration-line: line-through;color: #899c8f;">17,000원</p>
+	            	      <p>15,000원</p>
+	            	    </td>
+	            	    <td width="10%" >
+	            	      <input type="number" min="1" style="border: 1px solid #888;width: 40px" value="5">
+	            	    </td>
+	            	    <td width="10%">
+	            	      <p>65,000원</p>
+	            	    </td>
+	            	    <td width="8%">
+	            	      <input type="button" value="바로 주문" style="font-size: 13px;width: 62px;background-color: #F8C200;color: white;line-height: 13px;border-radius: 5px;">
+	            	      <input type="button" value="X삭제" style="font-size: 13px;width: 62px;background-color: #444;color: white;line-height: 13px;border-radius: 5px;">
+	            	    </td>
+	            	  </tr>
+	            	  <tr>
+	            	    <td colspan="11" style="height: 35px;padding: 15px 8px;background-color: #eaeaea;text-align: right;">
+	            	    	<p style="padding-top: 10px">불고기<p>
+	            	    </td>
+	            	  </tr>
+	            	</table>
 	            </div>
-	           
-			</div>
-        </div>
+	            <div style="height: 20px;"></div>
+	            <div>
+	            
+	            </div>
+            </div>
       </div>
 </body>
 </html>
