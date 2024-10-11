@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.*;
+import java.text.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.service.*;
@@ -23,6 +24,17 @@ public class FundingRestController {
 		map.put("end", end);
 		
 		List<FundingVO> list=fService.fundingListData(map);
+		for(FundingVO vo:list) {
+			vo.setFm_totalprice(new DecimalFormat("###,###").format(vo.getTotalprice()));
+			int percent=(int)(Math.round(vo.getTotalprice()/(double)vo.getTargetprice()*100));
+			vo.setFm_percent(new DecimalFormat("###,###").format(percent));
+			if(percent>=100) {
+				percent=100;
+			}
+			vo.setPercent(percent);
+		}
+		//String today=new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+		
 		int totalpage=fService.fundingTotalPage();
 		
 		final int BLOCK=10;

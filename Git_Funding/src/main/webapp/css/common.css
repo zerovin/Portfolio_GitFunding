@@ -44,7 +44,7 @@ h2{
 .f_list .title{
     font-size:15px;
     line-height:1.3em;
-    max-height: 36px;
+    height: 36px;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;

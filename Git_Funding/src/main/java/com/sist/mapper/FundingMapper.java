@@ -16,7 +16,7 @@ public interface FundingMapper {
 			+ "WHERE startdate>SYSDATE")
 	public int openTotalPage();
 	
-	@Select("SELECT fno, title, thumb, p_admin, targetprice, totalprice, headcount, TO_CHAR(enddate, 'YYYY-MM-DD') as end, num "
+	@Select("SELECT fno, title, thumb, p_admin, targetprice, totalprice, TO_CHAR(headcount, 'FM999,999') as fm_headcount, TO_CHAR(enddate, 'YYYY-MM-DD') as end, num "
 			+ "FROM (SELECT fno, title, thumb, p_admin, targetprice, totalprice, headcount, enddate, rownum as num "
 			+ "FROM (SELECT fno, title, thumb, p_admin, targetprice, totalprice, headcount, enddate "
 			+ "FROM funding WHERE startdate<SYSDATE "
@@ -25,5 +25,5 @@ public interface FundingMapper {
 	public List<FundingVO> fundingListData(Map map);
 	@Select("SELECT CEIL(COUNT(*)/12.0) FROM funding "
 			+ "WHERE startdate<SYSDATE")
-	public int fundingTotalPage();
+	public int fundingTotalPage();  
 }

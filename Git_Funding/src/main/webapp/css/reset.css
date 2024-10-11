@@ -43,6 +43,7 @@ table {
 }
 a{
 	text-decoration:none;
+	cursor:pointer;
 }
 input:focus{
 	outline:none;

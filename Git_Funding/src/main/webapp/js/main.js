@@ -91,22 +91,6 @@ if($('.category').length > 0){
 }
 
 
-/* ---------------- FUNDING LIST -----------------*/
-if($('#funding_list').length>0){
-    let progress=$('#funding_list .progress_bar')
-    progress.each(function(){
-        let rate=$(this).attr('data-rate')   
-        if(rate>100){
-            $(this).css({
-                width:'100%'  
-            })
-        }else{
-            $(this).css({
-                width:rate+'%'  
-            })
-        }
-    })
-}
 
 
 

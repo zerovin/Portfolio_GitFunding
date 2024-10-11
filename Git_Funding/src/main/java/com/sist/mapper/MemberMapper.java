@@ -10,8 +10,8 @@ public interface MemberMapper {
 	public int idCheck(String userId);
 	
 	//회원가입
-	@Insert("INSERT INTO funding_member(userId, userName, userPwd, enabled, gender, email, post, addr1, addr2, phone, profile, nickname) "
-			+ "VALUES(#{userId}, #{userName}, #{userPwd}, 1, #{gender}, #{email}, #{post}, #{addr1}, #{addr2}, #{phone}, '../images/profile.png', #{userName})")
+	@Insert("INSERT INTO funding_member(userId, userName, userPwd, enabled, gender, email, post, addr1, addr2, phone, profile) "
+			+ "VALUES(#{userId}, #{userName}, #{userPwd}, 1, #{gender}, #{email}, #{post}, #{addr1}, #{addr2}, #{phone}, '../images/profile.png')")
 	public void memberInsert(MemberVO vo);
 	  
 	@Insert("INSERT INTO authority VALUES(#{userId}, 'ROLE_USER')")
