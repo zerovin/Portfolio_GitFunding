@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Instagram Style Page</title>
 <style type="text/css">
 /* ----------------- 인스타그램 스타일 페이지 ------------------- */
 .instagram-page {
@@ -133,6 +133,38 @@
     background-color: #e0a800;
 }
 </style>
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function () {
+        const loadMoreButton = document.querySelector('.load-more')
+        let currentPostCount = 3;
+
+        function updatePosts() {
+            const posts = document.querySelectorAll('.post')
+            posts.forEach((post, index) => {
+                if (index < currentPostCount) {
+                    post.style.display = 'block'
+                } else {
+                    post.style.display = 'none'
+                }
+            })
+
+            if (currentPostCount >= posts.length) {
+                loadMoreButton.style.display = 'none'
+            } else {
+                loadMoreButton.style.display = 'block'
+            }
+        }
+
+        updatePosts()
+
+        loadMoreButton.addEventListener('click', function (event) {
+            event.preventDefault()
+            currentPostCount += 3
+            updatePosts()
+        })
+    })
+</script>
+
 </head>
 <body>
 <div class="instagram-page">
@@ -157,24 +189,9 @@
             <img src="../images/favicon.png" alt="사용자 프로필" class="profile-pic">
             <p>정지나</p>
         </div>
-        <div>
-            <img src="../images/favicon.png" alt="사용자 프로필" class="profile-pic">
-            <p>정지나</p>
-        </div>
-        <div>
-            <img src="../images/favicon.png" alt="사용자 프로필" class="profile-pic">
-            <p>정지나</p>
-        </div>
-        <div>
-            <img src="../images/favicon.png" alt="사용자 프로필" class="profile-pic">
-            <p>정지나</p>
-        </div>
-        <div>
-            <img src="../images/favicon.png" alt="사용자 프로필" class="profile-pic">
-            <p>정지나</p>
-        </div>
     </div>
 
+    <!-- 포스트 목록 -->
     <div class="post">
         <div class="post-header">
             <img src="../images/favicon.png" alt="사용자 프로필" class="post-profile-pic">
@@ -209,6 +226,105 @@
         </div>
     </div>
 
+    <div class="post">
+        <div class="post-header">
+            <img src="../images/favicon.png" alt="사용자 프로필" class="post-profile-pic">
+            <div class="post-user-info">
+                <div><span class="username">이재훈</span> 님이 좋아요를 눌렀습니다</div>
+                <button class="follow-btn">+ 팔로우</button>
+            </div>
+        </div>
+        <div class="post-image">
+            <img src="../images/latest.jpeg" alt="제품 이미지">
+        </div>
+        <div class="post-content">
+            <p>신제품이 도착했어요! 여러분의 많은 관심 부탁드립니다.</p>
+            <span class="tag">뷰티디바이스</span>
+        </div>
+    </div>
+
+    <div class="post">
+        <div class="post-header">
+            <img src="../images/favicon.png" alt="사용자 프로필" class="post-profile-pic">
+            <div class="post-user-info">
+                <div><span class="username">이재훈</span> 님이 좋아요를 눌렀습니다</div>
+                <button class="follow-btn">+ 팔로우</button>
+            </div>
+        </div>
+        <div class="post-image">
+            <img src="../images/latest.jpeg" alt="제품 이미지">
+        </div>
+        <div class="post-content">
+            <p>신제품이 도착했어요! 여러분의 많은 관심 부탁드립니다.</p>
+            <span class="tag">뷰티디바이스</span>
+        </div>
+    </div>
+    <div class="post">
+        <div class="post-header">
+            <img src="../images/favicon.png" alt="사용자 프로필" class="post-profile-pic">
+            <div class="post-user-info">
+                <div><span class="username">이재훈</span> 님이 좋아요를 눌렀습니다</div>
+                <button class="follow-btn">+ 팔로우</button>
+            </div>
+        </div>
+        <div class="post-image">
+            <img src="../images/latest.jpeg" alt="제품 이미지">
+        </div>
+        <div class="post-content">
+            <p>신제품이 도착했어요! 여러분의 많은 관심 부탁드립니다.</p>
+            <span class="tag">뷰티디바이스</span>
+        </div>
+    </div>
+    <div class="post">
+        <div class="post-header">
+            <img src="../images/favicon.png" alt="사용자 프로필" class="post-profile-pic">
+            <div class="post-user-info">
+                <div><span class="username">이재훈</span> 님이 좋아요를 눌렀습니다</div>
+                <button class="follow-btn">+ 팔로우</button>
+            </div>
+        </div>
+        <div class="post-image">
+            <img src="../images/latest.jpeg" alt="제품 이미지">
+        </div>
+        <div class="post-content">
+            <p>신제품이 도착했어요! 여러분의 많은 관심 부탁드립니다.</p>
+            <span class="tag">뷰티디바이스</span>
+        </div>
+    </div>
+    <div class="post">
+        <div class="post-header">
+            <img src="../images/favicon.png" alt="사용자 프로필" class="post-profile-pic">
+            <div class="post-user-info">
+                <div><span class="username">이재훈</span> 님이 좋아요를 눌렀습니다</div>
+                <button class="follow-btn">+ 팔로우</button>
+            </div>
+        </div>
+        <div class="post-image">
+            <img src="../images/latest.jpeg" alt="제품 이미지">
+        </div>
+        <div class="post-content">
+            <p>신제품이 도착했어요! 여러분의 많은 관심 부탁드립니다.</p>
+            <span class="tag">뷰티디바이스</span>
+        </div>
+    </div>
+    <div class="post">
+        <div class="post-header">
+            <img src="../images/favicon.png" alt="사용자 프로필" class="post-profile-pic">
+            <div class="post-user-info">
+                <div><span class="username">이재훈</span> 님이 좋아요를 눌렀습니다</div>
+                <button class="follow-btn">+ 팔로우</button>
+            </div>
+        </div>
+        <div class="post-image">
+            <img src="../images/latest.jpeg" alt="제품 이미지">
+        </div>
+        <div class="post-content">
+            <p>신제품이 도착했어요! 여러분의 많은 관심 부탁드립니다.</p>
+            <span class="tag">뷰티디바이스</span>
+        </div>
+    </div>
+
+    <!-- 더보기 버튼 -->
     <a href="#" class="load-more">피드 더보기</a>
 </div>
 </body>

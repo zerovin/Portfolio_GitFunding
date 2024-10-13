@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 <style>
    .mymenu-div {
-   		font-family: 'NexonLv2Gothic';
+        font-family: 'NEXON Lv2 Gothic';
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -51,23 +51,29 @@
         border-bottom: 1px solid #e0e0e0;
         padding-bottom: 10px;
     }
-    .mymenu-detail{
-    	margin-bottom: 10px;
-    	margin-top: 10px;
+    .mymenu_p:hover {
+        cursor: pointer;
     }
-    .mymenu li {
-        list-style-type: none;
+    .mymenu-detail {
+        margin-bottom: 10px;
         margin-top: 10px;
+    }
+    .mymenu button {
+        width: 100%;
+        background: none;
+        border: none;
         padding: 10px;
+        text-align: left;
         border-radius: 5px;
         transition: background-color 0.3s;
+        cursor: pointer;
+        font-size: 16px;
     }
-    .mymenu li:hover {
+    .mymenu button:hover {
         background-color: #f0f0f0;
-        cursor: point;
     }
     .gitsta-button {
-    	display : block;
+        display: block;
         width: 90%;
         padding: 10px;
         border: 1px solid #e0e0e0;
@@ -83,7 +89,7 @@
         background-color: #f0f0f0;
     }
     .edit-icon {
-		width: 20px;
+        width: 20px;
     }
 </style>
 </head>
@@ -97,28 +103,26 @@
         </div>
         <p>햄짱짱님</p>
         <div class="mymenu">
-        	<a href="../project/home.do" class="gitsta-button">프로젝트 관리자</a>
-        	<div class="mymenu-detail">
-        		<p class="mymenu_p">나의 활동</p>
-	            <ul> 
-	            	<li>최근 본</li>
-		            <li>찜·알림신청</li>
-		            <li>지지 프로젝트</li>
-		            <li>펀딩</li>
-		            <li>스토어</li>
-	            </ul>
-
+            <a href="../project/home.do" class="gitsta-button">프로젝트 관리자</a>
+            <div class="mymenu-detail">
+                <p class="mymenu_p">나의 활동</p>
+                <ul>
+                    <li><button>최근 본</button></li>
+                    <li><button>찜·알림신청</button></li>
+                    <li><button>지지 프로젝트</button></li>
+                    <li><button>펀딩</button></li>
+                    <li><button>스토어</button></li>
+                </ul>
             </div>
             <div class="mymenu-detail">
-        		<p class="mymenu_p" style="margin-top: 25px;">커뮤니티</p>
-	            <ul>
-		            <li>나의 리뷰</li>
-		            <li>문의 내역</li>
-		            <li>정보 수정</li>
-		            <li>회원 탈퇴</li>
-	            </ul>
-
-	        </div>
+                <p class="mymenu_p" style="margin-top: 25px;">커뮤니티</p>
+                <ul>
+                    <li><button>나의 리뷰</button></li>
+                    <li><button>문의 내역</button></li>
+                    <li><button>정보 수정</button></li>
+                    <li><button>회원 탈퇴</button></li>
+                </ul>
+            </div>
         </div>
     </div>
 </body>

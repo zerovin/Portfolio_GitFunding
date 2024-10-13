@@ -37,7 +37,7 @@
 </head>
 <body>
 	<tiles:insertAttribute name="header"/>
-	<div>
+	<div style="display: flex;">
 		<tiles:insertAttribute name="mypage_menu"/>	
 		<tiles:insertAttribute name="mypage_home"/>	
 	</div>

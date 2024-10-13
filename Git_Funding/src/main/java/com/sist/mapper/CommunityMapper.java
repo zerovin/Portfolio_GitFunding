@@ -36,11 +36,11 @@ public interface CommunityMapper {
             + "</if>" 
             + "<if test=\"nickname == null\">"
             + "NULL,"
-            + "</if>"
+            + "</if>" 
             + "SYSDATE, 0, #{name}, #{secret})"  
             + "</script>")   
 	public void qnaInsert(QnaVO vo); 
-       
+         
     @Update("UPDATE site_qna SET hit=hit+1 WHERE qno=#{qno}")
     public void qnaHitIncrement(int qno);
       
