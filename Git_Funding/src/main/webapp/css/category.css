@@ -9,9 +9,9 @@
     top:0;
     right:-46%;
     display:flex;
-    gap:30px;
+	justify-content:space-between;
     flex-wrap:nowrap;
-    width:1750px;
+    width:1700px;
     transition:.3s;
 }
 .category .cate_list.scroll{

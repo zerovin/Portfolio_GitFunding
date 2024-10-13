@@ -8,142 +8,77 @@
 		<jsp:include page="../funding/category.jsp"></jsp:include>
         <div class="list_wrap">
             <ul class="list">
-                <li>
+                <li v-for="vo in list">
                     <a href="" class="f_list">
-                        <img src="../images/trend.jpeg" alt="">
-                        <p class="percent">2,177명이 기다려요!</p>
-                        <p class="title">[코카콜라 IP] 캠핑 더 엣지있게! 기능은 덤 | 코카콜라 아웃도어 콜라보</p>
-                        <p class="p_admin">새비스타일</p>
-                        <button class="open_alert">🔔 10/21(월) 오픈 알림 신청</button>
-                        <!--<button class="cancel_alert">🔔 알림 신청 완료</button>-->
-                    </a>
-                </li>
-                <li>
-                    <a href="" class="f_list">
-                        <img src="../images/trend.jpeg" alt="">
-                        <p class="percent">2,177명이 기다려요!</p>
-                        <p class="title">[코카콜라 IP] 캠핑 더 엣지있게! 기능은 덤 | 코카콜라 아웃도어 콜라보</p>
-                        <p class="p_admin">새비스타일</p>
-                        <!--<button class="open_alert">🔔 10/21(월) 오픈 알림 신청</button>-->
-                        <button class="cancel_alert">🔔 알림 신청 완료</button>
-                    </a>
-                </li>
-                <li>
-                    <a href="" class="f_list">
-                        <img src="../images/trend.jpeg" alt="">
-                        <p class="percent">2,177명이 기다려요!</p>
-                        <p class="title">[코카콜라 IP] 캠핑 더 엣지있게! 기능은 덤 | 코카콜라 아웃도어 콜라보</p>
-                        <p class="p_admin">새비스타일</p>
-                        <button class="open_alert">🔔 10/21(월) 오픈 알림 신청</button>
-                        <!--<button class="cancel_alert">🔔 알림 신청 완료</button>-->
-                    </a>
-                </li>
-                <li>
-                    <a href="" class="f_list">
-                        <img src="../images/trend.jpeg" alt="">
-                        <p class="percent">2,177명이 기다려요!</p>
-                        <p class="title">[코카콜라 IP] 캠핑 더 엣지있게! 기능은 덤 | 코카콜라 아웃도어 콜라보</p>
-                        <p class="p_admin">새비스타일</p>
-                        <button class="open_alert">🔔 10/21(월) 오픈 알림 신청</button>
-                        <!--<button class="cancel_alert">🔔 알림 신청 완료</button>-->
-                    </a>
-                </li>
-                <li>
-                    <a href="" class="f_list">
-                        <img src="../images/trend.jpeg" alt="">
-                        <p class="percent">2,177명이 기다려요!</p>
-                        <p class="title">[코카콜라 IP] 캠핑 더 엣지있게! 기능은 덤 | 코카콜라 아웃도어 콜라보</p>
-                        <p class="p_admin">새비스타일</p>
-                        <button class="open_alert">🔔 10/21(월) 오픈 알림 신청</button>
-                        <!--<button class="cancel_alert">🔔 알림 신청 완료</button>-->
-                    </a>
-                </li>
-                <li>
-                    <a href="" class="f_list">
-                        <img src="../images/trend.jpeg" alt="">
-                        <p class="percent">2,177명이 기다려요!</p>
-                        <p class="title">[코카콜라 IP] 캠핑 더 엣지있게! 기능은 덤 | 코카콜라 아웃도어 콜라보</p>
-                        <p class="p_admin">새비스타일</p>
-                        <button class="open_alert">🔔 10/21(월) 오픈 알림 신청</button>
-                        <!--<button class="cancel_alert">🔔 알림 신청 완료</button>-->
-                    </a>
-                </li>
-                <li>
-                    <a href="" class="f_list">
-                        <img src="../images/trend.jpeg" alt="">
-                        <p class="percent">2,177명이 기다려요!</p>
-                        <p class="title">[코카콜라 IP] 캠핑 더 엣지있게! 기능은 덤 | 코카콜라 아웃도어 콜라보</p>
-                        <p class="p_admin">새비스타일</p>
-                        <button class="open_alert">🔔 10/21(월) 오픈 알림 신청</button>
-                        <!--<button class="cancel_alert">🔔 알림 신청 완료</button>-->
-                    </a>
-                </li>
-                <li>
-                    <a href="" class="f_list">
-                        <img src="../images/trend.jpeg" alt="">
-                        <p class="percent">2,177명이 기다려요!</p>
-                        <p class="title">[코카콜라 IP] 캠핑 더 엣지있게! 기능은 덤 | 코카콜라 아웃도어 콜라보</p>
-                        <p class="p_admin">새비스타일</p>
-                        <button class="open_alert">🔔 10/21(월) 오픈 알림 신청</button>
-                        <!--<button class="cancel_alert">🔔 알림 신청 완료</button>-->
-                    </a>
-                </li>
-                <li>
-                    <a href="" class="f_list">
-                        <img src="../images/trend.jpeg" alt="">
-                        <p class="percent">2,177명이 기다려요!</p>
-                        <p class="title">[코카콜라 IP] 캠핑 더 엣지있게! 기능은 덤 | 코카콜라 아웃도어 콜라보</p>
-                        <p class="p_admin">새비스타일</p>
-                        <button class="open_alert">🔔 10/21(월) 오픈 알림 신청</button>
-                        <!--<button class="cancel_alert">🔔 알림 신청 완료</button>-->
-                    </a>
-                </li>
-                <li>
-                    <a href="" class="f_list">
-                        <img src="../images/trend.jpeg" alt="">
-                        <p class="percent">2,177명이 기다려요!</p>
-                        <p class="title">[코카콜라 IP] 캠핑 더 엣지있게! 기능은 덤 | 코카콜라 아웃도어 콜라보</p>
-                        <p class="p_admin">새비스타일</p>
-                        <button class="open_alert">🔔 10/21(월) 오픈 알림 신청</button>
-                        <!--<button class="cancel_alert">🔔 알림 신청 완료</button>-->
-                    </a>
-                </li>
-                <li>
-                    <a href="" class="f_list">
-                        <img src="../images/trend.jpeg" alt="">
-                        <p class="percent">2,177명이 기다려요!</p>
-                        <p class="title">[코카콜라 IP] 캠핑 더 엣지있게! 기능은 덤 | 코카콜라 아웃도어 콜라보</p>
-                        <p class="p_admin">새비스타일</p>
-                        <button class="open_alert">🔔 10/21(월) 오픈 알림 신청</button>
-                        <!--<button class="cancel_alert">🔔 알림 신청 완료</button>-->
-                    </a>
-                </li>
-                <li>
-                    <a href="" class="f_list">
-                        <img src="../images/trend.jpeg" alt="">
-                        <p class="percent">2,177명이 기다려요!</p>
-                        <p class="title">[코카콜라 IP] 캠핑 더 엣지있게! 기능은 덤 | 코카콜라 아웃도어 콜라보</p>
-                        <p class="p_admin">새비스타일</p>
-                        <button class="open_alert">🔔 10/21(월) 오픈 알림 신청</button>
+                        <img :src="vo.thumb" alt="vo.title">
+                        <p class="percent">{{vo.headcount}}명이 기다려요!</p>
+                        <p class="title">{{vo.title}}</p>
+                        <p class="p_admin">{{vo.p_admin}}</p>
+                        <button class="open_alert">🔔 {{vo.start}} 오픈 알림 신청</button>
                         <!--<button class="cancel_alert">🔔 알림 신청 완료</button>-->
                     </a>
                 </li>
             </ul>
             <ul class="pagination">
-                <li><a href=""><i class="fa-solid fa-angles-left"></i></a></li>
-                <li class="active"><a href="">1</a></li>
-                <li><a href="">2</a></li>
-                <li><a href="">3</a></li>
-                <li><a href="">4</a></li>
-                <li><a href="">5</a></li>
-                <li><a href="">6</a></li>
-                <li><a href="">7</a></li>
-                <li><a href="">8</a></li>
-                <li><a href="">9</a></li>
-                <li><a href="">10</a></li>
-                <li><a href=""><i class="fa-solid fa-angles-right"></i></a></li>
+                <li v-if="startpage>1"><a @click="prev()"><i class="fa-solid fa-angles-left"></i></a></li>
+                <li v-for="i in range(startpage,endpage)" :class="i===curpage?'active':''"><a @click="pageChange(i)">{{i}}</a></li>
+                <li v-if="endpage>totalpage"><a @click="next()"><i class="fa-solid fa-angles-right"></i></a></li>
             </ul>
         </div>
     </div>
+    <script>
+   	let open_list=Vue.createApp({
+   		data(){
+   			return{
+   				list:[],
+   				curpage:1,
+   				totalpage:0,
+   				startpage:0,
+   				endpage:0
+   			}	
+   		},
+   		mounted(){
+   			this.dataRecv()	
+   		},
+   		methods:{
+   			range(start,end){
+   				let arr=[]
+   				let length=end-start
+   				for(let i=0;i<=length;i++){
+   					arr[i]=start
+   					start++
+   				}
+   				return arr
+   			},
+   			prev(){
+   				this.curpage=this.startpage-1
+   				this.dataRecv()
+   			},
+   			next(){
+   				this.curpage=this.endpage+1
+   				this.dataRecv()
+   			},
+   			pageChange(page){
+   				this.curpage=page
+   				this.dataRecv()
+   			},
+   			dataRecv(){
+   				axios.get('../funding/open_list_vue.do',{
+   					params:{
+   						page:this.curpage
+   					}
+   				}).then(response=>{
+   					this.list=response.data.list
+   					this.curpage=response.data.curpage
+   					this.totalpage=response.data.totalpage
+   					this.startpage=response.data.startpage
+   					this.endpage=response.data.endpage
+   				}).catch(error=>{
+   					console.log(error.response)
+   				})
+   			}
+   		}
+   	}).mount('#funding_list')
+    </script>
 </body>
 </html>

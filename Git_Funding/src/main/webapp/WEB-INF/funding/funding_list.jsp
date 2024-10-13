@@ -17,7 +17,7 @@
                         <div class="progress">
                             <div class="top">
                                 <p class="current"><span class="num">{{vo.fm_percent}}%</span>{{vo.fm_totalprice}}원</p>
-                                <p class="remain">13일 남음</p>
+                                <p class="remain">{{vo.dday}}일 남음</p>
                             </div>
                             <div class="progress_bar" :style="'width:'+vo.percent+'%'"></div>
                         </div>
@@ -25,9 +25,9 @@
                 </li>
             </ul>
             <ul class="pagination">
-                <li><a @click="prev()"><i class="fa-solid fa-angles-left"></i></a></li>
+                <li v-if="startpage>1"><a @click="prev()"><i class="fa-solid fa-angles-left"></i></a></li>
                 <li v-for="i in range(startpage,endpage)" :class="i===curpage?'active':''"><a @click="pageChange(i)">{{i}}</a></li>
-                <li><a @click="next()"><i class="fa-solid fa-angles-right"></i></a></li>
+                <li v-if="endpage>totalpage"><a @click="next()"><i class="fa-solid fa-angles-right"></i></a></li>
             </ul>
         </div>
     </div>
@@ -57,11 +57,11 @@
    				return arr
    			},
    			prev(){
-   				this.curpage=this.startpage>1?this.startpage-1:this.curpage
+   				this.curpage=this.startpage-1
    				this.dataRecv()
    			},
    			next(){
-   				this.curpage=this.endpage<totalpage?this.endpage+1:this.curpage
+   				this.curpage=this.endpage+1
    				this.dataRecv()
    			},
    			pageChange(page){

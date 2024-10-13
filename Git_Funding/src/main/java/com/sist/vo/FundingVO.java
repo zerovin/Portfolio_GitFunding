@@ -22,6 +22,6 @@ ENDDATE              DATE
 @Data
 public class FundingVO {
 	private int fno, targetprice, totalprice, headcount, wish, backing, percent, dday;
-	private String title, description, type, thumb, period, p_admin, link, start, end, fm_headcount, fm_totalprice, fm_wish, fm_bakcing, fm_percent;
+	private String title, description, type, thumb, period, p_admin, link, startday, endday, fm_headcount, fm_totalprice, fm_wish, fm_bakcing, fm_percent;
 	private Date startdate, enddate;
 }
