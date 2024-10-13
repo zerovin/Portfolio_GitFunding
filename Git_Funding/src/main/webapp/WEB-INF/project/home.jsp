@@ -7,14 +7,13 @@
 </head>
 <body>
 	<div id="ProjectHome" class="container">
-	
 			<div class="LeftArea">
 				<div class="profile_wrap">
 					<img src="../images/profile.png" alt="프로필이미지">		
 					<a href="#" class="profile_edit"><i class="fa-regular fa-pen-to-square"></i></a>	
 				</div>
 				<a href="#" class="user_name">서원진님 <i class="fa-solid fa-chevron-right"></i></a>
-				<button class="logout_btn">로그아웃</button>
+				<button class="logout_btn" @click="logout()">로그아웃</button>
 			</div>
 			<div class="CenterArea">
 				<section>
@@ -80,13 +79,31 @@
 					            </li>
 					        </ul>
 					        <div class="FundingStoreViewContainer" id=FundingStoreView>
-					        	펀딩・프리오더
+			        			<i class="fa-solid fa-gift" style="text-align:center; font-size: 50px"></i>
+				        		<div class="FundingStoreView">
+				        			<p class="FundingStoreViewText">새로운 도전을</p>
+				        			<p><br>시작해보세요.</p>
+				        		</div>
+				        			<p><br>제품・콘텐츠・서비스 출시, 성장까지 깃펀딩이 함께합니다.</p>
+				        			<div>
+				        				<button class="CreateProjectBtn" @click="CreateProject">프로젝트 만들기</button>
+				        			</div>
 					    	</div>
 					    </div>
 					</div>
-					
 					<div class="CenterAreaBottomContainer">
-						<h4>프로젝트 계정</h4>
+						<div class="ProjectManagementContainer">
+							<div class="ProjectManagementContainerText">
+								<h4>프로젝트 관리</h4>
+							</div>
+							<div class="ProjectInquiriesBtn	" @click="ProjectInquiries">
+								<button>
+									<div class="ProjectInquiriesIcon">									
+										<i class="fa-regular fa-envelope"> 서포터 문의</i><i class="fa-solid fa-chevron-right"></i>
+									</div>
+								</button>
+							</div>
+						</div>
 						<div>
 							<ul>
 								<li class="ProjectQnaMenu">
@@ -183,6 +200,12 @@
 	        methods: {
 	            logout() {
 	                window.location.href = '../main/main.do';
+	            },
+	            CreateProject() {
+	            	window.location.href = '../main/main.do';
+	            },
+	            ProjectInquiries() {
+	            	window.location.hef = '../main/main.do';
 	            },
 	            navigateTo(page) {
 	                axios.get(`/project/${page}.jsp`)

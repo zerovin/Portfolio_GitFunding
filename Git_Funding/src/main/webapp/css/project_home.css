@@ -12,14 +12,14 @@
 	margin-bottom:30px;
 }
 #ProjectHome .LeftArea img{
-    width: 200px;
+    width: 150px;
     Border-radius:100px;
 	border:2px soild #ccc;
 }
 #ProjectHome .LeftArea .profile_edit{
-     	position:absolute;
-     	bottom:30px;
-     	right:70px;
+    position:absolute;
+    bottom:10px;
+    right:85px;
 }
 #ProjectHome .LeftArea .profile_edit i{
 	display:block;
@@ -123,9 +123,9 @@
 .CenterAreaCenter1st button{
 /* 		width: 300px; */
 	font-weight:bold;
-       background:none;
-       cursor:pointer;
-       font-size:30px;
+	background:none;
+	cursor:pointer;
+	font-size:30px;
 	justify-content:space-between;
 /*     	transition: background-color 0.3s; */
 }
@@ -167,13 +167,20 @@
 	padding:20px;
 	margin-bottom:30px;
 }
-.FundingStoreViewContainer{
-	background-color:#ffffb0;
-	height:200px;
+.FundingStoreViewContainer {
+/*     background-color:#ffffb0; 배경색 유지 */
+    height:400px;
+/*     padding-top: 200px; 이 줄은 제거해도 됩니다. */
+    text-align:center; /* 텍스트 중앙 정렬 */
+    /* 이 밑으로 안쓰면 제거 */
+    display:flex; /* Flexbox 사용 */
+    flex-direction:column; /* 요소들을 세로로 정렬 */
+    justify-content:center; /* 수직 중앙 정렬 */
+    align-items:center; /* 가로 중앙 정렬 */
 }
+
 .CenterAreaCenter2nd ul{
 	display:flex;
-	
 }
 .CenterAreaCenter2nd li{
 	font-size:20px;
@@ -182,16 +189,63 @@
 	margin-right:40px;
 	margin-bottom:50px;
     padding-bottom:10px;
-    cursor: pointer;
+    cursor:pointer;
 }
 .CenterAreaCenter2nd li.active{
     border-bottom:1px solid #ccc; /* 선택된 항목에만 밑줄 표시 */
 }
+.FundingStoreViewContainer i{
+	margin-bottom:30px;
+}
+.FundingStoreView{
+    font-weight:bold;
+/*     margin-top: 50px; 텍스트와 아이콘 사이의 간격 */
+/*     display: flex; */
+/*     flex-direction: column; 요소들을 세로로 정렬 */
+/*     align-items: center; 가로 중앙 정렬 */
+/*     justify-content: center; 세로 중앙 정렬 */
+}
+.CreateProjectBtn{
+	font-weight:bold;
+	cursor:pointer;
+	
+	border:2px solid #F8C200;
+	font-weight:500;
+	width:200px;
+	height:50px;
+	line-height:50px;
+	text-align:center;
+	border-radius:25px;
+	transition:.3s;
+	margin-top:30px;
+}
+.CreateProjectBtn:hover{
+	background:#F8C200;
+}
 /* ----------------- 화면 중앙 하단 ------------------- */
 .CenterAreaBottomContainer{
-	border:1px solid #ccc;
-	border-radius:10px;
    	padding:20px; /* 필요에 따라 조정 */
+}
+.ProjectManagementContainer{
+	display:grid;
+    grid-template-columns: 1fr 1fr; /* 2개의 열 생성 */
+    grid-template-rows: 1fr 1fr; /* 2개의 행 생성 */
+}
+.ProjectManagementContainerText{
+	font-weight:400;
+	font-size:25px;	
+	padding-bottom:30px;
+    grid-column: 1; /* 1번째 열 */
+    grid-row: 1; /* 1번째 행 */
+}
+.ProjectInquiriesBtn{
+	padding-bottom:20px;
+    grid-column: 1; /* 1번째 열 */
+    grid-row: 2; /* 2번째 행 */
+	border-bottom:solid 1px #ccc;
+}
+.ProjectInquiriesIcon i:last-child{
+	margin-left:260px;
 }
 /* ----------------- 화면 우측 ------------------- */
 .RightArea{
