@@ -12,4 +12,6 @@ public interface CommunityService {
 	public int qnaRowCount();
     public String nicknameNullCheck(String id);
 	public void qnaInsert(QnaVO vo);
+    public QnaVO qnaDetailData(int qno);
+    public List<QnaVO> qnaAnswerDetail(int groupId);
 }

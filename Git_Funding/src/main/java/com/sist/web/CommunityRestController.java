@@ -30,7 +30,7 @@ public class CommunityRestController {
 	public String qna_list(int page) throws Exception {
 		int rowSize=10;
 	    if (page < 1) {
-	        page = 1; // íŽ˜ì´ì§€ ë²ˆí˜¸ê°€ 1ë³´ë‹¤ ìž‘ìœ¼ë©´ 1ë¡œ ì„¤ì •
+	        page = 1; // ÆäÀÌÁö ¹øÈ£°¡ 1º¸´Ù ÀÛÀ¸¸é 1·Î ¼³Á¤
 	    }
 		int start=(rowSize*page)-(rowSize-1);
 		int end=rowSize*page;
@@ -60,16 +60,37 @@ public class CommunityRestController {
 	}
 	@PostMapping(value="qna_insert_vue.do", produces = "text/plain;charset=UTF-8")
 	public String qnaInsert(QnaVO qnaVO, HttpSession session) throws Exception {
-	    // ì„¸ì…˜ì—ì„œ ID ê°€ì ¸ì˜¤ê¸°
+	    // ¼¼¼Ç¿¡¼­ ID °¡Á®¿À±â
 	    String id = (String) session.getAttribute("userId");
-	    qnaVO.setId(id); // QnaVOì— ID ì„¤ì •
+	    qnaVO.setId(id); // QnaVO¿¡ ID ¼³Á¤
 	    String name = (String) session.getAttribute("userName");
-	    qnaVO.setName(name); // QnaVOì— ID ì„¤ì •
+	    qnaVO.setName(name); // QnaVO¿¡ ID ¼³Á¤
 	    String nickname = cService.nicknameNullCheck(id);
-	    qnaVO.setNickname(nickname); // nickname ì„¤ì •
-	    // ì„œë¹„ìŠ¤ì—ì„œ ë‹‰ë„¤ìž„ ì²´í¬ ë° QnaVOì— ì„¤ì •
-	    cService.qnaInsert(qnaVO); // QnaService í˜¸ì¶œ
+	    qnaVO.setNickname(nickname); // nickname ¼³Á¤
+	    cService.qnaInsert(qnaVO); // QnaService È£Ãâ
 	    
 	    return "success";
+	}
+	
+	// »ó¼¼º¸±â
+	@GetMapping(value = "qna_detail_vue.do", produces = "text/plain;charset=UTF-8")
+	public String qnaDetail(int qno) throws Exception {
+	    QnaVO vo = cService.qnaDetailData(qno);
+	    ObjectMapper mapper = new ObjectMapper();
+	    
+	    String json = mapper.writeValueAsString(vo);
+	    return json;
+	}
+	
+	@GetMapping(value = "qna_answers_vue.do", produces = "text/plain;charset=UTF-8")
+	public String qnaAnswers(int groupId) throws Exception {
+	    List<QnaVO> answerList = cService.qnaAnswerDetail(groupId);
+	    ObjectMapper mapper = new ObjectMapper();
+	    
+	    Map<String, Object> map = new HashMap<>();
+	    map.put("answerList", answerList);
+	    
+	    String json = mapper.writeValueAsString(map);
+	    return json;
 	}
 }

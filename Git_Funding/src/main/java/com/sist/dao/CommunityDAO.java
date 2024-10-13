@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -19,7 +20,7 @@ public class CommunityDAO {
 	public List<FaqVO> faqListData(String cate){
 		return mapper.faqListData(cate);
 	}
-	// Qna ë¦¬ìŠ¤íŠ¸
+	// Qna ¸ñ·Ï
 	public List<QnaVO> qnaListData(int start,int end){
 		return mapper.qnaListData(start, end);
 	}
@@ -27,7 +28,7 @@ public class CommunityDAO {
 		return mapper.qnaRowCount();
 	}
 	
-	// Qna ì¶”ê°€
+	// Qna ´Ð³×ÀÓ È®ÀÎ
     public String nicknameNullCheck(String id) {
     	return mapper.nicknameNullCheck(id);
     }
@@ -35,4 +36,13 @@ public class CommunityDAO {
 	public void qnaInsert(QnaVO vo) {
 		mapper.qnaInsert(vo);
 	}
+	
+    public QnaVO qnaDetailData(int qno) {
+    	mapper.qnaHitIncrement(qno);
+    	return mapper.qnaDetailData(qno);
+    }
+    
+    public List<QnaVO> qnaAnswerDetail(int groupId){
+    	return mapper.qnaAnswerDetail(groupId);
+    }
 }

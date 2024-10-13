@@ -38,8 +38,18 @@ public class CommunityServiceImpl implements CommunityService{
 	@Override
 	public void qnaInsert(QnaVO vo) {
 	    String nickname = nicknameNullCheck(vo.getId());
-	    vo.setNickname(nickname); // 닉네임 설정
-	    cDao.qnaInsert(vo); // DAO 호출
+	    vo.setNickname(nickname); 
+	    cDao.qnaInsert(vo); 
+	}
+
+	@Override
+	public QnaVO qnaDetailData(int qno) {
+		return cDao.qnaDetailData(qno);
+	}
+
+	@Override
+	public List<QnaVO> qnaAnswerDetail(int groupId) {
+		return cDao.qnaAnswerDetail(groupId);
 	}
 	
 	

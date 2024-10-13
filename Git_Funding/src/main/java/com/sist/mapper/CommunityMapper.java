@@ -2,6 +2,8 @@ package com.sist.mapper;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
+
 import java.util.*;
 import com.sist.vo.*;
 public interface CommunityMapper {
@@ -17,25 +19,41 @@ public interface CommunityMapper {
 
     @Select("SELECT COUNT(*) FROM site_qna WHERE admin = 0")
     public int qnaRowCount();   
-    /*
+    /* 
      * INSERT INTO site_qna VALUES(
-		sq_qno_seq.nextval,'Ï†úÎ™©','ÎÇ¥Ïö©','2',SYSDATE,0,((SELECT NVL(MAX(group_id)+1,1)FROM site_qna)),0,'dayeong','ÎãâÎÑ§ÏûÑ',SYSDATE,0,'ÍπÄÎã§ÏòÅ');
+		sq_qno_seq.nextval,'¡¶∏Ò','≥ªøÎ','2',SYSDATE,0,((SELECT NVL(MAX(group_id)+1,1)FROM site_qna)),0,'dayeong','¥–≥◊¿”',SYSDATE,0,'±Ë¥Ÿøµ');
      */
-    // ÎãâÎÑ§ÏûÑ null Ïó¨Î∂Ä Ï≤¥ÌÅ¨
+    // ¥–≥◊¿” null ø©∫Œ √º≈©
     @Select("SELECT nickname FROM funding_member WHERE userId = #{userId}")
     public String nicknameNullCheck(String id);
-    // Ïù∏ÏÑúÌä∏ ÎèôÏ†Å ÏøºÎ¶¨
+    // ¿Œº≠∆Æ µø¿˚ ƒı∏Æ
     @Insert("<script>"
             + "INSERT INTO site_qna VALUES("
             + "sq_qno_seq.nextval, #{subject}, #{content}, #{type}, SYSDATE, 0, "
             + "((SELECT NVL(MAX(group_id)+1, 1) FROM site_qna)), 0, #{id}, "
             + "<if test=\"nickname != null\">"
             + "#{nickname},"
-            + "</if>"
+            + "</if>" 
             + "<if test=\"nickname == null\">"
             + "NULL,"
             + "</if>"
-            + "SYSDATE, 0, #{name}, #{secret})" 
-            + "</script>")
-	public void qnaInsert(QnaVO vo);
+            + "SYSDATE, 0, #{name}, #{secret})"  
+            + "</script>")   
+	public void qnaInsert(QnaVO vo); 
+       
+    @Update("UPDATE site_qna SET hit=hit+1 WHERE qno=#{qno}")
+    public void qnaHitIncrement(int qno);
+      
+    @Select("SELECT qno, subject, name, nickname, content, secret, type, TO_CHAR(regdate, 'YYYY-MM-DD HH24:MI:SS') AS dbday,"
+    		+ " hit, group_id, reok, admin, id, TO_CHAR(modifydate, 'YYYY-MM-DD HH24:MI:SS') AS mday "
+            + " FROM site_qna " 
+            + " WHERE qno = #{qno}")  
+    public QnaVO qnaDetailData(int qno);
+      
+    @Select("SELECT qno, subject, name, nickname, content, secret, type, TO_CHAR(regdate, 'YYYY-MM-DD HH24:MI:SS') AS dbday,"
+            + " hit, group_id, reok, admin, id, TO_CHAR(modifydate, 'YYYY-MM-DD HH24:MI:SS') AS mday " 
+            + " FROM site_qna " 
+            + " WHERE group_id = #{groupId} AND admin = 1 "  
+            + " ORDER BY regdate ASC")  
+    public List<QnaVO> qnaAnswerDetail(int groupId); 
 } 

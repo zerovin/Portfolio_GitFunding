@@ -28,4 +28,11 @@ public class CommunityController {
 		model.addAttribute("sessionId",id);
 		return "community/faq_list";
 	}
+	@GetMapping("qna_detail.do")
+	public String qna_detail(int qno,Model model,HttpSession session) {
+		String id=(String)session.getAttribute("userId");
+		model.addAttribute("qno",qno);
+		model.addAttribute("sessionId",id);
+		return "community/qna_detail";
+	}
 }
