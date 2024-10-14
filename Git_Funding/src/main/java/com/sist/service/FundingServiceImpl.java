@@ -34,4 +34,16 @@ public class FundingServiceImpl implements FundingService{
 		// TODO Auto-generated method stub
 		return fDao.fundingTotalPage();
 	}
+
+	@Override
+	public void fundingAlertUpdate(int fno) {
+		// TODO Auto-generated method stub
+		fDao.fundingAlertUpdate(fno);
+	}
+
+	@Override
+	public void fundingAlertInsert(Map map) {
+		// TODO Auto-generated method stub
+		fDao.fundingAlertInsert(map);
+	}
 }

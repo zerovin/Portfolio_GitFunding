@@ -27,7 +27,7 @@
             <ul class="pagination">
                 <li v-if="startpage>1"><a @click="prev()"><i class="fa-solid fa-angles-left"></i></a></li>
                 <li v-for="i in range(startpage,endpage)" :class="i===curpage?'active':''"><a @click="pageChange(i)">{{i}}</a></li>
-                <li v-if="endpage>totalpage"><a @click="next()"><i class="fa-solid fa-angles-right"></i></a></li>
+                <li v-if="endpage<totalpage"><a @click="next()"><i class="fa-solid fa-angles-right"></i></a></li>
             </ul>
         </div>
     </div>

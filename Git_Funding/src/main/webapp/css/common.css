@@ -34,6 +34,9 @@ h2{
     font-weight:500;
     margin-bottom:15px;
 }
+a.f_list{
+	display:block;
+}
 .f_list .percent{
     display:inline-block;
     border-radius:3px;

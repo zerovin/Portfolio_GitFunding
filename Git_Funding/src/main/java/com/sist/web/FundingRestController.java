@@ -4,6 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.*;
+
+import javax.servlet.http.HttpSession;
+
 import java.text.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -42,7 +45,7 @@ public class FundingRestController {
 		
 		int totalpage=fService.fundingTotalPage();
 		
-		final int BLOCK=10;
+		final int BLOCK=5;
 		int startpage=((page-1)/BLOCK*BLOCK)+1;
 		int endpage=((page-1)/BLOCK*BLOCK)+BLOCK;
 		if(endpage>totalpage) {
@@ -73,7 +76,7 @@ public class FundingRestController {
 		List<FundingVO> list=fService.openListData(map);
 		int totalpage=fService.openTotalPage();
 		
-		final int BLOCK=10;
+		final int BLOCK=5;
 		int startpage=((page-1)/BLOCK*BLOCK)+1;
 		int endpage=((page-1)/BLOCK*BLOCK)+BLOCK;
 		if(endpage>totalpage) {
@@ -90,5 +93,22 @@ public class FundingRestController {
 		ObjectMapper mapper=new ObjectMapper();
 		String json=mapper.writeValueAsString(map);
 		return json;
+	}
+	
+	@GetMapping(value="funding/alert_update.do", produces="text/plain;charset=UTF-8")
+	public String funding_alert_update(int fno, HttpSession session) {
+		String result="";
+		try {
+			String id=(String)session.getAttribute("userId");
+			Map map=new HashMap();
+			map.put("userId", id);
+			map.put("fno", fno);
+			fService.fundingAlertUpdate(fno);
+			fService.fundingAlertInsert(map);
+			result="ok";
+		}catch(Exception ex) {
+			result=ex.getMessage();
+		}
+		return result;			
 	}
 }

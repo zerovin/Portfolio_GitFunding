@@ -4,16 +4,18 @@
     gap:40px 20px;
     margin:70px 0;
 }
-#funding_list .list_wrap .f_list button{
+#funding_list .list_wrap .open_alert{
+    border:1px solid #F8C200;
+    color:#F8C200;
     margin-top:10px;
     text-align:center;
     width:100%;
     padding:10px;
     border-radius:5px;
 }
-#funding_list .list_wrap .open_alert{
-    border:1px solid #F8C200;
-    color:#F8C200;
+#funding_list .list_wrap .open_alert span{
+	font-weight:500;
+	color:#F8C200;
 }
 #funding_list .list_wrap .cancel_alert{
     background:#ccc;

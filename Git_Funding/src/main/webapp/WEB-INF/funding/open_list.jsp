@@ -11,12 +11,12 @@
                 <li v-for="vo in list">
                     <a href="" class="f_list">
                         <img :src="vo.thumb" alt="vo.title">
-                        <p class="percent">{{vo.headcount}}명이 기다려요!</p>
+                        <p class="percent">{{vo.alert}}명이 기다려요!</p>
                         <p class="title">{{vo.title}}</p>
                         <p class="p_admin">{{vo.p_admin}}</p>
-                        <button class="open_alert">🔔 {{vo.start}} 오픈 알림 신청</button>
-                        <!--<button class="cancel_alert">🔔 알림 신청 완료</button>-->
                     </a>
+                    <button class="open_alert" @click="alertUpdate(vo.fno)" v-if="!isAlert">🔔 <span>{{vo.startday}}</span> 오픈 알림 신청</button>
+                    <button class="cancel_alert" v-else>🔔 알림 신청 완료</button>
                 </li>
             </ul>
             <ul class="pagination">
@@ -34,13 +34,34 @@
    				curpage:1,
    				totalpage:0,
    				startpage:0,
-   				endpage:0
+   				endpage:0,
+   				isAlert:false
    			}	
    		},
    		mounted(){
    			this.dataRecv()	
    		},
    		methods:{
+   			alertUpdate(fno){
+   				if(${sessionScope.id==null}){
+   					alert("로그인 후 이용해주세요")
+   				}else{
+	   				axios.get('../funding/alert_update.do',{
+	   					params:{
+	   						fno:fno
+	   					}
+	   				}).then(response=>{
+	   					if(response.data==='ok'){
+	   						isAlert=true
+	   					}else{
+	   						console.log(response.data)
+	   					}
+	   				}).catch(error=>{
+	   					console.log(error.response)
+	   				})   					
+   				}
+   				
+   			},
    			range(start,end){
    				let arr=[]
    				let length=end-start

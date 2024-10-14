@@ -8,4 +8,6 @@ public interface FundingService {
 	public int openTotalPage();
 	public List<FundingVO> fundingListData(Map map);
 	public int fundingTotalPage();
+	public void fundingAlertUpdate(int fno);
+	public void fundingAlertInsert(Map map);
 }

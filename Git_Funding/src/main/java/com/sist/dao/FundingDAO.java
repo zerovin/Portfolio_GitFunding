@@ -1,6 +1,8 @@
 package com.sist.dao;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import java.util.*;
@@ -54,5 +56,23 @@ public class FundingDAO {
 	*/
 	public int fundingTotalPage() {
 		return mapper.fundingTotalPage();
+	}
+	
+	/*
+	@Update("UPDATE funding SET "
+			+ "alert=alert+1 "
+			+ "WHERE fno=#{fno}")
+	public void fundingAlertUpdate(int fno);
+	*/
+	public void fundingAlertUpdate(int fno) {
+		mapper.fundingAlertUpdate(fno);
+	}
+	
+	/*
+	@Insert("INSERT INTO funding_alert(alert_ano_seq.nextval, #{userId}, #{fno}, SYSDATE)")
+	public void fundingAlertInsert(AlertVO vo); 
+	 */
+	public void fundingAlertInsert(Map map) {
+		mapper.fundingAlertInsert(map);
 	}
 }
