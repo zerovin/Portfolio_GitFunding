@@ -57,6 +57,44 @@
 .cartList input[type="button"]:hover {
 	filter: brightness(0.9);
 }
+#totalprice{
+	display: grid;
+	margin-top: 20px;
+	padding: 20px;
+	height: 150px;
+	border: 4px solid #999;
+	background-color: white;
+	grid-template-rows: 4fr 1fr 2fr;
+}
+#f_button > div {
+	height: 50px;
+	width: 180px;
+	border: 1px solid red;
+	text-align: center;
+}
+#f_button > div > p {
+	margin-top: 18px;
+	font-family: 'NexonLv2Gothic';
+	font-size: 13px;
+	font-weight: bold;
+}
+#f_button > div:hover,#chooseBtn > div:hover {
+	cursor: pointer;
+	filter: brightness(0.8);
+}
+#chooseBtn{
+	display: flex;
+	gap: 3px;
+}
+#chooseBtn > div{
+	background-color: #999;
+	color: white;
+	font-family: 'NexonLv2Gothic';
+	font-size: 12px;
+	font-weight: bold;
+	padding: 7px 3px 3px 3px;
+}
+
 </style>
 </head>
 <body>
@@ -142,8 +180,59 @@
 	            	</table>
 	            </div>
 	            <div style="height: 20px;"></div>
-	            <div>
-	            
+	            <div id="totalprice">
+	               <div style="display: flex; justify-content: space-between;">
+	                 <div>
+	                 	<h1 style="ont-weight: bold;font-size: 27px;font-family: 'NexonLv2Gothic';">총 주문 금액</h1>
+	                 </div>
+	                 <div style="width: 300px">
+		                 <ul>
+		                   <li>
+		                     <div style="display: flex; justify-content: space-between;">
+			                     <span>상품 총 금액</span>
+			                     <span>1억</span>
+		                     </div>
+		                   </li>
+		                   <li><hr style="width: 300px; background-color: rgb(234, 234, 234);height: 1px;border: 0"></li>
+		                   <li>
+		                     <div style="display: flex; justify-content: space-between;">
+			                     <span>배송비</span>
+			                     <span>2조</span>
+		                     </div>
+		                   </li>
+		                   <li><hr style="width: 300px; background-color: rgb(234, 234, 234);height: 1px;border: 0"></li>
+		                 </ul>
+	                 </div>
+	               </div>
+	               <hr style="width: 880px">
+	               <div style="display: flex; justify-content: flex-end;">
+	                 <div>
+	               	  <div style="margin-top: 10px;">
+		               	  <p style="display: inline; font-weight: bold;font-size: 12px">결제 예정 금액</p>
+		               	  <p style="display: inline;color: #d50c0c;font-size: 20px;font-weight: bold; padding-left: 10px">145조원</p>
+	               	  </div>
+	               	 </div>
+	               </div>
+	            </div>
+	            <div style="margin-top: 20px;display: flex;justify-content: space-between;">
+	              <div style="display: grid">
+	                <div style="font-weight: bold; font-size: 12px">
+	                  <input type="checkbox">&nbsp;전체선택
+	                </div>
+	                <div id="chooseBtn">
+	                  <div>
+	                    선택상품 삭제
+	                  </div>
+	                  <div>
+	                    품절상품 삭제
+	                  </div>
+	                </div>
+	              </div>
+	              <div id="f_button" style="display: flex; gap: 15px;">
+	                <div style="border: 1px solid #999; "><p style="color: #666">계속 쇼핑하기</p></div>
+	                <div><p style="color: #d50c0c">선택상품 주문하기</p></div>
+	                <div style="background-color: #d50c0c"><p style="color: white;">전체상품 주문하기</p></div>
+	              </div>
 	            </div>
             </div>
       </div>
