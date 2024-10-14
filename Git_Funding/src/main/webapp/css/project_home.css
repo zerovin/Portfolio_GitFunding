@@ -1,7 +1,7 @@
 #ProjectHome{
 	display:grid;
-	grid-template-columns:1fr 2.5fr;
-	gap:50px;
+	grid-template-columns:0.75fr 2.75fr;
+	gap:75px;
 }
 /* ----------------- 화면 좌측 ------------------- */
 #ProjectHome .LeftArea{
@@ -9,17 +9,18 @@
 }
 #ProjectHome .LeftArea .profile_wrap{
 	position:relative;
+	padding-top:100px;
 	margin-bottom:30px;
 }
 #ProjectHome .LeftArea img{
     width: 150px;
-    Border-radius:100px;
-	border:2px soild #ccc;
+    border-radius:100px;
+	border:2px solid #ccc;
 }
 #ProjectHome .LeftArea .profile_edit{
     position:absolute;
-    bottom:10px;
-    right:85px;
+    bottom:1px;
+    right:52px;
 }
 #ProjectHome .LeftArea .profile_edit i{
 	display:block;
@@ -41,9 +42,9 @@
 	font-size:20px;
 	color:#1E1A1A;
 	font-weight:500;
-	margin-bottom:50px;
+	margin-bottom:20px;
 }
-#ProjectHome .LeftArea .logout_btn{
+#ProjectHome .LeftArea .GoToMyPageBtn{
 	border:2px solid #F8C200;
 	color:#333;
 	font-weight:500;
@@ -54,7 +55,7 @@
 	border-radius:25px;
 	transition:.3s;
 }
-#ProjectHome .LeftArea .logout_btn:hover{
+#ProjectHome .LeftArea .GoToMyPageBtn:hover{
 	background:#F8C200;
 }
 /* ----------------- 화면 중앙 ------------------- */
@@ -77,23 +78,30 @@
 	align-items:center;
 }
 .CenterAreaTopContainerWrapper ul{
-	display:flex;
 }
 .CenterAreaTopContainerWrapper li{
 	margin-right:20px;
 }
-.Tabsbutton{
+.CenterAreaTopContainerWrapper button{
 	display:flex;
 	justify-content:center;
 	background:none;
 	border:none;
 	cursor:pointer;
 	padding:10px;
+	gap:10px;
+	margin-right:20px;
+}
+.Tabsbutton1 i{
+	font-size:xx-large;
+}
+.Tabsbutton2 i{
+	font-size:xx-large;
 }
 .Tabsicon{
-	width:24px;
-	height:24px;
-	margin-right:5px;
+/* 	width:24px; */
+/* 	height:24px; */
+/* 	margin-right:5px; */
 }
 .Tabsbutton-text{
 	font-size:24px;
@@ -168,17 +176,13 @@
 	margin-bottom:30px;
 }
 .FundingStoreViewContainer {
-/*     background-color:#ffffb0; 배경색 유지 */
     height:400px;
-/*     padding-top: 200px; 이 줄은 제거해도 됩니다. */
-    text-align:center; /* 텍스트 중앙 정렬 */
-    /* 이 밑으로 안쓰면 제거 */
-    display:flex; /* Flexbox 사용 */
-    flex-direction:column; /* 요소들을 세로로 정렬 */
-    justify-content:center; /* 수직 중앙 정렬 */
-    align-items:center; /* 가로 중앙 정렬 */
+    text-align:center;
+    display:flex;
+    flex-direction:column; 
+    justify-content:center;
+    align-items:center;
 }
-
 .CenterAreaCenter2nd ul{
 	display:flex;
 }
@@ -225,27 +229,72 @@
 /* ----------------- 화면 중앙 하단 ------------------- */
 .CenterAreaBottomContainer{
    	padding:20px; /* 필요에 따라 조정 */
+   	border:1px solid #ccc;
+   	border-radius:10px;
 }
 .ProjectManagementContainer{
 	display:grid;
-    grid-template-columns: 1fr 1fr; /* 2개의 열 생성 */
-    grid-template-rows: 1fr 1fr; /* 2개의 행 생성 */
+    grid-template-columns:1fr 1fr;/*1fr; 2개의 열 생성*/
+    grid-template-rows:1fr 1fr;/*1fr; 2개의 행 생성*/
+    margin-bottom:20px;
 }
 .ProjectManagementContainerText{
 	font-weight:400;
 	font-size:25px;	
-	padding-bottom:30px;
-    grid-column: 1; /* 1번째 열 */
-    grid-row: 1; /* 1번째 행 */
+	margin-bottom:50px;
+	grid-column:1;
+	grid-row:1;
 }
-.ProjectInquiriesBtn{
+.ProjectQnABtn{
+	grid-column:1;
+	grid-row:2;
+	border-bottom:solid 1px #ccc;
+	padding-top:5px;
+	margin-bottom:32px;
+}
+.ProjectQnABtn button{
+	width:100%;
+	display:flex;
+	justify-content:space-between; /* 양 끝으로 배치 */
+	align-items:center; /* 수직 정렬 */	
+}
+.CustomerCenterContainer{
+	display:grid;
+    grid-template-columns:1fr 1fr;/*1fr; 2개의 열 생성*/
+    grid-template-rows:1fr 1fr 1fr;/*1fr; 2개의 행 생성*/
+    align-items:end;
+}
+.CustomerCenterContainerText{
+	font-weight:400;
+	font-size:25px;	
+	padding-top:30px;
 	padding-bottom:20px;
-    grid-column: 1; /* 1번째 열 */
-    grid-row: 2; /* 2번째 행 */
+	grid-column:1;
+	grid-row:1;
+}
+.CustomerCenterContainer button{
+	display:flex;
+	justify-content:space-between;
+	align-items:center;
+	width:100%;
+}
+.OneByOneChatBtn{
+	padding-bottom:20px;
+	grid-column:1;
+	grid-row:2;
 	border-bottom:solid 1px #ccc;
 }
-.ProjectInquiriesIcon i:last-child{
-	margin-left:260px;
+.NoticeBtn{
+	padding-bottom:20px;
+	grid-column:1;
+	grid-row:3;
+	border-bottom:solid 1px #ccc;
+}
+.AcountSettingsBtn{
+	padding-bottom:20px;
+	grid-column:2;
+	grid-row:3;
+	border-bottom:solid 1px #ccc;
 }
 /* ----------------- 화면 우측 ------------------- */
 .RightArea{
