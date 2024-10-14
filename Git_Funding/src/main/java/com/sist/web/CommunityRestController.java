@@ -30,7 +30,7 @@ public class CommunityRestController {
 	public String qna_list(int page) throws Exception {
 		int rowSize=10;
 	    if (page < 1) {
-	        page = 1; // ÆäÀÌÁö ¹øÈ£°¡ 1º¸´Ù ÀÛÀ¸¸é 1·Î ¼³Á¤
+	        page = 1; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½ 1ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 1ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	    }
 		int start=(rowSize*page)-(rowSize-1);
 		int end=rowSize*page;
@@ -60,19 +60,19 @@ public class CommunityRestController {
 	}
 	@PostMapping(value="qna_insert_vue.do", produces = "text/plain;charset=UTF-8")
 	public String qnaInsert(QnaVO qnaVO, HttpSession session) throws Exception {
-	    // ¼¼¼Ç¿¡¼­ ID °¡Á®¿À±â
+	    // ï¿½ï¿½ï¿½Ç¿ï¿½ï¿½ï¿½ ID ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	    String id = (String) session.getAttribute("userId");
-	    qnaVO.setId(id); // QnaVO¿¡ ID ¼³Á¤
+	    qnaVO.setId(id); // QnaVOï¿½ï¿½ ID ï¿½ï¿½ï¿½ï¿½
 	    String name = (String) session.getAttribute("userName");
-	    qnaVO.setName(name); // QnaVO¿¡ ID ¼³Á¤
+	    qnaVO.setName(name); // QnaVOï¿½ï¿½ ID ï¿½ï¿½ï¿½ï¿½
 	    String nickname = cService.nicknameNullCheck(id);
-	    qnaVO.setNickname(nickname); // nickname ¼³Á¤
-	    cService.qnaInsert(qnaVO); // QnaService È£Ãâ
+	    qnaVO.setNickname(nickname); // nickname ï¿½ï¿½ï¿½ï¿½
+	    cService.qnaInsert(qnaVO); // QnaService È£ï¿½ï¿½
 	    
 	    return "success";
 	}
 	
-	// »ó¼¼º¸±â
+	// ï¿½ó¼¼ºï¿½ï¿½ï¿½
 	@GetMapping(value = "qna_detail_vue.do", produces = "text/plain;charset=UTF-8")
 	public String qnaDetail(int qno) throws Exception {
 	    QnaVO vo = cService.qnaDetailData(qno);
@@ -92,5 +92,37 @@ public class CommunityRestController {
 	    
 	    String json = mapper.writeValueAsString(map);
 	    return json;
+	}
+	
+	@GetMapping(value = "qna_delete_vue.do", produces = "text/plain;charset=UTF-8")
+	public String qna_delete(int groupId) throws Exception {
+		String result="";
+		try {
+			result="yes";
+			cService.qnaDelete(groupId);
+		}catch(Exception ex) {
+			result=ex.getMessage();
+		}
+		return result;
+	}
+	
+	@GetMapping(value = "qna_update_vue.do", produces = "text/plain;charset=UTF-8")
+	public String qna_update(int qno) throws Exception {
+		QnaVO vo=cService.qnaUpdateData(qno);
+		ObjectMapper mapper=new ObjectMapper();
+		String json=mapper.writeValueAsString(vo);
+		return json;
+	}
+	
+	@PostMapping(value = "qna_update_ok_vue.do", produces = "text/plain;charset=UTF-8")
+	public String qna_update_ok(QnaVO vo) throws Exception {
+		String result="";
+		try {
+			cService.qnaUpdate(vo);
+			result="yes";
+		}catch(Exception ex) {
+			result=ex.getMessage();
+		}
+		return result;
 	}
 }

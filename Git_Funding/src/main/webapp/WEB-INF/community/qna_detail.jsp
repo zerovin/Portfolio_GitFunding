@@ -151,8 +151,8 @@
                 </div>
             </div>
             <div class="button-container">
-                <button class="button" @click="Update">수정</button>
-                <button class="button" @click="Delete">삭제</button>
+                <button class="button" @click="boardUpdate()" v-if="vo.id === sessionId">수정</button>
+                <button class="button" @click="boardDelete()" v-if="vo.id === sessionId">삭제</button>
                 <button class="button" @click="goToList">목록</button>
             </div>
         </div>
@@ -176,6 +176,26 @@ let detailApp = Vue.createApp({
         this.getQnaAnswers()
     },
     methods: {
+    	boardUpdate(){
+    		window.location.href = '../community/qna_update.do?qno='+this.qno
+    	},
+    	boardDelete(){
+    		axios.get('../community/qna_delete_vue.do',{
+    			params:{
+    				groupId:this.groupId
+    			}
+    		}).then(res=>{
+    			if(res.data==='yes'){
+    				alert("문의가 삭제됐습니다")
+    				location.href="../community/qna_list.do"
+    			}else{
+    				alert("삭제 실패!!")
+    				console.log(res.data)
+    			}
+    		}).catch(error=>{
+    			console.log(error.response)
+    		})
+    	},
     	getQnaDetail() {
     	    axios.get('../community/qna_detail_vue.do', {
     	        params: {

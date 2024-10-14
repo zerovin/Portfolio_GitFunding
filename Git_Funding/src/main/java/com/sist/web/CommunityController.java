@@ -35,4 +35,9 @@ public class CommunityController {
 		model.addAttribute("sessionId",id);
 		return "community/qna_detail";
 	}
+	@GetMapping("qna_update.do")
+	public String qna_update(int qno,Model model) {
+		model.addAttribute("qno",qno);
+		return "community/qna_update";
+	}
 }

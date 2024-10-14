@@ -1,4 +1,5 @@
 package com.sist.mapper;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -6,6 +7,8 @@ import org.apache.ibatis.annotations.Update;
 
 import java.util.*;
 import com.sist.vo.*;
+
+import lombok.Delegate;
 public interface CommunityMapper {
 	@Select("SELECT * FROM faq WHERE cate=#{cate}")
 	public List<FaqVO> faqListData(String cate);
@@ -19,14 +22,10 @@ public interface CommunityMapper {
 
     @Select("SELECT COUNT(*) FROM site_qna WHERE admin = 0")
     public int qnaRowCount();   
-    /* 
-     * INSERT INTO site_qna VALUES(
-		sq_qno_seq.nextval,'제목','내용','2',SYSDATE,0,((SELECT NVL(MAX(group_id)+1,1)FROM site_qna)),0,'dayeong','닉네임',SYSDATE,0,'김다영');
-     */
-    // 닉네임 null 여부 체크
+
     @Select("SELECT nickname FROM funding_member WHERE userId = #{userId}")
     public String nicknameNullCheck(String id);
-    // 인서트 동적 쿼리
+
     @Insert("<script>"
             + "INSERT INTO site_qna VALUES("
             + "sq_qno_seq.nextval, #{subject}, #{content}, #{type}, SYSDATE, 0, "
@@ -56,4 +55,13 @@ public interface CommunityMapper {
             + " WHERE group_id = #{groupId} AND admin = 1 "  
             + " ORDER BY regdate ASC")  
     public List<QnaVO> qnaAnswerDetail(int groupId); 
+    
+    @Delete("DELETE FROM site_qna WHERE group_id=#{groudId}")
+    public void qnaDelete(int group_id);
+    //UPDATE
+    @Select("SELECT qno,subject,content,type,secret FROM site_qna WHERE qno=#{qno}")
+    public QnaVO qnaUpdateData(int qno);
+    
+    @Update("UPDATE site_qna SET subject=#{subject}, content=#{content}, type=#{type}, modifydate=SYSDATE, secret=#{secret} WHERE qno=#{qno}")
+    public void qnaUpdate(QnaVO vo);
 } 

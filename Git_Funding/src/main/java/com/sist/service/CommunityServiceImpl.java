@@ -51,6 +51,22 @@ public class CommunityServiceImpl implements CommunityService{
 	public List<QnaVO> qnaAnswerDetail(int groupId) {
 		return cDao.qnaAnswerDetail(groupId);
 	}
+
+	@Override
+	public void qnaDelete(int groupId) {
+		cDao.qnaDelete(groupId);
+		
+	}
+
+	@Override
+	public QnaVO qnaUpdateData(int qno) {
+		return cDao.qnaUpdateData(qno);
+	}
+
+	@Override
+	public void qnaUpdate(QnaVO vo) {
+		cDao.qnaUpdate(vo);
+	}
 	
 	
 }
