@@ -13,4 +13,8 @@ public class GoodsController {
 	public String goods_list() {
 		return "goods/list";
 	}
+	@GetMapping("goods/order.do")
+	public String goods_order() {
+		return "goods/order";
+	}
 }

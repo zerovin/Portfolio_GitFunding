@@ -5,104 +5,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style>
-.cartHead{
-	padding-left:20px;
-	margin-top: 20px;
-    display: flex; /* 플렉스 박스 사용 */
-    justify-content: space-around; /* 각 div를 고르게 분배 */
-    height: 100px; /* div의 높이 설정 (필요에 따라 조정) */
-    background-color: #F8C200;
-}
-.cartHead div {
-    flex: 1; /* 각 div의 너비를 동일하게 설정 */
-}
-.cartHead > div > h1{
-	font-weight: bold;
-	font-size: 35px;
-	font-family: 'NexonLv2Gothic';
-	
-}
-.cartBox{
-	padding: 20px;
-	background-color: #f1f1f1;
-	font-family: 'NexonLv2Gothic';
-}
-.cart{
-	background-color: white;
-	font-family: 'NexonLv2Gothic';
-}
-.cartHeadInfo{
-	padding-top: 40px;
-}
-.commu_list {
-	width: 960px;
-    margin: 0 auto;
-    padding: 20px;
-    font-family: 'NexonLv2Gothic';
-}
-.cartList{
-	border-top: 1px solid #F8C200;
-}
-.cartList > th{
-	padding: 9px;
-	font-family: 'NEXON Lv2 Gothic';
-}
-.cartList > td{
-	height:80px;
-	font-family: 'NEXON Lv2 Gothic';
-	text-align: center;
-	vertical-align: middle;
-}
-.cartList input[type="button"]:hover {
-	filter: brightness(0.9);
-}
-#totalprice{
-	display: grid;
-	margin-top: 20px;
-	padding: 20px;
-	height: 150px;
-	border: 4px solid #999;
-	background-color: white;
-	grid-template-rows: 4fr 1fr 2fr;
-}
-#f_button > div {
-	height: 50px;
-	width: 180px;
-	border: 1px solid red;
-	text-align: center;
-}
-#f_button > div > p {
-	margin-top: 18px;
-	font-family: 'NexonLv2Gothic';
-	font-size: 13px;
-	font-weight: bold;
-}
-#f_button > div:hover,#chooseBtn > div:hover {
-	cursor: pointer;
-	filter: brightness(0.8);
-}
-#chooseBtn{
-	display: flex;
-	gap: 3px;
-}
-#chooseBtn > div{
-	background-color: #999;
-	color: white;
-	font-family: 'NexonLv2Gothic';
-	font-size: 12px;
-	font-weight: bold;
-	padding: 7px 3px 3px 3px;
-}
-
-</style>
+<link rel="stylesheet" href="../css/cart.css">
 </head>
 <body>
-      <div class="container commu_list" style="margin-top: 20px;">
+      <div class="container commu_list" style="margin-top: 20px;" id="cart">
             <div class="cartHead">
             	<div class="cartHeadInfo">
-	            	<p>STEP1</p>
-	            	<h1>장바구니</h1>
+	            	<p style="color: white;">STEP1</p>
+	            	<h1 style="color: white;">장바구니</h1>
             	</div>
             	<div class="cartHeadInfo">
 	            	<p>STEP2</p>
@@ -221,20 +131,43 @@
 	                </div>
 	                <div id="chooseBtn">
 	                  <div>
-	                    선택상품 삭제
+	                    <button>선택상품 삭제</button>
 	                  </div>
 	                  <div>
-	                    품절상품 삭제
+	                    <button>품절상품 삭제</button>
 	                  </div>
 	                </div>
 	              </div>
 	              <div id="f_button" style="display: flex; gap: 15px;">
-	                <div style="border: 1px solid #999; "><p style="color: #666">계속 쇼핑하기</p></div>
-	                <div><p style="color: #d50c0c">선택상품 주문하기</p></div>
-	                <div style="background-color: #d50c0c"><p style="color: white;">전체상품 주문하기</p></div>
+	                <div><button style="color: #666; border: 1px solid #999; ">계속 쇼핑하기</button></div>
+	                <div><button style="color: #d50c0c">선택상품 주문하기</button></div>
+	                <div><button style="color: white;background-color: #d50c0c" @click="buyInfo()">전체상품 주문하기</button></div>
 	              </div>
 	            </div>
             </div>
       </div>
+      <script>
+        let cart=Vue.createApp({
+        	data(){
+        		return{
+        			gno:1
+        		}
+        	},
+        	methods:{
+        		buyInfo(){
+        			axios.post('../goods/buyInfo_vue.do',null,{
+        				params:{
+        					gno:this.gno
+        				}
+        			}).then(response=>{
+        				console.log(response)
+        				location.href="../goods/order.do"
+        			}).catch(error=>{
+        				console.log(error.response)
+        			})
+        		}
+        	}
+        }).mount("#cart")
+      </script>
 </body>
 </html>

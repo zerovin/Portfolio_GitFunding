@@ -4,6 +4,7 @@ import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sist.vo.*;
@@ -61,5 +62,10 @@ public class GoodsRestController {
 		
 		String json=jsonMaker(map);
 		return json;
+	}
+	
+	@PostMapping(value = "goods/buyInfo_vue.do",produces = "text/plain;charset=utf-8")
+	public String goodsBuy(int gno) throws Exception{
+		return "짜장";
 	}
 }
