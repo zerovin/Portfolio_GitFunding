@@ -15,8 +15,8 @@
                         <p class="title">{{vo.title}}</p>
                         <p class="p_admin">{{vo.p_admin}}</p>
                     </a>
-                    <button class="open_alert" @click="alertUpdate(vo.fno)">🔔 <span>{{vo.startday}}</span> 오픈 알림 신청</button>
-                    <button class="cancel_alert">🔔 알림 신청 완료</button>
+                    <button class="open_alert" @click="alertUpdate(vo.fno)" v-if="vo.isAlert==0">🔔 <span>{{vo.startday}}</span> 오픈 알림 신청</button>
+                    <button class="cancel_alert" @click="alertDelete(vo.fno)" v-else>🔔 알림 신청 완료</button>
                 </li>
             </ul>
             <ul class="pagination">
@@ -25,6 +25,10 @@
                 <li v-if="endpage>totalpage"><a @click="next()"><i class="fa-solid fa-angles-right"></i></a></li>
             </ul>
         </div>
+        <aside class="alert_msg">
+        	<p v-if="alertOk==true">⏰ 알림 신청을 <span>완료</span>했어요 !</p>
+       		<p v-if="alertOk==false">⏰ 알림 신청을 <span>취소</span>했어요 !</p>
+        </aside>
     </div>
     <script>
    	let open_list=Vue.createApp({
@@ -36,14 +40,31 @@
    				startpage:0,
    				endpage:0,
    				sessionId:'',
-   				alert_list:[],
-   				isAlert:'',
+   				alertOk:true
    			}	
    		},
    		mounted(){
    			this.dataRecv()	
    		},
    		methods:{
+   			alertDelete(fno){
+   				axios.get('../funding/alert_delete.do',{
+   					params:{
+   						fno:fno
+   					}
+   				}).then(response=>{
+   					if(response.data=="ok"){
+   						this.alertOk=false
+   						this.dataRecv()
+   						$('aside.alert_msg').addClass('show')
+ 						setTimeout(function(){
+ 							$('aside.alert_msg').removeClass('show')
+ 						},2000)
+   					}
+   				}).catch(error=>{
+   					console.log(error.response)
+   				})
+   			},
    			alertUpdate(fno){
    				if(this.sessionId==null){
    					alert("로그인 후 이용해주세요")
@@ -53,13 +74,16 @@
 	   						fno:fno
 	   					}
 	   				}).then(response=>{
-	   					/*
 	   					if(response.data==='ok'){
-	   						isAlert=true
+	   						this.alertOk=true
+	   						this.dataRecv()
+	   						$('aside.alert_msg').addClass('show')
+	   						setTimeout(function(){
+	 							$('aside.alert_msg').removeClass('show')
+	 						},2000)
 	   					}else{
 	   						console.log(response.data)
 	   					}
-	   					*/
 	   				}).catch(error=>{
 	   					console.log(error.response)
 	   				})   					
@@ -99,10 +123,6 @@
    					this.startpage=response.data.startpage
    					this.endpage=response.data.endpage
    					this.sessionId=response.data.sessionId
-   					this.alert_list=response.data.alert_list
-   					
-   					if()
-   						
    				}).catch(error=>{
    					console.log(error.response)
    				})

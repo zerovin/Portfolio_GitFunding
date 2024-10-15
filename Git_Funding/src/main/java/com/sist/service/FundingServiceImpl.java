@@ -53,4 +53,16 @@ public class FundingServiceImpl implements FundingService{
 		return fDao.openAlertCheck(id);
 	}
 
+	@Override
+	public void fundingAlertDecr(int fno) {
+		// TODO Auto-generated method stub
+		fDao.fundingAlertDecr(fno);
+	}
+
+	@Override
+	public void fundingAlertDelete(Map map) {
+		// TODO Auto-generated method stub
+		fDao.fundingAlertDelete(map);
+	}
+
 }

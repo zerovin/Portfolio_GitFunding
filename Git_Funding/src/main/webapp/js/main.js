@@ -91,6 +91,74 @@ if($('.category').length > 0){
 }
 
 
+/* ---------------- FUNDING DETAIL -----------------*/
+if($('#funding_detail').length>0){
+    let detail_tab=$('.detail_tab'),
+        tabOST=detail_tab.offset().top
+    $(window).scroll(function(){
+        let scrollAmt=$(window).scrollTop();
+        if(scrollAmt > tabOST){
+            detail_tab.css({
+                position:'sticky',
+                top:0
+            })
+        }else{
+            detail_tab.css({position:'static'})
+        }
+    })
+
+    $('.share').click(function(){
+		let temp=document.createElement("textarea");
+		document.body.appendChild(temp);
+		let current_url=window.document.location.href;
+		temp.value = current_url;
+		temp.select();
+		document.execCommand("copy");
+		document.body.removeChild(temp);
+		alert("현재 URL이 복사되었습니다.");
+	})
+
+    let reward_wrap=$('.reward_wrap'),
+        rewardOST=detail_tab.offset().top
+    $(window).scroll(function(){
+        let scrollAmt=$(window).scrollTop();
+        if(scrollAmt > rewardOST){
+            reward_wrap.css({
+                position:'sticky',
+                top:'100px'
+            })
+        }else{
+            reward_wrap.css({position:'static'})
+        }
+    })
+
+    let readmore=$('.readmore');
+    readmore.click(function(){
+        if(!readmore.hasClass('active')){
+            $(this).siblings('.imgs').css({
+                height:'auto',
+                overflow:'auto'
+            })
+            $(this).html('상세내용 접기 <i class="fa-solid fa-chevron-up"></i>')
+            $(this).css({
+                boxShadow:'none'
+            })
+            readmore.addClass('active');
+        }else{
+            $(this).siblings('.imgs').css({
+                height:'2000px',
+                overflow:'hidden'
+            })
+            $(this).html('상세내용 더보기 <i class="fa-solid fa-chevron-down"></i>')
+            $(this).css({
+                boxShadow:'0 -30px 20px#fff'
+            })
+            readmore.removeClass('active')
+        }
+    })
+}
+
+
 
 
 

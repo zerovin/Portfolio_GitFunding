@@ -1,5 +1,6 @@
 package com.sist.dao;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -83,5 +84,23 @@ public class FundingDAO {
 	 */
 	public void fundingAlertInsert(Map map) {
 		mapper.fundingAlertInsert(map);
+	}
+	
+	/*
+	 @Update("UPDATE funding SET "
+			+ "alert=alert-1 "
+			+ "WHERE fno=#{fno}")
+	public void fundingAlertDecr(int fno);
+	*/
+	public void fundingAlertDecr(int fno) {
+		mapper.fundingAlertDecr(fno);
+	}
+	
+	/*
+	@Delete("DELETE FROM funding_alert WHERE fno=#{fno} AND userId=#{userId}")
+	public void fundingAlertDelete(Map map); 
+	 */
+	public void fundingAlertDelete(Map map) {
+		mapper.fundingAlertDelete(map);
 	}
 }

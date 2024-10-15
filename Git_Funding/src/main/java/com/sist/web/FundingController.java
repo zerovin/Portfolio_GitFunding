@@ -16,4 +16,9 @@ public class FundingController {
 	public String funding_funding() {
 		return "funding/funding_list";
 	}
+	
+	@GetMapping("funding/funding_detail.do")
+	public String funding_funding_detail() {
+		return "funding/funding_detail";
+	}
 }

@@ -74,3 +74,31 @@
     font-size:18px;
     color:#F8C200;
 }
+#funding_list aside.alert_msg{
+	position:fixed;
+	bottom:50px;
+	right:-250px;
+	background:#1E1A1A;
+	width:250px;
+	height:60px;
+	text-align:center;
+	line-height:60px;
+	border-radius:5px;
+}
+#funding_list aside.alert_msg.show{
+	animation:showAlert 2s linear;
+}
+@keyframes showAlert{
+	0%{right:-250px;}
+	10%{right:50px;}
+	90%{right:50px;}
+	100%{right:-250px;}
+}
+#funding_list aside.alert_msg p{
+	color:#fff;
+}
+#funding_list aside.alert_msg p span{
+	color:#fff;
+	font-weight:500;
+	font-size:18px;
+}

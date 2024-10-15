@@ -83,18 +83,28 @@ public class FundingRestController {
 			endpage=totalpage;
 		}
 		
+		
+		String id=(String)session.getAttribute("userId");
+		if(id!=null) {
+			List<AlertVO> alert_list=fService.openAlertCheck(id);
+			for(FundingVO vo:list) {
+				for(int i=0;i<alert_list.size();i++) {
+					if(vo.getFno()==alert_list.get(i).getFno()) {
+						vo.setIsAlert(1);
+						break;
+					}else {
+						vo.setIsAlert(0);
+					}
+				}
+			}
+		}
+		
 		map=new HashMap();
 		map.put("list", list);
 		map.put("curpage", page);
 		map.put("totalpage", totalpage);
 		map.put("startpage", startpage);
 		map.put("endpage", endpage);
-		
-		String id=(String)session.getAttribute("userId");
-		if(id!=null) {
-			List<AlertVO> alert_list=fService.openAlertCheck(id);
-			map.put("alert_list", alert_list);
-		}
 		map.put("sessionId", id);
 		
 		ObjectMapper mapper=new ObjectMapper();
@@ -117,5 +127,22 @@ public class FundingRestController {
 			result=ex.getMessage();
 		}
 		return result;			
+	}
+	
+	@GetMapping(value="funding/alert_delete.do", produces="text/plain;charset=UTF-8")
+	public String funding_alert_delete(int fno, HttpSession session) {
+		String result="";
+		try {
+			String id=(String)session.getAttribute("userId");
+			Map map=new HashMap();
+			map.put("userId", id);
+			map.put("fno", fno);
+			fService.fundingAlertDecr(fno);
+			fService.fundingAlertDelete(map);
+			result="ok";
+		}catch(Exception ex) {
+			result=ex.getMessage();
+		}
+		return result;		
 	}
 }
