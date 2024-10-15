@@ -7,10 +7,19 @@
 		<put-attribute name="footer" value="/WEB-INF/main/footer.jsp"/>
 	</definition>
 
+	<definition name="mypage" template="/WEB-INF/mypage/main.jsp">
+		<put-attribute name="header" value="/WEB-INF/main/header.jsp"/>
+		<put-attribute name="mypage_menu" value="/WEB-INF/mypage/menu.jsp"/>
+		<put-attribute name="mypage_home" value="/WEB-INF/mypage/home.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/main/footer.jsp"/>
+	</definition>
+	
+	<definition name="mypage/*" extends="mypage">
+		<put-attribute name="mypage_home" value="/WEB-INF/mypage/{1}.jsp"/>
+	</definition>
 	<definition name="home" template="/WEB-INF/main/home.jsp">
 		<put-attribute name="category" value="/WEB-INF/funding/category.jsp"/>
 	</definition>
-	
 	<definition name="*/*" extends="main">
 		<put-attribute name="home" value="/WEB-INF/{1}/{2}.jsp"/>
 	</definition>
@@ -18,13 +27,4 @@
 	
 	<!-- 2중 Include  -->
  
-	<definition name="mypage" template="/WEB-INF/mypage/main.jsp">
-		<put-attribute name="header" value="/WEB-INF/main/header.jsp"/>
-		<put-attribute name="mypage_menu" value="/WEB-INF/mypage/menu.jsp"/>
-		<put-attribute name="mypage_home" value="/WEB-INF/mypage/home.jsp"/>
-		<put-attribute name="footer" value="/WEB-INF/main/footer.jsp"/>
-	</definition>
-	<definition name="mypage/*" extends="mypage">
-		<put-attribute name="mypage_home" value="/WEB-INF/mypage/{1}.jsp"/>
-	</definition>
 </tiles-definitions>

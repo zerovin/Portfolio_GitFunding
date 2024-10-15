@@ -174,7 +174,7 @@
             <div class="activity-list-item">
                 <button>
                     <p>찜·알림신청</p>
-                    <div class="arrow-icon">></div>
+                    <div class="arrow-icon"></div>
                 </button>
             </div>
             <div class="activity-list-item">
