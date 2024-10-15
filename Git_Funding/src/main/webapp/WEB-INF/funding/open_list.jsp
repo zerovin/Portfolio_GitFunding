@@ -15,8 +15,8 @@
                         <p class="title">{{vo.title}}</p>
                         <p class="p_admin">{{vo.p_admin}}</p>
                     </a>
-                    <button class="open_alert" @click="alertUpdate(vo.fno)" v-if="!isAlert">🔔 <span>{{vo.startday}}</span> 오픈 알림 신청</button>
-                    <button class="cancel_alert" v-else>🔔 알림 신청 완료</button>
+                    <button class="open_alert" @click="alertUpdate(vo.fno)">🔔 <span>{{vo.startday}}</span> 오픈 알림 신청</button>
+                    <button class="cancel_alert">🔔 알림 신청 완료</button>
                 </li>
             </ul>
             <ul class="pagination">
@@ -35,7 +35,9 @@
    				totalpage:0,
    				startpage:0,
    				endpage:0,
-   				isAlert:false
+   				sessionId:'',
+   				alert_list:[],
+   				isAlert:'',
    			}	
    		},
    		mounted(){
@@ -43,7 +45,7 @@
    		},
    		methods:{
    			alertUpdate(fno){
-   				if(${sessionScope.id==null}){
+   				if(this.sessionId==null){
    					alert("로그인 후 이용해주세요")
    				}else{
 	   				axios.get('../funding/alert_update.do',{
@@ -51,16 +53,17 @@
 	   						fno:fno
 	   					}
 	   				}).then(response=>{
+	   					/*
 	   					if(response.data==='ok'){
 	   						isAlert=true
 	   					}else{
 	   						console.log(response.data)
 	   					}
+	   					*/
 	   				}).catch(error=>{
 	   					console.log(error.response)
 	   				})   					
    				}
-   				
    			},
    			range(start,end){
    				let arr=[]
@@ -89,11 +92,17 @@
    						page:this.curpage
    					}
    				}).then(response=>{
+   					console.log(response.data)
    					this.list=response.data.list
    					this.curpage=response.data.curpage
    					this.totalpage=response.data.totalpage
    					this.startpage=response.data.startpage
    					this.endpage=response.data.endpage
+   					this.sessionId=response.data.sessionId
+   					this.alert_list=response.data.alert_list
+   					
+   					if()
+   						
    				}).catch(error=>{
    					console.log(error.response)
    				})

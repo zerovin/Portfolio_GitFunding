@@ -10,4 +10,5 @@ public interface FundingService {
 	public int fundingTotalPage();
 	public void fundingAlertUpdate(int fno);
 	public void fundingAlertInsert(Map map);
+	public List<AlertVO> openAlertCheck(String id);
 }

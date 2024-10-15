@@ -4,7 +4,9 @@
     gap:40px 20px;
     margin:70px 0;
 }
-#funding_list .list_wrap .open_alert{
+#funding_list .list_wrap .open_alert,
+#funding_list .list_wrap .cancel_alert{
+	font-family: 'NEXON Lv2 Gothic';
     border:1px solid #F8C200;
     color:#F8C200;
     margin-top:10px;

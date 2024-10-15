@@ -33,6 +33,15 @@ public class FundingDAO {
 	public int openTotalPage() {
 		return mapper.openTotalPage();
 	}
+	/*
+	@Select("SELECT fa.fno "
+			+ "FROM funding, funding_alert fa"
+			+ "WHERE userId=#{userId} AND funding.fno=fa=fno")
+	public AlertVO openAlertCheck(String id);
+	 */
+	public List<AlertVO> openAlertCheck(String id) {
+		return mapper.openAlertCheck(id);
+	}
 	
 	/*
 	@Select("SELECT fno, title, thumb, p_admin, targetprice, totalprice, TO_CHAR(enddate, 'YYYY-MM-DD') as end, num "

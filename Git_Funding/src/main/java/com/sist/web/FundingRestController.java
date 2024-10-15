@@ -65,7 +65,7 @@ public class FundingRestController {
 	}
 	
 	@GetMapping(value="funding/open_list_vue.do", produces="text/plain;charset=UTF-8")
-	public String funding_open_list(int page) throws Exception{
+	public String funding_open_list(int page, HttpSession session) throws Exception{
 		int rowSize=12;
 		int start=(rowSize*page)-(rowSize-1);
 		int end=rowSize*page;
@@ -89,6 +89,13 @@ public class FundingRestController {
 		map.put("totalpage", totalpage);
 		map.put("startpage", startpage);
 		map.put("endpage", endpage);
+		
+		String id=(String)session.getAttribute("userId");
+		if(id!=null) {
+			List<AlertVO> alert_list=fService.openAlertCheck(id);
+			map.put("alert_list", alert_list);
+		}
+		map.put("sessionId", id);
 		
 		ObjectMapper mapper=new ObjectMapper();
 		String json=mapper.writeValueAsString(map);

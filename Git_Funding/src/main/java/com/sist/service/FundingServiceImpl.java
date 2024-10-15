@@ -46,4 +46,11 @@ public class FundingServiceImpl implements FundingService{
 		// TODO Auto-generated method stub
 		fDao.fundingAlertInsert(map);
 	}
+
+	@Override
+	public List<AlertVO> openAlertCheck(String id) {
+		// TODO Auto-generated method stub
+		return fDao.openAlertCheck(id);
+	}
+
 }
