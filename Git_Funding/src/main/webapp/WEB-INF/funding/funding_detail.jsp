@@ -52,7 +52,8 @@
                 <div class="reward_wrap">
                     <h2>리워드 선택</h2>
                     <ul class="reward_list">
-                        <li v-for="reward in reward_list">
+                    	<li v-if="type==1" class="open_reward">오픈 예정입니다 ☺️</li>
+                        <li v-for="reward in reward_list" v-else>
                             <a :href="'../reward/order.do?rno='+reward.rno">
                                 <div class="price_account">
                                     <p class="price">{{reward.fm_price}}원</p>
@@ -85,6 +86,7 @@
     			return{
     				fno:${fno},
     				sessionId:'${sessionId}',
+    				type:'${type}',
     				funding_vo:{},
     				img_list:[],
     				reward_list:[],

@@ -9,7 +9,7 @@
         <div class="list_wrap">
             <ul class="list">
                 <li v-for="vo in list">
-                    <a href="" class="f_list">
+                    <a :href="'../funding/funding_detail.do?fno='+vo.fno+'&type=1'" class="f_list">
                         <img :src="vo.thumb" alt="vo.title">
                         <p class="percent">{{vo.alert}}명이 기다려요!</p>
                         <p class="title">{{vo.title}}</p>

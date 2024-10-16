@@ -22,7 +22,7 @@
 	                <li><a href="../member/join.do">회원가입</a></li>
                 </c:if>
                 <c:if test="${sessionScope.userId!=null}">
-                	<li><a href="" class="icon alert">알림</a></li>
+                	<li><a href="" class="icon gitstargram">깃스타그램</a></li>
                 	<li><a href="" class="icon wish">위시리스트</a></li>
 <!--    원본 코드    	<li><a href="../mypage/main.do" class="mypage"><img src="../images/profile.png" alt="마이페이지"></a></li> -->
                 	<li class="nav-item">

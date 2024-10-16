@@ -35,10 +35,11 @@ public class FundingController {
 	}
 	
 	@GetMapping("funding/funding_detail.do")
-	public String funding_funding_detail(int fno, HttpSession session, Model model) {
+	public String funding_funding_detail(int fno, String type, HttpSession session, Model model) {
 		String id=(String)session.getAttribute("userId");
 		model.addAttribute("fno", fno);
 		model.addAttribute("sessionId", id);
+		model.addAttribute("type", type);
 		return "funding/funding_detail";
 	}
 }

@@ -6,6 +6,8 @@
     border-bottom:1px solid #ccc;
     background:#fff;
     margin-bottom:50px;
+    background:#fff;
+    z-index:999;
 }
 #funding_detail .detail_tab a{
     display:block;
@@ -171,6 +173,13 @@
 #funding_detail > section .right .reward_list{
     height:calc(100vh - 210px);
     overflow-y:scroll;
+}
+#funding_detail > section .right .reward_list li.open_reward{
+	text-align:center;
+	font-size:24px;
+	height: calc(100vh - 210px);
+	line-height:calc(100vh - 210px);
+	background:rgba(248, 194, 0, .2);
 }
 #funding_detail > section .right .reward_list li > a{
     display:block;

@@ -108,10 +108,10 @@ a.f_list{
 	background:no-repeat;
 	text-indent:-9999em;
 }
-#header .right .icon.alert{
+#header .right .icon.gitstargram{
 	width:32px;
 	height:34px;
-	background-image:url(../images/alert.png);
+	background-image:url(../images/gitstargram.png);
 }
 #header .right .icon.wish{
 	width:32px;
