@@ -88,7 +88,7 @@
 	            	    </td>
 	            	  </tr>
 	            	</table>
-	            </div>
+	            </div>            
 	            <div style="height: 20px;"></div>
 	            <div id="totalprice">
 	               <div style="display: flex; justify-content: space-between;">

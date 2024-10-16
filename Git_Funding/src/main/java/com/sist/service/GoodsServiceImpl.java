@@ -24,6 +24,11 @@ public class GoodsServiceImpl implements GoodsService{
 		// TODO Auto-generated method stub
 		return gDao.goodsTotalData(cate1);
 	}
+	@Override
+	public List<GoodsVO> goodsDetailData(Map map) {
+		// TODO Auto-generated method stub
+		return gDao.goodsDetailData(map);
+	}
 
 	
 }

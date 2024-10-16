@@ -9,6 +9,5 @@ public class GoodsVO {
 	private String title,brand,price,discount,delivery,cate1,cate2,cate3,cate4,img,realprice;
 	private List<String> imgs;
 	private List<String> detail;
-	private List<String> ops;
-	private List<Integer> EA;
+	private List<Goods2VO> gvo;
 }

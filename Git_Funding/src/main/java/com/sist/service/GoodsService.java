@@ -5,4 +5,5 @@ import com.sist.vo.*;
 public interface GoodsService {
 	public List<GoodsVO> goodsListData(int start,int end, String cate1);
 	public int goodsTotalData(String cate1);
+	public List<GoodsVO> goodsDetailData(Map map);
 }

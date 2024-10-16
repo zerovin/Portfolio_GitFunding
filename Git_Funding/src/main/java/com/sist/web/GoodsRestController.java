@@ -51,7 +51,14 @@ public class GoodsRestController {
 		   
 		if(endPage>totalpage)
 			 endPage=totalpage;
+		Map maps=new HashMap();
+		maps.put("fgno", 11);
 		
+		List<GoodsVO> flist=gService.goodsDetailData(maps);
+		
+		for(GoodsVO vo:flist) {
+			System.out.println(vo.getTitle());
+		}
 		
 		Map map=new HashMap();
 		map.put("list", list);

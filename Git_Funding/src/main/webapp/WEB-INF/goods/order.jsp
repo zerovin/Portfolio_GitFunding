@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <link rel="stylesheet" href="../css/cart.css">
 <style type="text/css">
  .order > tbody > tr > th{
@@ -25,6 +26,15 @@
 }
 input[type="text"]:hover{
 	cursor: text;
+}
+#post > input[type="text"]{
+	border: 1px solid #999;
+}
+input[type="button"]:hover{
+	filter: brightness(0.8);
+}
+#post1:hover , #addr1:hover{
+	cursor: default;
 }
 </style>
 </head>
@@ -144,8 +154,8 @@ input[type="text"]:hover{
 	                  <th width="15%">이메일</th>
 	                  <td width="35%">
 		                  <input type="text" style="border: 1px solid #999; width:120px">&nbsp;@
-		                  <select name="email_domain" v-model="email_domain">
-	                                <option value="naver.com" selected>naver.com</option>
+		                  <select name="email_domain" v-model="email_domain"> 
+	                                <option value="naver.com">naver.com</option>
 	                                <option value="gmail.com">gmail.com</option>
 	                                <option value="hanmail.net">hanmail.net</option>
 	                                <option value="kakao.com">kakao.com</option>
@@ -173,7 +183,13 @@ input[type="text"]:hover{
 	                </tr>
 	                <tr style="border-top:1px solid rgb(234, 234, 234);border-bottom: 1px solid rgb(234, 234, 234);">
 	                  <th style="width: 15%;padding: 40px 15px;">주소</th>
-	                  <td width="85%"><input type="text" style="border: 1px solid #999; width:150px"></td>
+	                  <td width="85%" id="post">
+	                    <input type="text" id="post1" name="post" v-model="post" ref="post" placeholder="검색버튼을 눌러주세요" style="background-color: #f1f1f1" required readonly>
+	                    <input type="button" class="post_search" value="우편번호 검색" @click="postSearch()" style="font-size: 15px;width: 120px;background-color: #999; margin-left:10px;color: white;font-weight: bold;padding: 3px 10px;">
+                        <p class="check_msg">{{postValidateMsg}}</p>
+	                    <input type="text" id="addr1" name="addr1" v-model="addr1" required readonly style="margin-top: 10px;width: 400px;display:block;background-color: #f1f1f1">
+	                    <input type="text"  name="addr2" v-model="addr2" style="width: 500px;margin-top: 3px;">
+	                  </td>
 	                </tr>
 	                <tr style="border-top:1px solid rgb(234, 234, 234);border-bottom: 1px solid rgb(234, 234, 234);">
 	                  <th style="width: 15%;padding: 15px 15px;">휴대전화</th>
@@ -184,15 +200,40 @@ input[type="text"]:hover{
 	                <tr style="border-top:1px solid rgb(234, 234, 234);border-bottom: 1px solid rgb(234, 234, 234);">
 	                  <th style="width: 15%;padding: 30px 15px;">배송 요청사항</th>
 	                  <td width="85%">
-	                     <select name="order_request" v-model="order_request">
+	                     <select name="order_request" v-model="order_request" @change="changeSelect()" style="display: block;">
 	                                <option v-for="(request , index) in requestList" :value="request.value" v-bind:key="index" selected>
 	                                {{request.name}}
 	                                </option> 
 	                     </select>
-	                     <input type="text" style="border-bottom: 1px solid #999; width: 400px" v-if="isShow">
+	                     <input type="text" style="border-bottom: 1px solid #999; width: 400px;margin-top: 10px;" v-if="isShow">
 	                  </td>
 	                </tr>
 	              </table>
+	            </div>
+	            <div style="height: 20px;"></div>
+	            <div style="display:flex;justify-content: center;gap:10px;">
+	              <div>
+	              	<input type="button" style="color: #666;
+	              		display:block;
+						width: 180px;
+						border: 1px solid #999;
+						font-family: 'NexonLv2Gothic';
+						font-size: 13px;
+						font-weight: bold;
+						text-align: center;
+						padding: 18px 0px;" value="&lt;이전페이지">
+	              </div>
+	              <div>
+	              	<input type="button" style="color: white;
+	              		background-color: #d50c0c;display:block;
+						width: 180px;
+						border: 1px solid red;
+						font-family: 'NexonLv2Gothic';
+						font-size: 13px;
+						font-weight: bold;
+						text-align: center;
+						padding: 18px 0px;" value="결제하기" @click="orderOk()">
+	              </div>
 	            </div>
             </div>
       </div>
@@ -201,6 +242,7 @@ input[type="text"]:hover{
         	 data(){
         		return{
         			isShow:false,
+        			isShowEmail:false,
         			requestList:[
         				{name:'배송 요청사항 없음',value:'배송 요청사항 없음'},
         				{name:'배송 전 연락바랍니다.',value:'배송 전 연락바랍니다.'},
@@ -208,18 +250,42 @@ input[type="text"]:hover{
         				{name:'부재시 휴대폰으로 연락바랍니다',value:'부재시 휴대폰으로 연락바랍니다'},
         				{name:'직접입력',value:'직접입력'}
         			],
-        			order_request:''
+        			order_request:'배송 요청사항 없음',
+        			email_domain:'naver.com',
+        			postValidateMsg:'',
+        			post:'',
+        			addr1:''
         		} 
         	 },
         	 mounted(){
-        		 if(this.order_resquest==="직접입력"){
-        			 this.isShow=true
-        			 console.log(this.isShow)
-        		 }
-        		 
+
         	 },
         	 methods:{
-        		 
+        		 changeSelect(){
+        			 console.log(this.order_request)
+        			 if(this.order_request==="직접입력"){
+            			 this.isShow=true
+            		 }else{
+            			 this.isShow=false
+            		 }
+        		 },
+        		 postSearch(){
+     				let _this=this
+     				new daum.Postcode({
+     					oncomplete:function(data){
+     						_this.post=data.zonecode
+     						_this.addr1=data.address
+ 		    				if(_this.post!=''){
+ 		    					_this.postValidateMsg=''
+ 		    				}else{
+ 		        				_this.postValidateMsg='우편번호 검색 버튼을 눌러주세요.'
+ 		    				}    					
+     					}
+     				}).open()
+     			},
+     			orderOk(){
+     				location.href="../goods/order_ok.do"
+     			}
         	 }
          }).mount('#cartOrder')
       </script>

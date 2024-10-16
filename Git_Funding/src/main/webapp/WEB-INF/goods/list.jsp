@@ -45,7 +45,7 @@ a{
 			</div>
             <ul class="list">
                 <li v-for="vo in goods_list">
-                    <a href="../goods/cart.do" class="f_list">
+                    <a :href="'../goods/detail.do?fgno='+vo.fgno" class="f_list">
                         <img :src="vo.img" alt="">
                         <p class="percent"></p>
                         <p class="title">{{vo.title}}</p>
