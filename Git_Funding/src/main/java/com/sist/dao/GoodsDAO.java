@@ -24,7 +24,7 @@ public class GoodsDAO {
 		return mapper.goodsTotalData(cate1);
 	}
 	
-	public List<GoodsVO> goodsDetailData(Map map){
-		return mapper.goodsDetailData(map);
+	public GoodsVO goodsDetailData(int fgno){
+		return mapper.goodsDetailData(fgno);
 	}
 }

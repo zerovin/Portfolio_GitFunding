@@ -99,7 +99,7 @@ $(function(){
             </div>
             <div class="left">
 				<h2>상세설명</h2>
-                <div class="img_scroll" style="width: 100%">
+                <div class="img_scroll" style="width: 80%">
                     <div class="imgs">
                         <img src="../images/detail_img.jpeg" alt="">
                     </div>

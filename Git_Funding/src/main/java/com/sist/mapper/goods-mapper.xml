@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sist.mapper.GoodsMapper">
-	<select id="goodsDetailData" resultType="GoodsVO" parameterType="hashmap">
-		SELECT title 
+	<resultMap type="GoodsVO" id="goodsDetail">
+		<result column="fgno" property="fg_no"/>
+		<collection property="gvo" column="fg_no = fgno" ofType="Goods2VO" javaType="List" select="goodsOption"></collection>
+	</resultMap>
+	
+	<select id="goodsDetailData" resultMap="goodsDetail" parameterType="int">
+		SELECT fgno,title,brand,price,discount,delivery,hit,cate1,cate2,cate3,cate4 
 		FROM f_goods
-		WHERE fgno=#{fgno}
+		WHERE fgno=#{fg_no}
+	</select>
+	<select id="goodsOption" resultType="Goods2VO" parameterType="GoodsVO">
+		SELECT ops,ea FROM f_goods_option
+		WHERE fgno=#{fg_no}
 	</select>
 </mapper>

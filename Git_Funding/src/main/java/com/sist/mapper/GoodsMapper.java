@@ -10,7 +10,7 @@ import com.sist.vo.*;
 
 public interface GoodsMapper {
 	
-	public List<GoodsVO> goodsDetailData(Map map);
+	public GoodsVO goodsDetailData(int fgno);
 	
 	
 	
