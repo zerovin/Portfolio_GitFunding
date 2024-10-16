@@ -7,4 +7,5 @@ import com.sist.vo.*;
 public interface MypageService {
 	public MemberVO mypageInfoData(String userId);
 	public void SetNickname(Map map);
+	public void mypageInfoUpdate(MemberVO vp);
 }

@@ -47,11 +47,11 @@ public interface CommunityMapper {
     		+ " hit, group_id, reok, admin, id, TO_CHAR(modifydate, 'YYYY-MM-DD HH24:MI:SS') AS mday "
             + " FROM site_qna " 
             + " WHERE qno = #{qno}")  
-    public QnaVO qnaDetailData(int qno);
+    public QnaVO qnaDetailData(int qno); 
       
     @Select("SELECT qno, subject, name, nickname, content, secret, type, TO_CHAR(regdate, 'YYYY-MM-DD HH24:MI:SS') AS dbday,"
             + " hit, group_id, reok, admin, id, TO_CHAR(modifydate, 'YYYY-MM-DD HH24:MI:SS') AS mday " 
-            + " FROM site_qna " 
+            + " FROM site_qna "  
             + " WHERE group_id = #{groupId} AND admin = 1 "  
             + " ORDER BY regdate ASC")  
     public List<QnaVO> qnaAnswerDetail(int groupId); 

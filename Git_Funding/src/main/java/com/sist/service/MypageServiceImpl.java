@@ -22,4 +22,10 @@ public class MypageServiceImpl implements MypageService{
 	public void SetNickname(Map map) {
 		mDao.SetNickname(map);
 	}
+
+	@Override
+	public void mypageInfoUpdate(MemberVO vo) {
+		mDao.mypageInfoUpdate(vo);
+		
+	}
 }

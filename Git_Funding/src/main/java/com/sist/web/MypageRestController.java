@@ -3,6 +3,7 @@ package com.sist.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.*;
 
@@ -46,4 +47,18 @@ public class MypageRestController {
 		   }
 		   return result;
 	   }
+	@PostMapping(value = "mypage/update_user_info.do", produces = "text/plain;charset=UTF-8")
+	public String update_user_info(HttpSession session,MemberVO vo) throws Exception {
+		String result="";
+		String userId=(String)session.getAttribute("userId");
+		vo.setUserId(userId);
+		try {
+			mService.mypageInfoUpdate(vo);
+			result="yes";
+		}catch(Exception ex) {
+			result=ex.getMessage();
+		}
+		return result;
+	}
+
 }

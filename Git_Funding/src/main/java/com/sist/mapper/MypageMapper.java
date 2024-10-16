@@ -12,6 +12,11 @@ public interface MypageMapper {
 	public MemberVO mypageInfoData(String userId);
 	
 	@Update("UPDATE funding_member SET nickname=#{nickname} WHERE userId=#{userId}")
-	public void SetNickname(Map map);
+	public void SetNickname(Map map); 
+	
+	@Update("UPDATE funding_member SET email=#{email}, gender=#{gender}, addr1=#{addr1}, addr2=#{addr2}, post=#{post}, phone=#{phone} "
+			+"WHERE userId=#{userId}")   
+	public void mypageInfoUpdate(MemberVO vo);      
+  
 }
-    
+        

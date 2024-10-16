@@ -17,4 +17,7 @@ public class MypageDAO {
 	public void SetNickname(Map map) {
 		mapper.SetNickname(map);
 	}
+	public void mypageInfoUpdate(MemberVO vo) {
+		mapper.mypageInfoUpdate(vo);
+	}
 }
