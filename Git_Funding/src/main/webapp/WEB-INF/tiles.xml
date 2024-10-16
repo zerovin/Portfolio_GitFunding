@@ -18,7 +18,7 @@
 		<put-attribute name="mypage_home" value="/WEB-INF/mypage/{1}.jsp"/>
 	</definition>
 	
-	<!-- AdminPage Tiles Area Start -->
+	<!-- AdminPage Tiles -->
 	<definition name="adminpage" template="/WEB-INF/adminpage/main.jsp">
 		<put-attribute name="header" value="/WEB-INF/main/header.jsp"/>
 		<put-attribute name="adminpage_menu" value="/WEB-INF/adminpage/menu.jsp"/>

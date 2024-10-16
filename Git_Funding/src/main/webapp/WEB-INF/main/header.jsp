@@ -26,19 +26,20 @@
                 	<li><a href="" class="icon wish">위시리스트</a></li>
 <!--    원본 코드    	<li><a href="../mypage/main.do" class="mypage"><img src="../images/profile.png" alt="마이페이지"></a></li> -->
                 	<li class="nav-item">
-				        <c:choose>
-				            <c:when test="${sessionScope.userRole == 'ROLE_ADMIN'}">
-				                <a href="../adminpage/main.do" class="adminpage">
-				                    <img src="" alt="관리자페이지">
-				                </a>
-				            </c:when>
-				            <c:otherwise>
-				                <a href="../mypage/main.do" class="mypage">
-				                    <img src="" alt="마이페이지">
-				                </a>
-				            </c:otherwise>
-				        </c:choose>
-				    </li>
+					    <c:choose>
+					        <c:when test="${not empty sessionScope.userId && sessionScope.admin == 'y'}">
+					            <a href="../adminpage/main.do" class="adminpage">
+					                <img src="" alt="관리자페이지">
+					            </a>
+					        </c:when>
+					        <c:otherwise>
+					            <a href="../mypage/main.do" class="mypage">
+					                <img src="" alt="마이페이지">
+					            </a>
+					        </c:otherwise>
+					    </c:choose>
+					</li>
+
 		            <li><a href="../member/logout.do">로그아웃</a></li>
                 </c:if>
             </ul>
