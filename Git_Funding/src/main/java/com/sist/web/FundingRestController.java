@@ -17,6 +17,9 @@ public class FundingRestController {
 	@Autowired
 	private FundingService fService;
 	
+	@Autowired
+	private WishService wService;
+	
 	@GetMapping(value="funding/funding_list_vue.do",produces="text/plain;charset=UTF-8")
 	public String funding_list(int page) throws Exception{
 		int rowSize=12;
@@ -40,7 +43,6 @@ public class FundingRestController {
 			Date endday=new SimpleDateFormat("yyyyMMdd").parse(vo.getEndday());
 			long gap=endday.getTime()-today.getTime();
 			vo.setDday((int)(gap/(24*60*60*1000)+1));
-			
 		}
 		
 		int totalpage=fService.fundingTotalPage();
@@ -144,5 +146,49 @@ public class FundingRestController {
 			result=ex.getMessage();
 		}
 		return result;		
+	}
+	
+	@GetMapping(value="funding/funding_detail_vue.do", produces="text/plain;charset=UTF-8")
+	public String funding_detail(int fno, int cate, HttpSession session) throws Exception{
+		FundingVO funding_vo=fService.fundingDetailData(fno);
+		funding_vo.setFm_totalprice(new DecimalFormat("###,###").format(funding_vo.getTotalprice()));
+		int percent=(int)(Math.round(funding_vo.getTotalprice()/(double)funding_vo.getTargetprice()*100));
+		funding_vo.setFm_percent(new DecimalFormat("###,###").format(percent));
+		funding_vo.setFm_wish(new DecimalFormat("###,###").format(funding_vo.getWish()));
+		funding_vo.setFm_backing(new DecimalFormat("###,###").format(funding_vo.getBacking()));
+		
+		Date today=new Date();
+		Date endday=new SimpleDateFormat("yyyyMMdd").parse(funding_vo.getEndday());
+		long gap=endday.getTime()-today.getTime();
+		funding_vo.setDday((int)(gap/(24*60*60*1000)+1));
+		
+		List<FundingImgVO> img_list=fService.fundingImgDetailData(fno);
+		List<FundingRewardVO> reward_list=fService.fundingRewardDetailData(fno);
+		for(FundingRewardVO vo:reward_list) {
+			vo.setFm_price(new DecimalFormat("###,###").format(vo.getPrice()));
+			if(vo.getDelivery()==0) {
+				vo.setFm_del("무료배송");
+			}else {
+				vo.setFm_del((new DecimalFormat("###,###").format(vo.getDelivery()))+"원");				
+			}
+			vo.setFm_limit(new DecimalFormat("###,###").format(vo.getLimit()));
+		}
+		
+		String id=(String)session.getAttribute("userId");
+		WishVO vo=new WishVO();
+		vo.setUserId(id);
+		vo.setPno(fno);
+		vo.setCate(cate);
+		int wish_count=wService.fundingWishCheck(vo);
+		
+		Map map=new HashMap();
+		map.put("funding_vo", funding_vo);
+		map.put("img_list", img_list);
+		map.put("reward_list", reward_list);
+		map.put("wish_count", wish_count);
+		
+		ObjectMapper mapper=new ObjectMapper();
+		String json=mapper.writeValueAsString(map);
+		return json;
 	}
 }

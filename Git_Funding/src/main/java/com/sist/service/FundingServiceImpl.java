@@ -65,4 +65,22 @@ public class FundingServiceImpl implements FundingService{
 		fDao.fundingAlertDelete(map);
 	}
 
+	@Override
+	public FundingVO fundingDetailData(int fno) {
+		// TODO Auto-generated method stub
+		return fDao.fundingDetailData(fno);
+	}
+
+	@Override
+	public List<FundingImgVO> fundingImgDetailData(int fno) {
+		// TODO Auto-generated method stub
+		return fDao.fundingImgDetailData(fno);
+	}
+
+	@Override
+	public List<FundingRewardVO> fundingRewardDetailData(int fno) {
+		// TODO Auto-generated method stub
+		return fDao.fundingRewardDetailData(fno);
+	}
+
 }

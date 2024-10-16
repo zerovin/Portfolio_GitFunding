@@ -17,6 +17,7 @@
     border-color:#F8C200;
 }
 #funding_detail > section{
+	font-family: 'NEXON Lv2 Gothic';
     display:grid;
     grid-template-columns: 1.6fr 1fr;
     gap:50px;
@@ -100,7 +101,8 @@
 }
 #funding_detail > section .right .content .desc{
     font-size:15px;
-    line-height:1.2em;
+    line-height:1.4em;
+    letter-spacing:0.0125em;
     margin-bottom:20px;
 }
 #funding_detail > section .right .p_admin{
@@ -117,7 +119,7 @@
 #funding_detail > section .right .num_icon .nums > div{
     display:flex;
     align-items:center;
-    gap:20px;
+    gap:10px;
     margin-bottom:20px;
 }
 #funding_detail > section .right .num_icon .nums .big{
@@ -150,7 +152,9 @@
     border:1px solid #9e9c9c;
     border-radius:5px;
     color:#9e9c9c;
+    font-size:14px;
     transition:.3s;
+    margin:0 3px;
 }
 #funding_detail > section .right .num_icon .icons button:hover{
     color:#1E1A1A;
@@ -210,6 +214,7 @@
     padding:20px 0;
     font-size:15px;
     line-height:1.5em;
+    white-space:pre-wrap;
     border-bottom:1px solid #ccc;
 }
 #funding_detail > section .right .reward_list dl{

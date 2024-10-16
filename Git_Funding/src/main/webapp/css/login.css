@@ -54,6 +54,10 @@
     box-sizing:border-box;
     position:relative;
 }
+#login form .login_box input[type="password"]{
+	font-family:'sans-serif';
+	letter-spacing:0.5em;
+}
 #login form .login_box .input_wrap:focus-within::after{
     content:'';
     width:calc(100% - 2px);

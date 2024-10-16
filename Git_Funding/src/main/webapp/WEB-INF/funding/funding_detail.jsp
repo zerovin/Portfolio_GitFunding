@@ -12,117 +12,65 @@
         </ul>
         <section class="container">
             <div class="left">
-                <img src="../images/detail_thumb.jpeg" alt="" class="thumb">
+                <img :src="funding_vo.thumb" :alt="funding_vo.title" class="thumb">
                 <h2>상세설명</h2>
                 <div class="img_scroll">
                     <div class="imgs">
-                        <img src="../images/detail_img.jpeg" alt="">
+                        <img v-for="img in img_list" :src="img.image" alt="">
                     </div>
                     <button class="readmore">상세내용 더보기 <i class="fa-solid fa-chevron-down"></i></button>
                 </div>
             </div>
             <div class="right">
                 <div class="top">
-                    <p class="cate">패션</p>
+                    <p class="cate">{{funding_vo.type}}</p>
                     <button class="share"><i class="fa-solid fa-share-nodes"></i>공유</button>
                 </div>
                 <div class="content">
-                    <p class="title">8억 메이커 야심작 | 이태리 스웨티드로 완성한 합리적인 럭셔리 커포트 로퍼</p>
-                    <p class="desc">세계적인 품질 ! 이태리 스웨이드로 완성한 합리적인 럭셔리 100만원짜리 퀄리티를 합리적인 가격대에 경험해보세요! 8억 구두장인 메이커 마리오미나르디가 컴포트 로퍼로 돌아왔습니다.</p>
-                    <p class="p_admin">(주)슈즈나인</p>
+                    <p class="title">{{funding_vo.title}}</p>
+                    <p class="desc">{{funding_vo.description}}</p>
+                    <p class="p_admin">{{funding_vo.p_admin}}</p>
                     <div class="num_icon">
                         <div class="nums">
                             <div>
-                                <p class="big"><span class="num">505</span> % 달성</p>
-                                <p class="small">7일 남음</p>
+                                <p class="big"><span class="num">{{funding_vo.fm_percent}}</span> % 달성</p>
+                                <p class="small">{{funding_vo.dday}}일 남음</p>
                             </div>
                             <div>
-                                <p class="big"><span class="num">2,529,000</span> 원 달성</p>
-                                <p class="small">57명 참여</p>
+                                <p class="big"><span class="num">{{funding_vo.fm_totalprice}}</span> 원 달성</p>
+                                <p class="small">{{funding_vo.fm_headcount}}명 참여</p>
                             </div>
-                            <p><span class="num">10.15~10.22</span> 진행</p>
+                            <p><span class="num">{{funding_vo.period}}</span> 진행</p>
                         </div>
                         <div class="icons">
-                            <button><i class="fa-regular fa-heart"></i>720</button>
-                            <button><i class="fa-regular fa-handshake"></i></i>46</button>
+                            <button @click="wishUpdate(funding_vo.fno)" v-if="isWish===false"><i class="fa-regular fa-heart"></i>{{funding_vo.fm_wish}}</button>
+                            <button @click="wishDelete(funding_vo.fno)" v-else><i class="fa-solid fa-heart"></i>{{funding_vo.fm_wish}}</button>
+                            <button><i class="fa-regular fa-handshake"></i>{{funding_vo.fm_backing}}</button>
                         </div>
                     </div>
                 </div>
                 <div class="reward_wrap">
                     <h2>리워드 선택</h2>
                     <ul class="reward_list">
-                        <li>
-                            <a href="">
+                        <li v-for="reward in reward_list">
+                            <a :href="'../reward/order.do?rno='+reward.rno">
                                 <div class="price_account">
-                                    <p class="price">208,000원</p>
-                                    <span class="account">현재 66개 남음!</span>
+                                    <p class="price">{{reward.fm_price}}원</p>
+                                    <span class="account">현재 {{reward.amount}}개 남음!</span>
                                 </div>
-                                <p class="re_title">[슈퍼 얼리버드] 스웨이드 로퍼 다크브라운</p>
-                                <pre>328,000원-> 208,000원(37% 할인)
-
-사이즈
--245,250,255,260,265,270,275,280</pre>
+                                <p class="re_title">{{reward.name}}</p>
+                                <pre>{{reward.description}}</pre>
                                 <dl>
                                     <dt>배송비</dt>
-                                    <dd>3,000원</dd>
+                                    <dd>{{reward.fm_del}}</dd>
                                 </dl>
                                 <dl>
                                     <dt>발송 시작일</dt>
-                                    <dd>2024년 12월 중순 (11~20일) 예정</dd>
+                                    <dd>{{reward.del_start}}</dd>
                                 </dl>
                                 <dl>
                                     <dt>제한 수량</dt>
-                                    <dd>70개</dd>
-                                </dl>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="">
-                                <div class="price_account">
-                                    <p class="price">208,000원</p>
-                                    <span class="account">현재 66개 남음!</span>
-                                </div>
-                                <p class="re_title">[슈퍼 얼리버드] 스웨이드 로퍼 다크브라운</p>
-                                <pre>328,000원-> 208,000원(37% 할인)
-
-사이즈
--245,250,255,260,265,270,275,280</pre>
-                                <dl>
-                                    <dt>배송비</dt>
-                                    <dd>3,000원</dd>
-                                </dl>
-                                <dl>
-                                    <dt>발송 시작일</dt>
-                                    <dd>2024년 12월 중순 (11~20일) 예정</dd>
-                                </dl>
-                                <dl>
-                                    <dt>제한 수량</dt>
-                                    <dd>70개</dd>
-                                </dl>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="">
-                                <div class="price_account">
-                                    <p class="price">208,000원</p>
-                                    <span class="account">현재 66개 남음!</span>
-                                </div>
-                                <p class="re_title">[슈퍼 얼리버드] 스웨이드 로퍼 다크브라운</p>
-                                <pre>328,000원-> 208,000원(37% 할인)
-
-사이즈
--245,250,255,260,265,270,275,280</pre>
-                                <dl>
-                                    <dt>배송비</dt>
-                                    <dd>3,000원</dd>
-                                </dl>
-                                <dl>
-                                    <dt>발송 시작일</dt>
-                                    <dd>2024년 12월 중순 (11~20일) 예정</dd>
-                                </dl>
-                                <dl>
-                                    <dt>제한 수량</dt>
-                                    <dd>70개</dd>
+                                    <dd>{{reward.fm_limit}}개</dd>
                                 </dl>
                             </a>
                         </li>
@@ -131,5 +79,83 @@
             </div>
         </section>
     </div>
+    <script>
+    	let funding_detail=Vue.createApp({
+    		data(){
+    			return{
+    				fno:${fno},
+    				sessionId:'${sessionId}',
+    				funding_vo:{},
+    				img_list:[],
+    				reward_list:[],
+    				isWish:false,
+    				wish_count:0
+    			}
+    		},
+    		mounted(){
+    			this.dataRecv()
+    		},
+    		methods:{
+    			dataRecv(){
+    				axios.get('../funding/funding_detail_vue.do',{
+        				params:{
+        					fno:this.fno,
+        					cate:1
+        				}
+        			}).then(response=>{
+        				this.funding_vo=response.data.funding_vo
+        				this.img_list=response.data.img_list
+        				this.reward_list=response.data.reward_list
+        				this.wish_count=response.data.wish_count
+        				if(this.wish_count==0){
+        					this.isWish=false
+        				}else{
+        					this.isWish=true
+        				}
+        			}).catch(error=>{
+        				console.log(error.response)
+        			})
+    			},
+    			wishUpdate(fno){
+    				if(this.sessionId==''){
+       					alert("로그인 후 이용해주세요")
+       				}else{
+    	   				axios.get('../wish/update.do',{
+    	   					params:{
+    	   						fno:fno,
+    	   						cate:1
+    	   					}
+    	   				}).then(response=>{
+    	   					if(response.data==='ok'){
+    	   						this.isWish=true
+								this.dataRecv()
+    	   					}else{
+    	   						console.log(response.data)
+    	   					}
+    	   				}).catch(error=>{
+    	   					console.log(error.response)
+    	   				})   					
+       				}
+    			},
+    			wishDelete(fno){
+       				axios.get('../wish/delete.do',{
+       					params:{
+       						fno:fno,
+	   						cate:1
+       					}
+       				}).then(response=>{
+       					if(response.data=="ok"){
+       						this.isWish=false
+       						this.dataRecv()
+       					}else{
+       						console.log(response.data)	
+       					}
+       				}).catch(error=>{
+       					console.log(error.response)
+       				})
+    			}
+    		}
+    	}).mount('#funding_detail')
+    </script>
 </body>
 </html>

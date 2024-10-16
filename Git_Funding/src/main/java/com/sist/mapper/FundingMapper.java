@@ -59,5 +59,17 @@ public interface FundingMapper {
 			+ "WHERE startdate<SYSDATE AND enddate>SYSDATE")
 	public int fundingTotalPage();
 	
+	//펀딩 상세
+	@Select("SELECT fno, thumb, type, title, description, p_admin, targetprice, totalprice, wish, backing, "
+			+ "TO_CHAR(headcount, 'FM999,999') as fm_headcount, period, TO_CHAR(enddate, 'YYYYMMDD') as endday "
+			+ "FROM funding "
+			+ "WHERE fno=#{fno}")
+	public FundingVO fundingDetailData(int fno);
+	
+	@Select("SELECT image FROM funding_img WHERE fno=#{fno} ORDER BY order_num ASC")
+	public List<FundingImgVO> fundingImgDetailData(int fno);
+	
+	@Select("SELECT * FROM funding_reward WHERE fno=#{fno}")
+	public List<FundingRewardVO> fundingRewardDetailData(int fno);
 	
 }

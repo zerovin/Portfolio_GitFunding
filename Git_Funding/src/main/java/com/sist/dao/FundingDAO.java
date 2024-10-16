@@ -103,4 +103,31 @@ public class FundingDAO {
 	public void fundingAlertDelete(Map map) {
 		mapper.fundingAlertDelete(map);
 	}
+	
+	/*
+ 	@Select("SELECT fno, thumb, type, title, description, p_admin, targetprice, totalprice, wish, backing, "
+			+ "TO_CHAR(headcount, 'FM999,999') as fm_headcount, period, TO_CHAR(enddate, 'YYYYMMDD') as endday "
+			+ "FROM funding "
+			+ "WHERE fno=#{fno}")
+	public FundingVO fundingDetailData(int fno);
+	*/
+	public FundingVO fundingDetailData(int fno) {
+		return mapper.fundingDetailData(fno);
+	}
+	
+	/*
+	@Select("SELECT image FROM funding_img WHERE fno=#{fno} ORDER BY order_num ASC")
+	public  List<FundingImgVO> fundingImgDetailData(int fno);
+	*/
+	public List<FundingImgVO> fundingImgDetailData(int fno) {
+		return mapper.fundingImgDetailData(fno);
+	}
+	
+	/*
+	@Select("SELECT * FROM funding_reward WHERE fno=#{fno}")
+	public List<FundingRewardVO> fundingRewardDetailData(int fno); 
+	 */
+	public List<FundingRewardVO> fundingRewardDetailData(int fno) {
+		return mapper.fundingRewardDetailData(fno);
+	}
 }

@@ -13,4 +13,7 @@ public interface FundingService {
 	public List<AlertVO> openAlertCheck(String id);
 	public void fundingAlertDecr(int fno);
 	public void fundingAlertDelete(Map map);
+	public FundingVO fundingDetailData(int fno);
+	public List<FundingImgVO> fundingImgDetailData(int fno);
+	public List<FundingRewardVO> fundingRewardDetailData(int fno);
 }
