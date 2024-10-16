@@ -12,21 +12,21 @@
 				<img src="../images/profile.png" alt="프로필이미지">		
 				<a href="#" class="profile_edit"><i class="fa-regular fa-pen-to-square"></i></a>	
 			</div>
-			<a href="#" class="user_name">서원진님 <i class="fa-solid fa-chevron-right"></i></a>
+			<a href="#" class="user_name">{{userName}}님 <i class="fa-solid fa-chevron-right"></i></a>
 			<button class=GoToMyPageBtn @click="GoToMyPage()">마이페이지로 이동</button>
 		</div>
 		<div class="CenterArea">
 <!-- 				<section> -->
 				<div class="CenterAreaTopContainer">
 				    <nav class="CenterAreaTopContainerWrapper">
-				        <button type="button" class="Tabsbutton1" @click="navigateTo('Home')">
-				            <i class="fa-solid fa-chart-line"> </i>
-				            <span class="Tabsbutton-text"> 메이커 홈</span>
-				        </button>
-				        <button type="button" class="Tabsbutton2" @click="navigateTo('settlementDate')">
-				            <i class="fa-solid fa-sack-dollar"> </i>
-				            <span class="Tabsbutton-text"> 정산일</span>
-				        </button>
+				        <button type="button" class="Tabsbutton1" :class="{ active: TopSelectedTab === 'Home' }" @click="navigateTo('Home')">
+						    <i class="fa-solid fa-chart-line"> </i>
+						    <span class="Tabsbutton-text"> 메이커 홈</span>
+						</button>
+						<button type="button" class="Tabsbutton2" :class="{ active: TopSelectedTab === 'settlementDate' }" @click="navigateTo('settlementDate')">
+						    <i class="fa-solid fa-sack-dollar"> </i>
+						    <span class="Tabsbutton-text"> 정산일</span>
+						</button>
 				    </nav>
 				</div>
 
@@ -45,19 +45,19 @@
 				                <li> 
 				                    <dl>
 				                        <dt>찜・알림신청</dt>
-				                        <dd>- 0 <br>(구현 예정)</dd>
+				                        <dd>- 0</dd>
 				                    </dl>
 				                </li>
 				                <li> 
 				                    <dl>
 				                        <dt>결제(예약)</dt> 
-				                        <dd>+ 0￦ <br>(구현 예정)</dd> 
+				                        <dd>+ 0￦</dd> 
 				                    </dl>
 				                </li>
 				                <li>
 				                    <dl>
 				                        <dt>지지서명</dt> 
-				                        <dd>- 0 <br>(구현 예정)</dd> 
+				                        <dd>- 0</dd> 
 				                    </dl>
 				                </li>
 				                <li> 
@@ -71,23 +71,32 @@
 				    </div>
 				    <div class="CenterAreaCenter2nd">		    	 
 				    	<ul>
-				            <li :class="{ active: selectedTab === 'funding' }" @click="selectTab('funding')">
+				            <li :class="{ active: CenterSelectedTab === 'funding' }" @click="CenterSelectTab('funding')">
 				                <dl>펀딩・프리오더</dl>
 				            </li>
-				            <li :class="{ active: selectedTab === 'store' }" @click="selectTab('store')">
+				            <li :class="{ active: CenterSelectedTab === 'store' }" @click="CenterSelectTab('store')">
 				                <dl>스토어</dl>
 				            </li>
 				        </ul>
-				        <div class="FundingStoreViewContainer" id=FundingStoreView>
-		        			<i class="fa-solid fa-gift" style="text-align:center; font-size: 50px"></i>
-			        		<div class="FundingStoreView">
-			        			<p class="FundingStoreViewText">새로운 도전을</p>
+				        <div class="FundingStoreViewContainer" id="FundingStoreView">
+			        		<div v-if="CenterSelectedTab === 'funding'" class="FundingView">
+		        				<i class="fa-solid fa-gift" style="text-align:center; font-size: 50px"></i>
+			        			<p class="FundingViewText">새로운 도전을</p>
 			        			<p><br>시작해보세요.</p>
-			        		</div>
 			        			<p><br>제품・콘텐츠・서비스 출시, 성장까지 깃펀딩이 함께합니다.</p>
 			        			<div>
 			        				<button class="CreateProjectBtn" @click="CreateProject">프로젝트 만들기</button>
 			        			</div>
+			        		</div>
+			        		<div v-if="CenterSelectedTab === 'store'" class="StoreView">
+		        				<i class="fa-solid fa-store" style="text-align:center; font-size: 50px"></i>
+			        			<p class="StoreViewText">새로운 도전을</p>
+			        			<p><br>시작해보세요.</p>
+			        			<p><br>제품・콘텐츠・서비스 출시, 성장까지 깃펀딩이 함께합니다.</p>
+			        			<div>
+			        				<button class="CreateProjectBtn" @click="CreateProject">프로젝트 만들기</button>
+			        			</div>
+			        		</div>
 				    	</div>
 				    </div>
 				</div>
@@ -119,7 +128,7 @@
 								<i class="fa-solid fa-chevron-right"></i>
 							</button>
 						</div>
-						<div class="AcountSettingsBtn" @click="AcountSettings">
+						<div class="AcountSettingsBtn" @click="AcountSettings()">
 							<button>
 								<i class="fa-solid fa-user-gear"> 계정 설정</i>
 								<i class="fa-solid fa-chevron-right"></i>
@@ -135,31 +144,34 @@
 	        data() {
 	            return {
 	                // 데이터가 필요할 경우 추가
-	            	selectedTab: 'funding'
+	            	userName: '',
+	            	TopSelectedTab: 'Home',
+	            	CenterSelectedTab: 'funding'
 	            }
 	        },
+	        mounted() {
+	        	this.dataRecv()
+	        },
 	        methods: {
+	        	dataRecv() {
+	        		axios.get('../project/home_vue.do')
+	        		.then(response => {
+	        			this.userName = response.data.userName
+	        		}).catch(error => {
+	        			console.log(error.response)
+	        		})
+	        	},
 	            GoToMyPage() {
-	                window.location.href = '../mypage/main.do';
+	                window.location.href = '../mypage/main.do'
 	            },
-	            CreateProject() {
-	            	window.location.href = '../main/main.do';
+	            navigateTo(tab) {
+	            	this.TopSelectedTab = tab
 	            },
-	            ProjectInquiries() {
-	            	window.location.hef = '../main/main.do';
+	            CenterSelectTab(tab) {
+	                this.CenterSelectedTab = tab
 	            },
-	            navigateTo(page) {
-	                axios.get(`/project/${page}.jsp`)
-	                    .then(response => {
-	                        document.getElementById('CenterAreaContent').innerHTML = response.data;
-	                    })
-	                    .catch(error => {
-	                        console.log(error.response);
-	                    });
-	            },
-	            selectTab(tab) {
-	                this.selectedTab = tab; // 탭 선택 상태 업데이트
-	                this.navigateTo(tab); // 선택한 탭의 페이지로 이동
+	            AcountSettings(){
+	            	window.location.href = '../mypage/info.do'
 	            }
 	        }
 	    }).mount('#ProjectHome');
