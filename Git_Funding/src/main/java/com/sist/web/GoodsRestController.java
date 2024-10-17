@@ -28,13 +28,19 @@ public class GoodsRestController {
 	}
 	
 	@GetMapping(value = "goods/list_vue.do",produces = "text/plain;charset=utf-8")
-	public String goodsListData(int page , String cate) throws Exception {
+	public String goodsListData(int page , String cate , String cateInfo) throws Exception {
 		int rowsize=12;
 		int start=(page*rowsize)-(rowsize-1);
 		int end=page*rowsize;
 		int discount;
 		int price;
-		List<GoodsVO> list=gService.goodsListData(start, end , cate);
+		
+		Map map=new HashMap();
+		map.put("start", start);
+		map.put("end", end);
+		map.put("cate", cate);
+		map.put("cateInfo", cateInfo);
+		List<GoodsVO> list=gService.goodsListData(map);
 		for(GoodsVO vo:list) {
 			discount=Integer.parseInt(vo.getDiscount().replaceAll("[^0-9]", ""));
 			price=Integer.parseInt(vo.getPrice().replaceAll("[^0-9]", ""));
@@ -53,12 +59,9 @@ public class GoodsRestController {
 			 endPage=totalpage;
 		
 		
-		GoodsVO gvo=gService.goodsDetailData(12);
 		
 		
-		
-		
-		Map map=new HashMap();
+		map.clear();
 		map.put("list", list);
 		map.put("curpage", page);
 		map.put("totalpage", totalpage);
@@ -68,9 +71,39 @@ public class GoodsRestController {
 		String json=jsonMaker(map);
 		return json;
 	}
+	@GetMapping(value = "goods/detail_vue.do",produces = "text/plain;charset=utf-8")
+	public String goodsDetail(int fg_no) throws Exception{
+		
+		
+		GoodsVO vo=gService.goodsDetailData(fg_no);
+		int discount=Integer.parseInt(vo.getDiscount().replaceAll("[^0-9]", ""));
+		int price=Integer.parseInt(vo.getPrice().replaceAll("[^0-9]", ""));
+		
+		DecimalFormat df=new DecimalFormat();
+		
+		String realprice=df.format(price*(100-discount)/10000*100)+"원";
+		
+		vo.setRealprice(realprice);
+		
+		Map map=new HashMap();
+		map.put("fg_no", fg_no);
+		map.put("vo", vo);
+		map.put("imgs", vo.getImgs());
+		map.put("detail",vo.getDetail());
+		map.put("gvo", vo.getGvo());
+		map.put("thumb", vo.getImgs().get(0));
+		map.put("ops", vo.getGvo().get(0).getOps());
+		String json=jsonMaker(map);
+		return json;
+	}
 	
 	@PostMapping(value = "goods/buyInfo_vue.do",produces = "text/plain;charset=utf-8")
 	public String goodsBuy(int gno) throws Exception{
+		return "짜장";
+	}
+	@PostMapping(value = "goods/cart_insert_vue.do",produces = "text/plain;charset=utf-8")
+	public String cart_insert(String fg_no,String option,int account) throws Exception{
+		
 		return "짜장";
 	}
 }

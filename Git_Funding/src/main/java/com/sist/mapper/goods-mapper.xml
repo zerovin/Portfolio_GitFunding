@@ -3,9 +3,11 @@
 <mapper namespace="com.sist.mapper.GoodsMapper">
 	<resultMap type="GoodsVO" id="goodsDetail">
 		<result column="fgno" property="fg_no"/>
+		<collection property="imgs" column="fg_no = fgno" ofType="String" javaType="List" select="goodsImgData"/>
+		<collection property="detail" column="fg_no = fgno" ofType="String" javaType="List" select="goodsDetailInfoData"/>
 		<collection property="gvo" column="fg_no = fgno" ofType="Goods2VO" javaType="List" select="goodsOption"></collection>
 	</resultMap>
-	
+	<!-- 디테일 -->
 	<select id="goodsDetailData" resultMap="goodsDetail" parameterType="int">
 		SELECT fgno,title,brand,price,discount,delivery,hit,cate1,cate2,cate3,cate4 
 		FROM f_goods
@@ -14,5 +16,36 @@
 	<select id="goodsOption" resultType="Goods2VO" parameterType="GoodsVO">
 		SELECT ops,ea FROM f_goods_option
 		WHERE fgno=#{fg_no}
+	</select>
+	<select id="goodsDetailInfoData" resultType="String" parameterType="GoodsVO">
+		SELECT detail FROM f_goods_detail
+		WHERE fgno=#{fg_no}
+		ORDER BY count
+	</select>
+	<select id="goodsImgData" resultType="String" parameterType="GoodsVO">
+		SELECT img FROM f_goods_img
+		WHERE fgno=#{fg_no}
+	</select>
+	<!-- 리스트 -->
+	<select id="goodsListData" resultType="GoodsVO" parameterType="map">
+			SELECT fgno as fg_no ,title,brand,discount,price,img,num 
+			FROM (SELECT fgno,title,brand,discount,price,img,rownum as num 
+			FROM (SELECT /*+INDEX_ASC(fg fgs_fgno_pk)*/fg.fgno,fg.title,fg.brand,fg.discount,fg.price,fgi.img 
+			FROM f_goods fg LEFT JOIN (SELECT fgno,MAX(img) as img FROM f_goods_img fgi GROUP BY fgno order by fgno) fgi 
+			ON fg.fgno=fgi.fgno
+			<choose>
+			  <when test="cateInfo == 2">
+				WHERE fg.cate2 LIKE '%'||#{cate}||'%'
+			  </when>
+			   <when test="cateInfo == 3">
+				WHERE fg.cate3 LIKE '%'||#{cate}||'%'
+			  </when>
+			   <otherwise>
+				WHERE fg.cate1 LIKE '%'||#{cate}||'%'
+			  </otherwise>
+			</choose>
+			
+			)) 
+			WHERE num BETWEEN #{start} AND #{end}
 	</select>
 </mapper>

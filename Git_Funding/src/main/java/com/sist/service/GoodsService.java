@@ -3,7 +3,7 @@ import java.util.*;
 import com.sist.vo.*;
 
 public interface GoodsService {
-	public List<GoodsVO> goodsListData(int start,int end, String cate1);
+	public List<GoodsVO> goodsListData(Map map);
 	public int goodsTotalData(String cate1);
 	public GoodsVO goodsDetailData(int fgno);
 }

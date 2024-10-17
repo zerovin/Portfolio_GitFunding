@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -80,7 +81,7 @@ input[type="button"]:hover{
 	            	      주문금액
 	            	    </th>
 	            	  </tr>
-	            	  <tr class="cartList">
+	            	  <tr class="cartList" v-if="fg_no==null">
 	            	    <td width="3%">
 	            	    </td>
 	            	    <td width="15%">
@@ -105,6 +106,33 @@ input[type="button"]:hover{
 	            	    </td>
 	            	    <td width="15%">
 	            	      <p>65,000원</p>
+	            	    </td>
+	            	  </tr>
+	            	  <tr class="cartList" v-if="fg_no!=null">
+	            	    <td width="3%">
+	            	    </td>
+	            	    <td width="15%">
+	            	      <p></p>
+	            	      <p style="margin-top: 4px;"></p>
+	            	    </td>
+	            	    <td width="10%">
+	            	      <p>SA</p>
+	            	    </td>
+	            	    <td width="12%">
+	            	      <img src="http://webimage.10x10.co.kr/image/small/347/S003471382-1.jpg" style="width: 60px;height: 60px">
+	            	    </td>
+	            	    <td width="25%" style="text-align: left;padding-left: 5px ">
+	            	      <p>크아아악</p>
+	            	    </td>
+	            	    <td width="10%">
+	            	      <p style="text-decoration-line: line-through;color: #899c8f;">17,000원</p>
+	            	      <p>100원</p>
+	            	    </td>
+	            	    <td width="10%" >
+	            	      <p>1개</p>
+	            	    </td>
+	            	    <td width="15%">
+	            	      <p>6000원</p>
 	            	    </td>
 	            	  </tr>
 	            	</table>
@@ -254,13 +282,20 @@ input[type="button"]:hover{
         			email_domain:'naver.com',
         			postValidateMsg:'',
         			post:'',
-        			addr1:''
+        			addr1:'',
+        			account:'${account}',
+        			fg_no:'${fg_no}',
+        			option:'${option}'
+        			
         		} 
         	 },
         	 mounted(){
-
+				dataRecv()
         	 },
         	 methods:{
+        		 dataRecv(){
+        			 
+        		 },
         		 changeSelect(){
         			 console.log(this.order_request)
         			 if(this.order_request==="직접입력"){

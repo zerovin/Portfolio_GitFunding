@@ -78,8 +78,10 @@ a{
 		let goods=Vue.createApp({
 			data(){
 				return{
+					cateInfo:1,
 					goods_list:[],
-					cate:'',
+					cateInfo:'${cateInfo}',
+					cate:'${cate}',
 					curpage:1,
 					totalpage:0,
 					startpage:0,
@@ -141,7 +143,8 @@ a{
 					axios.get("../goods/list_vue.do",{
 						params:{
 							page:this.curpage,
-							cate:this.cate
+							cate:this.cate,
+							cateInfo:this.cateInfo
 						}
 					}).then(response=>{
 						console.log(response)

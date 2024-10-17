@@ -15,8 +15,8 @@ public class GoodsDAO {
 		this.mapper=mapper;
 	}
 	
-	public List<GoodsVO> goodsListData(int start,int end,String cate1){
-		return mapper.goodsListData(start, end , cate1);
+	public List<GoodsVO> goodsListData(Map map){
+		return mapper.goodsListData(map);
 		
 	}
 	
