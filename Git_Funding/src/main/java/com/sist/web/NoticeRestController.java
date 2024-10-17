@@ -1,11 +1,17 @@
 package com.sist.web;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.sist.vo.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -15,6 +21,9 @@ import com.sist.service.*;
 public class NoticeRestController {
 	@Autowired
 	private NoticeService nService;
+	
+	@Autowired
+	private BCryptPasswordEncoder encoder;
 	
 	@GetMapping(value = "notice/list_vue.do", produces = "text/plain; charset=UTF-8")
 	public String notice_list(int page) throws Exception {
@@ -44,5 +53,23 @@ public class NoticeRestController {
 	   String json = mapper.writeValueAsString(map);
 	   
 	   return json;
+	}
+	
+	@PostMapping(value = "notice/insert_vue.do", produces = "text/plain; charset=UTF-8")
+	public String databoard_insert_ok(NoticeVO vo, HttpSession session) throws Exception {
+		String result = "";
+		String id = (String)session.getAttribute("userId");
+		String nickName=(String)session.getAttribute("nickName");
+		   try {
+			   vo.setUserId(id);
+			   vo.setNickName(nickName);
+			   
+			   nService.noticeInsert(vo);
+			   
+			   result="yes";
+		   } catch(Exception ex) {
+			   result=ex.getMessage();
+		   }
+		   return result;
 	}
 }
