@@ -24,21 +24,12 @@
                 <c:if test="${sessionScope.userId!=null}">
                 	<li><a href="" class="icon gitstargram">깃스타그램</a></li>
                 	<li><a href="" class="icon wish">위시리스트</a></li>
-<!--    원본 코드    	<li><a href="../mypage/main.do" class="mypage"><img src="../images/profile.png" alt="마이페이지"></a></li> -->
-                	<li class="nav-item">
-					    <c:choose>
-					        <c:when test="${not empty sessionScope.userId && sessionScope.admin == 'y'}">
-					            <a href="../adminpage/main.do" class="adminpage">
-					                <img src="" alt="관리자페이지">
-					            </a>
-					        </c:when>
-					        <c:otherwise>
-					            <a href="../mypage/main.do" class="mypage">
-					                <img src="" alt="마이페이지">
-					            </a>
-					        </c:otherwise>
-					    </c:choose>
-					</li>
+			   		<li><a href="../mypage/main.do" class="mypage"><img src="../images/profile.png" alt="마이페이지"></a></li>
+<%-- 			   	<sec:authorize access="hasRole('ROLE_ADMIN')"> --%>
+			   		<li><a href="../adminpage/home.do" class="adminpage"><img src="../images/admin.png" 
+			   				style="width: 40px; height: 40px; border-radius: 50%;" alt="관리자 페이지"></a></li>
+<%-- 			   	</sec:authorize> --%>
+                	
 
 		            <li><a href="../member/logout.do">로그아웃</a></li>
                 </c:if>
