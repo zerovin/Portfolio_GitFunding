@@ -170,12 +170,12 @@
 <div class="instagram-page">
     <div class="user-info">
         <div>
-            <a href="../gitsta/feed.do"><img src="../images/favicon.png" alt="사용자 프로필" class="profile-pic"></a>
+            <a href="../gitsta/feed.do?userId=dayeong"><img src="../images/cute.png" alt="사용자 프로필" class="profile-pic"></a>
             <p><span style="font-weight: bold;">나</span></p>
         </div>
         <div>
-            <img src="../images/favicon.png" alt="사용자 프로필" class="profile-pic">
-            <p>김다인</p>
+            <a href="../gitsta/feed.do?userId=zero"><img src="../images/favicon.png" alt="사용자 프로필" class="profile-pic"></a>
+            <p>이영빈</p>
         </div>
         <div>
             <img src="../images/favicon.png" alt="사용자 프로필" class="profile-pic">
@@ -327,5 +327,6 @@
     <!-- 더보기 버튼 -->
     <a href="#" class="load-more">피드 더보기</a>
 </div>
+
 </body>
 </html>

@@ -105,6 +105,9 @@ body {
     gap: 10px;
     margin-top: 20px;
 }
+.grid img:hover{
+	cursor: pointer;
+}
 
 .grid img {
     width: 100%;
@@ -115,20 +118,24 @@ body {
 </style>
 </head>
 <body>
-<div class="instagram-page">
-    <div class="header">
-        <a href="../gitsta/main.do"><img src="../images/back.png" alt="뒤로가기"></a>
-    </div>
+<div id="myfeedApp" class="instagram-page">
+	<div class="header">
+	    <a href="../gitsta/main.do"><img src="../images/back.png" alt="뒤로가기"></a>
+	    <div v-if="myInfo.userId === sessionId">
+	        <button @click="createPost" style="background-color: #f8c200; border: none; border-radius: 5px; padding: 10px 20px; cursor: pointer;">새 글</button>
+	    </div>
+	</div>
 
     <div class="profile-info">
-        <img src="../images/favicon.png" alt="내 프로필">
-        <h2>닉네임</h2>
-        <p>내 피드를<br>구경하셔라</p>
-    </div>
+	    <img :src="myInfo.profile" alt="내 프로필">
+	    <h2 v-if="myInfo.nickname == null">{{myInfo.userName}}님</h2>
+	    <h2 v-else>{{myInfo.nickname}}</h2>
+	    <p>{{myInfo.msg}}</p>
+</div>
 
     <div class="profile-stats">
         <div>
-            <span>9</span>
+            <span>{{ totalPostCount }}</span>
             게시물
         </div>
         <div>
@@ -148,16 +155,80 @@ body {
     </div>
 
     <div class="grid">
-        <img src="../images/latest.jpeg" alt="피드 이미지 1">
-        <img src="../images/latest.jpeg" alt="피드 이미지 2">
-        <img src="../images/latest.jpeg" alt="피드 이미지 3">
-        <img src="../images/latest.jpeg" alt="피드 이미지 4">
-        <img src="../images/latest.jpeg" alt="피드 이미지 5">
-        <img src="../images/latest.jpeg" alt="피드 이미지 6">
-        <img src="../images/latest.jpeg" alt="피드 이미지 6">
-        <img src="../images/latest.jpeg" alt="피드 이미지 6">
-        <img src="../images/latest.jpeg" alt="피드 이미지 6">
+        <img :src="vo.filename" v-for="vo in feedList">
+    </div>
+
+    <div class="more-button" style="text-align: center; margin-top: 20px;">
+        <button v-if="hasMore" @click="loadMore">더보기</button>
     </div>
 </div>
+
+<script>
+const myfeedApp = Vue.createApp({
+	data() {
+        return {
+            feedList: [],
+            totalPostCount: 0,
+            hasMore: false,
+            page: 1,
+            nickname: '',
+            userInfo: {},
+            userId: '',
+            myInfo:{},
+            sessionId: ''
+            
+        }
+    },
+    mounted() {
+        const urlParams = new URLSearchParams(window.location.search)
+        this.userId = urlParams.get('userId') // URL에서 userId 가져오기
+        this.myFeed()
+        this.myinfoData()
+        this.getSessionId()
+    },
+    methods: {
+    	getSessionId() {
+            axios.get('../gitsta/getSessionId.do')
+                .then(response => {
+                    this.sessionId = response.data; // 가져온 sessionId 저장
+                })
+                .catch(error => {
+                    console.error('세션 ID 가져오기 오류:', error.response);
+                });
+        },
+    	myinfoData(){
+    		axios.get('../gitsta/info_vue.do',{
+    			params:{userId:this.userId}
+    		}).then(res=>{
+    			console.log(res.data)
+    			this.myInfo=res.data
+    		}).catch(error=>{
+    			console.log(error.response)
+    		})
+    	},
+        myFeed() {
+            axios.get('../gitsta/myfeed_vue.do', {
+                params: { page: this.page, userId: this.userId }
+            }).then(res => {
+                this.feedList = res.data.list;
+                this.totalPostCount = res.data.totalPostCount;
+                this.hasMore = res.data.hasMore;
+                if (res.data.nickname) {
+                    this.nickname = res.data.nickname;
+                }
+            }).catch(error => {
+                console.error('피드 가져오기 오류:', error.response);
+            });
+        },
+        loadMore() {
+            this.page++;
+            this.myFeed();
+        },
+        createPost() {
+            window.location.href = '../gitsta/create_post.do';
+        }
+    }
+}).mount('#myfeedApp');
+</script>
 </body>
 </html>
