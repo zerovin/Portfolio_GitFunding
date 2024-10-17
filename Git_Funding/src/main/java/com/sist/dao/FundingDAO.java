@@ -15,6 +15,58 @@ public class FundingDAO {
 	private FundingMapper mapper;
 	
 	/*
+	 //메인-위시순
+	@Select("SELECT fno, title, thumb, targetprice, totalprice, rownum "
+			+ "FROM (SELECT fno, title, thumb, targetprice, totalprice "
+			+ "FROM funding "
+			+ "WHERE WHERE startdate<SYSDATE AND enddate>SYSDATE "
+			+ "ORDER BY wish DESC) "
+			+ "WHERE rownum<=4")
+	public List<FundingVO> mainWishListData();
+	*/
+	public List<FundingVO> mainWishListData(){
+		return mapper.mainWishListData();
+	}
+	
+	/*
+	//메인-지지순
+	@Select("SELECT fno, title, thumb, targetprice, totalprice, rownum "
+			+ "FROM (SELECT fno, title, thumb, targetprice, totalprice "
+			+ "FROM funding "
+			+ "WHERE WHERE startdate<SYSDATE AND enddate>SYSDATE "
+			+ "ORDER BY backing DESC) "
+			+ "WHERE rownum<=4")
+	public List<FundingVO> mainBackingListData();
+	*/
+	public List<FundingVO> mainBackingListData(){
+		return mapper.mainBackingListData();
+	}
+	
+	/*
+	//메인-오늘오픈
+	@Select("SELECT fno, title, thumb, targetprice, totalprice "
+			+ "FROM funding "
+			+ "WHERE WHERE startdate=SYSDATE "
+			+ "ORDER BY fno DESC")
+	public List<FundingVO> mainTodayListData();
+	*/
+	public List<FundingVO> mainTodayListData(){
+		return mapper.mainTodayListData();
+	}
+	
+	/*
+	//메인-마감임박
+	@Select("SELECT fno, title, thumb, targetprice, totalprice "
+			+ "FROM funding "
+			+ "WHERE WHERE enddate=SYSDATE "
+			+ "ORDER BY fno DESC")
+	public List<FundingVO> mainDeadlineListData(); 
+	 */
+	public List<FundingVO> mainDeadlineListData(){
+		return mapper.mainDeadlineListData();
+	}
+	
+	/*
 	@Select("SELECT fno, title, thumb, p_admin, targetprice, totalprice, TO_CHAR(startdate, 'MM\"월 \"DD\"일\"') as end, num "
 			+ "FROM (SELECT fno, title, thumb, p_admin, targetprice, totalprice, startdate, rownum as num "
 			+ "FROM (SELECT fno, title, thumb, p_admin, targetprice, totalprice, startdate "

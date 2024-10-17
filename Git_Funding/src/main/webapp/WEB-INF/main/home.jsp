@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <html>
 <head>
-	<link rel="stylesheet" href="../css/main.css">
+<link rel="stylesheet" href="../css/main.css">
 </head>
 <body>
 	<main id="main">
@@ -104,7 +104,7 @@
 	                </div>
 	            </div>
 	            <div class="adv">
-	                광고 API
+	                <embed src="http://youtube.com/embed/${key}"></embed>
 	            </div>
 	        </section>
 	        <section id="trend_rank">
@@ -113,32 +113,11 @@
 	                <div class="best_wish">
 	                    <p class="desc">가장 많은 사람들의 <span>위시를</span> 받은 프로젝트</p>
 	                    <ul class="wish_list">
-	                        <li>
-	                            <a href="" class="f_list">
-	                                <img src="../images/trend.jpeg" alt="">
+	                        <li v-for="wish in wish_list">
+	                            <a :href="'../funding/funding_detail.do?fno='+wish.fno" class="f_list">
+	                                <img :src="wish.thumb" :alt="wish.title">
 	                                <p class="percent">2,177% 달성</p>
-	                                <p class="title">[코카콜라 IP] 캠핑 더 엣지있게! 기능은 덤 | 코카콜라 아웃도어 콜라보</p>
-	                            </a>
-	                        </li>
-	                        <li>
-	                            <a href="" class="f_list">
-	                                <img src="../images/trend.jpeg" alt="">
-	                                <p class="percent">2,177% 달성</p>
-	                                <p class="title">[코카콜라 IP] 캠핑 더 엣지있게! 기능은 덤 | 코카콜라 아웃도어 콜라보</p>
-	                            </a>
-	                        </li>
-	                        <li>
-	                            <a href="" class="f_list">
-	                                <img src="../images/trend.jpeg" alt="">
-	                                <p class="percent">2,177% 달성</p>
-	                                <p class="title">[코카콜라 IP] 캠핑 더 엣지있게! 기능은 덤 | 코카콜라 아웃도어 콜라보</p>
-	                            </a>
-	                        </li>
-	                        <li>
-	                            <a href="" class="f_list">
-	                                <img src="../images/trend.jpeg" alt="">
-	                                <p class="percent">2,177% 달성</p>
-	                                <p class="title">[코카콜라 IP] 캠핑 더 엣지있게! 기능은 덤 | 코카콜라 아웃도어 콜라보</p>
+	                                <p class="title">{{wish.title}}</p>
 	                            </a>
 	                        </li>
 	                    </ul>
@@ -146,32 +125,11 @@
 	                <div class="best_support">
 	                    <p class="desc">가장 많은 사람들의 <span>지지를</span> 받은 프로젝트</p>
 	                    <ul class="support_list">
-	                        <li>
-	                            <a href="" class="f_list">
-	                                <img src="../images/trend.jpeg" alt="">
+	                        <li v-for="back in backing_list">
+	                            <a :href="'../funding/funding_detail.do?fno='+back.fno" class="f_list">
+	                                <img :src="back.thumb" :alt="back.title">
 	                                <p class="percent">2,177% 달성</p>
-	                                <p class="title">[코카콜라 IP] 캠핑 더 엣지있게! 기능은 덤 | 코카콜라 아웃도어 콜라보</p>
-	                            </a>
-	                        </li>
-	                        <li>
-	                            <a href="" class="f_list">
-	                                <img src="../images/trend.jpeg" alt="">
-	                                <p class="percent">2,177% 달성</p>
-	                                <p class="title">[코카콜라 IP] 캠핑 더 엣지있게! 기능은 덤 | 코카콜라 아웃도어 콜라보</p>
-	                            </a>
-	                        </li>
-	                        <li>
-	                            <a href="" class="f_list">
-	                                <img src="../images/trend.jpeg" alt="">
-	                                <p class="percent">2,177% 달성</p>
-	                                <p class="title">[코카콜라 IP] 캠핑 더 엣지있게! 기능은 덤 | 코카콜라 아웃도어 콜라보</p>
-	                            </a>
-	                        </li>
-	                        <li>
-	                            <a href="" class="f_list">
-	                                <img src="../images/trend.jpeg" alt="">
-	                                <p class="percent">2,177% 달성</p>
-	                                <p class="title">[코카콜라 IP] 캠핑 더 엣지있게! 기능은 덤 | 코카콜라 아웃도어 콜라보</p>
+	                                <p class="title">{{back.title}}</p>
 	                            </a>
 	                        </li>
 	                    </ul>
@@ -250,46 +208,11 @@
 	        <section id="open">
 	            <h2>오늘 오픈한 프로젝트</h2>
 	            <div class="multiple_slide">
-	                <div class="slides">
-	                    <a href="#" class="f_list">
-	                        <img src="../images/open.jpeg" alt="">
+	                <div class="slides" v-for="today in today_list">
+	                    <a :href="'../funding/funding_detail.do?fno='+today.fno" class="f_list">
+	                        <img :src="today.thumb" :alt="today.title">
 	                        <p class="percent">14% 달성</p>
-	                        <p class="title">"어디든 잘 어울리지만 특별한, 수제 세라믹 식기 한정 출시"</p>
-	                    </a>
-	                </div>
-	                <div class="slides">
-	                    <a href="#" class="f_list">
-	                        <img src="../images/open.jpeg" alt="">
-	                        <p class="percent">14% 달성</p>
-	                        <p class="title">"어디든 잘 어울리지만 특별한, 수제 세라믹 식기 한정 출시"</p>
-	                    </a>
-	                </div>
-	                <div class="slides">
-	                    <a href="#" class="f_list">
-	                        <img src="../images/open.jpeg" alt="">
-	                        <p class="percent">14% 달성</p>
-	                        <p class="title">"어디든 잘 어울리지만 특별한, 수제 세라믹 식기 한정 출시"</p>
-	                    </a>
-	                </div>
-	                <div class="slides">
-	                    <a href="#" class="f_list">
-	                        <img src="../images/open.jpeg" alt="">
-	                        <p class="percent">14% 달성</p>
-	                        <p class="title">"어디든 잘 어울리지만 특별한, 수제 세라믹 식기 한정 출시"</p>
-	                    </a>
-	                </div>
-	                <div class="slides">
-	                    <a href="#" class="f_list">
-	                        <img src="../images/open.jpeg" alt="">
-	                        <p class="percent">14% 달성</p>
-	                        <p class="title">"어디든 잘 어울리지만 특별한, 수제 세라믹 식기 한정 출시"</p>
-	                    </a>
-	                </div>
-	                <div class="slides">
-	                    <a href="#" class="f_list">
-	                        <img src="../images/open.jpeg" alt="">
-	                        <p class="percent">14% 달성</p>
-	                        <p class="title">"어디든 잘 어울리지만 특별한, 수제 세라믹 식기 한정 출시"</p>
+	                        <p class="title">{{today.title}}</p>
 	                    </a>
 	                </div>
 	            </div>
@@ -297,49 +220,14 @@
 	        <section id="deadline">
 	            <h2>마감임박! 마지막 프로젝트</h2>
 	            <div class="time">
-	                <p><span class="clock">06:57:18</span> 남았어요</p>
+	                <p><span class="clock"></span> 남았어요</p>
 	            </div>
 	            <div class="multiple_slide">
-	                <div class="slides">
-	                    <a href="#" class="f_list">
-	                        <img src="../images/deadline.jpeg" alt="">
+	                <div class="slides" v-for="dead in deadline_list">
+	                    <a :href="'../funding/funding_detail.do?fno='+dead.fno" class="f_list">
+	                        <img :src="dead.thumb" :alt="dead.title">
 	                        <p class="percent">14% 달성</p>
-	                        <p class="title">당신이 줄 수 있는 가장 특별한 선물, 위스키 티라미수(feat.논알콜)</p>
-	                    </a>
-	                </div>
-	                <div class="slides">
-	                    <a href="#" class="f_list">
-	                        <img src="../images/deadline.jpeg" alt="">
-	                        <p class="percent">14% 달성</p>
-	                        <p class="title">당신이 줄 수 있는 가장 특별한 선물, 위스키 티라미수(feat.논알콜)</p>
-	                    </a>
-	                </div>
-	                <div class="slides">
-	                    <a href="#" class="f_list">
-	                        <img src="../images/deadline.jpeg" alt="">
-	                        <p class="percent">14% 달성</p>
-	                        <p class="title">당신이 줄 수 있는 가장 특별한 선물, 위스키 티라미수(feat.논알콜)</p>
-	                    </a>
-	                </div>
-	                <div class="slides">
-	                    <a href="#" class="f_list">
-	                        <img src="../images/deadline.jpeg" alt="">
-	                        <p class="percent">14% 달성</p>
-	                        <p class="title">당신이 줄 수 있는 가장 특별한 선물, 위스키 티라미수(feat.논알콜)</p>
-	                    </a>
-	                </div>
-	                <div class="slides">
-	                    <a href="#" class="f_list">
-	                        <img src="../images/deadline.jpeg" alt="">
-	                        <p class="percent">14% 달성</p>
-	                        <p class="title">당신이 줄 수 있는 가장 특별한 선물, 위스키 티라미수(feat.논알콜)</p>
-	                    </a>
-	                </div>
-	                <div class="slides">
-	                    <a href="#" class="f_list">
-	                        <img src="../images/deadline.jpeg" alt="">
-	                        <p class="percent">14% 달성</p>
-	                        <p class="title">당신이 줄 수 있는 가장 특별한 선물, 위스키 티라미수(feat.논알콜)</p>
+	                        <p class="title">{{dead.title}}</p>
 	                    </a>
 	                </div>
 	            </div>
@@ -393,5 +281,31 @@
 	        </section>
 	    </div>
 	</main>
+	<script>
+	let main_list=Vue.createApp({
+		data(){
+			return{
+				wish_list:[],
+				backing_list:[],
+				today_list:[],
+				deadline_list:[]
+			}
+		},
+		mounted(){
+			axios.get('../funding/main_vue.do')
+			.then(response=>{
+				console.log(response.data)
+				this.wish_list=response.data.wish_list
+				this.backing_list=response.data.backing_list
+				this.today_list=response.data.today_list
+				this.deadline_list=response.data.deadline_list
+			}).catch(error=>{
+				console.log(error.response)
+			})
+		},
+	}).mount('#main')
+		
+		
+	</script>
 </body>
 </html>

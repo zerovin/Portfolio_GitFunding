@@ -4,15 +4,28 @@ import java.util.*;
 import com.sist.vo.*;
 
 public interface FundingService {
+	//메인
+	public List<FundingVO> mainWishListData();
+	public List<FundingVO> mainBackingListData();
+	public List<FundingVO> mainTodayListData();
+	public List<FundingVO> mainDeadlineListData();
+	
+	//오픈예정
 	public List<FundingVO> openListData(Map map);
 	public int openTotalPage();
-	public List<FundingVO> fundingListData(Map map);
-	public int fundingTotalPage();
+	
+	//오픈알림
 	public void fundingAlertUpdate(int fno);
 	public void fundingAlertInsert(Map map);
 	public List<AlertVO> openAlertCheck(String id);
 	public void fundingAlertDecr(int fno);
 	public void fundingAlertDelete(Map map);
+	
+	//펀딩
+	public List<FundingVO> fundingListData(Map map);
+	public int fundingTotalPage();
+	
+	//상세
 	public FundingVO fundingDetailData(int fno);
 	public List<FundingImgVO> fundingImgDetailData(int fno);
 	public List<FundingRewardVO> fundingRewardDetailData(int fno);

@@ -56,7 +56,7 @@ if($('#main').length > 0){
 	    $(this).siblings('li').removeClass('active');
 	})
 	
-	/* ------- OPEN & DEADLINE & LATEST ------------*/
+	/* ------- OPEN & DEADLINE & LATEST ------------
 	$('#main .multiple_slide').slick({
 	    infinite: true,
 	    slidesToShow: 5,
@@ -65,7 +65,7 @@ if($('#main').length > 0){
 	    speed: 500,
 	    pauseOnHover:false
 	});
-	
+	*/
 	let date=new Date();
 	let year = date.getFullYear();
 	let month = ('0' + (date.getMonth() + 1)).slice(-2);

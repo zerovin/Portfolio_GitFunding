@@ -10,6 +10,37 @@ import org.apache.ibatis.annotations.Update;
 
 import com.sist.vo.*;
 public interface FundingMapper {
+	//메인-위시순
+	@Select("SELECT fno, title, thumb, targetprice, totalprice, rownum "
+			+ "FROM (SELECT fno, title, thumb, targetprice, totalprice "
+			+ "FROM funding "
+			+ "WHERE startdate<SYSDATE AND enddate>SYSDATE "
+			+ "ORDER BY wish DESC) "
+			+ "WHERE rownum<=4")
+	public List<FundingVO> mainWishListData();
+	
+	//메인-지지순
+	@Select("SELECT fno, title, thumb, targetprice, totalprice, rownum "
+			+ "FROM (SELECT fno, title, thumb, targetprice, totalprice "
+			+ "FROM funding "
+			+ "WHERE startdate<SYSDATE AND enddate>SYSDATE "
+			+ "ORDER BY backing DESC) "
+			+ "WHERE rownum<=4")
+	public List<FundingVO> mainBackingListData();
+	
+	//메인-오늘오픈
+	@Select("SELECT fno, title, thumb, targetprice, totalprice "
+			+ "FROM funding "
+			+ "WHERE trunc(startdate)=trunc(SYSDATE) "
+			+ "ORDER BY fno DESC")
+	public List<FundingVO> mainTodayListData();
+	
+	//메인-마감임박
+	@Select("SELECT fno, title, thumb, targetprice, totalprice "
+			+ "FROM funding "
+			+ "WHERE trunc(enddate)=trunc(SYSDATE) "
+			+ "ORDER BY fno DESC")
+	public List<FundingVO> mainDeadlineListData();
 	//오픈예정 목록 
 	@Select("SELECT fno, title, thumb, p_admin, targetprice, totalprice, alert, TO_CHAR(startdate, 'MM\"월 \"DD\"일\"') as startday, num "
 			+ "FROM (SELECT fno, title, thumb, p_admin, targetprice, totalprice, alert, startdate, rownum as num "
@@ -30,7 +61,7 @@ public interface FundingMapper {
 			+ "WHERE userId=#{userId}")
 	public List<AlertVO> openAlertCheck(String id);
 		
-	//오픈예정 알림 신청 
+	//오픈예정 알림 신청
 	@Update("UPDATE funding SET "
 			+ "alert=alert+1 "
 			+ "WHERE fno=#{fno}")

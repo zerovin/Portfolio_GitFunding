@@ -83,4 +83,28 @@ public class FundingServiceImpl implements FundingService{
 		return fDao.fundingRewardDetailData(fno);
 	}
 
+	@Override
+	public List<FundingVO> mainWishListData() {
+		// TODO Auto-generated method stub
+		return fDao.mainWishListData();
+	}
+
+	@Override
+	public List<FundingVO> mainBackingListData() {
+		// TODO Auto-generated method stub
+		return fDao.mainBackingListData();
+	}
+
+	@Override
+	public List<FundingVO> mainTodayListData() {
+		// TODO Auto-generated method stub
+		return fDao.mainTodayListData();
+	}
+
+	@Override
+	public List<FundingVO> mainDeadlineListData() {
+		// TODO Auto-generated method stub
+		return fDao.mainDeadlineListData();
+	}
+
 }

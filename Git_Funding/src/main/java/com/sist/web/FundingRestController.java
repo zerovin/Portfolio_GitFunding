@@ -20,6 +20,24 @@ public class FundingRestController {
 	@Autowired
 	private WishService wService;
 	
+	@GetMapping(value="funding/main_vue.do",produces="text/plain;charset=UTF-8")
+	public String main_list() throws Exception{
+		List<FundingVO> wish_list=fService.mainWishListData();
+		List<FundingVO> backing_list=fService.mainBackingListData();
+		List<FundingVO> today_list=fService.mainTodayListData();
+		List<FundingVO> deadline_list=fService.mainDeadlineListData();
+		
+		Map map=new HashMap();
+		map.put("wish_list", wish_list);
+		map.put("backing_list", backing_list);
+		map.put("today_list", today_list);
+		map.put("deadline_list", deadline_list);
+		
+		ObjectMapper mapper=new ObjectMapper();
+		String json=mapper.writeValueAsString(map);
+		return json;
+	}
+	
 	@GetMapping(value="funding/funding_list_vue.do",produces="text/plain;charset=UTF-8")
 	public String funding_list(int page) throws Exception{
 		int rowSize=12;
@@ -174,18 +192,24 @@ public class FundingRestController {
 			vo.setFm_limit(new DecimalFormat("###,###").format(vo.getLimit()));
 		}
 		
+
+		Map map=new HashMap();
+		map.put("funding_vo", funding_vo);
+		map.put("img_list", img_list);
+		map.put("reward_list", reward_list);
+
 		String id=(String)session.getAttribute("userId");
 		WishVO vo=new WishVO();
 		vo.setUserId(id);
 		vo.setPno(fno);
 		vo.setCate(cate);
-		int wish_count=wService.fundingWishCheck(vo);
+		if(id!=null) {
+			int wish_count=wService.fundingWishCheck(vo);			
+			map.put("wish_count", wish_count);
+		}else {
+			map.put("wish_count", 0);
+		}
 		
-		Map map=new HashMap();
-		map.put("funding_vo", funding_vo);
-		map.put("img_list", img_list);
-		map.put("reward_list", reward_list);
-		map.put("wish_count", wish_count);
 		
 		ObjectMapper mapper=new ObjectMapper();
 		String json=mapper.writeValueAsString(map);
