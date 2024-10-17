@@ -154,11 +154,11 @@ body {
         <button>찜</button>
     </div>
 
-		<div class="grid">
-		    <div v-for="vo in feedList" :key="vo.id">
-		        <img :src="'../profile/' + vo.filename" alt="포스팅 이미지">
-		    </div>
-		</div>
+<div class="grid">
+    <div v-for="vo in feedList" :key="vo.id">
+        <img :src="'../profile/'+vo.filename" alt="포스팅 이미지">
+    </div>
+</div>
 
     <div class="more-button" style="text-align: center; margin-top: 20px;">
         <button v-if="hasMore" @click="loadMore">더보기</button>

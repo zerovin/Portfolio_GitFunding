@@ -11,7 +11,7 @@
 	<select id="goodsDetailData" resultMap="goodsDetail" parameterType="int">
 		SELECT fgno,title,brand,price,discount,delivery,hit,cate1,cate2,cate3,cate4 
 		FROM f_goods
-		WHERE fgno=#{fg_no}
+		WHERE fgno=#{fg_no} 
 	</select>
 	<select id="goodsOption" resultType="Goods2VO" parameterType="GoodsVO">
 		SELECT ops,ea FROM f_goods_option

@@ -102,7 +102,7 @@ public class GitstaRestController {
     @GetMapping("/profile/{filename}")
     public void getProfileImage(@PathVariable("filename") String filename, HttpServletResponse response) {
         try {
-            String path = servletContext.getRealPath("/profile") + File.separator;
+        	String path = servletContext.getRealPath("/profile") + File.separator;
             File file = new File(path + filename);
             if (file.exists()) {
                 FileInputStream fis = new FileInputStream(file);
@@ -116,4 +116,6 @@ public class GitstaRestController {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
+    
+    
 }
