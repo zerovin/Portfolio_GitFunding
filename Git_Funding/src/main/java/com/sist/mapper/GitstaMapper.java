@@ -12,7 +12,7 @@ public interface GitstaMapper {
 			+"FROM funding_member "
 			+"WHERE userId=#{userId}")
 	public MemberVO gitstaInfoData(String userId);
-	
+	 
 	@Select("SELECT f.no, f.content, m.userId, m.nickname, f.filename, f.filesize, f.filecount, "
 	        + "TO_CHAR(f.regdate, 'YYYY-MM-DD') as dbday, TO_CHAR(f.modifydate, 'YYYY-MM-DD') as mday, f.num "
 	        + "FROM (SELECT no, content, userId, filename, filesize, filecount, regdate, modifydate, rownum as num "

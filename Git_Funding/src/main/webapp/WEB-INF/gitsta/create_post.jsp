@@ -75,17 +75,17 @@
             data() {
                 return {
                     content: '',
-                    userId:''
+                    userId: ''
                 }
             },
-            mounted(){
-            	  
+            mounted() {
+                this.getSessionId();
             },
             methods: {
-            	getSessionId() {
+                getSessionId() {
                     axios.get('../gitsta/getSessionId.do')
                         .then(response => {
-                            this.sessionId = response.data; // 가져온 sessionId 저장
+                            this.userId = response.data; // 가져온 sessionId를 userId에 저장
                         })
                         .catch(error => {
                             console.error('세션 ID 가져오기 오류:', error.response);
@@ -96,13 +96,17 @@
                         alert("내용을 입력하세요.");
                         return;
                     }
+
+                    console.log('userId:', this.userId); // userId 출력
+                    console.log('content:', this.content); // content 출력
+
                     let formData = new FormData();
-                    formData.append("userId",this.userId);
+                    formData.append("userId", this.userId);
                     formData.append("content", this.content);
 
                     const fileInput = this.$refs.upfile;
                     if (fileInput.files.length > 0) {
-                        formData.append("image", fileInput.files[0]); // 단일 파일만 추가
+                        formData.append("file", fileInput.files[0]); // 단일 파일 추가 (key를 "file"로 수정)
                     }
 
                     axios.post('../gitsta/create_post_vue.do', formData, {
