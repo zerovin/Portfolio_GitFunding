@@ -142,7 +142,7 @@
     <h1>묻고 답하기</h1>
 	<div class="commu_tab">
 	    <button onclick="location.href='../community/faq_list.do'">FAQ</button>
-	    <button onclick="location.href='#'">NOTICE</button>
+	    <button onclick="location.href='../notice/list.do'">NOTICE</button>
 	    <button onclick="location.href='../community/qna_list.do'" style="color:#f8c200">Q&A</button>
 	</div>
     <div class="qna_list" id="qnaApp">
