@@ -50,7 +50,18 @@
 	                    </div>
 	                </div>
 	            </div>
-	            <jsp:include page="../funding/category.jsp"></jsp:include>
+	            <div class="category">
+				    <ul class="cate_list">
+				        <li v-for="cate in category">
+						    <a @click="cateChange(cate.second)">
+						        <p>{{cate.first}}️</p>
+						        <p>{{cate.second}}</p>
+						    </a>
+						</li>
+				    </ul>
+				    <button class="control prev">이전</button>
+				    <button class="control next">다음</button>
+				</div>
 	        </section>
 	        <section id="banner">
 	            <div class="main_slide">
@@ -207,14 +218,22 @@
 	        </section>
 	        <section id="open">
 	            <h2>오늘 오픈한 프로젝트</h2>
-	            <div class="multiple_slide">
-	                <div class="slides" v-for="today in today_list">
-	                    <a :href="'../funding/funding_detail.do?fno='+today.fno" class="f_list">
-	                        <img :src="today.thumb" :alt="today.title">
-	                        <p class="percent">14% 달성</p>
-	                        <p class="title">{{today.title}}</p>
-	                    </a>
-	                </div>
+	            <div class="slide_wrap">
+                    <div class="multiple_slide_wrapper">
+                        <ul class="multiple_slide">
+			                <li class="slides" v-for="today in today_list">
+			                    <a :href="'../funding/funding_detail.do?fno='+today.fno" class="f_list">
+			                        <img :src="today.thumb" :alt="today.title">
+			                        <p class="percent">14% 달성</p>
+			                        <p class="title">{{today.title}}</p>
+			                    </a>
+			                </li>
+			            </ul>
+			         </div>
+			         <div class="arrows">
+                        <button class="prev" ref="o_prev">이전</button>
+                        <button class="next" ref="o_prev">다음</button>
+                    </div>
 	            </div>
 	        </section>
 	        <section id="deadline">
@@ -222,69 +241,101 @@
 	            <div class="time">
 	                <p><span class="clock"></span> 남았어요</p>
 	            </div>
-	            <div class="multiple_slide">
-	                <div class="slides" v-for="dead in deadline_list">
-	                    <a :href="'../funding/funding_detail.do?fno='+dead.fno" class="f_list">
-	                        <img :src="dead.thumb" :alt="dead.title">
-	                        <p class="percent">14% 달성</p>
-	                        <p class="title">{{dead.title}}</p>
-	                    </a>
-	                </div>
+	            <div class="slide_wrap">
+                    <div class="multiple_slide_wrapper">
+                        <ul class="multiple_slide">
+			                <li class="slides" v-for="dead in deadline_list">
+			                    <a :href="'../funding/funding_detail.do?fno='+dead.fno" class="f_list">
+			                        <img :src="dead.thumb" :alt="dead.title">
+			                        <p class="percent">14% 달성</p>
+			                        <p class="title">{{dead.title}}</p>
+			                    </a>
+			                </li>
+			             </ul>
+			        </div>
+			        <div class="arrows">
+                        <button class="prev" ref="d_prev">이전</button>
+                        <button class="next" ref="d_next">다음</button>
+                    </div>
 	            </div>
 	        </section>
 	        <section id="latest">
 	            <h2>최근 본 프로젝트</h2>
-	            <div class="multiple_slide">
-	                <div class="slides">
-	                    <a href="#" class="f_list">
-	                        <img src="../images/latest.jpeg" alt="">
-	                        <p class="percent">14% 달성</p>
-	                        <p class="title">정품보장 | 조말론 런던 카 방향제, 카디퓨저 & 센트 투 고</p>
-	                    </a>
+	            <div class="slide_wrap">
+                    <div class="multiple_slide_wrapper">
+                        <ul class="multiple_slide">
+			                <li class="slides">
+			                    <a href="#" class="f_list">
+			                        <img src="../images/latest.jpeg" alt="">
+			                        <p class="percent">14% 달성</p>
+			                        <p class="title">정품보장 | 조말론 런던 카 방향제, 카디퓨저 & 센트 투 고</p>
+			                    </a>
+			                </li>
+			                 <li class="slides">
+			                    <a href="#" class="f_list">
+			                        <img src="../images/latest.jpeg" alt="">
+			                        <p class="percent">14% 달성</p>
+			                        <p class="title">정품보장 | 조말론 런던 카 방향제, 카디퓨저 & 센트 투 고</p>
+			                    </a>
+			                </li>
+			                 <li class="slides">
+			                    <a href="#" class="f_list">
+			                        <img src="../images/latest.jpeg" alt="">
+			                        <p class="percent">14% 달성</p>
+			                        <p class="title">정품보장 | 조말론 런던 카 방향제, 카디퓨저 & 센트 투 고</p>
+			                    </a>
+			                </li>
+			                 <li class="slides">
+			                    <a href="#" class="f_list">
+			                        <img src="../images/latest.jpeg" alt="">
+			                        <p class="percent">14% 달성</p>
+			                        <p class="title">정품보장 | 조말론 런던 카 방향제, 카디퓨저 & 센트 투 고</p>
+			                    </a>
+			                </li>
+			                 <li class="slides">
+			                    <a href="#" class="f_list">
+			                        <img src="../images/latest.jpeg" alt="">
+			                        <p class="percent">14% 달성</p>
+			                        <p class="title">정품보장 | 조말론 런던 카 방향제, 카디퓨저 & 센트 투 고</p>
+			                    </a>
+			                </li>
+			                 <li class="slides">
+			                    <a href="#" class="f_list">
+			                        <img src="../images/latest.jpeg" alt="">
+			                        <p class="percent">14% 달성</p>
+			                        <p class="title">정품보장 | 조말론 런던 카 방향제, 카디퓨저 & 센트 투 고</p>
+			                    </a>
+			                </li>
+			                 <li class="slides">
+			                    <a href="#" class="f_list">
+			                        <img src="../images/latest.jpeg" alt="">
+			                        <p class="percent">14% 달성</p>
+			                        <p class="title">정품보장 | 조말론 런던 카 방향제, 카디퓨저 & 센트 투 고</p>
+			                    </a>
+			                </li>
+			            </ul>
 	                </div>
-	                <div class="slides">
-	                    <a href="#" class="f_list">
-	                        <img src="../images/latest.jpeg" alt="">
-	                        <p class="percent">14% 달성</p>
-	                        <p class="title">정품보장 | 조말론 런던 카 방향제, 카디퓨저 & 센트 투 고</p>
-	                    </a>
-	                </div>
-	                <div class="slides">
-	                    <a href="#" class="f_list">
-	                        <img src="../images/latest.jpeg" alt="">
-	                        <p class="percent">14% 달성</p>
-	                        <p class="title">정품보장 | 조말론 런던 카 방향제, 카디퓨저 & 센트 투 고</p>
-	                    </a>
-	                </div>
-	                <div class="slides">
-	                    <a href="#" class="f_list">
-	                        <img src="../images/latest.jpeg" alt="">
-	                        <p class="percent">14% 달성</p>
-	                        <p class="title">정품보장 | 조말론 런던 카 방향제, 카디퓨저 & 센트 투 고</p>
-	                    </a>
-	                </div>
-	                <div class="slides">
-	                    <a href="#" class="f_list">
-	                        <img src="../images/latest.jpeg" alt="">
-	                        <p class="percent">14% 달성</p>
-	                        <p class="title">정품보장 | 조말론 런던 카 방향제, 카디퓨저 & 센트 투 고</p>
-	                    </a>
-	                </div>
-	                <div class="slides">
-	                    <a href="#" class="f_list">
-	                        <img src="../images/latest.jpeg" alt="">
-	                        <p class="percent">14% 달성</p>
-	                        <p class="title">정품보장 | 조말론 런던 카 방향제, 카디퓨저 & 센트 투 고</p>
-	                    </a>
-	                </div>
+	                 <div class="arrows">
+                        <button class="prev" ref="l_prev">이전</button>
+                        <button class="next" ref="l_next">다음</button>
+                    </div>
 	            </div>
 	        </section>
 	    </div>
 	</main>
 	<script>
+	let slideCount,
+		d_slideCount,
+		l_slideCount
 	let main_list=Vue.createApp({
 		data(){
 			return{
+				category:[{first:"✅️",second:'전체'},{first:"🖥",second:"테크·가전"},{first:"👗",second:"패션"},{first:"💄",second:"뷰티"},{first:"🏠",second:"홈·리빙"},
+   					{first:"⚽",second:"스포츠·아웃도어"},{first:"🍴",second:"푸드"},{first:"📚",second:"도서·전자책"},{first:"✏️",second:"클래스"},
+   					{first:"🎀",second:"디자인"},{first:"🐶",second:"반려동물"},{first:"🎨",second:"아트"},{first:"🎁",second:"캐릭터·굿즈"},
+   					{first:"🎬",second:"영화·음악"},{first:"👶🏻",second:"키즈"},{first:"🕹",second:"게임"},{first:"📰",second:"만화·웹툰"},
+   					{first:"📷",second:"사진"},{first:"🗺",second:"여행"},{first:"🚗",second:"자동차"},{first:"🎫",second:"멤버십"},
+   					{first:"👫",second:"소셜"}],
 				wish_list:[],
 				backing_list:[],
 				today_list:[],
@@ -299,12 +350,14 @@
 				this.backing_list=response.data.backing_list
 				this.today_list=response.data.today_list
 				this.deadline_list=response.data.deadline_list
+				slideCount=this.today_list.length
+				d_slideCount=this.deadline_list.length
+				//l_slideCount=this.latest_list.length
 			}).catch(error=>{
 				console.log(error.response)
 			})
 		},
 	}).mount('#main')
-		
 		
 	</script>
 </body>

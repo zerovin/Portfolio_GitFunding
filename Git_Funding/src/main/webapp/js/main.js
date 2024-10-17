@@ -56,7 +56,8 @@ if($('#main').length > 0){
 	    $(this).siblings('li').removeClass('active');
 	})
 	
-	/* ------- OPEN & DEADLINE & LATEST ------------
+	/* ------- OPEN & DEADLINE & LATEST ------------*/
+	/*
 	$('#main .multiple_slide').slick({
 	    infinite: true,
 	    slidesToShow: 5,
@@ -66,6 +67,77 @@ if($('#main').length > 0){
 	    pauseOnHover:false
 	});
 	*/
+	
+	//open_slide
+    let sliderWrapper = document.querySelector("#open .multiple_slide_wrapper"),
+        sliderUl = sliderWrapper.querySelector("#open .multiple_slide");
+    let currentIdx = 0,
+        //slideCount=sliderUl.children.length,
+        slideWidth = 220,
+        slideMargin = 20,
+        prevBtn = document.querySelector("#open .arrows .prev"),
+        nextBtn = document.querySelector("#open .arrows .next");
+    if(slideCount<=5){
+        prevBtn.style.display='none';
+        nextBtn.style.display='none';
+    }
+    function moveSlide(idx) {
+        sliderUl.style.left = -idx * (slideWidth + slideMargin) + "px";
+        currentIdx = idx;
+    }
+    //버튼으로 이동하기
+    nextBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        if (currentIdx == slideCount - 5) {
+            moveSlide(0);
+        } else {
+            moveSlide(currentIdx + 1);
+        }
+    });
+    prevBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        if (currentIdx == 0) {
+            moveSlide(slideCount - 5);
+        } else {
+            moveSlide(currentIdx - 1);
+        }
+    });
+
+    //deadline_slide
+    let d_sliderWrapper = document.querySelector("#deadline .multiple_slide_wrapper"),
+        d_sliderUl = d_sliderWrapper.querySelector("#deadline .multiple_slide");
+    let d_currentIdx = 0,
+        //d_slideCount=d_sliderUl.children.length,
+        d_slideWidth = 220,
+        d_slideMargin = 20,
+        d_prevBtn = document.querySelector("#deadline .arrows .prev"),
+        d_nextBtn = document.querySelector("#deadline .arrows .next");
+    if(d_slideCount<=5){
+        d_prevBtn.style.display='none';
+        d_nextBtn.style.display='none';
+    }
+    function d_moveSlide(idx) {
+        d_sliderUl.style.left = -idx * (d_slideWidth + d_slideMargin) + "px";
+        d_currentIdx = idx;
+    }
+    //버튼으로 이동하기
+    d_nextBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        if (d_currentIdx == d_slideCount - 5) {
+            d_moveSlide(0);
+        } else {
+            d_moveSlide(d_currentIdx + 1);
+        }
+    });
+    d_prevBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        if (d_currentIdx == 0) {
+            d_moveSlide(d_slideCount - 5);
+        } else {
+            d_moveSlide(d_currentIdx - 1);
+        }
+    });
+	
 	let date=new Date();
 	let year = date.getFullYear();
 	let month = ('0' + (date.getMonth() + 1)).slice(-2);
@@ -74,6 +146,41 @@ if($('#main').length > 0){
 	$('#main #deadline .clock').countdown(today+' 24:00:00',function(e){
 	    $(this).text(e.strftime('%H:%M:%S'));
 	})
+	
+	 //latest_slide
+    let l_sliderWrapper = document.querySelector("#latest .multiple_slide_wrapper"),
+        l_sliderUl = l_sliderWrapper.querySelector("#latest .multiple_slide");
+    let l_currentIdx = 0,
+        //l_slideCount=l_sliderUl.children.length,
+        l_slideWidth = 220,
+        l_slideMargin = 20,
+        l_prevBtn = document.querySelector("#latest .arrows .prev"),
+        l_nextBtn = document.querySelector("#latest .arrows .next");
+    if(l_slideCount<=5){
+        l_prevBtn.style.display='none';
+        l_nextBtn.style.display='none';
+    }
+    function l_moveSlide(idx) {
+        l_sliderUl.style.left = -idx * (l_slideWidth + l_slideMargin) + "px";
+        l_currentIdx = idx;
+    }
+    //버튼으로 이동하기
+    l_nextBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        if (l_currentIdx == l_slideCount - 5) {
+            l_moveSlide(0);
+        } else {
+            l_moveSlide(l_currentIdx + 1);
+        }
+    });
+    l_prevBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        if (l_currentIdx == 0) {
+            l_moveSlide(l_slideCount - 5);
+        } else {
+            l_moveSlide(l_currentIdx - 1);
+        }
+    });
 }
 
 /* ----------------- CATEGORY ------------------*/

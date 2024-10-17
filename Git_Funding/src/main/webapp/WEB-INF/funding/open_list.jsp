@@ -1,11 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <head>
-    <link rel="stylesheet" href="../css/funding_list.css">
+<link rel="stylesheet" href="../css/funding_list.css">
 </head>
 <body>
 	<div id="funding_list" class="container">
-		<jsp:include page="../funding/category.jsp"></jsp:include>
+		<div class="category">
+	     <ul class="cate_list">
+	         <li v-for="cate in category">
+	             <a @click="cateChange(cate.second)">
+	                 <p>{{cate.first}}️</p>
+	                 <p>{{cate.second}}</p>
+	             </a>
+	         </li>
+	     </ul>
+	     <button class="control prev">이전</button>
+	     <button class="control next">다음</button>
+	 </div>
         <div class="list_wrap">
             <ul class="list">
                 <li v-for="vo in list">
@@ -34,6 +45,12 @@
    	let open_list=Vue.createApp({
    		data(){
    			return{
+   				category:[{first:"✅️",second:'전체'},{first:"🖥",second:"테크·가전"},{first:"👗",second:"패션"},{first:"💄",second:"뷰티"},{first:"🏠",second:"홈·리빙"},
+   					{first:"⚽",second:"스포츠·아웃도어"},{first:"🍴",second:"푸드"},{first:"📚",second:"도서·전자책"},{first:"✏️",second:"클래스"},
+   					{first:"🎀",second:"디자인"},{first:"🐶",second:"반려동물"},{first:"🎨",second:"아트"},{first:"🎁",second:"캐릭터·굿즈"},
+   					{first:"🎬",second:"영화·음악"},{first:"👶🏻",second:"키즈"},{first:"🕹",second:"게임"},{first:"📰",second:"만화·웹툰"},
+   					{first:"📷",second:"사진"},{first:"🗺",second:"여행"},{first:"🚗",second:"자동차"},{first:"🎫",second:"멤버십"},
+   					{first:"👫",second:"소셜"}],
    				list:[],
    				curpage:1,
    				totalpage:0,

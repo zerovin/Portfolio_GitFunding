@@ -116,6 +116,59 @@
     text-align:right;
 }
 
+/* ---------------- CATE ---------------- */
+.category{
+    overflow:hidden;
+    position:relative;
+    height:90px;
+}
+.category .cate_list{
+    position:absolute;
+    top:0;
+    right:-45%;
+    display:flex;
+	justify-content:space-between;
+    flex-wrap:nowrap;
+    width:1730px;
+    transition:.3s;
+}
+.category .cate_list.scroll{
+    right:0;
+}
+.category .cate_list a{
+    padding:5px;
+    text-align:center;
+}
+.category .cate_list a p:first-child{
+    font-size:32px;
+    margin-bottom:10px;
+}
+.category .cate_list a:hover p:last-child{
+    font-weight:500;
+}
+.category button.control{
+    background:no-repeat;
+    width:30px;
+    height:100%;
+    text-indent:-9999em;
+    cursor: pointer;
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    z-index:1;
+}
+.category button.prev{
+    display:none;
+    background-image:url(../images/prev.png), linear-gradient(to right, rgba(255,255,255,1) 75%, rgba(255,255,255,0) 100%);
+    background-position:left center;
+    left:0;
+}
+.category button.next{
+    background-image:url(../images/next.png), linear-gradient(to left, rgba(255,255,255,1) 75%, rgba(255,255,255,0) 100%);
+    background-position:right center;
+    right:0;
+}
+
 /* ---------------- BANNER ---------------- */
 #main #banner{
     display:grid;
@@ -263,9 +316,7 @@
 }
 
 /* ----------------OPEN & DEADLINE & LATEST ---------------- */
-#main .multiple_slide .slick-track{
-	width:auto !important;
-}
+/*
 #main .multiple_slide .slick-slide{
     margin:0 5px;
 }
@@ -282,6 +333,41 @@
     right:50px;
 }
 #main .multiple_slide .slick-next{
+    background-image: url(../images/multiple_next.png);
+    right:0;
+}
+*/
+#main .slide_wrap{
+    position:relative;
+}
+#main .multiple_slide_wrapper{
+    position:relative;
+    width:100%;
+    height:220px;
+    overflow:hidden;
+}
+#main .multiple_slide_wrapper .multiple_slide{
+    position:absolute;
+    transition:.3s;
+}
+#main .multiple_slide_wrapper .multiple_slide .slides{
+    width:220px;
+    float:left;
+    margin:0 10px;
+}
+#main .slide_wrap .arrows > button{
+    position:absolute;
+    bottom:calc(100% + 10px);
+    background:no-repeat;
+    width:41px;
+    height:41px;
+    text-indent:-9999em;
+}
+#main .slide_wrap .arrows > button.prev{
+    background-image: url(../images/multiple_prev.png);
+    right:50px;
+}
+#main .slide_wrap .arrows > button.next{
     background-image: url(../images/multiple_next.png);
     right:0;
 }
