@@ -107,4 +107,34 @@ public class FundingServiceImpl implements FundingService{
 		return fDao.mainDeadlineListData();
 	}
 
+	@Override
+	public List<FundingVO> openCateListData(Map map) {
+		// TODO Auto-generated method stub
+		return fDao.openCateListData(map);
+	}
+
+	@Override
+	public int openCateTotalPage(String cate) {
+		// TODO Auto-generated method stub
+		return fDao.openCateTotalPage(cate);
+	}
+
+	@Override
+	public List<FundingVO> fundingCateListData(Map map) {
+		// TODO Auto-generated method stub
+		return fDao.fundingCateListData(map);
+	}
+
+	@Override
+	public int fundingCateTotalPage(String cate) {
+		// TODO Auto-generated method stub
+		return fDao.fundingCateTotalPage(cate);
+	}
+
+	@Override
+	public AdVO mainAdData() {
+		// TODO Auto-generated method stub
+		return fDao.mainAdData();
+	}
+
 }

@@ -26,12 +26,14 @@ public class FundingRestController {
 		List<FundingVO> backing_list=fService.mainBackingListData();
 		List<FundingVO> today_list=fService.mainTodayListData();
 		List<FundingVO> deadline_list=fService.mainDeadlineListData();
+		AdVO bottom_ad=fService.mainAdData();
 		
 		Map map=new HashMap();
 		map.put("wish_list", wish_list);
 		map.put("backing_list", backing_list);
 		map.put("today_list", today_list);
 		map.put("deadline_list", deadline_list);
+		map.put("bottom_ad", bottom_ad);
 		
 		ObjectMapper mapper=new ObjectMapper();
 		String json=mapper.writeValueAsString(map);
@@ -213,6 +215,61 @@ public class FundingRestController {
 		
 		ObjectMapper mapper=new ObjectMapper();
 		String json=mapper.writeValueAsString(map);
+		return json;
+	}
+	
+	@GetMapping(value="funding/cate_change.do", produces="text/plain;charset=UTF-8")
+	public String funding_cate(int page, String cate, int type) throws Exception{
+		int rowSize=12;
+		int start=(rowSize*page)-(rowSize-1);
+		int end=rowSize*page;
+		Map map=new HashMap();
+		map.put("start", start);
+		map.put("end", end);
+		map.put("cate", cate);
+		
+		List<FundingVO> list=new ArrayList();
+		int totalpage=0;
+		
+		if(type==1) {
+			list=fService.openCateListData(map);
+			totalpage=fService.openCateTotalPage(cate);
+		}else {
+			list=fService.fundingCateListData(map);
+			for(FundingVO vo:list) {
+				vo.setFm_totalprice(new DecimalFormat("###,###").format(vo.getTotalprice()));
+				int percent=(int)(Math.round(vo.getTotalprice()/(double)vo.getTargetprice()*100));
+				vo.setFm_percent(new DecimalFormat("###,###").format(percent));
+				if(percent>=100) {
+					percent=100;
+				}
+				vo.setPercent(percent);
+				
+				Date today=new Date();
+				Date endday=new SimpleDateFormat("yyyyMMdd").parse(vo.getEndday());
+				long gap=endday.getTime()-today.getTime();
+				vo.setDday((int)(gap/(24*60*60*1000)+1));
+			}
+			totalpage=fService.fundingCateTotalPage(cate);
+		}
+		 
+		final int BLOCK=5;
+		int startpage=((page-1)/BLOCK*BLOCK)+1;
+		int endpage=((page-1)/BLOCK*BLOCK)+BLOCK;
+		if(endpage>totalpage) {
+			endpage=totalpage;
+		}
+		
+		map=new HashMap();
+		map.put("list", list);
+		map.put("curpage", page);
+		map.put("totalpage", totalpage);
+		map.put("startpage", startpage);
+		map.put("endpage", endpage);
+		
+		ObjectMapper mapper=new ObjectMapper();
+		String json=mapper.writeValueAsString(map);
+		
 		return json;
 	}
 }

@@ -7,7 +7,7 @@
 	<div id="funding_list" class="container">
 		<div class="category">
 		     <ul class="cate_list">
-		         <li v-for="cate in category">
+		         <li v-for="(cate,idx) in category">
 		             <a @click="cateChange(cate.second)">
 		                 <p>{{cate.first}}️</p>
 		                 <p>{{cate.second}}</p>
@@ -56,14 +56,35 @@
    				curpage:1,
    				totalpage:0,
    				startpage:0,
-   				endpage:0, 				
+   				endpage:0
    			}
    		},
    		mounted(){
-   			this.dataRecv()
-   			
+   			this.cateChange(this.category[${cate}].second)
    		},
    		methods:{
+   			cateChange(cate){
+   				if(cate==='전체'){
+   					this.dataRecv()
+   				}else{
+	   				axios.get('../funding/cate_change.do',{
+	   					params:{
+	   						page:this.curpage,
+	   						cate:cate,
+	   						type:2
+	   					}
+	   				}).then(response=>{
+	   					this.list=response.data.list
+	   					this.curpage=response.data.curpage
+	   					this.totalpage=response.data.totalpage
+	   					this.startpage=response.data.startpage
+	   					this.endpage=response.data.endpage
+	   					this.sessionId=response.data.sessionId
+	   				}).catch(error=>{
+	   					console.log(error.response)
+	   				})			
+   				}
+   			},
    			range(start,end){
    				let arr=[]
    				let length=end-start

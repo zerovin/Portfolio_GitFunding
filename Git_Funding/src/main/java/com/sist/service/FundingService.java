@@ -9,10 +9,13 @@ public interface FundingService {
 	public List<FundingVO> mainBackingListData();
 	public List<FundingVO> mainTodayListData();
 	public List<FundingVO> mainDeadlineListData();
+	public AdVO mainAdData();
 	
 	//오픈예정
 	public List<FundingVO> openListData(Map map);
 	public int openTotalPage();
+	public List<FundingVO> openCateListData(Map map);
+	public int openCateTotalPage(String cate);
 	
 	//오픈알림
 	public void fundingAlertUpdate(int fno);
@@ -24,6 +27,8 @@ public interface FundingService {
 	//펀딩
 	public List<FundingVO> fundingListData(Map map);
 	public int fundingTotalPage();
+	public List<FundingVO> fundingCateListData(Map map);
+	public int fundingCateTotalPage(String cate);
 	
 	//상세
 	public FundingVO fundingDetailData(int fno);

@@ -41,6 +41,14 @@ public interface FundingMapper {
 			+ "WHERE trunc(enddate)=trunc(SYSDATE) "
 			+ "ORDER BY fno DESC")
 	public List<FundingVO> mainDeadlineListData();
+	
+	//메인-광고
+	@Select("SELECT no, link, rownum "
+			+ "FROM (SELECT no, link FROM funding_ad ORDER BY DBMS_RANDOM.VALUE) "
+			+ "WHERE rownum=1")
+	public AdVO mainAdData();
+	
+	
 	//오픈예정 목록 
 	@Select("SELECT fno, title, thumb, p_admin, targetprice, totalprice, alert, TO_CHAR(startdate, 'MM\"월 \"DD\"일\"') as startday, num "
 			+ "FROM (SELECT fno, title, thumb, p_admin, targetprice, totalprice, alert, startdate, rownum as num "
@@ -54,6 +62,20 @@ public interface FundingMapper {
 	@Select("SELECT CEIL(COUNT(*)/12.0) FROM funding "
 			+ "WHERE startdate>SYSDATE")
 	public int openTotalPage();
+	
+	//오픈 카테고리 분류별 출력
+	@Select("SELECT fno, title, thumb, p_admin, targetprice, totalprice, alert, TO_CHAR(startdate, 'MM\"월 \"DD\"일\"') as startday, num "
+			+ "FROM (SELECT fno, title, thumb, p_admin, targetprice, totalprice, alert, startdate, rownum as num "
+			+ "FROM (SELECT fno, title, thumb, p_admin, targetprice, totalprice, alert, startdate "
+			+ "FROM funding "
+			+ "WHERE startdate>SYSDATE AND type=#{cate} "
+			+ "ORDER BY fno DESC)) "
+			+ "WHERE num BETWEEN #{start} AND #{end}") 
+	public List<FundingVO> openCateListData(Map map);
+	
+	@Select("SELECT CEIL(COUNT(*)/12.0) FROM funding "
+			+ "WHERE startdate>SYSDATE AND type=#{cate}")
+	public int openCateTotalPage(String cate);
 	
 	//오픈예정 알림 여부   
 	@Select("SELECT fno "
@@ -89,6 +111,19 @@ public interface FundingMapper {
 	@Select("SELECT CEIL(COUNT(*)/12.0) FROM funding "
 			+ "WHERE startdate<SYSDATE AND enddate>SYSDATE")
 	public int fundingTotalPage();
+	
+	//오픈 카테고리 분류별 출력
+	@Select("SELECT fno, title, thumb, p_admin, targetprice, totalprice, TO_CHAR(headcount, 'FM999,999') as fm_headcount, TO_CHAR(enddate, 'YYYYMMDD') as endday, num "
+			+ "FROM (SELECT fno, title, thumb, p_admin, targetprice, totalprice, headcount, enddate, rownum as num "
+			+ "FROM (SELECT fno, title, thumb, p_admin, targetprice, totalprice, headcount, enddate "
+			+ "FROM funding WHERE startdate<SYSDATE AND enddate>SYSDATE AND type=#{cate}"
+			+ "ORDER BY fno DESC)) "
+			+ "WHERE num BETWEEN #{start} AND #{end}")
+	public List<FundingVO> fundingCateListData(Map map);
+	
+	@Select("SELECT CEIL(COUNT(*)/12.0) FROM funding "
+			+ "WHERE startdate<SYSDATE AND enddate>SYSDATE AND type=#{cate}")
+	public int fundingCateTotalPage(String cate);
 	
 	//펀딩 상세
 	@Select("SELECT fno, thumb, type, title, description, p_admin, targetprice, totalprice, wish, backing, "

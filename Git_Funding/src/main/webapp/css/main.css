@@ -382,3 +382,10 @@
     padding:5px;
     border-radius:3px;
 }
+#main #bottom_ad{
+	display:block;
+}
+#main #bottom_ad a,
+#main #bottom_ad img{
+	width:100%;
+}

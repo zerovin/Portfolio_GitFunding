@@ -19,7 +19,11 @@ public class FundingController {
 	}
 	
 	@GetMapping("funding/funding_list.do")
-	public String funding_funding() {
+	public String funding_funding(String cate, Model model) {
+		if(cate==null) {
+			cate=String.valueOf(0);
+		}
+		model.addAttribute("cate", cate);			
 		return "funding/funding_list";
 	}
 	

@@ -64,6 +64,28 @@
    			this.dataRecv()	
    		},
    		methods:{
+   			cateChange(cate){
+   				if(cate==='전체'){
+   					this.dataRecv()
+   				}else{
+	   				axios.get('../funding/cate_change.do',{
+	   					params:{
+	   						page:this.curpage,
+	   						cate:cate,
+	   						type:1
+	   					}
+	   				}).then(response=>{
+	   					this.list=response.data.list
+	   					this.curpage=response.data.curpage
+	   					this.totalpage=response.data.totalpage
+	   					this.startpage=response.data.startpage
+	   					this.endpage=response.data.endpage
+	   					this.sessionId=response.data.sessionId
+	   				}).catch(error=>{
+	   					console.log(error.response)
+	   				})			
+   				}
+   			},
    			alertDelete(fno){
    				axios.get('../funding/alert_delete.do',{
    					params:{

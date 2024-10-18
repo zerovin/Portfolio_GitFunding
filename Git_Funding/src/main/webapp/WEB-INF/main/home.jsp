@@ -52,8 +52,8 @@
 	            </div>
 	            <div class="category">
 				    <ul class="cate_list">
-				        <li v-for="cate in category">
-						    <a @click="cateChange(cate.second)">
+				        <li v-for="(cate, idx) in category">
+						    <a :href="'../funding/funding_list.do?cate='+idx">
 						        <p>{{cate.first}}️</p>
 						        <p>{{cate.second}}</p>
 						    </a>
@@ -321,6 +321,11 @@
                     </div>
 	            </div>
 	        </section>
+	        <seciton id="bottom_ad">
+	        	<a :href="bottom_ad.link" target="_blank">
+	        		<img :src="'../images/ad'+bottom_ad.no+'.png'" alt="">
+	        	</a>
+	        </seciton>
 	    </div>
 	</main>
 	<script>
@@ -339,7 +344,8 @@
 				wish_list:[],
 				backing_list:[],
 				today_list:[],
-				deadline_list:[]
+				deadline_list:[],
+				bottom_ad:{}
 			}
 		},
 		mounted(){
@@ -350,13 +356,14 @@
 				this.backing_list=response.data.backing_list
 				this.today_list=response.data.today_list
 				this.deadline_list=response.data.deadline_list
+				this.bottom_ad=response.data.bottom_ad
 				slideCount=this.today_list.length
 				d_slideCount=this.deadline_list.length
 				//l_slideCount=this.latest_list.length
 			}).catch(error=>{
 				console.log(error.response)
 			})
-		},
+		}
 	}).mount('#main')
 		
 	</script>
