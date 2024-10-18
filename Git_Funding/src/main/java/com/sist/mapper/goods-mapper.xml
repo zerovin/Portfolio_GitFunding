@@ -48,4 +48,19 @@
 			)) 
 			WHERE num BETWEEN #{start} AND #{end}
 	</select>
+	<resultMap type="CartVO" id="cartDetail">
+		<result column="gPrice" property="gvo.price"/>
+		<result column="img" property="gvo.img"/>
+		<result column="title" property="gvo.title"/>
+		<result column="brand" property="gvo.brand"/>
+		<result column="delivery" property="gvo.delivery"/>
+	</resultMap>
+	<!-- 카트리스트 -->
+	<select id="cartListData" resultMap="cartDetail" parameterType="String">
+		SELECT fgcno,fc.price,fc.fgno,account,ops,fg.title,fg.brand,fg.delivery , fgi.img ,fg.price as gPrice
+		FROM f_goods_cart fc 
+			JOIN f_goods fg ON fc.fgno = fg.fgno 
+				LEFT JOIN (SELECT fgno, MAX(img) AS img FROM f_goods_img GROUP BY fgno) fgi ON fc.fgno = fgi.fgno
+		WHERE id=#{id}
+	</select>
 </mapper>

@@ -2,9 +2,13 @@ package com.sist.web;
 import java.text.DecimalFormat;
 import java.util.*;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sist.vo.*;
@@ -102,8 +106,58 @@ public class GoodsRestController {
 		return "짜장";
 	}
 	@PostMapping(value = "goods/cart_insert_vue.do",produces = "text/plain;charset=utf-8")
-	public String cart_insert(String fg_no,String option,int account) throws Exception{
+	public String cart_insert(int ea,int fg_no,String price,String ops,HttpSession session) throws Exception{
+		String result="no";
+		String id=(String)session.getAttribute("userId");
+		Map map=new HashMap();
+		map.put("fgno", fg_no);
+		map.put("id", id);
+		map.put("account", ea);
+		map.put("ops", ops);
+		map.put("price", price);
 		
-		return "짜장";
+		int count=gService.cartCount(map);
+		if(count>0) {
+			try {
+				gService.cartUpdate(map);
+				result="ok";
+			}catch(Exception ex) {
+				ex.printStackTrace();
+			}
+		}else {
+			try {
+				gService.cartInsert(map);
+				result="ok";
+			}catch(Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+		return result;
+	}
+	@PostMapping(value = "goods/cartList_vue.do",produces = "text/plain;charset=utf-8")
+	public String cart_list(String id) throws Exception{
+		
+		List<CartVO> list=gService.cartListData(id);
+		
+		Map map=new HashMap();
+		map.put("cList", list);
+		
+		String json=jsonMaker(map);
+		return json;
+	}
+	@PostMapping(value="goods/cart_delete.do",produces = "text/plain;charset=utf-8")
+	public String cart_delete(@RequestParam List<Integer> selected) {
+		String result="no";
+		try {
+			for(int i:selected) {
+				gService.cartDelete(i);
+			}
+			result="ok";
+		}catch(Exception ex) {
+			
+		}
+		
+		
+		return result;
 	}
 }

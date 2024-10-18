@@ -6,6 +6,7 @@
  	<typeAliases>
  		<typeAlias type="com.sist.vo.GoodsVO" alias="GoodsVO"/>
  		<typeAlias type="com.sist.vo.Goods2VO" alias="Goods2VO"/>
+ 		<typeAlias type="com.sist.vo.CartVO" alias="CartVO"/>
  	</typeAliases>
  	<mappers>
  		<mapper resource="com/sist/mapper/goods-mapper.xml"/>

@@ -29,6 +29,32 @@ public class GoodsServiceImpl implements GoodsService{
 		// TODO Auto-generated method stub
 		return gDao.goodsDetailData(fgno);
 	}
+	@Override
+	public void cartInsert(Map map) {
+		gDao.cartInsert(map);
+	}
+	@Override
+	public List<CartVO> cartListData(String id) {
+		// TODO Auto-generated method stub
+		return gDao.cartListData(id);
+	}
+	@Override
+	public int cartCount(Map map) {
+		// TODO Auto-generated method stub
+		return gDao.cartCount(map);
+	}
+	@Override
+	public void cartUpdate(Map map) {
+		// TODO Auto-generated method stub
+		gDao.cartUpdate(map);
+		
+	}
+	@Override
+	public void cartDelete(int fgcno) {
+		// TODO Auto-generated method stub
+		gDao.cartDelete(fgcno);
+	}
+	
 
 	
 }

@@ -27,4 +27,21 @@ public class GoodsDAO {
 	public GoodsVO goodsDetailData(int fgno){
 		return mapper.goodsDetailData(fgno);
 	}
+	
+	public void cartInsert(Map map) {
+		mapper.cartInsert(map);
+	}
+	
+	public List<CartVO> cartListData(String id){
+		return mapper.cartListData(id);
+	}
+	public int cartCount(Map map) {
+		return mapper.cartCount(map);
+	}
+	public void cartUpdate(Map map) {
+		mapper.cartUpdate(map);
+	}
+	public void cartDelete(int fgcno) {
+		mapper.cartDelete(fgcno);
+	}
 }

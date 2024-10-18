@@ -228,7 +228,8 @@ function goSubmit() {
     			  vo:{},
     			  option:'',
     			  thumb:'',
-    			  max:1
+    			  max:1,
+    			  sessionId:'${sessionScope.userId}'
     		  }
     	  },
     	  mounted(){
@@ -253,15 +254,28 @@ function goSubmit() {
     			  })
     		  },
     		  cartBuy(){
-    			  axios.post('../goods/cart_insert_vue.do',null,{
-    				  params:{
-    					  fg_no:this.fg_no,
-    					  account:this.fg_no,
-    					  option:this.option
-    				  }
-    			  }).then(response=>{
-    				  location.href="../goods/cart.do"
-    			  })
+    			  if(this.sessionId==''){
+     					alert("로그인 후 이용해주세요")
+     					
+     			  }else{
+    			  
+	    			  axios.post('../goods/cart_insert_vue.do',null,{
+	    				  params:{
+	    					  fg_no:this.fg_no,
+	    					  ea:this.account,
+	    					  price:this.vo.realprice,
+	    					  ops:this.option
+	    				  }
+	    			  }).then(response=>{
+	    				  console.log(response)
+	    				  if(response.data==="ok"){
+	    					alert("장바구니로 이동합니다")
+	    				  	location.href="../goods/cart.do"
+	    				  }else{
+	    					  alert("장바구니담기에 실패했습니다...")
+	    				  }
+	    			  })
+     			  }
     		  },
     		  changeSelect(){
 

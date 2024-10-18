@@ -112,8 +112,8 @@ input[type="button"]:hover{
 	            	    <td width="3%">
 	            	    </td>
 	            	    <td width="15%">
-	            	      <p></p>
-	            	      <p style="margin-top: 4px;"></p>
+	            	      <p>철배송</p>
+	            	      <p style="margin-top: 4px;">12345</p>
 	            	    </td>
 	            	    <td width="10%">
 	            	      <p>SA</p>
@@ -285,7 +285,8 @@ input[type="button"]:hover{
         			addr1:'',
         			account:'${account}',
         			fg_no:'${fg_no}',
-        			option:'${option}'
+        			option:'${option}',
+        			cartList:[],
         			
         		} 
         	 },
