@@ -70,6 +70,53 @@ public class GitstaRestController {
         return json;
     }
     
+    @GetMapping(value = "gitsta/following_list_vue.do", produces = "application/json;charset=UTF-8")
+    public String following_list(String userId) throws Exception {
+        List<MemberVO> list = gService.gitstaFollowingListData(userId);
+        int followingCount = gService.getFollowingCount(userId);
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("list", list);
+        map.put("followerCount", followingCount); 
+
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(map);
+        return json;
+    }
+    
+    @GetMapping(value = "gitsta/follower_list_vue.do", produces = "application/json;charset=UTF-8")
+    public String follower_list(String userId) throws Exception {
+        // 사용자를 팔로우하는 사람들의 목록을 가져옴
+        List<MemberVO> list = gService.gitstaFollowerListData(userId);
+
+        // 사용자를 팔로우하고 있는 사람들의 수를 가져옴 (팔로워 수)
+        int followerCount = gService.getFollowerCount(userId);
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("list", list);    // 사용자를 팔로우하는 사람들의 목록
+        map.put("followerCount", followerCount);  // 사용자를 팔로우하고 있는 사람들의 수 (팔로워 수)
+
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(map);
+        return json;
+    }
+    
+    @GetMapping(value = "gitsta/follower_count_vue.do", produces = "application/json;charset=UTF-8")
+    public String follow_count(String userId) throws Exception {
+        // 사용자를 팔로우하는 사람들의 목록을 가져옴
+
+        // 사용자를 팔로우하고 있는 사람들의 수를 가져옴 (팔로워 수)
+        int followerCount = gService.getFollowerCount(userId);
+        int followingCount = gService.getFollowingCount(userId);
+        Map<String, Object> map = new HashMap<>();
+        map.put("followingCount",followingCount);
+        map.put("followerCount", followerCount);  // 사용자를 팔로우하고 있는 사람들의 수 (팔로워 수)
+
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(map);
+        return json;
+    }
+    
     @PostMapping(value = "gitsta/create_post_vue.do", produces = "text/plain;charset=UTF-8")
     public String create_post(GitstaVO vo,HttpServletRequest request) {
         String result = "";
@@ -130,5 +177,24 @@ public class GitstaRestController {
         }
     }
     
-    
+    @PostMapping(value = "gitsta/follow.do", produces = "text/plain;charset=UTF-8")
+    public String followUser(String followerId, String followingId) {
+        try {
+            gService.insertFollow(followerId, followingId);
+            return "success";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "fail";
+        }
+    }
+    @PostMapping(value = "gitsta/unfollow.do", produces = "text/plain;charset=UTF-8")
+    public String unfollowUser(String followerId, String followingId) {
+        try {
+            gService.deleteFollow(followerId, followingId);
+            return "success";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "fail";
+        }
+    }
 }

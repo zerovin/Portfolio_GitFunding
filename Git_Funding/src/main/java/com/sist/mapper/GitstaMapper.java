@@ -1,6 +1,7 @@
 package com.sist.mapper;
 import java.util.*;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -45,5 +46,31 @@ public interface GitstaMapper {
 	@Insert("INSERT INTO gitsta_feed(no,userId,content,filename,filesize,filecount,modifydate) "
 	  		+ "VALUES(gf_no_seq.nextval,#{userId},#{content},#{filename},#{filesize},#{filecount},SYSDATE)")
 	public void feedInsert(GitstaVO vo);
-	  
+	//팔로잉
+	@Select("SELECT m.userId, m.nickname, m.userName, m.profile "
+	        + "FROM follow f "
+	        + "JOIN funding_member m ON f.followingId = m.userId "
+	        + "WHERE f.followerId = #{userId} "
+	        + "ORDER BY m.nickname ASC")
+	public List<MemberVO> gitstaFollowingListData(@Param("userId") String userId);
+	
+	@Select("SELECT COUNT(*) FROM follow WHERE followerId = #{userId}")
+	public int getFollowingCount(@Param("userId") String userId); 
+	//팔로워
+	@Select("SELECT m.userId, m.nickname, m.userName, m.profile "
+	        + "FROM follow f "
+	        + "JOIN funding_member m ON f.followerId = m.userId "
+	        + "WHERE f.followingId = #{userId} "
+	        + "ORDER BY m.nickname ASC")
+	public List<MemberVO> gitstaFollowerListData(@Param("userId") String userId);
+	
+	@Select("SELECT COUNT(*) FROM follow WHERE followingId = #{userId}")
+	public int getFollowerCount(@Param("userId") String userId);
+	
+	@Insert("INSERT INTO follow (followerId, followingId) VALUES (#{followerId}, #{followingId})")
+	public void insertFollow(@Param("followerId") String followerId, @Param("followingId") String followingId);
+	
+	@Delete("DELETE FROM follow WHERE followerId = #{followerId} AND followingId = #{followingId}")
+	public void deleteFollow(@Param("followerId") String followerId, @Param("followingId") String followingId);
+	
 }

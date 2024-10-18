@@ -137,37 +137,37 @@
 </head>
 <body>
 <div id="totalFeedApp" class="instagram-page">
+    <!-- 로그인한 사용자 정보 -->
     <div class="user-info">
         <div>
-            <a :href="'../gitsta/feed.do?userId='+sessionId"><img src="../images/cute.png" alt="사용자 프로필" class="profile-pic"></a>
+            <a :href="'../gitsta/feed.do?userId=' + sessionId"><img src="../images/profile.png" class="profile-pic"></a>
             <p><span style="font-weight: bold;">나</span></p>
         </div>
-        <div>
-            <a href="../gitsta/feed.do?userId=zero"><img src="../images/favicon.png" alt="사용자 프로필" class="profile-pic"></a>
-            <p>이영빈</p>
-        </div>
-        <div>
-            <img src="../images/favicon.png" alt="사용자 프로필" class="profile-pic">
-            <p>김다영</p>
-        </div>
-        <div>
-            <img src="../images/favicon.png" alt="사용자 프로필" class="profile-pic">
-            <p>민다진</p>
-        </div>
-        <div>
-            <img src="../images/favicon.png" alt="사용자 프로필" class="profile-pic">
-            <p>정지나</p>
-        </div>
+        
+        <!-- 팔로잉한 사용자 목록 -->
+		<div v-for="user in followingList" :key="user.userId">
+		    <a :href="'../gitsta/feed.do?userId=' + user.userId">
+		        <img :src="user.profile" alt="사용자 프로필" class="profile-pic">
+		    </a>
+		    <p v-if="user.nickname!==null">{{ user.nickname }}</p>
+		    <p v-else>{{ user.userName }}</p>
+		</div>
     </div>
 
     <!-- 포스트 목록 -->
     <div v-for="post in visibleFeed" :key="post.no" class="post">
         <div class="post-header">
             <img :src="post.profile" alt="사용자 프로필" class="post-profile-pic">
-            <div class="post-user-info">
-                <div><span class="username">{{ post.nickname }}</span> </div>
-                <button class="follow-btn" v-if="sessionId!==post.userId">+ 팔로우</button>
-            </div>
+			<div class="post-user-info">
+			    <div v-if="post.nickname !== null">
+			        <span class="username">{{ post.nickname }}</span>
+			    </div>
+			    <div v-else>
+			        <span class="username">{{ post.userName }}</span>
+			    </div>
+			    <button class="follow-btn" v-if="sessionId !== post.userId && !post.isFollowing" @click="followUser(post.userId)">+ 팔로우</button>
+			    <button class="follow-btn" v-if="sessionId !== post.userId && post.isFollowing" @click="unfollowUser(post.userId)">- 언팔로우</button>
+			</div>
         </div>
         <div class="post-image">
             <img :src="'../profile/' + post.filename" alt="포스팅 이미지">
@@ -188,32 +188,115 @@ let totalFeedApp = Vue.createApp({
     data() {
         return {
             feedList: [],
+            followingList: [], // 팔로잉한 사용자들의 모든 정보를 저장합니다.
             postsToShow: 3,
-            sessionId: ''
+            sessionId: '',
+            profile: ''
         }
     },
     mounted() {
-        this.loadFeed()
-        this.getSessionId()
+        this.getSessionId();
     },
     methods: {
-    	getSessionId() {
+        getSessionId() {
             axios.get('../gitsta/getSessionId.do')
                 .then(response => {
                     this.sessionId = response.data; // 가져온 sessionId 저장
+                    this.loadFollowingList(); // 세션 ID를 가져온 후 팔로잉 목록 로드
+                    this.loadFeed(); // 피드 로드
                 })
                 .catch(error => {
                     console.error('세션 ID 가져오기 오류:', error.response);
                 });
         },
+        loadFollowingList() {
+            axios.get('../gitsta/following_list_vue.do', {
+                params: {
+                    userId: this.sessionId
+                }
+            })
+            .then(response => {
+                console.log(response.data);
+                this.followingList = response.data.list; // 팔로잉 목록 저장 (모든 사용자 정보 포함)
+            })
+            .catch(error => {
+                console.error('팔로잉 목록 가져오기 오류:', error);
+            });
+        },
         loadFeed() {
             axios.get('../gitsta/total_feed_vue.do')
             .then(response => {
-                console.log(response.data)
-                this.feedList = response.data.list;
+                console.log(response.data);
+                // 피드 정보를 로드할 때 사용자가 팔로우 중인지 여부를 포함하여 처리
+                this.feedList = response.data.list.map(post => {
+                    post.isFollowing = this.followingList.some(user => user.userId === post.userId);
+                    return post;
+                });
             }).catch(error => {
                 console.error('피드 가져오기 오류:', error);
             });
+        },
+        followUser(userId) {
+            axios.post('../gitsta/follow.do', null, {
+                params: {
+                    followerId: this.sessionId,
+                    followingId: userId
+                }
+            })
+            .then(response => {
+                if (response.data === 'success') {
+                    alert('팔로우 성공!');
+                    // 팔로우 성공 시 상태 업데이트
+                    this.updateFollowStatus(userId, true);
+                    this.loadFollowingList(); // 팔로잉 목록 다시 로드
+                } else {
+                    alert('팔로우 실패. 다시 시도해 주세요.');
+                }
+            })
+            .catch(error => {
+                console.error('팔로우 오류:', error);
+                alert('팔로우 오류가 발생했습니다.');
+            });
+        },
+        unfollowUser(userId) {
+            axios.post('../gitsta/unfollow.do', null, {
+                params: {
+                    followerId: this.sessionId,
+                    followingId: userId
+                }
+            })
+            .then(response => {
+                if (response.data === 'success') {
+                    alert('언팔로우 성공!');
+                    // 언팔로우 성공 시 상태 업데이트
+                    this.updateFollowStatus(userId, false);
+                    this.loadFollowingList(); // 팔로잉 목록 다시 로드
+                } else {
+                    alert('언팔로우 실패. 다시 시도해 주세요.');
+                }
+            })
+            .catch(error => {
+                console.error('언팔로우 오류:', error);
+                alert('언팔로우 오류가 발생했습니다.');
+            });
+        },
+        updateFollowStatus(userId, isFollowing) {
+            // 피드 목록에서 해당 사용자의 팔로우 상태 업데이트
+            this.feedList = this.feedList.map(post => {
+                if (post.userId === userId) {
+                    post.isFollowing = isFollowing;
+                }
+                return post;
+            });
+            // 팔로우 상태에 따라 followingList를 업데이트
+            if (isFollowing) {
+                const user = this.feedList.find(post => post.userId === userId);
+                if (user) {
+                    this.followingList.push(user);
+                }
+            } else {
+                this.followingList = this.followingList.filter(user => user.userId !== userId);
+            }
         },
         loadMore() {
             this.postsToShow += 3;

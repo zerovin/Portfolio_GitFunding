@@ -40,4 +40,34 @@ public class GitstaServiceImpl implements GitstaService{
 	public int gitstaTotalCount() {
 		return gDao.gitstaTotalCount();
 	}
+
+	@Override
+	public List<MemberVO> gitstaFollowingListData(String userId) {
+		return gDao.gitstaFollowingListData(userId);
+	}
+
+	@Override
+	public void insertFollow(String followerId, String followingId) {
+		gDao.insertFollow(followerId, followingId);
+	}
+
+	@Override
+	public void deleteFollow(String followerId, String followingId) {
+		gDao.deleteFollow(followerId, followingId);
+	}
+
+	@Override
+	public int getFollowingCount(String userId) {
+		return gDao.getFollowingCount(userId);
+	}
+
+	@Override
+	public List<MemberVO> gitstaFollowerListData(String userId) {
+		return gDao.gitstaFollowerListData(userId);
+	}
+
+	@Override
+	public int getFollowerCount(String userId) {
+		return gDao.getFollowerCount(userId);
+	}
 }

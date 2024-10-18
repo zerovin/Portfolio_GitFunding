@@ -162,11 +162,11 @@ body {
             게시물
         </div>
         <div>
-            <span>3</span>
+            <span>{{ followerCount }}</span> <!-- 팔로워 수 출력 -->
             팔로워
         </div>
         <div>
-            <span>3</span>
+            <span>{{ followingCount }}</span> <!-- 팔로잉 수 출력 -->
             팔로잉
         </div>
     </div>
@@ -189,6 +189,8 @@ body {
     </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 <script>
 const myfeedApp = Vue.createApp({
     data() {
@@ -200,8 +202,10 @@ const myfeedApp = Vue.createApp({
             nickname: '',
             userInfo: {},
             userId: '',
-            myInfo:{},
-            sessionId: ''
+            myInfo: {},
+            sessionId: '',
+            followerCount: 0,
+            followingCount: 0
         }
     },
     mounted() {
@@ -210,6 +214,7 @@ const myfeedApp = Vue.createApp({
         this.myFeed()
         this.myinfoData()
         this.getSessionId()
+        this.loadFollowCount() // 팔로우 및 팔로워 수 불러오기
     },
     methods: {
         getSessionId() {
@@ -221,28 +226,43 @@ const myfeedApp = Vue.createApp({
                     console.error('세션 ID 가져오기 오류:', error.response);
                 });
         },
-        myinfoData(){
-            axios.get('../gitsta/info_vue.do',{
-                params:{userId:this.userId}
-            }).then(res=>{
-                console.log(res.data)
-                this.myInfo=res.data
-            }).catch(error=>{
-                console.log(error.response)
+        myinfoData() {
+            axios.get('../gitsta/info_vue.do', {
+                params: { userId: this.userId }
+            }).then(res => {
+                console.log(res.data);
+                this.myInfo = res.data;
+            }).catch(error => {
+                console.log(error.response);
             })
+        },
+        loadFollowCount() {
+            axios.get('../gitsta/follower_count_vue.do', {
+                params: {
+                    userId: this.userId
+                }
+            })
+            .then(response => {
+                console.log(response.data);
+                this.followerCount = response.data.followerCount; // 팔로워 수 저장
+                this.followingCount = response.data.followingCount; // 팔로잉 수 저장
+            })
+            .catch(error => {
+                console.error('팔로워 및 팔로잉 수 가져오기 오류:', error);
+            });
         },
         myFeed() {
             axios.get('../gitsta/myfeed_vue.do', {
                 params: { page: this.page, userId: this.userId }
             }).then(res => {
-                this.feedList = res.data.list
-                this.totalPostCount = res.data.totalPostCount
+                this.feedList = res.data.list;
+                this.totalPostCount = res.data.totalPostCount;
                 this.hasMore = res.data.hasMore;
                 if (res.data.nickname) {
-                    this.nickname = res.data.nickname
+                    this.nickname = res.data.nickname;
                 }
             }).catch(error => {
-                console.error(error.response)
+                console.error(error.response);
             })
         },
         createPost() {

@@ -26,6 +26,7 @@ public class GitstaVO {
 	private String userId,content,filename,filesize,dbday,mday;
 	private String userName,profile,nickname;
 	private Date regdate,modifydate;
-	
-	 private MultipartFile file; 
+	private String followerId; 
+	private String followingId; 
+	private MultipartFile file; 
 }
