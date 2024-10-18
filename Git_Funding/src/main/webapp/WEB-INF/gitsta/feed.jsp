@@ -161,7 +161,7 @@ body {
 </div>
 
     <div class="more-button" style="text-align: center; margin-top: 20px;">
-        <button v-if="hasMore" @click="loadMore">더보기</button>
+        <button @click="loadMore">더보기</button>
     </div>
 </div>
 
@@ -171,7 +171,7 @@ const myfeedApp = Vue.createApp({
         return {
             feedList: [],
             totalPostCount: 0,
-            hasMore: false,
+            hasMore: true,
             page: 1,
             nickname: '',
             userInfo: {},

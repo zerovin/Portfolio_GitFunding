@@ -7,6 +7,7 @@ import java.util.*;
 import java.io.*;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,16 +60,16 @@ public class GitstaRestController {
     }
 
     @PostMapping(value = "gitsta/create_post_vue.do", produces = "text/plain;charset=UTF-8")
-    public String create_post(GitstaVO vo) {
+    public String create_post(GitstaVO vo,HttpServletRequest request) {
         String result = "";
         try {
-            String path = servletContext.getRealPath("/profile") + File.separator;
+        	String path=request.getSession().getServletContext().getRealPath("/")+"profile\\";
 
             File dir = new File(path);
             if (!dir.exists()) {
                 dir.mkdirs();
             }
-
+            path=path.replace("\\", File.separator);
             MultipartFile file = vo.getFile();
             if (file == null || file.isEmpty()) {
                 vo.setFilename("");
@@ -100,9 +101,10 @@ public class GitstaRestController {
     }
 
     @GetMapping("/profile/{filename}")
-    public void getProfileImage(@PathVariable("filename") String filename, HttpServletResponse response) {
+    public void getProfileImage(@PathVariable("filename") String filename, HttpServletResponse response,HttpServletRequest request) {
         try {
-        	String path = servletContext.getRealPath("/profile") + File.separator;
+        	String path=request.getSession().getServletContext().getRealPath("/")+"profile\\";
+        	path=path.replace("\\", File.separator);
             File file = new File(path + filename);
             if (file.exists()) {
                 FileInputStream fis = new FileInputStream(file);
