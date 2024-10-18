@@ -154,30 +154,30 @@
 		</div>
     </div>
 
-    <!-- 포스트 목록 -->
-    <div v-for="post in visibleFeed" :key="post.no" class="post">
-        <div class="post-header">
-            <img :src="post.profile" alt="사용자 프로필" class="post-profile-pic">
-			<div class="post-user-info">
-			    <div v-if="post.nickname !== null">
-			        <span class="username">{{ post.nickname }}</span>
-			    </div>
-			    <div v-else>
-			        <span class="username">{{ post.userName }}</span>
-			    </div>
-			    <button class="follow-btn" v-if="sessionId !== post.userId && !post.isFollowing" @click="followUser(post.userId)">+ 팔로우</button>
-			    <button class="follow-btn" v-if="sessionId !== post.userId && post.isFollowing" @click="unfollowUser(post.userId)">- 언팔로우</button>
-			</div>
-        </div>
-        <div class="post-image">
-            <img :src="'../profile/' + post.filename" alt="포스팅 이미지">
-        </div>
-        <div class="post-content">
-            <p>{{ post.content }}</p>
-            <span class="tag" v-if="post.dbday===post.mday">{{post.dbday}}</span>
-            <span class="tag" v-else>[수정됨]&nbsp;{{post.mday}}</span>
-        </div>
-    </div>
+	<!-- 포스트 목록 -->
+	<div v-for="post in visibleFeed" :key="post.no" class="post">
+	    <div class="post-header">
+	        <img :src="post.profile" alt="사용자 프로필" class="post-profile-pic">
+	        <div class="post-user-info">
+	            <div v-if="post.nickname !== null">
+	                <span class="username">{{ post.nickname }}</span>
+	                <span class="tag">{{ post.dbday }}</span> <!-- 경과 시간 표시 -->
+	            </div>
+	            <div v-else>
+	                <span class="username">{{ post.userName }}</span>
+	                <span class="tag">{{ post.dbday }}</span> <!-- 경과 시간 표시 -->
+	            </div>
+	            <button class="follow-btn" v-if="sessionId !== post.userId && !post.isFollowing" @click="followUser(post.userId)">+ 팔로우</button>
+	            <button class="follow-btn" v-if="sessionId !== post.userId && post.isFollowing" @click="unfollowUser(post.userId)">- 언팔로우</button>
+	        </div>
+	    </div>
+	    <div class="post-image">
+	        <img :src="'../profile/' + post.filename" alt="포스팅 이미지">
+	    </div>
+	    <div class="post-content">
+	        <p>{{ post.content }}</p>
+	    </div>
+	</div>
 
     <!-- 더보기 버튼 -->
     <button class="readmore" v-if="feedList.length > postsToShow" @click="loadMore">피드 더보기</button>
@@ -188,7 +188,8 @@ let totalFeedApp = Vue.createApp({
     data() {
         return {
             feedList: [],
-            followingList: [], // 팔로잉한 사용자들의 모든 정보를 저장합니다.
+            followingList: [], // 전체 팔로잉한 사용자들의 정보를 저장합니다.
+            randomFollowingList: [], // 랜덤으로 선택한 8명의 팔로잉 목록
             postsToShow: 3,
             sessionId: '',
             profile: ''
@@ -218,10 +219,16 @@ let totalFeedApp = Vue.createApp({
             .then(response => {
                 console.log(response.data);
                 this.followingList = response.data.list; // 팔로잉 목록 저장 (모든 사용자 정보 포함)
+                this.selectRandomFollowing(); // 무작위로 8명 선택
             })
             .catch(error => {
                 console.error('팔로잉 목록 가져오기 오류:', error);
             });
+        },
+        selectRandomFollowing() {
+            // 팔로잉 목록에서 랜덤으로 최대 8명 선택
+            let shuffled = this.followingList.sort(() => 0.5 - Math.random()); // 목록을 무작위로 섞기
+            this.randomFollowingList = shuffled.slice(0, 7); // 최대 8명 선택
         },
         loadFeed() {
             axios.get('../gitsta/total_feed_vue.do')
@@ -246,7 +253,6 @@ let totalFeedApp = Vue.createApp({
             .then(response => {
                 if (response.data === 'success') {
                     alert('팔로우 성공!');
-                    // 팔로우 성공 시 상태 업데이트
                     this.updateFollowStatus(userId, true);
                     this.loadFollowingList(); // 팔로잉 목록 다시 로드
                 } else {
@@ -268,7 +274,6 @@ let totalFeedApp = Vue.createApp({
             .then(response => {
                 if (response.data === 'success') {
                     alert('언팔로우 성공!');
-                    // 언팔로우 성공 시 상태 업데이트
                     this.updateFollowStatus(userId, false);
                     this.loadFollowingList(); // 팔로잉 목록 다시 로드
                 } else {
@@ -281,14 +286,12 @@ let totalFeedApp = Vue.createApp({
             });
         },
         updateFollowStatus(userId, isFollowing) {
-            // 피드 목록에서 해당 사용자의 팔로우 상태 업데이트
             this.feedList = this.feedList.map(post => {
                 if (post.userId === userId) {
                     post.isFollowing = isFollowing;
                 }
                 return post;
             });
-            // 팔로우 상태에 따라 followingList를 업데이트
             if (isFollowing) {
                 const user = this.feedList.find(post => post.userId === userId);
                 if (user) {
@@ -297,6 +300,7 @@ let totalFeedApp = Vue.createApp({
             } else {
                 this.followingList = this.followingList.filter(user => user.userId !== userId);
             }
+            this.selectRandomFollowing(); // 팔로우 상태 변경 후 무작위 목록 갱신
         },
         loadMore() {
             this.postsToShow += 3;
@@ -308,6 +312,7 @@ let totalFeedApp = Vue.createApp({
         }
     }
 }).mount('#totalFeedApp');
+
 </script>
 
 </body>

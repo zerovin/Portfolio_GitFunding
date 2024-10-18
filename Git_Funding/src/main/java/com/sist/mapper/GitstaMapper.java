@@ -25,23 +25,22 @@ public interface GitstaMapper {
 	   
 	@Select("SELECT COUNT(*) FROM gitsta_feed WHERE userId=#{userId}")
 	public int gitstaMyTotalCount(String userId);  
-	   
+	  
 	@Select("SELECT f.no, f.content, f.filename, f.filesize, f.filecount, "
-	        + "TO_CHAR(f.regdate, 'YYYY-MM-DD') as dbday, TO_CHAR(f.modifydate, 'YYYY-MM-DD') as mday,"
-	        + "f.userId, m.userName, m.nickname, m.profile "
+	        + "f.regdate, f.modifydate, f.userId, m.userName, m.nickname, m.profile "
 	        + "FROM gitsta_feed f "
 	        + "LEFT JOIN funding_member m ON f.userId = m.userId "
 	        + "ORDER BY f.no DESC")
 	public List<GitstaVO> gitstaTotalListData();
  
-
+ 
 	@Select("SELECT COUNT(*) FROM gitsta_feed")
 	public int gitstaTotalCount();
 	
 	@Select("SELECT no, userId,content, filename, filesize, filecount,"
 			+ "TO_CHAR(regdate, 'YYYY-MM-DD') as dbday, TO_CHAR(modifydate, 'YYYY-MM-DD') as mday "
 			+ "FROM gitsta_feed WHERE no=#{no}")
-	public GitstaVO gitstaDetailData(int no);
+	public GitstaVO gitstaDetailData(int no); 
 	
 	@Insert("INSERT INTO gitsta_feed(no,userId,content,filename,filesize,filecount,modifydate) "
 	  		+ "VALUES(gf_no_seq.nextval,#{userId},#{content},#{filename},#{filesize},#{filecount},SYSDATE)")

@@ -58,15 +58,19 @@ public class GitstaRestController {
     
     @GetMapping(value = "gitsta/total_feed_vue.do", produces = "text/plain;charset=UTF-8")
     public String gitstaMyFeed() throws Exception {
-    	List<GitstaVO> list = gService.gitstaTotalListData();  // rowSize만큼 가져오기
-    	int totalPostCount = gService.gitstaTotalCount();
+        List<GitstaVO> list = gService.gitstaTotalListData();  // 전체 피드 가져오기
+
+        // 각 포스트의 경과 시간(dbday) 설정
+        gService.setFeedDisplayDate(list);
+
+        int totalPostCount = gService.gitstaTotalCount();
 
         Map<String, Object> map = new HashMap<>();
         map.put("list", list);
         map.put("totalPostCount", totalPostCount);
 
         ObjectMapper mapper = new ObjectMapper();
-        String json=mapper.writeValueAsString(map);
+        String json = mapper.writeValueAsString(map);
         return json;
     }
     

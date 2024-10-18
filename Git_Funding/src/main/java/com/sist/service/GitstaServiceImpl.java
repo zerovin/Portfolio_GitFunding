@@ -1,4 +1,7 @@
 package com.sist.service;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.*;
 import com.sist.vo.*;
 import com.sist.dao.*;
@@ -69,5 +72,32 @@ public class GitstaServiceImpl implements GitstaService{
 	@Override
 	public int getFollowerCount(String userId) {
 		return gDao.getFollowerCount(userId);
+	}
+
+	@Override
+	public void setFeedDisplayDate(List<GitstaVO> list) {
+		// TODO Auto-generated method stub
+		LocalDateTime now = LocalDateTime.now(); // 현재 시간 가져오기
+
+        for (GitstaVO vo : list) {
+            LocalDateTime regdate = vo.getRegdate().toInstant()
+                    .atZone(ZoneId.systemDefault())
+                    .toLocalDateTime();
+
+            Duration duration = Duration.between(regdate, now);
+            String dbday;
+
+            if (duration.toDays() > 0) {
+                dbday = duration.toDays() + "일 전";
+            } else if (duration.toHours() > 0) {
+                dbday = duration.toHours() + "시간 전";
+            } else if (duration.toMinutes() > 0) {
+                dbday = duration.toMinutes() + "분 전";
+            } else {
+                dbday = duration.getSeconds() + "초 전";
+            }
+
+            vo.setDbday(dbday); // GitstaVO에 경과 시간 설정
+        }
 	}
 }
