@@ -12,13 +12,13 @@ public class GitstaServiceImpl implements GitstaService{
 	private GitstaDAO gDao;
 
 	@Override
-	public List<GitstaVO> gitstaTotalListData(String userId,int start, int end) {
-		return gDao.gitstaTotalListData(userId,start, end);
+	public List<GitstaVO> gitstaMyTotalListData(String userId,int start, int end) {
+		return gDao.gitstaMyTotalListData(userId,start, end);
 	}
 
 	@Override
-	public int gitstaTotalCount(String userId) {
-		return gDao.gitstaTotalCount(userId);
+	public int gitstaMyTotalCount(String userId) {
+		return gDao.gitstaMyTotalCount(userId);
 	}
 
 	@Override
@@ -29,5 +29,15 @@ public class GitstaServiceImpl implements GitstaService{
 	@Override
 	public void feedInsert(GitstaVO vo) {
 		gDao.feedInsert(vo);
+	}
+
+	@Override
+	public List<GitstaVO> gitstaTotalListData() {
+		return gDao.gitstaTotalListData();
+	}
+
+	@Override
+	public int gitstaTotalCount() {
+		return gDao.gitstaTotalCount();
 	}
 }

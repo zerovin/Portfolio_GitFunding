@@ -113,7 +113,7 @@
     color: #666;
 }
 
-.load-more {
+.readmore {
     display: block;
     width: 100%;
     padding: 15px 0;
@@ -128,49 +128,18 @@
     transition: background-color 0.3s;
     text-decoration: none;
 }
-
-.load-more:hover {
+.readmore:hover {
     background-color: #e0a800;
 }
 </style>
-<script type="text/javascript">
-    document.addEventListener("DOMContentLoaded", function () {
-        const loadMoreButton = document.querySelector('.load-more')
-        let currentPostCount = 3;
-
-        function updatePosts() {
-            const posts = document.querySelectorAll('.post')
-            posts.forEach((post, index) => {
-                if (index < currentPostCount) {
-                    post.style.display = 'block'
-                } else {
-                    post.style.display = 'none'
-                }
-            })
-
-            if (currentPostCount >= posts.length) {
-                loadMoreButton.style.display = 'none'
-            } else {
-                loadMoreButton.style.display = 'block'
-            }
-        }
-
-        updatePosts()
-
-        loadMoreButton.addEventListener('click', function (event) {
-            event.preventDefault()
-            currentPostCount += 3
-            updatePosts()
-        })
-    })
-</script>
-
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
 <body>
-<div class="instagram-page">
+<div id="totalFeedApp" class="instagram-page">
     <div class="user-info">
         <div>
-            <a href="../gitsta/feed.do?userId=dayeong"><img src="../images/cute.png" alt="사용자 프로필" class="profile-pic"></a>
+            <a :href="'../gitsta/feed.do?userId='+sessionId"><img src="../images/cute.png" alt="사용자 프로필" class="profile-pic"></a>
             <p><span style="font-weight: bold;">나</span></p>
         </div>
         <div>
@@ -192,141 +161,71 @@
     </div>
 
     <!-- 포스트 목록 -->
-    <div class="post">
+    <div v-for="post in visibleFeed" :key="post.no" class="post">
         <div class="post-header">
-            <img src="../images/favicon.png" alt="사용자 프로필" class="post-profile-pic">
+            <img :src="post.profile" alt="사용자 프로필" class="post-profile-pic">
             <div class="post-user-info">
-                <div><span class="username">심미영</span> 님이 지지서명했어요</div>
-                <button class="follow-btn">+ 팔로우</button>
+                <div><span class="username">{{ post.nickname }}</span> </div>
+                <button class="follow-btn" v-if="sessionId!==post.userId">+ 팔로우</button>
             </div>
         </div>
         <div class="post-image">
-            <img src="../images/latest.jpeg" alt="제품 이미지">
+            <img :src="'../profile/' + post.filename" alt="포스팅 이미지">
         </div>
         <div class="post-content">
-            <p>풀씨를 검색하다가 우연히 들렀습니다. 14일 오픈할게요~</p>
-            <span class="tag">일상용 비채줌</span>
-        </div>
-    </div>
-
-    <div class="post">
-        <div class="post-header">
-            <img src="../images/favicon.png" alt="사용자 프로필" class="post-profile-pic">
-            <div class="post-user-info">
-                <div><span class="username">이재훈</span> 님이 좋아요를 눌렀습니다</div>
-                <button class="follow-btn">+ 팔로우</button>
-            </div>
-        </div>
-        <div class="post-image">
-            <img src="../images/latest.jpeg" alt="제품 이미지">
-        </div>
-        <div class="post-content">
-            <p>신제품이 도착했어요! 여러분의 많은 관심 부탁드립니다.</p>
-            <span class="tag">뷰티디바이스</span>
-        </div>
-    </div>
-
-    <div class="post">
-        <div class="post-header">
-            <img src="../images/favicon.png" alt="사용자 프로필" class="post-profile-pic">
-            <div class="post-user-info">
-                <div><span class="username">이재훈</span> 님이 좋아요를 눌렀습니다</div>
-                <button class="follow-btn">+ 팔로우</button>
-            </div>
-        </div>
-        <div class="post-image">
-            <img src="../images/latest.jpeg" alt="제품 이미지">
-        </div>
-        <div class="post-content">
-            <p>신제품이 도착했어요! 여러분의 많은 관심 부탁드립니다.</p>
-            <span class="tag">뷰티디바이스</span>
-        </div>
-    </div>
-
-    <div class="post">
-        <div class="post-header">
-            <img src="../images/favicon.png" alt="사용자 프로필" class="post-profile-pic">
-            <div class="post-user-info">
-                <div><span class="username">이재훈</span> 님이 좋아요를 눌렀습니다</div>
-                <button class="follow-btn">+ 팔로우</button>
-            </div>
-        </div>
-        <div class="post-image">
-            <img src="../images/latest.jpeg" alt="제품 이미지">
-        </div>
-        <div class="post-content">
-            <p>신제품이 도착했어요! 여러분의 많은 관심 부탁드립니다.</p>
-            <span class="tag">뷰티디바이스</span>
-        </div>
-    </div>
-    <div class="post">
-        <div class="post-header">
-            <img src="../images/favicon.png" alt="사용자 프로필" class="post-profile-pic">
-            <div class="post-user-info">
-                <div><span class="username">이재훈</span> 님이 좋아요를 눌렀습니다</div>
-                <button class="follow-btn">+ 팔로우</button>
-            </div>
-        </div>
-        <div class="post-image">
-            <img src="../images/latest.jpeg" alt="제품 이미지">
-        </div>
-        <div class="post-content">
-            <p>신제품이 도착했어요! 여러분의 많은 관심 부탁드립니다.</p>
-            <span class="tag">뷰티디바이스</span>
-        </div>
-    </div>
-    <div class="post">
-        <div class="post-header">
-            <img src="../images/favicon.png" alt="사용자 프로필" class="post-profile-pic">
-            <div class="post-user-info">
-                <div><span class="username">이재훈</span> 님이 좋아요를 눌렀습니다</div>
-                <button class="follow-btn">+ 팔로우</button>
-            </div>
-        </div>
-        <div class="post-image">
-            <img src="../images/latest.jpeg" alt="제품 이미지">
-        </div>
-        <div class="post-content">
-            <p>신제품이 도착했어요! 여러분의 많은 관심 부탁드립니다.</p>
-            <span class="tag">뷰티디바이스</span>
-        </div>
-    </div>
-    <div class="post">
-        <div class="post-header">
-            <img src="../images/favicon.png" alt="사용자 프로필" class="post-profile-pic">
-            <div class="post-user-info">
-                <div><span class="username">이재훈</span> 님이 좋아요를 눌렀습니다</div>
-                <button class="follow-btn">+ 팔로우</button>
-            </div>
-        </div>
-        <div class="post-image">
-            <img src="../images/latest.jpeg" alt="제품 이미지">
-        </div>
-        <div class="post-content">
-            <p>신제품이 도착했어요! 여러분의 많은 관심 부탁드립니다.</p>
-            <span class="tag">뷰티디바이스</span>
-        </div>
-    </div>
-    <div class="post">
-        <div class="post-header">
-            <img src="../images/favicon.png" alt="사용자 프로필" class="post-profile-pic">
-            <div class="post-user-info">
-                <div><span class="username">이재훈</span> 님이 좋아요를 눌렀습니다</div>
-                <button class="follow-btn">+ 팔로우</button>
-            </div>
-        </div>
-        <div class="post-image">
-            <img src="../images/latest.jpeg" alt="제품 이미지">
-        </div>
-        <div class="post-content">
-            <p>신제품이 도착했어요! 여러분의 많은 관심 부탁드립니다.</p>
-            <span class="tag">뷰티디바이스</span>
+            <p>{{ post.content }}</p>
+            <span class="tag" v-if="post.dbday===post.mday">{{post.dbday}}</span>
+            <span class="tag" v-else>[수정됨]&nbsp;{{post.mday}}</span>
         </div>
     </div>
 
     <!-- 더보기 버튼 -->
-    <a href="#" class="load-more">피드 더보기</a>
+    <button class="readmore" v-if="feedList.length > postsToShow" @click="loadMore">피드 더보기</button>
 </div>
+
+<script>
+let totalFeedApp = Vue.createApp({
+    data() {
+        return {
+            feedList: [],
+            postsToShow: 3,
+            sessionId: ''
+        }
+    },
+    mounted() {
+        this.loadFeed()
+        this.getSessionId()
+    },
+    methods: {
+    	getSessionId() {
+            axios.get('../gitsta/getSessionId.do')
+                .then(response => {
+                    this.sessionId = response.data; // 가져온 sessionId 저장
+                })
+                .catch(error => {
+                    console.error('세션 ID 가져오기 오류:', error.response);
+                });
+        },
+        loadFeed() {
+            axios.get('../gitsta/total_feed_vue.do')
+            .then(response => {
+                console.log(response.data)
+                this.feedList = response.data.list;
+            }).catch(error => {
+                console.error('피드 가져오기 오류:', error);
+            });
+        },
+        loadMore() {
+            this.postsToShow += 3;
+        }
+    },
+    computed: {
+        visibleFeed() {
+            return this.feedList.slice(0, this.postsToShow);
+        }
+    }
+}).mount('#totalFeedApp');
+</script>
 
 </body>
 </html>

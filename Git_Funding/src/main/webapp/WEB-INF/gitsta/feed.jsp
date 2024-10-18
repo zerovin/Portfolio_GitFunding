@@ -115,6 +115,29 @@ body {
     object-fit: cover;
     border-radius: 5px;
 }
+
+.pagination {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+.pagination button {
+    padding: 10px 20px;
+    background-color: #f8c200;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #fff;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+.pagination button:hover {
+    background-color: #e0a700;
+}
+.pagination button:disabled {
+    background-color: #e0e0e0;
+    cursor: not-allowed;
+}
 </style>
 </head>
 <body>
@@ -131,7 +154,7 @@ body {
 	    <h2 v-if="myInfo.nickname == null">{{myInfo.userName}}님</h2>
 	    <h2 v-else>{{myInfo.nickname}}</h2>
 	    <p>{{myInfo.msg}}</p>
-</div>
+    </div>
 
     <div class="profile-stats">
         <div>
@@ -154,20 +177,21 @@ body {
         <button>찜</button>
     </div>
 
-<div class="grid">
-    <div v-for="vo in feedList" :key="vo.id">
-        <img :src="'../profile/'+vo.filename" alt="포스팅 이미지">
+    <div class="grid">
+        <div v-for="vo in feedList" :key="vo.id">
+            <img :src="'../profile/'+vo.filename" alt="포스팅 이미지">
+        </div>
     </div>
-</div>
 
-    <div class="more-button" style="text-align: center; margin-top: 20px;">
-        <button @click="loadMore">더보기</button>
+    <div class="pagination">
+        <button @click="prevPage" :disabled="page === 1">이전</button>
+        <button @click="nextPage" :disabled="!hasMore">다음</button>
     </div>
 </div>
 
 <script>
 const myfeedApp = Vue.createApp({
-	data() {
+    data() {
         return {
             feedList: [],
             totalPostCount: 0,
@@ -178,18 +202,17 @@ const myfeedApp = Vue.createApp({
             userId: '',
             myInfo:{},
             sessionId: ''
-            
         }
     },
     mounted() {
         const urlParams = new URLSearchParams(window.location.search)
-        this.userId = urlParams.get('userId') // URL에서 userId 가져오기
+        this.userId = urlParams.get('userId') 
         this.myFeed()
         this.myinfoData()
         this.getSessionId()
     },
     methods: {
-    	getSessionId() {
+        getSessionId() {
             axios.get('../gitsta/getSessionId.do')
                 .then(response => {
                     this.sessionId = response.data; // 가져온 sessionId 저장
@@ -198,36 +221,42 @@ const myfeedApp = Vue.createApp({
                     console.error('세션 ID 가져오기 오류:', error.response);
                 });
         },
-    	myinfoData(){
-    		axios.get('../gitsta/info_vue.do',{
-    			params:{userId:this.userId}
-    		}).then(res=>{
-    			console.log(res.data)
-    			this.myInfo=res.data
-    		}).catch(error=>{
-    			console.log(error.response)
-    		})
-    	},
+        myinfoData(){
+            axios.get('../gitsta/info_vue.do',{
+                params:{userId:this.userId}
+            }).then(res=>{
+                console.log(res.data)
+                this.myInfo=res.data
+            }).catch(error=>{
+                console.log(error.response)
+            })
+        },
         myFeed() {
             axios.get('../gitsta/myfeed_vue.do', {
                 params: { page: this.page, userId: this.userId }
             }).then(res => {
-                this.feedList = res.data.list;
-                this.totalPostCount = res.data.totalPostCount;
+                this.feedList = res.data.list
+                this.totalPostCount = res.data.totalPostCount
                 this.hasMore = res.data.hasMore;
                 if (res.data.nickname) {
-                    this.nickname = res.data.nickname;
+                    this.nickname = res.data.nickname
                 }
             }).catch(error => {
-                console.error('피드 가져오기 오류:', error.response);
-            });
-        },
-        loadMore() {
-            this.page++;
-            this.myFeed();
+                console.error(error.response)
+            })
         },
         createPost() {
             window.location.href = '../gitsta/create_post.do';
+        },
+        nextPage() {
+            this.page += 1;
+            this.myFeed();
+        },
+        prevPage() {
+            if (this.page > 1) {
+                this.page -= 1;
+                this.myFeed();
+            }
         }
     }
 }).mount('#myfeedApp');

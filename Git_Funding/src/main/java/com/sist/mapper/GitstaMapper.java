@@ -9,21 +9,33 @@ import com.sist.vo.*;
 public interface GitstaMapper {    
 	
 	@Select("SELECT userId,userName,userPwd,gender,email,post,addr1,addr2,phone,profile,nickname,msg "
-			+"FROM funding_member "
-			+"WHERE userId=#{userId}")
+			+"FROM funding_member "    
+			+"WHERE userId=#{userId}")  
 	public MemberVO gitstaInfoData(String userId);
 	 
 	@Select("SELECT f.no, f.content, m.userId, m.nickname, f.filename, f.filesize, f.filecount, "
-	        + "TO_CHAR(f.regdate, 'YYYY-MM-DD') as dbday, TO_CHAR(f.modifydate, 'YYYY-MM-DD') as mday, f.num "
-	        + "FROM (SELECT no, content, userId, filename, filesize, filecount, regdate, modifydate, rownum as num "
-	        + "FROM (SELECT no, content, userId, filename, filesize, filecount, regdate, modifydate "
-	        + "FROM gitsta_feed WHERE userId = #{userId} ORDER BY no DESC)) f "
-	        + "JOIN funding_member m ON f.userId = m.userId "
-	        + "WHERE f.num BETWEEN #{start} AND #{end}")
-	public List<GitstaVO> gitstaTotalListData(@Param("userId") String userId, @Param("start") int start, @Param("end") int end);
-	
-	@Select("SELECT CEIL(COUNT(*)/10.0) FROM gitsta_feed WHERE userId=#{userId}")
-	public int gitstaTotalCount(String userId);   
+			+ "TO_CHAR(f.regdate, 'YYYY-MM-DD') as dbday, TO_CHAR(f.modifydate, 'YYYY-MM-DD') as mday, f.num "
+			+ "FROM (SELECT no, content, userId, filename, filesize, filecount, regdate, modifydate, rownum as num "
+			+ "FROM (SELECT no, content, userId, filename, filesize, filecount, regdate, modifydate "
+			+ "FROM gitsta_feed WHERE userId = #{userId} ORDER BY no DESC)) f "
+			+ "JOIN funding_member m ON f.userId = m.userId "
+			+ "WHERE f.num BETWEEN #{start} AND #{end}")
+	public List<GitstaVO> gitstaMyTotalListData(@Param("userId") String userId, @Param("start") int start, @Param("end") int end);
+	   
+	@Select("SELECT COUNT(*) FROM gitsta_feed WHERE userId=#{userId}")
+	public int gitstaMyTotalCount(String userId);  
+	   
+	@Select("SELECT f.no, f.content, f.filename, f.filesize, f.filecount, "
+	        + "TO_CHAR(f.regdate, 'YYYY-MM-DD') as dbday, TO_CHAR(f.modifydate, 'YYYY-MM-DD') as mday,"
+	        + "f.userId, m.userName, m.nickname, m.profile "
+	        + "FROM gitsta_feed f "
+	        + "LEFT JOIN funding_member m ON f.userId = m.userId "
+	        + "ORDER BY f.no DESC")
+	public List<GitstaVO> gitstaTotalListData();
+ 
+
+	@Select("SELECT COUNT(*) FROM gitsta_feed")
+	public int gitstaTotalCount();
 	
 	@Select("SELECT no, userId,content, filename, filesize, filecount,"
 			+ "TO_CHAR(regdate, 'YYYY-MM-DD') as dbday, TO_CHAR(modifydate, 'YYYY-MM-DD') as mday "

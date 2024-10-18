@@ -5,7 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
 /*
-이름         널?       유형             
+�씠由�         �꼸?       �쑀�삎             
 ---------- -------- -------------- 
 NO         NOT NULL NUMBER         
 CONTENT    NOT NULL CLOB           
@@ -24,6 +24,7 @@ USERID              VARCHAR2(100)
 public class GitstaVO {
 	private int no,type,filecount;
 	private String userId,content,filename,filesize,dbday,mday;
+	private String userName,profile,nickname;
 	private Date regdate,modifydate;
 	
 	 private MultipartFile file; 

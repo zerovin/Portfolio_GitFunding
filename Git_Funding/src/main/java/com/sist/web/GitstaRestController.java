@@ -34,31 +34,42 @@ public class GitstaRestController {
     }
 
     @GetMapping(value = "gitsta/myfeed_vue.do", produces = "text/plain;charset=UTF-8")
-    public String gitsta_myfeed(@RequestParam("userId") String userId, @RequestParam(defaultValue = "1") int page) {
-        try {
-            int rowSize = 10;
-            int start = (rowSize * page) - (rowSize - 1);
-            int end = rowSize * page;
+    public String gitsta_myfeed(String userId, int page) throws Exception{
+    	int rowSize = 9;
+    	int start = (rowSize * page) - (rowSize - 1);
+    	int end = rowSize * page;
 
-            List<GitstaVO> list = gService.gitstaTotalListData(userId, start, end);
-            int totalPostCount = gService.gitstaTotalCount(userId);
+    	List<GitstaVO> list = gService.gitstaMyTotalListData(userId, start, end);
+    	int totalPostCount = gService.gitstaMyTotalCount(userId);
 
-            boolean hasMore = (totalPostCount > end);
+    	boolean hasMore = (totalPostCount > end);
 
-            Map<String, Object> map = new HashMap<>();
-            map.put("list", list);
-            map.put("totalPostCount", totalPostCount);
-            map.put("hasMore", hasMore);
-            map.put("userId", userId);
+    	Map<String, Object> map = new HashMap<>();
+    	map.put("list", list);
+    	map.put("totalPostCount", totalPostCount);
+    	map.put("hasMore", hasMore);
+    	map.put("userId", userId);
 
-            ObjectMapper mapper = new ObjectMapper();
-            return mapper.writeValueAsString(map);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "{\"error\":\"An error occurred while fetching data.\"}";
-        }
+    	ObjectMapper mapper = new ObjectMapper();
+    	String json=mapper.writeValueAsString(map);
+
+    	return json;
     }
+    
+    @GetMapping(value = "gitsta/total_feed_vue.do", produces = "text/plain;charset=UTF-8")
+    public String gitstaMyFeed() throws Exception {
+    	List<GitstaVO> list = gService.gitstaTotalListData();  // rowSize만큼 가져오기
+    	int totalPostCount = gService.gitstaTotalCount();
 
+        Map<String, Object> map = new HashMap<>();
+        map.put("list", list);
+        map.put("totalPostCount", totalPostCount);
+
+        ObjectMapper mapper = new ObjectMapper();
+        String json=mapper.writeValueAsString(map);
+        return json;
+    }
+    
     @PostMapping(value = "gitsta/create_post_vue.do", produces = "text/plain;charset=UTF-8")
     public String create_post(GitstaVO vo,HttpServletRequest request) {
         String result = "";
