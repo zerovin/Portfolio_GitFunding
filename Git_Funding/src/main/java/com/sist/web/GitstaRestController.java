@@ -201,4 +201,13 @@ public class GitstaRestController {
             return "fail";
         }
     }
+    
+    @GetMapping(value="gitsta/post_detail_vue.do", produces = "text/plain;charset=UTF-8")
+    public String post_detail(int no) throws Exception {
+    	GitstaVO vo=gService.gitstaDetailData(no);
+    	ObjectMapper mapper=new ObjectMapper();
+    	String json=mapper.writeValueAsString(vo);
+    	
+    	return json;
+    }
 }

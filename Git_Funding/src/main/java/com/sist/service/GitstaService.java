@@ -20,7 +20,7 @@ public interface GitstaService {
 	public int getFollowerCount(@Param("userId") String userId);
 	public void insertFollow(String followerId,String followingId);
 	public void deleteFollow(String followerId,String followingId);
-	
 	public void setFeedDisplayDate(List<GitstaVO> list);
+	public GitstaVO gitstaDetailData(int no);
 	
 }

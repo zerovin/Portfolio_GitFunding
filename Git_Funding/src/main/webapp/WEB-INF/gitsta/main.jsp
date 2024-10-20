@@ -11,6 +11,7 @@
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
+    font-family: 'NEXON Lv2 Gothic';
 }
 
 .user-info {
@@ -31,6 +32,11 @@
     border-radius: 50%;
     margin-bottom: 5px;
     object-fit: cover;
+    transition: filter 0.3s ease;
+}
+
+.profile-pic:hover {
+    filter: brightness(0.8);
 }
 
 .post {
@@ -156,28 +162,34 @@
 
 	<!-- 포스트 목록 -->
 	<div v-for="post in visibleFeed" :key="post.no" class="post">
-	    <div class="post-header">
-	        <img :src="post.profile" alt="사용자 프로필" class="post-profile-pic">
-	        <div class="post-user-info">
-	            <div v-if="post.nickname !== null">
-	                <span class="username">{{ post.nickname }}</span>
-	                <span class="tag">{{ post.dbday }}</span> <!-- 경과 시간 표시 -->
-	            </div>
-	            <div v-else>
-	                <span class="username">{{ post.userName }}</span>
-	                <span class="tag">{{ post.dbday }}</span> <!-- 경과 시간 표시 -->
-	            </div>
-	            <button class="follow-btn" v-if="sessionId !== post.userId && !post.isFollowing" @click="followUser(post.userId)">+ 팔로우</button>
-	            <button class="follow-btn" v-if="sessionId !== post.userId && post.isFollowing" @click="unfollowUser(post.userId)">- 언팔로우</button>
-	        </div>
-	    </div>
-	    <div class="post-image">
-	        <img :src="'../profile/' + post.filename" alt="포스팅 이미지">
-	    </div>
-	    <div class="post-content">
-	        <p>{{ post.content }}</p>
-	    </div>
-	</div>
+    <div class="post-header">
+        <img :src="post.profile" alt="사용자 프로필" class="post-profile-pic">
+        <div class="post-user-info">
+            <div>
+                <span class="username">{{ post.nickname ? post.nickname : post.userName }}&nbsp;</span>
+
+                <span v-if="post.projectname">님이 이 프로젝트를 지지합니다!&nbsp;</span>
+
+                <!-- 경과 시간 표시 -->
+                <span class="tag">{{ post.dbday }}</span>
+            </div>
+            
+            <!-- 팔로우/언팔로우 버튼 -->
+            <button class="follow-btn" v-if="sessionId !== post.userId && !post.isFollowing" @click="followUser(post.userId)">+ 팔로우</button>
+            <button class="follow-btn" v-if="sessionId !== post.userId && post.isFollowing" @click="unfollowUser(post.userId)">- 언팔로우</button>
+        </div>
+    </div>
+    <div v-if="post.type===2" class="post-image">
+        <a :href="'../gitsta/post_detail.do?no='+post.no"><img :src="post.filename" alt="포스팅 이미지"></a>
+    </div>
+    <div v-else class="post-image">
+        <a :href="'../gitsta/post_detail.do?no='+post.no"><img :src="'../profile/' + post.filename" alt="포스팅 이미지"></a>
+    </div>
+    <div class="post-content">
+        <p>{{ post.content }}</p>
+        <a :href="'../funding/funding_detail.do?fno='+post.fno"><span class="tag" v-if="post.projectname">{{ post.projectname }}</span></a>
+    </div>
+</div>
 
     <!-- 더보기 버튼 -->
     <button class="readmore" v-if="feedList.length > postsToShow" @click="loadMore">피드 더보기</button>

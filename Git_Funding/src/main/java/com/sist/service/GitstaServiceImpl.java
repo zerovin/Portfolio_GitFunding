@@ -100,4 +100,9 @@ public class GitstaServiceImpl implements GitstaService{
             vo.setDbday(dbday); // GitstaVO에 경과 시간 설정
         }
 	}
+
+	@Override
+	public GitstaVO gitstaDetailData(int no) {
+		return gDao.gitstaDetailData(no);
+	}
 }

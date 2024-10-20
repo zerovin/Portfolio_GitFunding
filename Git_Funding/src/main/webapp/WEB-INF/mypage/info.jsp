@@ -105,9 +105,10 @@
             </div>
             <div class="info-section">
                 <span class="info-label">닉네임:</span>
-                <span class="info-value" v-if="userInfo.nickname">{{ userInfo.nickname }}</span>
-                <span class="info-value" v-else>닉네임이 설정되지 않았습니다.
-                <button @click="showNicknameDialog">설정하기</button></span>
+	                <span class="info-value" v-if="userInfo.nickname">{{ userInfo.nickname }}
+	                <button @click="showNicknameDialog">수정하기</button></span>
+	                <span class="info-value" v-else>닉네임이 설정되지 않았습니다.
+	                <button @click="showNicknameDialog">설정하기</button></span>
             </div>
             <div class="info-section">
                 <span class="info-label">비밀번호:</span>

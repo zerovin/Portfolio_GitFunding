@@ -30,4 +30,5 @@ public class GitstaReVO {
 	private int gno,rno,likecount,group_id,group_step,group_tab,depth,root,type;
 	private String userId,msg,dbday,mday;
 	private Date regdate,modifydata;
+	private String userName,nickname,profile;
 }

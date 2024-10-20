@@ -96,7 +96,7 @@
 <body>
     <div class="mymenu-div" id="mypageApp">
         <div class="profile-div">
-            <img src="../images/profile.png">
+            <img src="${sessionScope.profile }">
             <div class="edit-icon">
                 <img src="../images/edit.png" style="width: 20px;height: 20px">
             </div>
@@ -116,7 +116,7 @@
                 </ul>
             </div>
             <div class="mymenu-detail">
-                <p class="mymenu_p" style="margin-top: 25px;">커뮤니티</p>
+                <p class="mymenu_p" style="margin-top: 25px;">정보 관리</p>
                 <ul>
                     <li><button>나의 리뷰</button></li>
                     <li><button @click="qnaInfo()">문의 내역</button></li>

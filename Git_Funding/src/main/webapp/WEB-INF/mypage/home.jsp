@@ -128,11 +128,11 @@
         <!-- 대시보드 영역 -->
         <div class="dashboard">
             <div class="dashboard-item" id="click">
-                <p>포인트</p>
-                <div class="value">0P</div>
+                <p>알림</p>
+                <div class="value">0</div>
             </div>
             <div class="dashboard-item" id="click">
-                <p>펀딩+</p>
+                <p>펀딩</p>
                 <div class="value">0</div>
             </div>
             <div class="dashboard-item" id="click">

@@ -34,6 +34,9 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler{
 		session.setAttribute("phone", vo.getPhone());
 		session.setAttribute("email", vo.getEmail());
 		session.setAttribute("profile", vo.getProfile());
+		if(vo.getNickname()!=null) {
+			session.setAttribute("nickname", vo.getNickname());
+		}
 		
 		response.sendRedirect("../main/main.do");
 	}

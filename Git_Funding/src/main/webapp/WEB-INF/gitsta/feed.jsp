@@ -172,14 +172,14 @@ body {
     </div>
 
     <div class="buttons">
-        <button>참여</button>
-        <button>지지서명</button>
-        <button>찜</button>
+        <button>지지</button>
+        <button>포스팅</button>
     </div>
 
     <div class="grid">
         <div v-for="vo in feedList" :key="vo.id">
-            <img :src="'../profile/'+vo.filename" alt="포스팅 이미지">
+            <img v-if="vo.type===1" :src="'../profile/'+vo.filename">
+            <img v-else :src="vo.filename">
         </div>
     </div>
 
