@@ -22,7 +22,7 @@
 	                <li><a href="../member/join.do">회원가입</a></li>
                 </c:if>
                 <c:if test="${sessionScope.userId!=null}">
-					<li><a href="../mypage/main.do" class="mypage"><img src="../images/profile.png" alt="마이페이지"></a></li>
+					<li><a href="../mypage/main.do" class="mypage"><img src="${sessionScope.profile }" alt="마이페이지"></a></li>
                 	<li><a href="../gitsta/main.do" class="icon gitstargram">깃스타그램</a></li>
                 	<li><a href="" class="icon wish">위시리스트</a></li>
                 	<sec:authorize access="hasRole('ROLE_ADMIN')">

@@ -140,7 +140,7 @@
     <!-- 로그인한 사용자 정보 -->
     <div class="user-info">
         <div>
-            <a :href="'../gitsta/feed.do?userId=' + sessionId"><img src="../images/profile.png" class="profile-pic"></a>
+            <a :href="'../gitsta/feed.do?userId=' + sessionId"><img src="${sessionScope.profile }" class="profile-pic"></a>
             <p><span style="font-weight: bold;">나</span></p>
         </div>
         

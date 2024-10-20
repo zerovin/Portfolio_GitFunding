@@ -24,7 +24,7 @@ public interface MemberMapper {
 			+ "AND fm.userId=#{userId}")   
 	public MemberVO memberInfoData(String userId);
 	
-	@Select("SELECT userId, userName, userPwd, gender, email, phone, post, addr1, addr2 "
+	@Select("SELECT userId, userName, userPwd, gender, email, phone, post, addr1, addr2, profile "
 			+ "FROM funding_member "
 			+ "WHERE userId=#{userId}")
 	public MemberVO memberSessionData(String userId);
