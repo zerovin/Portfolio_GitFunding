@@ -181,16 +181,18 @@
 	line-height:calc(100vh - 210px);
 	background:rgba(248, 194, 0, .2);
 }
-#funding_detail > section .right .reward_list li > a{
+#funding_detail > section .right .reward_list li > button{
+	width:100%;
     display:block;
     border:1px solid #ccc;
     border-radius:10px;
     padding:20px;
+    text-align:left;
 }
-#funding_detail > section .right .reward_list li + li > a{
+#funding_detail > section .right .reward_list li + li > button{
     margin-top:20px;
 }
-#funding_detail > section .right .reward_list li > a:hover{
+#funding_detail > section .right .reward_list li > button:hover{
     border-color:#F8C200;
     background:rgba(248, 194, 0, .2);
 }
@@ -211,7 +213,7 @@
     padding:7px 5px 5px;
     border-radius:5px;
 }
-#funding_detail > section .right .reward_list a:hover .account{
+#funding_detail > section .right .reward_list button:hover .account{
     background:#F8C200;
     color:#1E1A1A;
 }

@@ -28,13 +28,14 @@ public class FundingController {
 	}
 	
 	@GetMapping("funding/detail_before.do")
-	public String funding_detail_before(int fno, HttpServletResponse response, RedirectAttributes ra) {
+	public String funding_detail_before(int fno, String type, HttpServletResponse response, RedirectAttributes ra) {
 		Cookie cookie=new Cookie("funding_"+fno, String.valueOf(fno));
 		cookie.setMaxAge(60*60*24);
 		cookie.setPath("/");
 		response.addCookie(cookie);
 		
-		ra.addAttribute("fno", fno); //
+		ra.addAttribute("fno", fno);
+		ra.addAttribute("type", type);
 		return "redirect:../funding/funding_detail.do";
 	}
 	

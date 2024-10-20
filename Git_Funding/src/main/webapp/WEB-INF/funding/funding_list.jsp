@@ -20,7 +20,7 @@
         <div class="list_wrap">
             <ul class="list">
                 <li v-for="vo in list">
-                    <a :href="'../funding/funding_detail.do?fno='+vo.fno" class="f_list">
+                    <a :href="'../funding/detail_before.do?fno='+vo.fno" class="f_list">
                         <img :src="vo.thumb" alt="">
                         <p class="percent">{{vo.fm_headcount}}명이 참여했어요!</p>
                         <p class="title">{{vo.title}}</p>
@@ -125,4 +125,3 @@
    	}).mount('#funding_list')
     </script>
 </body>
-</html>

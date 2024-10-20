@@ -42,11 +42,18 @@ public interface FundingMapper {
 			+ "ORDER BY fno DESC")
 	public List<FundingVO> mainDeadlineListData();
 	
+	//메인-쿠키
+	@Select("SELECT fno, title, thumb, targetprice, totalprice, startdate "
+			+ "FROM funding "
+			+ "WHERE fno=#{fno}")
+	public FundingVO mainCookieListData(int fno);
+	
 	//메인-광고
 	@Select("SELECT no, link, rownum "
 			+ "FROM (SELECT no, link FROM funding_ad ORDER BY DBMS_RANDOM.VALUE) "
 			+ "WHERE rownum=1")
 	public AdVO mainAdData();
+	
 	
 	
 	//오픈예정 목록 

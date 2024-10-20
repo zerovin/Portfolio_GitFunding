@@ -33,11 +33,11 @@
 <script src="https://unpkg.com/vue@3"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <link rel="stylesheet" href="../css/common.css">
-<script defer src="../js/main.js"></script>
 </head>
 <body>
 	<tiles:insertAttribute name="header"/>
 	<tiles:insertAttribute name="home"/>
 	<tiles:insertAttribute name="footer"/>
+	<script defer type="text/javascript" src="../js/main.js"></script>
 </body>
 </html>

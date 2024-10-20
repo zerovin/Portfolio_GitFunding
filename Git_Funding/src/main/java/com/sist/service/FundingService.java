@@ -9,6 +9,7 @@ public interface FundingService {
 	public List<FundingVO> mainBackingListData();
 	public List<FundingVO> mainTodayListData();
 	public List<FundingVO> mainDeadlineListData();
+	public FundingVO mainCookieListData(int fno);
 	public AdVO mainAdData();
 	
 	//오픈예정

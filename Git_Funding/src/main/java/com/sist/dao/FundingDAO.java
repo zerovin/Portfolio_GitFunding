@@ -67,6 +67,17 @@ public class FundingDAO {
 	}
 	
 	/*
+	//메인쿠
+	Select("SELECT fno, title, thumb, targetprice, totalprice, startdate "
+			+ "FROM funding "
+			+ "WHERE fno=#{fno}")
+	public List<FundingVO> mainCookieListData(int fno); 
+	 */
+	public FundingVO mainCookieListData(int fno){
+		return mapper.mainCookieListData(fno);
+	}
+	
+	/*
 	//메인-광고
 	@Select("SELECT * FROM funding_ad ORDER BY DBMS_RANDOM.VALUE")
 	public AdVO mainAdData(); 

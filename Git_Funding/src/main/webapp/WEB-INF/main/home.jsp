@@ -125,9 +125,9 @@
 	                    <p class="desc">가장 많은 사람들의 <span>위시를</span> 받은 프로젝트</p>
 	                    <ul class="wish_list">
 	                        <li v-for="wish in wish_list">
-	                            <a :href="'../funding/funding_detail.do?fno='+wish.fno" class="f_list">
+	                            <a :href="'../funding/detail_before.do?fno='+wish.fno" class="f_list">
 	                                <img :src="wish.thumb" :alt="wish.title">
-	                                <p class="percent">2,177% 달성</p>
+	                                <p class="percent">{{wish.fm_percent}}% 달성</p>
 	                                <p class="title">{{wish.title}}</p>
 	                            </a>
 	                        </li>
@@ -137,9 +137,9 @@
 	                    <p class="desc">가장 많은 사람들의 <span>지지를</span> 받은 프로젝트</p>
 	                    <ul class="support_list">
 	                        <li v-for="back in backing_list">
-	                            <a :href="'../funding/funding_detail.do?fno='+back.fno" class="f_list">
+	                            <a :href="'../funding/detail_before.do?fno='+back.fno" class="f_list">
 	                                <img :src="back.thumb" :alt="back.title">
-	                                <p class="percent">2,177% 달성</p>
+	                                <p class="percent">{{back.fm_percent}}% 달성</p>
 	                                <p class="title">{{back.title}}</p>
 	                            </a>
 	                        </li>
@@ -222,9 +222,9 @@
                     <div class="multiple_slide_wrapper">
                         <ul class="multiple_slide">
 			                <li class="slides" v-for="today in today_list">
-			                    <a :href="'../funding/funding_detail.do?fno='+today.fno" class="f_list">
+			                    <a :href="'../funding/detail_before.do?fno='+today.fno" class="f_list">
 			                        <img :src="today.thumb" :alt="today.title">
-			                        <p class="percent">14% 달성</p>
+			                        <p class="percent">{{today.fm_percent}}% 달성</p>
 			                        <p class="title">{{today.title}}</p>
 			                    </a>
 			                </li>
@@ -245,9 +245,9 @@
                     <div class="multiple_slide_wrapper">
                         <ul class="multiple_slide">
 			                <li class="slides" v-for="dead in deadline_list">
-			                    <a :href="'../funding/funding_detail.do?fno='+dead.fno" class="f_list">
+			                    <a :href="'../funding/detail_before.do?fno='+dead.fno" class="f_list">
 			                        <img :src="dead.thumb" :alt="dead.title">
-			                        <p class="percent">14% 달성</p>
+			                        <p class="percent">{{dead.fm_percent}}% 달성</p>
 			                        <p class="title">{{dead.title}}</p>
 			                    </a>
 			                </li>
@@ -259,58 +259,16 @@
                     </div>
 	            </div>
 	        </section>
-	        <section id="latest">
+	        <section id="latest" v-if="latest_list.length!=0">
 	            <h2>최근 본 프로젝트</h2>
 	            <div class="slide_wrap">
                     <div class="multiple_slide_wrapper">
                         <ul class="multiple_slide">
-			                <li class="slides">
-			                    <a href="#" class="f_list">
-			                        <img src="../images/latest.jpeg" alt="">
-			                        <p class="percent">14% 달성</p>
-			                        <p class="title">정품보장 | 조말론 런던 카 방향제, 카디퓨저 & 센트 투 고</p>
-			                    </a>
-			                </li>
-			                 <li class="slides">
-			                    <a href="#" class="f_list">
-			                        <img src="../images/latest.jpeg" alt="">
-			                        <p class="percent">14% 달성</p>
-			                        <p class="title">정품보장 | 조말론 런던 카 방향제, 카디퓨저 & 센트 투 고</p>
-			                    </a>
-			                </li>
-			                 <li class="slides">
-			                    <a href="#" class="f_list">
-			                        <img src="../images/latest.jpeg" alt="">
-			                        <p class="percent">14% 달성</p>
-			                        <p class="title">정품보장 | 조말론 런던 카 방향제, 카디퓨저 & 센트 투 고</p>
-			                    </a>
-			                </li>
-			                 <li class="slides">
-			                    <a href="#" class="f_list">
-			                        <img src="../images/latest.jpeg" alt="">
-			                        <p class="percent">14% 달성</p>
-			                        <p class="title">정품보장 | 조말론 런던 카 방향제, 카디퓨저 & 센트 투 고</p>
-			                    </a>
-			                </li>
-			                 <li class="slides">
-			                    <a href="#" class="f_list">
-			                        <img src="../images/latest.jpeg" alt="">
-			                        <p class="percent">14% 달성</p>
-			                        <p class="title">정품보장 | 조말론 런던 카 방향제, 카디퓨저 & 센트 투 고</p>
-			                    </a>
-			                </li>
-			                 <li class="slides">
-			                    <a href="#" class="f_list">
-			                        <img src="../images/latest.jpeg" alt="">
-			                        <p class="percent">14% 달성</p>
-			                        <p class="title">정품보장 | 조말론 런던 카 방향제, 카디퓨저 & 센트 투 고</p>
-			                    </a>
-			                </li>
-			                 <li class="slides">
-			                    <a href="#" class="f_list">
-			                        <img src="../images/latest.jpeg" alt="">
-			                        <p class="percent">14% 달성</p>
-			                        <p class="title">정품보장 | 조말론 런던 카 방향제, 카디퓨저 & 센트 투 고</p>
+			                <li class="slides" v-for="cookie in latest_list">
+			                    <a :href="'../funding/funding_detail.do?fno='+cookie.fno+'&type='+cookie.of" class="f_list">
+			                        <img :src="cookie.thumb" :alt="cookie.title">
+			                        <p class="percent">{{cookie.fm_percent}}% 달성</p>
+			                        <p class="title">{{cookie.title}}</p>
 			                    </a>
 			                </li>
 			            </ul>
@@ -345,21 +303,22 @@
 				backing_list:[],
 				today_list:[],
 				deadline_list:[],
+				latest_list:[],
 				bottom_ad:{}
 			}
 		},
 		mounted(){
 			axios.get('../funding/main_vue.do')
 			.then(response=>{
-				console.log(response.data)
 				this.wish_list=response.data.wish_list
 				this.backing_list=response.data.backing_list
 				this.today_list=response.data.today_list
 				this.deadline_list=response.data.deadline_list
+				this.latest_list=response.data.latest_list
 				this.bottom_ad=response.data.bottom_ad
 				slideCount=this.today_list.length
 				d_slideCount=this.deadline_list.length
-				//l_slideCount=this.latest_list.length
+				l_slideCount=this.latest_list.length
 			}).catch(error=>{
 				console.log(error.response)
 			})

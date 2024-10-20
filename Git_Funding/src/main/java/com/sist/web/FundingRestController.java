@@ -3,8 +3,15 @@ package com.sist.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import java.util.*;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.*;
+import java.time.*;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import java.text.*;
@@ -23,9 +30,47 @@ public class FundingRestController {
 	@GetMapping(value="funding/main_vue.do",produces="text/plain;charset=UTF-8")
 	public String main_list() throws Exception{
 		List<FundingVO> wish_list=fService.mainWishListData();
+		for(FundingVO wvo:wish_list) {
+			int percent=(int)(Math.round(wvo.getTotalprice()/(double)wvo.getTargetprice()*100));
+			wvo.setFm_percent(new DecimalFormat("###,###").format(percent));
+		}
 		List<FundingVO> backing_list=fService.mainBackingListData();
+		for(FundingVO bvo:backing_list) {
+			int percent=(int)(Math.round(bvo.getTotalprice()/(double)bvo.getTargetprice()*100));
+			bvo.setFm_percent(new DecimalFormat("###,###").format(percent));
+		}
 		List<FundingVO> today_list=fService.mainTodayListData();
+		for(FundingVO tvo:today_list) {
+			int percent=(int)(Math.round(tvo.getTotalprice()/(double)tvo.getTargetprice()*100));
+			tvo.setFm_percent(new DecimalFormat("###,###").format(percent));
+		}
 		List<FundingVO> deadline_list=fService.mainDeadlineListData();
+		for(FundingVO dvo:deadline_list) {
+			int percent=(int)(Math.round(dvo.getTotalprice()/(double)dvo.getTargetprice()*100));
+			dvo.setFm_percent(new DecimalFormat("###,###").format(percent));
+		}
+		
+		HttpServletRequest request=((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
+		
+		Cookie[] cookies=request.getCookies();
+		List<FundingVO> cookie_list=new ArrayList<FundingVO>();
+		if(cookies!=null) {
+			for(int i=cookies.length-1;i>=0;i--) {
+				if(cookies[i].getName().startsWith("funding_")) {
+					String fno=cookies[i].getValue();
+					FundingVO vo=fService.mainCookieListData(Integer.parseInt(fno));
+					int percent=(int)(Math.round(vo.getTotalprice()/(double)vo.getTargetprice()*100));
+					vo.setFm_percent(new DecimalFormat("###,###").format(percent));
+					SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
+					Date now = new Date();
+					String today = format.format(now);
+					if(now.before(vo.getStartdate())) {
+						vo.setOf(1);
+					}
+					cookie_list.add(vo);
+				}
+			}
+		}
 		AdVO bottom_ad=fService.mainAdData();
 		
 		Map map=new HashMap();
@@ -33,6 +78,7 @@ public class FundingRestController {
 		map.put("backing_list", backing_list);
 		map.put("today_list", today_list);
 		map.put("deadline_list", deadline_list);
+		map.put("latest_list", cookie_list);
 		map.put("bottom_ad", bottom_ad);
 		
 		ObjectMapper mapper=new ObjectMapper();
@@ -150,6 +196,7 @@ public class FundingRestController {
 		}
 		return result;			
 	}
+	
 	
 	@GetMapping(value="funding/alert_delete.do", produces="text/plain;charset=UTF-8")
 	public String funding_alert_delete(int fno, HttpSession session) {

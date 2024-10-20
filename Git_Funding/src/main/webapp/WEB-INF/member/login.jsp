@@ -72,4 +72,3 @@
     	}).mount('#login')
     </script>
 </body>
-</html>

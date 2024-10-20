@@ -137,4 +137,10 @@ public class FundingServiceImpl implements FundingService{
 		return fDao.mainAdData();
 	}
 
+	@Override
+	public FundingVO mainCookieListData(int fno) {
+		// TODO Auto-generated method stub
+		return fDao.mainCookieListData(fno);
+	}
+
 }

@@ -238,4 +238,3 @@
     	}).mount('#join')
     </script>
 </body>
-</html>
