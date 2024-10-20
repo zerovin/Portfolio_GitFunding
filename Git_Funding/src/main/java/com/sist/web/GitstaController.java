@@ -50,5 +50,13 @@ public class GitstaController {
 		model.addAttribute("sessionId", sessionId);
 		return "gitsta/post_detail";
 	}
+	@GetMapping("update_post.do")
+	public String post_update(int no, Model model,String userId,HttpSession session) {
+		String sessionId = (String) session.getAttribute("userId");
+		model.addAttribute("no",no);
+		model.addAttribute("userId",userId);
+		model.addAttribute("sessionId", sessionId);
+		return "gitsta/update_post";
+	}
 	
 }

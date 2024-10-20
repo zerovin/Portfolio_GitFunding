@@ -101,19 +101,22 @@ body {
 
 .grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr); /* 3개의 열로 나눔 */
     gap: 10px;
     margin-top: 20px;
 }
-.grid img:hover{
-	cursor: pointer;
-}
-
 .grid img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
+    aspect-ratio: 1/1; /* 정사각형 비율 유지 */
+    object-fit: cover;  /* 이미지가 영역을 벗어나지 않도록 조절 */
     border-radius: 5px;
+}
+
+.grid img:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+    transition: transform 0.2s ease-in-out;
 }
 
 .pagination {
@@ -176,12 +179,12 @@ body {
         <button>포스팅</button>
     </div>
 
-    <div class="grid">
-        <div v-for="vo in feedList" :key="vo.id">
-            <img v-if="vo.type===1" :src="'../profile/'+vo.filename">
-            <img v-else :src="vo.filename">
-        </div>
-    </div>
+		<div class="grid">
+		    <div v-for="vo in feedList" :key="vo.id">
+	            <img v-if="vo.type===1" :src="'../profile/'+vo.filename" alt="Image" @click=" postDetail(vo.no)">
+	            <img v-else :src="vo.filename" alt="Image" @click=" postDetail(vo.no)">
+		    </div>
+		</div>
 
     <div class="pagination">
         <button @click="prevPage" :disabled="page === 1">이전</button>
@@ -277,6 +280,9 @@ const myfeedApp = Vue.createApp({
                 this.page -= 1;
                 this.myFeed();
             }
+        },
+        postDetail(no){
+            window.location.href = "../gitsta/post_detail.do?no="+no;
         }
     }
 }).mount('#myfeedApp');

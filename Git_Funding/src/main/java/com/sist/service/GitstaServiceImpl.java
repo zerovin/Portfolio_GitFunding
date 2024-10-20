@@ -105,4 +105,26 @@ public class GitstaServiceImpl implements GitstaService{
 	public GitstaVO gitstaDetailData(int no) {
 		return gDao.gitstaDetailData(no);
 	}
+
+
+
+	@Override
+	public GitstaVO deleteInfoData(int no) {
+		return gDao.deleteInfoData(no);
+	}
+
+	@Override
+	public String deletePost(int no) {
+		return gDao.deletePost(no);
+	}
+
+	@Override
+	public String updatePost(GitstaVO vo) {
+		return gDao.updatePost(vo);
+	}
+
+	@Override
+	public GitstaVO postUpdateData(int no) {
+		return gDao.postUpdateData(no);
+	}
 }

@@ -246,14 +246,14 @@
 <body>
 <div id="postDetailApp" class="detail-page">
     <div class="header">
-        <a href="../gitsta/main.do"><img src="../images/back.png" alt="뒤로가기"></a>
+        <img src="../images/back.png" alt="뒤로가기" @click="historyBack">
         <div class="post-info" v-if="vo.nickname"><span style="font-weight: bold">{{vo.nickname}}</span>님의 포스팅&nbsp;</div>
         <div class="post-info" v-else><span style="font-weight: bold">{{vo.userName}}</span>님의 포스팅&nbsp;</div>
         <span class="tag" v-if="vo.dbday===vo.mday">{{ vo.dbday }}</span>
-        <span class="tag" v-else>{{ vo.mday }}</span>
+        <span class="tag" v-else>[수정됨]{{ vo.mday }}</span>
         <div class="post-actions" v-if="sessionId===vo.userId">
-            <button>수정</button>
-            <button>삭제</button>
+            <button @click="postUpdate()">수정</button>
+            <button @click="postDelete()">삭제</button>
         </div>
     </div>
 
@@ -332,6 +332,28 @@
 	                .catch(error => {
 	                    console.error('세션 ID 가져오기 오류:', error.response);
 	                })
+	        },
+	        postDelete(){
+	        	axios.get('../gitsta/post_delete_vue.do',{
+	        		params:{
+	   				 no:this.no
+	   			 }
+	        	}).then(res=>{
+	        		if(res.data==='yes'){
+						alert("게시글이 삭제되었습니다")
+						location.href="../gitsta/main.do"
+					}else{
+						alert("삭제에 실패했어요 ㅠ.ㅠ")
+					}
+				}).catch(error=>{
+					console.log(error.response)
+				})
+	        },
+	        postUpdate(){
+	            window.location.href = "../gitsta/update_post.do?no=" + this.no;
+	        },
+	        historyBack(){
+	        	 window.history.back();
 	        }
 	 }
  }).mount('#postDetailApp')

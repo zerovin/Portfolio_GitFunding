@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.sist.vo.*;    
 public interface GitstaMapper {    
@@ -76,5 +77,14 @@ public interface GitstaMapper {
 	
 	@Delete("DELETE FROM follow WHERE followerId = #{followerId} AND followingId = #{followingId}")
 	public void deleteFollow(@Param("followerId") String followerId, @Param("followingId") String followingId);
+	 
+	// 피드 수정
+	@Update("UPDATE gitsta_feed SET content=#{content}, filename=#{filename}, filesize=#{filesize}, filecount=#{filecount}, modifydate=SYSDATE WHERE no=#{no}")
+	public void updatePost(GitstaVO vo);
 	
+	// 피드 삭제
+	@Select("SELECT filename,type FROM gitsta_feed WHERE no=#{no}")
+	public GitstaVO deleteInfoData(int no);
+	@Delete("DELETE FROM gitsta_feed WHERE no=#{no}")
+	public void deletePost(int no);
 }

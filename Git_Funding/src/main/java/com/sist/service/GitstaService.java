@@ -22,5 +22,9 @@ public interface GitstaService {
 	public void deleteFollow(String followerId,String followingId);
 	public void setFeedDisplayDate(List<GitstaVO> list);
 	public GitstaVO gitstaDetailData(int no);
+	public String deletePost(int no);
+	public GitstaVO deleteInfoData(int no);
+	public String updatePost(GitstaVO vo);
+	public GitstaVO postUpdateData(int no);
 	
 }

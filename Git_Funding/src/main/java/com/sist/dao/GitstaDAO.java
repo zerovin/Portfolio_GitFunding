@@ -60,4 +60,24 @@ public class GitstaDAO {
 	public GitstaVO gitstaDetailData(int no) {
 		return mapper.gitstaDetailData(no);
 	}
+	// 수정하기
+	public GitstaVO postUpdateData(int no) {
+		return mapper.gitstaDetailData(no);
+	}
+	public String updatePost(GitstaVO vo) {
+		String result="yes";
+		mapper.updatePost(vo);
+		return result;
+	}
+	
+	// 삭제하기
+	public GitstaVO deleteInfoData(int no) {
+		return mapper.deleteInfoData(no);
+	}
+	public String deletePost(int no) {
+		String result="yes";
+		mapper.deletePost(no);
+		return result;
+	}
+	
 }

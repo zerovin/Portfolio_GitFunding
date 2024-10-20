@@ -210,4 +210,77 @@ public class GitstaRestController {
     	
     	return json;
     }
+    
+    @GetMapping(value="gitsta/post_delete_vue.do", produces = "text/plain;charset=UTF-8")
+    public String post_delete(int no,HttpServletRequest request) {
+    	GitstaVO vo=gService.deleteInfoData(no);
+    	String result=gService.deletePost(no);
+    	if(result.equals("yes")) {
+    		String path=request.getSession().getServletContext().getRealPath("/")+"profile\\";
+			path=path.replace("\\", File.separator);
+			if(vo.getType()==1) {
+				StringTokenizer st=new StringTokenizer(vo.getFilename(),",");
+				while(st.hasMoreTokens()) {
+					File file=new File(path+st.nextToken());
+					file.delete();
+				}
+			}
+		}
+		return result;
+	}
+    
+    @GetMapping(value="gitsta/post_update_vue.do", produces = "text/plain;charset=UTF-8")
+    public String post_update(int no) throws Exception {
+    	GitstaVO vo=gService.postUpdateData(no);
+    	ObjectMapper mapper=new ObjectMapper();
+		String json=mapper.writeValueAsString(vo);
+		return json;
+    }
+    @PostMapping(value = "gitsta/post_update_ok_vue.do", produces = "text/plain;charset=UTF-8")
+    public String post_update_ok(GitstaVO vo, HttpServletRequest request) throws Exception {
+        String result = "";
+        try {
+            // 기존 게시물 데이터를 가져옴
+            GitstaVO fvo = gService.postUpdateData(vo.getNo());
+
+            // 파일 경로 설정
+            String path = request.getSession().getServletContext().getRealPath("/") + "profile" + File.separator;
+
+            // 기존 파일이 있는 경우 삭제
+            if (fvo.getFilecount() > 0 && fvo.getFilename() != null) {
+                StringTokenizer st = new StringTokenizer(fvo.getFilename(), ",");
+                while (st.hasMoreTokens()) {
+                    String fileName = st.nextToken();
+                    File file = new File(path + fileName);
+                    if (file.exists()) {
+                        file.delete(); // 기존 파일 삭제
+                    }
+                }
+            }
+
+            // 새로 업로드한 파일 처리
+            MultipartFile mf = vo.getFile();
+            if (mf != null && !mf.isEmpty()) {
+                String originalFilename = mf.getOriginalFilename();
+                File file = new File(path + originalFilename);
+                mf.transferTo(file); // 새 파일 업로드
+                vo.setFilename(originalFilename);
+                vo.setFilesize(String.valueOf(mf.getSize()));
+                vo.setFilecount(1); // 파일이 존재하므로 filecount 1로 설정
+            } else {
+                vo.setFilename("");
+                vo.setFilesize("");
+                vo.setFilecount(0); // 파일이 없으므로 filecount 0으로 설정
+            }
+
+            // 게시물 수정 처리
+            result = gService.updatePost(vo);
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            result = "fail"; // 오류 발생 시 실패 메시지 반환
+        }
+        return result;
+    }
+    
 }
