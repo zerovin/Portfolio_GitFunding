@@ -29,13 +29,13 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public NoticeVO noticeDetailData(int nno) {
-		return nDao.noticeDetailData(nno);
+	public NoticeVO noticeDetailData(int no) {
+		return nDao.noticeDetailData(no);
 	}
 
 	@Override
-	public NoticeVO noticeUpdateData(int nno) {
-		return nDao.noticeUpdateData(nno);
+	public NoticeVO noticeUpdateData(int no) {
+		return nDao.noticeUpdateData(no);
 	}
 
 	@Override
@@ -44,7 +44,7 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public void noticeDelete(int nno) {
-		nDao.noticeDelete(nno);
+	public void noticeDelete(int no) {
+		nDao.noticeDelete(no);
 	}
 }

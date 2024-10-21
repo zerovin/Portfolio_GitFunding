@@ -11,7 +11,7 @@ import com.sist.vo.*;
 
 public interface NoticeMapper {
     // 공지사항 목록
-    @Select("SELECT no, type, hit, subject, TO_CHAR(regdate,'YYYY-MM-DD HH24:MI:SS') as dbday, num "
+    @Select("SELECT no, type, hit, subject, TO_CHAR(regdate,'YYYY-MM-DD') as dbday, num "
             + "FROM (SELECT no, type, hit, subject, regdate, rownum as num "
             + "FROM (SELECT no, type, hit, subject, regdate "
             + "FROM site_notice ORDER BY no DESC)) "
@@ -27,12 +27,14 @@ public interface NoticeMapper {
     public void noticeHitIncrement(int no);
     
     // 공지사항 상세보기
-    @Select("SELECT * FROM site_notice WHERE no=#{no}")
+    @Select("SELECT no, nickname, type, subject, content, TO_CHAR(regdate, 'YYYY-MM-DD HH24:MI:SS') as dbday, hit "
+    		+ "FROM site_notice "
+    		+ "WHERE no=#{no}")
     public NoticeVO noticeDetailData(int no);
     
     // 공지 작성
-    @Insert("INSERT INTO site_notice (no, type, subject, content, filename, filesize, filecount, regdate) "
-            + "VALUES (sn_no_seq.nextval, #{type}, #{subject}, #{content}, #{filename}, #{filesize}, #{filecount}, SYSDATE")
+    @Insert("INSERT INTO site_notice (no, type, subject, content, userId, nickName) "
+            + "VALUES (sn_no_seq.nextval, #{type}, #{subject}, #{content}, #{userId}, #{nickName})")
     public void noticeInsert(NoticeVO vo);
 
     // 공지사항 수정 데이터 가져오기

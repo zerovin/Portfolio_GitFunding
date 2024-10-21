@@ -26,26 +26,27 @@ public class NoticeDAO {
 	// 공지 작성
 	public void noticeInsert(NoticeVO vo) {
 		mapper.noticeInsert(vo);
+		System.out.println(vo + "VO가 제대로 처리되고있는지 확인");
 	}
 	
 	// 공지사항 상세보기, 조회수 증가
-	public NoticeVO noticeDetailData(int nno) {
-		mapper.noticeHitIncrement(nno);
+	public NoticeVO noticeDetailData(int no) {
+		mapper.noticeHitIncrement(no);
 		
-		return mapper.noticeDetailData(nno);
+		return mapper.noticeDetailData(no);
 	}
 	
 	// 공지사항 수정 데이터, 수정
-    public NoticeVO noticeUpdateData(int nno) {
+    public NoticeVO noticeUpdateData(int no) {
     	
-    	return mapper.noticeDetailData(nno);
+    	return mapper.noticeDetailData(no);
     }
     public void noticeUpdate(NoticeVO vo) {
     	mapper.noticeUpdate(vo);
     }
     
     // 공지사항 삭제
-    public void noticeDelete(int nno) {
-    	mapper.noticeDelete(nno);
+    public void noticeDelete(int no) {
+    	mapper.noticeDelete(no);
     }
 }

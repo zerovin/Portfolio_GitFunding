@@ -1,12 +1,12 @@
 body{
 	font-family:'NexonLv2Gothic';
 }
-.qna-input{
+.NoticeInsert{
 	width:600px;
 	margin:0 auto;
 	font-family:'NexonLv2Gothic';
 }
-.qna-input > h1{
+.NoticeInsert > h1{
 	text-align:center;
 	font-size:30px;
 	font-family:'NexonLv2Gothic';
@@ -16,28 +16,28 @@ body{
     padding-bottom:10px;
     text-align:center;
 }
-.qna-form{
+.Form{
 	height:500px;
 	text-align:center;
 }
-.qna-table{
+.NoticeIable{
 	width:100%;
     border-collapse:collapse;
 }
-.qna-table th, .qna-table td{
+.NoticeTable th, .NoticeTable td{
     padding:15px;
     text-align:left;
     border-bottom:1px solid #ddd;
 }
-.qna-table th{
+.notice_table th{
     vertical-align: middle;
 }
-.qna-tablee th{
+.notice_tablee th{
     background-color:rgb(78, 107, 63);
     color:white;
     font-weight:bold;
 }
-.qna-form input, .qna-form textarea, .qna-form select{
+.NoticeForm input, .NoticeForm textarea, .NoticeForm select{
     width:100%;
     padding:10px;
     border:1px solid #ddd;
@@ -45,7 +45,7 @@ body{
     box-sizing:border-box;
     font-size:14px;
 }
-.qna-form button{
+.notice-form-button{
     border:none;
     background-color:#f8c200;
     color:white;
@@ -56,7 +56,7 @@ body{
     margin:5px;
     width:80px;
 }
-.qna-form input[type="button"]{
+.NoticeForm input[type="button"]{
     border:none;
     background-color:gray;
     color:white;
@@ -67,14 +67,14 @@ body{
     margin:5px;
     width:80px;
 }
-.qnaBtns > td{
+.NoticeBtns > td{
 	text-align:center;
 }
-.qna-checkbox-container{
+.notice-checkbox-container{
     display:inline-flex;
     align-items:center;
     gap:5px;
 }
-.qna-checkbox-container input[type="checkbox"]{
+.notice-checkbox-container input[type="checkbox"]{
     margin:0;
 }

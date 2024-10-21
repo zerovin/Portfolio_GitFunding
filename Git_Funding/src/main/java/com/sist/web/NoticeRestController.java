@@ -56,20 +56,30 @@ public class NoticeRestController {
 	}
 	
 	@PostMapping(value = "notice/insert_vue.do", produces = "text/plain; charset=UTF-8")
-	public String databoard_insert_ok(NoticeVO vo, HttpSession session) throws Exception {
+	public String notice_insert(NoticeVO vo, HttpSession session) throws Exception {
 		String result = "";
 		String id = (String)session.getAttribute("userId");
-		String nickName=(String)session.getAttribute("nickName");
+		String nickname = (String)session.getAttribute("nickname");
 		   try {
 			   vo.setUserId(id);
-			   vo.setNickName(nickName);
+			   vo.setNickname(nickname);
 			   
 			   nService.noticeInsert(vo);
 			   
-			   result="yes";
+			   result = "yes";
 		   } catch(Exception ex) {
-			   result=ex.getMessage();
+			   result = ex.getMessage();
 		   }
 		   return result;
+	}
+	
+	@GetMapping(value = "notice/detail_vue.do", produces = "text/plain; charset=UTF-8")
+	public String notice_detail(int no) throws Exception {
+	    NoticeVO vo = nService.noticeDetailData(no);
+	    
+	    ObjectMapper mapper = new ObjectMapper();
+	    String json = mapper.writeValueAsString(vo);
+	    
+	    return json;
 	}
 }
