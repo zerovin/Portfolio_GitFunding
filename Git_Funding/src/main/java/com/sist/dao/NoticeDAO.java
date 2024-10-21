@@ -26,7 +26,6 @@ public class NoticeDAO {
 	// 공지 작성
 	public void noticeInsert(NoticeVO vo) {
 		mapper.noticeInsert(vo);
-		System.out.println(vo + "VO가 제대로 처리되고있는지 확인");
 	}
 	
 	// 공지사항 상세보기, 조회수 증가

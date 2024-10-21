@@ -60,17 +60,23 @@ public class NoticeRestController {
 		String result = "";
 		String id = (String)session.getAttribute("userId");
 		String nickname = (String)session.getAttribute("nickname");
-		   try {
-			   vo.setUserId(id);
-			   vo.setNickname(nickname);
-			   
-			   nService.noticeInsert(vo);
-			   
-			   result = "yes";
-		   } catch(Exception ex) {
-			   result = ex.getMessage();
-		   }
-		   return result;
+		
+		if (nickname == null || nickname.isEmpty()) {
+	        nickname = id;
+	    }
+		
+		try {
+			vo.setUserId(id);
+			vo.setNickname(nickname);
+		   
+			nService.noticeInsert(vo);
+		   
+			result = "yes";
+		} catch(Exception ex) {
+		   result = ex.getMessage();
+		}
+	   
+			return result;
 	}
 	
 	@GetMapping(value = "notice/detail_vue.do", produces = "text/plain; charset=UTF-8")
@@ -81,5 +87,40 @@ public class NoticeRestController {
 	    String json = mapper.writeValueAsString(vo);
 	    
 	    return json;
+	}
+	
+	@GetMapping(value = "notice/update_vue.do", produces = "text/plain; charset=UTF-8")
+	   public String notice_update(int no) throws Exception
+	   {
+		   NoticeVO vo = nService.noticeUpdateData(no);
+		   
+		   ObjectMapper mapper = new ObjectMapper();
+		   String json = mapper.writeValueAsString(vo);
+		   
+		   return json;
+	   }
+	
+	@PostMapping(value = "notice/update_ok_vue.do", produces = "text/plain; charset=UTF-8")
+	public String notice_update_ok(NoticeVO vo) throws Exception {
+		String result = "";
+		try {
+			nService.noticeUpdate(vo);
+			result = "yes";
+		} catch(Exception ex) {
+			result = ex.getMessage();
+		}
+		return result;
+	}
+	
+	@GetMapping(value = "notice/delete_vue.do", produces = "text/plain; charset=UTF-8")
+	public String notice_delete(int no) throws Exception {
+		String result = "";
+		try {
+			result = "yes";
+			nService.noticeDelete(no);
+		}catch (Exception ex) {
+			result = ex.getMessage();
+		}
+		return result;
 	}
 }

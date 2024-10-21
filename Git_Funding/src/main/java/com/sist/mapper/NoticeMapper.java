@@ -11,9 +11,9 @@ import com.sist.vo.*;
 
 public interface NoticeMapper {
     // 공지사항 목록
-    @Select("SELECT no, type, hit, subject, TO_CHAR(regdate,'YYYY-MM-DD') as dbday, num "
-            + "FROM (SELECT no, type, hit, subject, regdate, rownum as num "
-            + "FROM (SELECT no, type, hit, subject, regdate "
+    @Select("SELECT no, userId, nickname, type, hit, subject, TO_CHAR(regdate,'YYYY-MM-DD') as dbday, num "
+            + "FROM (SELECT no, userId, nickname, type, hit, subject, regdate, rownum as num "
+            + "FROM (SELECT no, userId, nickname, type, hit, subject, regdate "
             + "FROM site_notice ORDER BY no DESC)) "
             + "WHERE num BETWEEN #{start} AND #{end}")
     public List<NoticeVO> noticeListData(Map map);
@@ -27,14 +27,14 @@ public interface NoticeMapper {
     public void noticeHitIncrement(int no);
     
     // 공지사항 상세보기
-    @Select("SELECT no, nickname, type, subject, content, TO_CHAR(regdate, 'YYYY-MM-DD HH24:MI:SS') as dbday, hit "
+    @Select("SELECT no, userId, nickname, type, subject, content, TO_CHAR(regdate, 'YYYY-MM-DD HH24:MI:SS') as dbday, hit "
     		+ "FROM site_notice "
     		+ "WHERE no=#{no}")
     public NoticeVO noticeDetailData(int no);
     
     // 공지 작성
-    @Insert("INSERT INTO site_notice (no, type, subject, content, userId, nickName) "
-            + "VALUES (sn_no_seq.nextval, #{type}, #{subject}, #{content}, #{userId}, #{nickName})")
+    @Insert("INSERT INTO site_notice (no, type, subject, content, userId, nickname) "
+            + "VALUES (sn_no_seq.nextval, #{type}, #{subject}, #{content}, #{userId}, #{nickname})")
     public void noticeInsert(NoticeVO vo);
 
     // 공지사항 수정 데이터 가져오기
@@ -43,7 +43,7 @@ public interface NoticeMapper {
     
     // 공지사항 수정
     @Update("UPDATE site_notice SET "
-            + "type=#{type}, subject=#{subject}, content=#{content}, filename=#{filename}, filesize=#{filesize}, filecount=#{filecount}, regdate=SYSDATE "
+            + "type=#{type}, subject=#{subject}, content=#{content}, regdate=SYSDATE "
             + "WHERE no=#{no}")
     public void noticeUpdate(NoticeVO vo);
     

@@ -20,7 +20,7 @@ body{
 	height:500px;
 	text-align:center;
 }
-.NoticeIable{
+.NoticeTable{
 	width:100%;
     border-collapse:collapse;
 }
@@ -29,13 +29,11 @@ body{
     text-align:left;
     border-bottom:1px solid #ddd;
 }
-.notice_table th{
+.NoticeTable th{
     vertical-align: middle;
 }
-.notice_tablee th{
-    background-color:rgb(78, 107, 63);
-    color:white;
-    font-weight:bold;
+.NoticeTable th{
+/* 	background-color:#f8c200; */
 }
 .NoticeForm input, .NoticeForm textarea, .NoticeForm select{
     width:100%;

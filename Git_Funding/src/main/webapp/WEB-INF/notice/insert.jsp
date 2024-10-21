@@ -29,12 +29,6 @@
                     </td>
                 </tr>
                 <tr>
-                    <th width="20%" style="vertical-align:middle;">파일 첨부</th>
-                    <td width="80%" style="text-align:left;">
-                        <!-- <input type="file" @change="handleFileUpload"> -->
-                    </td>
-                </tr>
-                <tr>
                     <th width="20%">내용</th>
                     <td width="80%">
                         <textarea rows="10" cols="50" name="content" class="notice-form-textarea" required
@@ -57,37 +51,34 @@
                     subject: '',
                     content: '',
                     selectCate: '',
-                    sessionId: '${sessionScope.userId}',
+                    userId: '${sessionScope.userId}',
                     nickname: '${sessionScope.nickname}'
                 }
             },
             methods: {
             	NoticeInsert() {
             		if (!this.subject || !this.content) {
-			            alert('제목과 내용을 입력해 주세요.'); // 필수 입력 확인
-			            return;
+			            alert('제목과 내용을 입력해 주세요.')
 			        }
-            		
             		const NoticeVO = {
 			                subject: this.subject,
 			                content: this.content,
 			                type: this.selectCate,
-			                id: this.sessionId,
+			                id: this.userId,
 			                nickname: this.nickname, 
 			            }
-            		
             	    axios.post('../notice/insert_vue.do', null, {
             	        params: NoticeVO
             	    }).then(response => {
             	        console.log(response.data);
             	        if (response.data === "yes") {  
-            	        	alert('공지가 성공적으로 등록되었습니다!');
+            	        	alert('공지가 성공적으로 등록되었습니다!')
             	            location.href = '../notice/list.do'
             	        } else {
-            	            alert('공지 등록 실패: ' + response.data);
+            	            alert('공지 등록 실패: ' + response.data)
             	        }
             	    }).catch(error => {
-            	        console.log(error.response);
+            	        console.log(error.response)
             	        alert('등록 중 오류 발생: ' + error.message)
             	    });
             	}

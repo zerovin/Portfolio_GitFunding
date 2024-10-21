@@ -178,7 +178,7 @@
                     <td class="NavToDetail">
 					    <a :href="'../notice/detail.do?no='+vo.no">{{vo.subject}}</a>
 					</td>
-                    <td>${sessionScope.nickname}</td>
+                    <td>{{vo.nickname}}</td>
                     <td>{{ vo.dbday }}</td>
                 </tr>
 	        </tbody>
@@ -215,8 +215,7 @@
 				totalpage:0,
 				startPage:0,
 				endPage:0,
-				sessionId:'${sessionId}'
-				
+				userId:'${sessionId}'
 			}
 		},
 		mounted() {

@@ -11,14 +11,18 @@ public class NoticeController {
 
 	@GetMapping("notice/list.do")
 	public String notice_list(Model model, HttpSession session) {
-		String id = (String)session.getAttribute("userId");
-		String nickname = (String)session.getAttribute("nickname");
+//		String id = (String)session.getAttribute("userId");
+//		String nickname = (String)session.getAttribute("nickname");
+//		
+//		model.addAttribute("userId", id);
+//		model.addAttribute("nickname", nickname);
 
 		return "notice/list";
 	}
 	
 	@GetMapping("notice/insert.do")
 	public String notice_insert(HttpSession session) {
+		String id = (String)session.getAttribute("userId");
 		String nickname = (String)session.getAttribute("nickname");
 		
 		return "notice/insert";
@@ -37,12 +41,9 @@ public class NoticeController {
 	}
 	
 	@GetMapping("notice/update.do")
-	public String notice_update() {
+	public String notice_update(int no, Model model) {
+		model.addAttribute("no", no);
+		
 		return "notice/update";
-	}
-	
-	@GetMapping("notice/delete.do")
-	public String notice_delete() {
-		return "notice/delete";
 	}
 }
