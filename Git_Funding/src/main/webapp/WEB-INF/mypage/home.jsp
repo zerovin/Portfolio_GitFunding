@@ -8,7 +8,7 @@
     <style>
         .home-container {
             margin-left: 50px;
-            width: 900px;
+            width: 800px;
             font-family: 'NEXON Lv2 Gothic';
         }
         .dashboard {

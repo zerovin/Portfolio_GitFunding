@@ -24,7 +24,7 @@
                 <c:if test="${sessionScope.userId!=null}">
 					<li><a href="../mypage/main.do" class="mypage"><img src="${sessionScope.profile }" alt="마이페이지"></a></li>
                 	<li><a href="../gitsta/main.do" class="icon gitstargram">깃스타그램</a></li>
-                	<li><a href="" class="icon wish">위시리스트</a></li>
+                	<li><a href="../mypage/jjim_alert.do" class="icon wish">위시리스트</a></li>
                 	<sec:authorize access="hasRole('ROLE_ADMIN')">
 		            	<li><a href="../member/logout.do">관리자페이지</a></li>
 		            </sec:authorize>

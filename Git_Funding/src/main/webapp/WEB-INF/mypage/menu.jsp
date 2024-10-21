@@ -108,17 +108,16 @@
             <div class="mymenu-detail">
                 <p class="mymenu_p">나의 활동</p>
                 <ul>
-                    <li><button>최근 본</button></li>
-                    <li><button>찜·알림신청</button></li>
-                    <li><button>지지 프로젝트</button></li>
-                    <li><button>펀딩</button></li>
+                    <li><button @click="cookie()">최근 본</button></li>
+                    <li><button @click="jjimAlert()">찜·알림신청</button></li>
+                    <li><button @click="funding()">펀딩</button></li>
                     <li><button @click="buyInfo()">스토어</button></li>
                 </ul>
             </div>
             <div class="mymenu-detail">
                 <p class="mymenu_p" style="margin-top: 25px;">정보 관리</p>
                 <ul>
-                    <li><button>나의 리뷰</button></li>
+                    <li><button>커뮤니티 관리</button></li>
                     <li><button @click="qnaInfo()">문의 내역</button></li>
                     <li><button @click="infoUpdate()">정보 수정</button></li>
                     <li><button>회원 탈퇴</button></li>
@@ -154,6 +153,9 @@
             },
             qnaInfo(){
             	location.href="../mypage/qna.do"
+            },
+            jjimAlert(){
+            	location.href="../mypage/jjim_alert.do"
             }
         }
     }).mount('#mypageApp');

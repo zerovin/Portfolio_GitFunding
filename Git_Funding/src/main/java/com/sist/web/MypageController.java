@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.sist.service.MypageService;
@@ -43,5 +44,16 @@ public class MypageController {
 		String userId=(String)session.getAttribute("userId");
 		MemberVO vo=mService.mypageInfoData(userId);
 		return "mypage/info_update";
+	}
+	@GetMapping("mypage/jjim_alert.do")
+	public String jjim_alert(Model model,HttpSession session) {
+		String userId=(String)session.getAttribute("userId");
+		int jjimCount = mService.fundingWishCount(userId);
+	    model.addAttribute("jjimCount", jjimCount);
+	    int AlertCount = mService.fundingAlertCount(userId);
+	    model.addAttribute("AlertCount", AlertCount);
+	    
+		MemberVO vo=mService.mypageInfoData(userId);
+		return "mypage/jjim_alert";
 	}
 }
