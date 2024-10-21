@@ -1,7 +1,15 @@
+#reward p,
+#reward pre,
+#reward label,
+#reward input,
+#reward button{
+	font-family: 'NEXON Lv2 Gothic';
+}
 #reward.container{
     width:600px;
 }
 #reward h2{
+	font-family: 'NEXON Lv2 Gothic';
     font-weight:700;
     font-size:22px;
     display:inline-block;
@@ -44,6 +52,9 @@
     border:1px solid #ccc;
     border-radius:5px;
     padding:5px;
+}
+#reward .reward_box .account_price .account .number p{
+	padding-top:5px;
 }
 #reward .reward_box .account_price .account .number span{
     font-size:30px;
@@ -91,6 +102,12 @@
 #reward .delivery_box > div{
     margin-bottom:20px;
 }
+#reward .delivery_box > div label span{
+	font-size:14px;
+	font-weight:400;
+	color:#fd0c0c;
+	margin-left:5px;
+}
 #reward .delivery_box > div label:not(.ck_box label){
     display:block;
     font-weight:500;
@@ -111,7 +128,15 @@
     gap:10px;
     margin-bottom:10px;
 }
-#reward .delivery_box .addr button{
+#reward .delivery_box .addr .post_addr{
+	margin-bottom:10px;
+	display:none;
+}
+#reward .delivery_box .addr .post_addr span:first-child{
+	margin-right:5px;
+}
+#reward .delivery_box .addr input[type="button"]{
+	width:auto;
     padding:7px 5px 5px;;
     border-radius:5px;
     background:#ccc;

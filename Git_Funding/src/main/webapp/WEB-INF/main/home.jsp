@@ -149,8 +149,8 @@
 	            <div class="rank">
 	                <h2>실시간 랭킹</h2>
 	                <ul class="rank_tab">
-	                    <li class="active"><a href="#">펀딩</a></li>
-	                    <li><a href="#">스토어</a></li>
+	                    <li class="active"><button @click="rankChange('funding')">펀딩</button></li>
+	                    <li><button @click="rankChange('store')">스토어</button></li>
 	                </ul>
 	                <ol class="rank_list">
 	                    <li>
@@ -301,6 +301,8 @@
    					{first:"👫",second:"소셜"}],
 				wish_list:[],
 				backing_list:[],
+				rank_type:'funding',
+				rank_list:[],
 				today_list:[],
 				deadline_list:[],
 				latest_list:[],
@@ -322,6 +324,19 @@
 			}).catch(error=>{
 				console.log(error.response)
 			})
+		},
+		methods:{
+			rankChange(type){
+				axios.get('../funding/main_rank.do',{
+					params:{
+						type:type
+					}
+				}).then(response=>{
+					this.rank_list=response.data
+				}).catch(error=>{
+					console.log(error.response)
+				})
+			}
 		}
 	}).mount('#main')
 		

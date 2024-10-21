@@ -28,6 +28,17 @@ public interface FundingMapper {
 			+ "WHERE rownum<=4")
 	public List<FundingVO> mainBackingListData();
 	
+	//메인-랭킹
+	@Select("SELECT fno, title, thumb, headcount, rownum "
+			+ "FROM (SELECT fno, title, thumb, headcount "
+			+ "FROM funding "
+			+ "WHERE startdate<SYSDATE AND enddate>SYSDATE "
+			+ "ORDER BY headcount DESC) "
+			+ "WHERE rownum<=5")
+	public List<FundingVO> mainFundingRankListData();
+	
+	/////////////스토어 랭킹목록
+	
 	//메인-오늘오픈
 	@Select("SELECT fno, title, thumb, targetprice, totalprice "
 			+ "FROM funding "

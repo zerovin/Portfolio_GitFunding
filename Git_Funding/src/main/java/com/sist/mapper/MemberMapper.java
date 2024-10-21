@@ -28,4 +28,10 @@ public interface MemberMapper {
 			+ "FROM funding_member "
 			+ "WHERE userId=#{userId}")
 	public MemberVO memberSessionData(String userId);
+	
+	//배송정보
+	@Select("SELECT userId, userName, phone, post, addr1, addr2 "
+			+ "FROM funding_member "
+			+ "WHERE userId=#{userId}")
+	public MemberVO rewardDeliveryMemberInfo(String userId);
 }

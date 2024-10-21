@@ -57,4 +57,15 @@ public class MemberDAO {
 	public MemberVO memberSessionData(String userId) {
 		return mapper.memberSessionData(userId);
 	}
+	
+	/*
+	//배송정보
+	@Select("SELECT userId, userName, phone, post, addr1, addr2 "
+			+ "FROM funding_member "
+			+ "WHERE userId=#{userId}")
+	public MemberVO rewardDeliveryMemberInfo(String id); 
+	 */
+	public MemberVO rewardDeliveryMemberInfo(String userId) {
+		return mapper.rewardDeliveryMemberInfo(userId);
+	}
 }

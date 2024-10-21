@@ -8,4 +8,5 @@ public interface MemberService {
 	public int idCheck(String userId);
 	public MemberVO memberInfoData(String userId);
 	public MemberVO memberSessionData(String userId);
+	public MemberVO rewardDeliveryMemberInfo(String userId);
 }

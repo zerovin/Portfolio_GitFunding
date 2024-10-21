@@ -38,4 +38,10 @@ public class MemberServiceImpl implements MemberService{
 		// TODO Auto-generated method stub
 		mDao.memberAuthorityInsert(userId);
 	}
+
+	@Override
+	public MemberVO rewardDeliveryMemberInfo(String userId) {
+		// TODO Auto-generated method stub
+		return mDao.rewardDeliveryMemberInfo(userId);
+	}
 }

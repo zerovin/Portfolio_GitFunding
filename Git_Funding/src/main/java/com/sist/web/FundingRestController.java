@@ -86,6 +86,15 @@ public class FundingRestController {
 		return json;
 	}
 	
+	@GetMapping(value="funding/main_rank.do", produces="text/plain;charset=UTF-8")
+	public String main_rank_list(String type) throws Exception{
+		if(type=="funding") {
+			
+		}
+		String json="";
+		return json;
+	}
+	
 	@GetMapping(value="funding/funding_list_vue.do",produces="text/plain;charset=UTF-8")
 	public String funding_list(int page) throws Exception{
 		int rowSize=12;

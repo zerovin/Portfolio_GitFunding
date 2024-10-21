@@ -16,4 +16,16 @@ public class RewardServiceImpl implements RewardService{
 		return rDao.rewardBuyData(rno);
 	}
 
+	@Override
+	public void rewardBuyInsert(RewardBuyVO vo) {
+		// TODO Auto-generated method stub
+		rDao.rewardBuyInsert(vo);
+	}
+
+	@Override
+	public void rewardBuyMinusAmount(RewardBuyVO vo) {
+		// TODO Auto-generated method stub
+		rDao.rewardBuyMinusAmount(vo);
+	}
+
 }

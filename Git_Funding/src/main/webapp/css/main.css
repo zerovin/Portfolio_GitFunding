@@ -270,7 +270,7 @@
     margin-bottom:20px;
 }
 #main #trend_rank .rank .rank_tab li{
-    padding-bottom:10px;
+    padding-bottom:5px;
     border-bottom:2px solid transparent;
 }
 #main #trend_rank .rank .rank_tab li.active{
