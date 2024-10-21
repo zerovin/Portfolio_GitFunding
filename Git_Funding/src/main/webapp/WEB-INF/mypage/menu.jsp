@@ -110,8 +110,8 @@
                 <ul>
                     <li><button @click="cookie()">최근 본</button></li>
                     <li><button @click="jjimAlert()">찜·알림신청</button></li>
-                    <li><button @click="funding()">펀딩</button></li>
-                    <li><button @click="buyInfo()">스토어</button></li>
+                    <li><button @click="fundingBuy()">펀딩</button></li>
+                    <li><button @click="storeBuy()">스토어</button></li>
                 </ul>
             </div>
             <div class="mymenu-detail">
@@ -145,8 +145,8 @@
         			console.log(error.response)
         		})
         	},
-            buyInfo() {
-                location.href="../mypage/buy.do"
+        	fundingBuy() {
+        		location.href="../mypage/funding_buy.do"
             },
             infoUpdate() {
             	location.href="../mypage/info.do"

@@ -21,11 +21,11 @@ public class MypageController {
 		MemberVO vo=mService.mypageInfoData(userId);
 		return "mypage";
 	}
-	@GetMapping("mypage/buy.do")
-	public String mypage_buy(HttpSession session) {
+	@GetMapping("mypage/funding_buy.do")
+	public String mypage_funding_buy(HttpSession session) {
 		String userId=(String)session.getAttribute("userId");
 		MemberVO vo=mService.mypageInfoData(userId);
-		return "mypage/buy";
+		return "mypage/funding_buy";
 	}
 	@GetMapping("mypage/qna.do")
 	public String mypage_qna(HttpSession session) {

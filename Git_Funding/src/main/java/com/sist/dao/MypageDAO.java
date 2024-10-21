@@ -7,6 +7,7 @@ import java.util.*;
 import com.sist.mapper.*;
 import com.sist.vo.AlertVO;
 import com.sist.vo.MemberVO;
+import com.sist.vo.RewardBuyVO;
 import com.sist.vo.WishVO;
 @Repository
 public class MypageDAO {
@@ -41,4 +42,17 @@ public class MypageDAO {
 	public int fundingAlertCount(String userId) {
 		return mapper.fundingAlertCount(userId);
 	}
+	
+	//펀딩 구매 내역
+	public List<RewardBuyVO> getRewardBuyList(Map map){
+		return mapper.getRewardBuyList(map);
+	}
+
+    public int getTotalRewardBuyCount(String userId) {
+    	return mapper.getTotalRewardBuyCount(userId);
+    }
+
+    public RewardBuyVO getPurchaseDetail(int rbno) {
+    	return mapper.getPurchaseDetail(rbno);
+    }
 }

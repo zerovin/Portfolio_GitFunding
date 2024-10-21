@@ -15,4 +15,7 @@ public interface MypageService {
 	public int fundingWishCount(String userId);
 	public List<AlertVO> fundingAlertList(String userId);
 	public int fundingAlertCount(String userId);
+	public List<RewardBuyVO> getRewardBuyList(Map map);
+    public int getTotalRewardBuyCount(String userId);
+    public RewardBuyVO getPurchaseDetail(int rbno);
 }

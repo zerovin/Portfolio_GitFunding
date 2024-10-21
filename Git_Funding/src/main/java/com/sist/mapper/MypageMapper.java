@@ -2,6 +2,7 @@ package com.sist.mapper;
 import com.sist.vo.*; 
 import java.util.*;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 public interface MypageMapper {
@@ -9,7 +10,7 @@ public interface MypageMapper {
 			+"FROM funding_member "
 			+"WHERE userId=#{userId}")
 	public MemberVO mypageInfoData(String userId);
-	
+	 
 	@Update("UPDATE funding_member SET nickname=#{nickname} WHERE userId=#{userId}")
 	public void SetNickname(Map map);  
 	
@@ -38,5 +39,25 @@ public interface MypageMapper {
 	@Select("SELECT COUNT(*) FROM funding_alert WHERE userId = #{userId}")
 	public int fundingAlertCount(String userId);
   
+	
+	// 펀딩 구매 내역
+	@Select("SELECT rb.rbno, rb.rno, rb.account, rb.price, rb.delivery, rb.totalprice, rb.userId, rb.name, rb.phone, rb.post, rb.addr1, rb.addr2, rb.requestMsg, rb.regdate,"
+	        + "f.thumb, f.title, rb.num "  
+	        + "FROM (SELECT rb.rbno, rb.rno, rb.account, rb.price, rb.delivery, rb.totalprice, rb.userId, rb.name, rb.phone, rb.post, rb.addr1, rb.addr2, rb.requestMsg, rb.regdate, rownum as num "
+	        + "      FROM (SELECT * FROM reward_buy WHERE userId = #{userId} ORDER BY regdate DESC) "
+	        + "      WHERE rownum <= #{end}) rb "
+	        + "JOIN funding f ON rb.rno = f.fno "
+	        + "WHERE rb.num BETWEEN #{start} AND #{end}")
+	public List<RewardBuyVO> getRewardBuyList(Map map);
+
+
+    @Select("SELECT COUNT(*) FROM reward_buy WHERE userId = #{userId}")
+    public int getTotalRewardBuyCount(String userId);
+ 
+    @Select("SELECT rb.rbno, f.thumb, f.title, rb.price, rb.delivery, rb.totalprice, rb.name, rb.phone, rb.post, rb.addr1, rb.addr2, rb.requestmsg, to_char(rb.regdate, 'YYYY-MM-DD') as regdate " +
+            "FROM reward_buy rb " +
+            "JOIN funding f ON rb.rno = f.fno " +
+            "WHERE rb.rbno = #{rbno}") // rbno(구매 번호)를 통해 상세 정보 조회
+    public RewardBuyVO getPurchaseDetail(int rbno);
 }
         
