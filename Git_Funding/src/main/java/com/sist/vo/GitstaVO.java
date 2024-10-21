@@ -22,7 +22,7 @@ USERID              VARCHAR2(100)
 
 @Data
 public class GitstaVO {
-	private int no,fno,type,filecount;
+	private int no,fno,type,filecount,replycount;
 	private String userId,content,filename,filesize,dbday,mday;
 	private String userName,profile,nickname,projectname;
 	private Date regdate,modifydate;

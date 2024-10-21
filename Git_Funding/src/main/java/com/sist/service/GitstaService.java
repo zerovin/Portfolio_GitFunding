@@ -1,9 +1,11 @@
 package com.sist.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.sist.vo.GitstaReVO;
 import com.sist.vo.GitstaVO;
 import com.sist.vo.MemberVO;
 
@@ -25,6 +27,16 @@ public interface GitstaService {
 	public String deletePost(int no);
 	public GitstaVO deleteInfoData(int no);
 	public String updatePost(GitstaVO vo);
-	public GitstaVO postUpdateData(int no);
+	public GitstaVO postUpdateData(int no);   
+	
+	
+	public List<GitstaReVO> commentListData(Map<String, Object> map);  // 댓글 목록 가져오기
+    public int commentTotalPage(int rno);   
+    public void commentInsert(GitstaReVO vo);                       
+    public void commentReplyReplyInsert(int gno, GitstaReVO vo);                    
+    public void commentDelete(Map<String, Object> map);
+    public void commentReplyDecrement(int gno);               
+    public void commentUpdate(GitstaReVO vo);
+    public GitstaReVO commentDeleteInfoData(int gno);
 	
 }

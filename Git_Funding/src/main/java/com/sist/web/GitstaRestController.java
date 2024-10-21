@@ -9,6 +9,7 @@ import java.io.*;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +26,40 @@ public class GitstaRestController {
 
     @Autowired
     private ServletContext servletContext;
+    
+    // 댓글
+    public String commonsListData(int page,int no) throws Exception{
+		Map map=new HashMap();
+		int rowSize=5;
+		int start=(rowSize*page)-(rowSize-1);
+		int end=rowSize*page;
+		
+		map.put("start", start);
+		map.put("end", end);
+		map.put("no", no);
+		
+		List<GitstaReVO> list=gService.commentListData(map);
+		int totalpage=gService.commentTotalPage(no);
+		
+		final int BLOCK=10;
+		int startPage=((page-1)/BLOCK*BLOCK)+1;
+		int endPage=((page-1)/BLOCK*BLOCK)+BLOCK;
+		
+		if(endPage>totalpage)
+			endPage=totalpage;
+		
+		map=new HashMap();
+		map.put("list", list);
+		map.put("curpage", page);
+		map.put("totalpage", totalpage);
+		map.put("startPage", startPage);
+		map.put("endPage", endPage);
+		
+		ObjectMapper mapper=new ObjectMapper();
+		String json=mapper.writeValueAsString(map);
+		
+		return json;
+	}
 
     @GetMapping(value = "gitsta/info_vue.do", produces = "text/plain;charset=UTF-8")
     public String mypage_menu(String userId) throws Exception {
@@ -240,47 +275,102 @@ public class GitstaRestController {
     public String post_update_ok(GitstaVO vo, HttpServletRequest request) throws Exception {
         String result = "";
         try {
-            // 기존 게시물 데이터를 가져옴
             GitstaVO fvo = gService.postUpdateData(vo.getNo());
 
-            // 파일 경로 설정
             String path = request.getSession().getServletContext().getRealPath("/") + "profile" + File.separator;
 
-            // 기존 파일이 있는 경우 삭제
             if (fvo.getFilecount() > 0 && fvo.getFilename() != null) {
                 StringTokenizer st = new StringTokenizer(fvo.getFilename(), ",");
                 while (st.hasMoreTokens()) {
                     String fileName = st.nextToken();
                     File file = new File(path + fileName);
                     if (file.exists()) {
-                        file.delete(); // 기존 파일 삭제
+                        file.delete(); 
                     }
                 }
             }
 
-            // 새로 업로드한 파일 처리
+
             MultipartFile mf = vo.getFile();
             if (mf != null && !mf.isEmpty()) {
                 String originalFilename = mf.getOriginalFilename();
                 File file = new File(path + originalFilename);
-                mf.transferTo(file); // 새 파일 업로드
+                mf.transferTo(file);
                 vo.setFilename(originalFilename);
                 vo.setFilesize(String.valueOf(mf.getSize()));
-                vo.setFilecount(1); // 파일이 존재하므로 filecount 1로 설정
+                vo.setFilecount(1); 
             } else {
                 vo.setFilename("");
                 vo.setFilesize("");
-                vo.setFilecount(0); // 파일이 없으므로 filecount 0으로 설정
+                vo.setFilecount(0); 
             }
 
-            // 게시물 수정 처리
             result = gService.updatePost(vo);
 
         } catch (Exception ex) {
             ex.printStackTrace();
-            result = "fail"; // 오류 발생 시 실패 메시지 반환
+            result = "fail"; 
         }
         return result;
     }
     
+    @GetMapping(value = "gitsta/comment_list_vue.do", produces = "text/plain;charset=UTF-8")
+    public String comment_list(@RequestParam(value = "page", defaultValue = "1") int page,
+                               @RequestParam(value = "no") int no) throws Exception {
+        return commonsListData(page, no);
+    }
+    
+ // 댓글 추가
+    @PostMapping(value = "gitsta/comment_insert_vue.do", produces = "text/plain;charset=UTF-8")
+    public String commentInsert(@RequestParam("rno") int rno, @RequestParam("msg") String msg, HttpSession session) throws Exception {
+        // 세션에서 사용자 정보 가져오기
+        String userId = (String) session.getAttribute("userId");
+        String nickname = (String) session.getAttribute("nickname");
+
+        // VO 생성 및 데이터 세팅
+        GitstaReVO vo = new GitstaReVO();
+        vo.setRno(rno);  // 게시글 번호
+        vo.setMsg(msg);  // 댓글 내용
+        vo.setUserId(userId);
+        vo.setNickname(nickname);
+
+        // 댓글 삽입 서비스 호출
+        gService.commentInsert(vo);
+        return commonsListData(1, vo.getRno());
+    }
+
+    // 대댓글 추가
+    @PostMapping(value = "gitsta/comment_reply_insert_vue.do", produces = "text/plain;charset=UTF-8")
+    public String commentReplyInsert(int gno, GitstaReVO vo, HttpSession session) throws Exception {
+        // 세션에서 사용자 정보 가져오기
+    	 System.out.println("msg: " + vo.getMsg());
+        String userId = (String) session.getAttribute("userId");
+        String nickname = (String) session.getAttribute("nickname");
+        vo.setUserId(userId);
+        vo.setNickname(nickname);
+
+        // 대댓글 삽입 서비스 호출
+        gService.commentReplyReplyInsert(gno, vo);
+        return commonsListData(1, vo.getRno()); // rno를 사용하여 댓글 목록 갱신
+    }
+
+    // 댓글 삭제
+    @GetMapping(value = "gitsta/comment_delete_vue.do", produces = "text/plain;charset=UTF-8")
+    public String commentDelete(int gno, int rno) throws Exception {
+        // 댓글 삭제 서비스 호출
+        GitstaReVO vo = gService.commentDeleteInfoData(gno);
+        Map<String, Object> map = new HashMap<>();
+        map.put("gno", gno);
+        map.put("group_id", vo.getGroup_id());
+        map.put("group_step", vo.getGroup_step());
+        gService.commentDelete(map);
+        return commonsListData(1, rno); // rno를 사용하여 댓글 목록 갱신
+    }
+
+    // 댓글 수정
+    @PostMapping(value = "gitsta/comment_update_vue.do", produces = "text/plain;charset=UTF-8")
+    public String commentUpdate(GitstaReVO vo) throws Exception {
+        gService.commentUpdate(vo);
+        return commonsListData(1, vo.getRno());
+    }
 }

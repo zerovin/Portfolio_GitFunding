@@ -127,4 +127,50 @@ public class GitstaServiceImpl implements GitstaService{
 	public GitstaVO postUpdateData(int no) {
 		return gDao.postUpdateData(no);
 	}
+
+	@Override
+	public List<GitstaReVO> commentListData(Map<String, Object> map) {
+		return gDao.commentListData(map);
+	}
+
+	@Override
+	public int commentTotalPage(int rno) {
+		return gDao.commentTotalPage(rno);
+	}
+
+	@Override
+	public void commentInsert(GitstaReVO vo) {
+		gDao.commentInsert(vo);
+	}
+
+	@Override
+	public void commentReplyReplyInsert(int gno, GitstaReVO vo) {
+		gDao.commentReplyReplyInsert(gno, vo);
+	}
+
+
+
+	@Override
+	public void commentReplyDecrement(int gno) {
+		gDao.commentReplyDecrement(gno);
+	}
+
+	@Override
+	public void commentUpdate(GitstaReVO vo) {
+		gDao.commentUpdate(vo);
+		
+	}
+
+	@Override
+	public void commentDelete(Map<String, Object> map) {
+		gDao.commentDelete(map);
+		
+	}
+
+	@Override
+	public GitstaReVO commentDeleteInfoData(int gno) {
+		return gDao.commentDeleteInfoData(gno);
+	}
+
+
 }

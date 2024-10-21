@@ -151,7 +151,7 @@
         </div>
         
         <!-- 팔로잉한 사용자 목록 -->
-		<div v-for="user in followingList" :key="user.userId">
+		<div v-for="user in randomFollowingList" :key="user.userId">
 		    <a :href="'../gitsta/feed.do?userId=' + user.userId">
 		        <img :src="user.profile" alt="사용자 프로필" class="profile-pic">
 		    </a>
@@ -163,7 +163,9 @@
 	<!-- 포스트 목록 -->
 	<div v-for="post in visibleFeed" :key="post.no" class="post">
     <div class="post-header">
-        <img :src="post.profile" alt="사용자 프로필" class="post-profile-pic">
+        <a :href="'../gitsta/feed.do?userId=' + post.userId">
+            <img :src="post.profile" alt="사용자 프로필" class="post-profile-pic">
+        </a>
         <div class="post-user-info">
             <div>
                 <span class="username">{{ post.nickname ? post.nickname : post.userName }}&nbsp;</span>
@@ -187,7 +189,9 @@
     </div>
     <div class="post-content">
         <p>{{ post.content }}</p>
+        <!-- 댓글 수 추가 -->
         <a :href="'../funding/funding_detail.do?fno='+post.fno"><span class="tag" v-if="post.projectname">{{ post.projectname }}</span></a>
+            <p style="font-size: 14px; color: #888; margin-top: 10px; text-align: center;">{{ post.replycount }}개의 댓글이 있습니다</p>
     </div>
 </div>
 
@@ -238,9 +242,8 @@ let totalFeedApp = Vue.createApp({
             });
         },
         selectRandomFollowing() {
-            // 팔로잉 목록에서 랜덤으로 최대 8명 선택
-            let shuffled = this.followingList.sort(() => 0.5 - Math.random()); // 목록을 무작위로 섞기
-            this.randomFollowingList = shuffled.slice(0, 7); // 최대 8명 선택
+            let shuffled = this.followingList.sort(() => 0.5 - Math.random())
+            this.randomFollowingList = shuffled.slice(0, 8)
         },
         loadFeed() {
             axios.get('../gitsta/total_feed_vue.do')
