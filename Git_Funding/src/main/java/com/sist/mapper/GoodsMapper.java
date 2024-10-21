@@ -16,6 +16,7 @@ public interface GoodsMapper {
 	public GoodsVO goodsDetailData(int fgno);
 	public List<GoodsVO> goodsListData(Map map);
 	public List<CartVO> cartListData(String id);
+	public List<CartVO> orderListData(List<Integer> fgcno);
 	
 	@Select("SELECT COUNT(*) FROM f_goods WHERE cate1 LIKE '%'||#{cate1}||'%'")
 	public int goodsTotalData(String cate1);
@@ -31,4 +32,6 @@ public interface GoodsMapper {
 	
 	@Delete("DELETE FROM f_goods_cart WHERE fgcno=#{fgcno}")
 	public void cartDelete(int fgcno);
+	
+	
 }

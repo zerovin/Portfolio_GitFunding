@@ -11,5 +11,5 @@ public interface GoodsService {
 	public int cartCount(Map map);
 	public void cartUpdate(Map map);
 	public void cartDelete(int fgcno);
-	
+	public List<CartVO> orderListData(List<Integer> fgcno);
 }

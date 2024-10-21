@@ -2,6 +2,7 @@ package com.sist.web;
 import java.text.DecimalFormat;
 import java.util.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,10 +102,6 @@ public class GoodsRestController {
 		return json;
 	}
 	
-	@PostMapping(value = "goods/buyInfo_vue.do",produces = "text/plain;charset=utf-8")
-	public String goodsBuy(int gno) throws Exception{
-		return "짜장";
-	}
 	@PostMapping(value = "goods/cart_insert_vue.do",produces = "text/plain;charset=utf-8")
 	public String cart_insert(int ea,int fg_no,String price,String ops,HttpSession session) throws Exception{
 		String result="no";
@@ -156,8 +153,7 @@ public class GoodsRestController {
 		}catch(Exception ex) {
 			
 		}
-		
-		
+
 		return result;
 	}
 }

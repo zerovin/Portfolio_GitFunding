@@ -6,6 +6,54 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="../css/cart.css">
+<script type="text/javascript">
+$(function() {
+    $('#selectedOrder').on('click', function() {
+        const checkboxes = document.querySelectorAll('.buyCheck');
+        const form = $('#item-form')[0]; // jQuery 객체에서 DOM 요소로 변환
+        
+        let hasChecked = false; // 체크된 항목이 있는지 여부를 추적
+
+        checkboxes.forEach(checkbox => {
+            if (checkbox.checked) {
+                hasChecked = true; // 체크된 항목 발견
+            }
+        });
+
+        // 체크된 항목이 없으면 경고
+        if (!hasChecked) {
+            alert('체크된 항목이 없습니다.');
+            return;
+        }
+
+        // 기존의 숨겨진 input 삭제
+        const existingInputs = form.querySelectorAll('input[name="fgcno"], input[name="account"]');
+        existingInputs.forEach(input => input.remove());
+
+        checkboxes.forEach(checkbox => {
+            if (checkbox.checked) {
+                // fgcno 숨겨진 input 생성
+                const hiddenNoInput = document.createElement('input');
+                hiddenNoInput.type = 'hidden'; // 수정: hiddenInput -> hiddenNoInput
+                hiddenNoInput.name = 'fgcno';
+                hiddenNoInput.value = checkbox.getAttribute('data-fgcno');
+                form.appendChild(hiddenNoInput);
+
+                // account 숨겨진 input 생성
+                const hiddenEaInput = document.createElement('input');
+                hiddenEaInput.type = 'hidden'; // 수정: hiddenInput -> hiddenEaInput
+                hiddenEaInput.name = 'account';
+                hiddenEaInput.value = checkbox.getAttribute('data-account');
+                form.appendChild(hiddenEaInput);
+            }
+        });
+
+
+        // 폼 제출
+        form.submit();
+    });
+});
+</script>
 </head>
 <body>
       <div class="container commu_list" style="margin-top: 20px;" id="cart">
@@ -25,7 +73,7 @@
             	<div></div>
             </div>
             <div class="cartBox">
-                <form @submit.prevent="cartCancel()">
+                <form method="post" action="../goods/order.do" id="item-form">
 	            <div class="cart">
 	            	<table style="width: 100%">
 	            	  <tr class="cartList" style="height: 36px;">
@@ -54,8 +102,8 @@
 	            	  </tr>
 	            	  <tr class="cartList" v-for="vo in cartList">
 	            	    <td width="5%">
-	            	      <input type="checkbox" class="buyCheck" style="height: 80px;"  v-model="vo.checked" >
-	            	      <input type="hidden" :value="vo.fgcno">
+	            	      <input type="checkbox" name="itemIds" class="buyCheck" style="height: 80px;"  v-model="vo.checked" :data-fgcno="vo.fgcno" :data-account="vo.account">
+	            	      <input type="hidden" :value="vo.fgcno" name="fgcno">
 	            	    </td>
 	            	    <td width="10%">
 	            	      <p>{{vo.gvo.delivery}}</p>
@@ -75,7 +123,7 @@
 	            	      <p>{{vo.price}}</p>
 	            	    </td>
 	            	    <td width="10%" >
-	            	      <input type="number" min="1" style="border: 1px solid #888;width: 40px" :value="vo.account" class="item-quantity" :data-price="vo.price" v-model="vo.account" >
+	            	      <input type="number" min="1" :max="vo.max" style="border: 1px solid #888;width: 40px" :value="vo.account" class="item-quantity" :data-price="vo.price" v-model="vo.account" name="account">
 	            	    </td>
 	            	    <td width="10%">
 	            	      <p class="item-price">{{formatCurrency(total(vo)) }}</p>
@@ -128,15 +176,15 @@
 	               	 </div>
 	               </div>
 	            </div>
-	            </form>
+	            
 	            <div style="margin-top: 20px;display: flex;justify-content: space-between;">
 	              <div style="display: grid">
 	                <div style="font-weight: bold; font-size: 12px">
-	                  <input type="checkbox">&nbsp;전체선택
+	                  <input type="checkbox" v-model="selectAll" @change="toggleAll">&nbsp;전체선택
 	                </div>
 	                <div id="chooseBtn">
 	                  <div>
-	                    <button @click="cartCancel()">선택상품 삭제</button>
+	                    <button type="button" @click="cartCancel()">선택상품 삭제</button>
 	                  </div>
 	                  <div>
 	                    <button>품절상품 삭제</button>
@@ -144,11 +192,12 @@
 	                </div>
 	              </div>
 	              <div id="f_button" style="display: flex; gap: 15px;">
-	                <div><button style="color: #666; border: 1px solid #999; ">계속 쇼핑하기</button></div>
-	                <div><button style="color: #d50c0c" @click="cartBuy()">선택상품 주문하기</button></div>
-	                <div><button style="color: white;background-color: #d50c0c" @click="buyInfo()">전체상품 주문하기</button></div>
+	                <div><button type="button" style="color: #666; border: 1px solid #999; " @click="goShoping()">계속 쇼핑하기</button></div>
+	                <div><button type="button" id="selectedOrder" style="color: #d50c0c">선택상품 주문하기</button></div>
+	                <div><button type="submit" style="color: white;background-color: #d50c0c" >전체상품 주문하기</button></div>
 	              </div>
 	            </div>
+	            </form>
             </div>
       </div>
       <script>
@@ -157,13 +206,19 @@
         		return{
         			id:'${sessionScope.userId}',
         			cartList:[],
-        			
+        			selectAll:false
         		}
         	},
         	mounted(){
         		this.dataRecv()
         	},
         	methods:{
+        		toggleAll() {
+        		      // 모든 체크박스를 selectAll의 상태로 변경
+        		      this.cartList.forEach(cartList => {
+        		        cartList.checked = this.selectAll;
+        		      });
+        		},
         		dataRecv(){
         			axios.post('../goods/cartList_vue.do',null,{
         				params:{
@@ -172,18 +227,6 @@
         			}).then(response=>{
         				console.log(response)
         				this.cartList=response.data.cList
-        			}).catch(error=>{
-        				console.log(error.response)
-        			})
-        		},
-        		buyInfo(){
-        			axios.post('../goods/buyInfo_vue.do',null,{
-        				params:{
-        					id:this.id
-        				}
-        			}).then(response=>{
-        				console.log(response)
-        				location.href="../goods/order.do"
         			}).catch(error=>{
         				console.log(error.response)
         			})
@@ -245,32 +288,8 @@
                         alert("카트 목록 삭제 중 오류가 발생했습니다.");
                     });
                 },
-                cartBuy(){
-                	 const selected = this.cartList.filter(vo => vo.checked).map(vo => vo.fgcno);
-                     console.log(selected); // 선택된 항목 확인
-
-                     // FormData 객체 생성
-                     const formData = new FormData();
-                     selected.forEach(id => formData.append('selected', id)); // 각 ID를 FormData에 추가
-                     console.log(formData)
-                     
-                     // Axios 요청
-                     axios.post('../goods/cart_buy.do', formData, {
-                         headers: {
-                             'Content-Type': 'multipart/form-data' // FormData를 사용하므로 Content-Type 설정
-                         }
-                     })
-                     .then(response => {
-                         if (response.data === "ok") {
-                             this.dataRecv(); 
-                         } else {
-                             alert("카트 목록 전송에 실패하였습니다: " + response.data);
-                         }
-                     })
-                     .catch(error => {
-                         console.error("An error occurred:", error);
-                         alert("카트 목록 전송 중 오류가 발생했습니다.");
-                     });
+                goShoping(){
+                	location.href="../goods/list.do"
                 }
         	}
         }).mount("#cart")

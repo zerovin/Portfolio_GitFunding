@@ -57,10 +57,22 @@
 	</resultMap>
 	<!-- 카트리스트 -->
 	<select id="cartListData" resultMap="cartDetail" parameterType="String">
-		SELECT fgcno,fc.price,fc.fgno,account,ops,fg.title,fg.brand,fg.delivery , fgi.img ,fg.price as gPrice
+		SELECT fgcno,fc.price,fc.fgno,account,fc.ops,fg.title,fg.brand,fg.delivery , fgi.img ,fg.price as gPrice , fgo.ea as max
 		FROM f_goods_cart fc 
-			JOIN f_goods fg ON fc.fgno = fg.fgno 
-				LEFT JOIN (SELECT fgno, MAX(img) AS img FROM f_goods_img GROUP BY fgno) fgi ON fc.fgno = fgi.fgno
+		JOIN f_goods fg ON fc.fgno = fg.fgno 
+		LEFT JOIN (SELECT fgno, MAX(img) AS img FROM f_goods_img GROUP BY fgno) fgi ON fc.fgno = fgi.fgno
+		LEFT JOIN f_goods_option fgo ON fc.fgno=fgo.fgno  AND fc.ops=fgo.ops
 		WHERE id=#{id}
+	</select>
+	<select id="orderListData" resultMap="cartDetail" parameterType="java.util.List">
+		SELECT fgcno,fc.price,fc.fgno,account,fc.ops,fg.title,fg.brand,fg.delivery , fgi.img ,fg.price as gPrice , fgo.ea as max
+		FROM f_goods_cart fc 
+		JOIN f_goods fg ON fc.fgno = fg.fgno 
+		LEFT JOIN (SELECT fgno, MAX(img) AS img FROM f_goods_img GROUP BY fgno) fgi ON fc.fgno = fgi.fgno
+		LEFT JOIN f_goods_option fgo ON fc.fgno=fgo.fgno  AND fc.ops=fgo.ops
+		WHERE fc.fgcno IN 
+        <foreach item="fgcno" collection="list" open="(" separator="," close=")">
+            #{fgcno}
+        </foreach>
 	</select>
 </mapper>

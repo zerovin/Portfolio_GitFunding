@@ -44,4 +44,8 @@ public class GoodsDAO {
 	public void cartDelete(int fgcno) {
 		mapper.cartDelete(fgcno);
 	}
+	
+	public List<CartVO> orderListData(List<Integer> fgcno){
+		return mapper.orderListData(fgcno);
+	}
 }

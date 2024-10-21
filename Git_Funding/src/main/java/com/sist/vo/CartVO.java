@@ -13,8 +13,8 @@ import lombok.Data;
 
 @Data
 public class CartVO {
-	private int fgcno,fgno,account;
-	private String id,price,ops;
-	private GoodsVO gvo;
+	private int fgcno,fgno,account,totalprice,max;
+	private String id,price,ops,tpay;
+	private GoodsVO gvo = new GoodsVO();
 	private boolean checked=false;
 }

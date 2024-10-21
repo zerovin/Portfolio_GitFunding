@@ -116,6 +116,7 @@ function goSubmit() {
 	          <span class="space" v-if="vo.cate4!=null">{{vo.cate4 }}</span>
             </div>
             <form id="butForm" method="post" action="../goods/orderDic.do">
+            
             <div class="right" style="display: flex; width: 100%">
                	<div style="width: 55%">
                		<img :src="thumb" alt="" class="thumb" style="margin-bottom: 0px;height: 500px;object-fit: cover;">
@@ -181,13 +182,14 @@ function goSubmit() {
 	                            {{opt.ops}}
 	                            </option> 
 	                     </select>
-	                     <input type="hidden" name="fg_no" :value="fg_no">
+	                     
 	                    </div>
 					   
                     
                       <div style="height: 100px;" v-if="option=='default'"></div>
 
                     <div style="display:flex;justify-content: center;gap:10px;" >
+                    	<input type="hidden" name="fg_no" :value="fg_no">
                     	<div><button style="margin:10px 0px;padding: 15px 80px;background-color: #d50c0c;color: white;" id="buyBtn" onclick="goSubmit()">바로구매</button></div>
                     	<div><input type="button" value="장바구니" style="margin:10px 0px;padding: 15px 80px;border: 1px solid #d50c0c;color: #d50c0c;" id="cartBtn" @click="cartBuy()"></div>
                     </div>
@@ -233,7 +235,8 @@ function goSubmit() {
     		  }
     	  },
     	  mounted(){
-    		  this.dataRecv()
+    		 this.dataRecv()
+    		 console.log(this.fg_no)
     	  },
     	  methods:{
     		  dataRecv(){

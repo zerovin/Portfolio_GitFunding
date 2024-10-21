@@ -81,34 +81,37 @@ input[type="button"]:hover{
 	            	      주문금액
 	            	    </th>
 	            	  </tr>
-	            	  <tr class="cartList" v-if="fg_no==null">
-	            	    <td width="3%">
-	            	    </td>
-	            	    <td width="15%">
-	            	      <p>철가방배송</p>
-	            	      <p style="margin-top: 4px;">1234546243</p>
-	            	    </td>
-	            	    <td width="10%">
-	            	      <p>SANRIO</p>
-	            	    </td>
-	            	    <td width="12%">
-	            	      <img src="http://webimage.10x10.co.kr/image/small/347/S003471382-1.jpg" style="width: 60px;height: 60px">
-	            	    </td>
-	            	    <td width="25%" style="text-align: left;padding-left: 5px ">
-	            	      <p>크아아아아아악</p>
-	            	    </td>
-	            	    <td width="10%">
-	            	      <p style="text-decoration-line: line-through;color: #899c8f;">17,000원</p>
-	            	      <p>15,000원</p>
-	            	    </td>
-	            	    <td width="10%" >
-	            	      <p>5개</p>
-	            	    </td>
-	            	    <td width="15%">
-	            	      <p>65,000원</p>
-	            	    </td>
-	            	  </tr>
-	            	  <tr class="cartList" v-if="fg_no!=null">
+	            	    <c:if test="${cList!=null }">
+		            	  <c:forEach var="cvo" items="${cList }">
+			            	  <tr class="cartList"> 
+				            	    <td width="3%">
+				            	    </td>
+				            	    <td width="15%">
+				            	      <p>${cvo.gvo.delivery }</p>
+				            	      <p style="margin-top: 4px;">${cvo.fgno }</p>
+				            	    </td>
+				            	    <td width="10%">
+				            	      <p>${cvo.gvo.brand }</p>
+				            	    </td>
+				            	    <td width="12%">
+				            	      <img src="${cvo.gvo.img }" style="width: 60px;height: 60px">
+				            	    </td>
+				            	    <td width="25%" style="text-align: left;padding-left: 5px ">
+				            	      <p>${cvo.gvo.title }</p>
+				            	    </td>
+				            	    <td width="10%">
+				            	      <p>${cvo.price }</p>
+				            	    </td>
+				            	    <td width="10%" >
+				            	      <p>${cvo.account }</p>
+				            	    </td>
+				            	    <td width="15%">
+				            	      <p>${cvo.tpay} 원</p>
+				            	    </td>
+				               </tr>
+			               </c:forEach>
+			               </c:if>
+	            	  <tr class="cartList" v-if="fg_no!=''">
 	            	    <td width="3%">
 	            	    </td>
 	            	    <td width="15%">
@@ -148,14 +151,14 @@ input[type="button"]:hover{
 		                   <li>
 		                     <div style="display: flex; justify-content: space-between;">
 			                     <span>상품 총 금액</span>
-			                     <span>1억</span>
+			                     <span>${totalgoods }원</span>
 		                     </div>
 		                   </li>
 		                   <li><hr style="width: 300px; background-color: rgb(234, 234, 234);height: 1px;border: 0"></li>
 		                   <li>
 		                     <div style="display: flex; justify-content: space-between;">
 			                     <span>배송비</span>
-			                     <span>2조</span>
+			                     <span>${totaldeli }원</span>
 		                     </div>
 		                   </li>
 		                   <li><hr style="width: 300px; background-color: rgb(234, 234, 234);height: 1px;border: 0"></li>
@@ -167,7 +170,7 @@ input[type="button"]:hover{
 	                 <div>
 	               	  <div style="margin-top: 10px;">
 		               	  <p style="display: inline; font-weight: bold;font-size: 12px">결제 예정 금액</p>
-		               	  <p style="display: inline;color: #d50c0c;font-size: 20px;font-weight: bold; padding-left: 10px">145조원</p>
+		               	  <p style="display: inline;color: #d50c0c;font-size: 20px;font-weight: bold; padding-left: 10px">${totalpay }원</p>
 	               	  </div>
 	               	 </div>
 	               </div>
@@ -249,7 +252,7 @@ input[type="button"]:hover{
 						font-size: 13px;
 						font-weight: bold;
 						text-align: center;
-						padding: 18px 0px;" value="&lt;이전페이지">
+						padding: 18px 0px;" value="&lt;이전페이지" onclick="history.back()">
 	              </div>
 	              <div>
 	              	<input type="button" style="color: white;
@@ -285,18 +288,14 @@ input[type="button"]:hover{
         			addr1:'',
         			account:'${account}',
         			fg_no:'${fg_no}',
-        			option:'${option}',
-        			cartList:[],
+        			option:'${option}'
         			
         		} 
         	 },
         	 mounted(){
-				dataRecv()
+        		 console.log(this.fg_no)
         	 },
         	 methods:{
-        		 dataRecv(){
-        			 
-        		 },
         		 changeSelect(){
         			 console.log(this.order_request)
         			 if(this.order_request==="직접입력"){

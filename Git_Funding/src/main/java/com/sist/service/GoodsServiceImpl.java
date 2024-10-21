@@ -54,7 +54,10 @@ public class GoodsServiceImpl implements GoodsService{
 		// TODO Auto-generated method stub
 		gDao.cartDelete(fgcno);
 	}
-	
-
+	@Override
+	public List<CartVO> orderListData(List<Integer> fgcno) {
+		// TODO Auto-generated method stub
+		return gDao.orderListData(fgcno);
+	}
 	
 }

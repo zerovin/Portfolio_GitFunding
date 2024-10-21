@@ -1,6 +1,7 @@
 package com.sist.web;
 
 import java.text.DecimalFormat;
+import java.util.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +14,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.service.GoodsService;
+import com.sist.vo.CartVO;
 import com.sist.vo.GoodsVO;
 
 @Controller
@@ -37,8 +41,39 @@ public class GoodsController {
 		
 		return "goods/list";
 	}
-	@GetMapping("goods/order.do")
-	public String goods_order() {
+	@PostMapping("goods/order.do")
+	public String goods_order(HttpServletRequest request,Model model) {
+		DecimalFormat df=new DecimalFormat("###,###,###");
+		String[] fgcno=request.getParameterValues("fgcno");
+		String[] account=request.getParameterValues("account");
+		List<Integer> fg=new ArrayList<Integer>();
+		for(int i=0;i<fgcno.length;i++) {
+			fg.add(Integer.parseInt(fgcno[i]));
+		}
+		int totalgoods=0;
+		int delivery=0;
+		List<CartVO> cList=gService.orderListData(fg);
+		for(int i=0;i<cList.size();i++) {
+			cList.get(i).setAccount(Integer.parseInt(account[i]));
+			cList.get(i).setTotalprice(Integer.parseInt(account[i])*Integer.parseInt(cList.get(i).getPrice().replaceAll("[^0-9]", "")));
+			totalgoods+=Integer.parseInt(account[i])*Integer.parseInt(cList.get(i).getPrice().replaceAll("[^0-9]", ""));
+			cList.get(i).setTpay(df.format(Integer.parseInt(account[i])*Integer.parseInt(cList.get(i).getPrice().replaceAll("[^0-9]", ""))));
+			if(cList.get(i).getGvo().getDelivery().trim().equals("텐텐배송")) {
+				delivery+=3000;
+			}else if(cList.get(i).getGvo().getDelivery().trim().equals("업체조건배송")) {
+				delivery+=5000;
+			}
+		}
+		
+		String total=df.format(totalgoods);
+		String delTotal=df.format(delivery);
+		String totalpay=df.format(delivery+totalgoods);
+
+		model.addAttribute("cList",cList);
+		model.addAttribute("totalgoods",total);
+		model.addAttribute("totaldeli",delTotal);
+		model.addAttribute("totalpay",totalpay);
+		
 		return "goods/order";
 	}
 	@PostMapping("goods/orderDic.do")
