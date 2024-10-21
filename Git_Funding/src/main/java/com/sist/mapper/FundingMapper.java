@@ -37,7 +37,12 @@ public interface FundingMapper {
 			+ "WHERE rownum<=5")
 	public List<FundingVO> mainFundingRankListData();
 	
-	/////////////스토어 랭킹목록
+	@Select("SELECT fgno, title, img, hit, rownum " 
+			+ "FROM (SELECT fg.fgno, fg.title, fgi.img, fg.hit " 
+			+ "FROM f_goods fg LEFT JOIN (SELECT fgno, MAX(img) as img FROM f_goods_img fgi GROUP BY fgno order by fgno) fgi " 
+			+ "ON fg.fgno=fgi.fgno ORDER BY hit DESC) "
+            + "WHERE rownum<=5")
+	public List<GoodsVO> mainStoreRankListData();
 	
 	//메인-오늘오픈
 	@Select("SELECT fno, title, thumb, targetprice, totalprice "
@@ -156,4 +161,20 @@ public interface FundingMapper {
 	@Select("SELECT * FROM funding_reward WHERE fno=#{fno}")
 	public List<FundingRewardVO> fundingRewardDetailData(int fno);
 	
+	//펀딩 지지
+	@Insert("INSERT INTO gitsta_feed (no, fno, projectname, filename, userid, type, regdate, modifydate, content, filecount) "
+	          + "SELECT gf_no_seq.nextval, f.fno, f.title, f.thumb, #{userId}, 2, sysdate, sysdate, #{content}, 1 "
+	          + "FROM funding f "
+	          + "WHERE f.fno = #{fno} "
+	          + "AND NOT EXISTS ("
+	          + "    SELECT 1 "
+	          + "    FROM gitsta_feed gf "
+	          + "    WHERE gf.fno = f.fno AND gf.userid = #{userId}"
+	          + ")")
+	public void fundingBackingInsert(Map map);
+	
+	@Update("UPDATE funding SET "
+			+ "backing=backing+1 "
+			+ "WHERE fno=#{fno}")
+	public void fundingBackingInce(int fno);
 }

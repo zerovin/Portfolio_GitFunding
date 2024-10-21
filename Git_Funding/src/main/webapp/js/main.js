@@ -182,10 +182,6 @@ window.onload=function () {
 	            l_moveSlide(l_currentIdx - 1);
 	        }
 	    });
-	    
-	    console.log(slideCount);
-	    console.log(d_slideCount);
-	    console.log(l_slideCount);
 	}
 	
 	/* ----------------- CATEGORY ------------------*/

@@ -153,63 +153,18 @@
 	                    <li><button @click="rankChange('store')">스토어</button></li>
 	                </ul>
 	                <ol class="rank_list">
-	                    <li>
-	                        <a href="#">
-	                            <p class="number">1</p>
+	                    <li v-for="(rank, idx) in rank_list">
+	                        <a :href="'../goods/detail.do?fgno='+rank.fg_no" v-if="isStore">
+	                        <a :href="'../funding/detail_before.do?fno='+rank.fno" v-else>
+	                            <p class="number">{{idx+1}}</p>
 	                            <div class="rank_content">
 	                                <div class="text">
-	                                    <p class="title">지퍼백 한번 쓰고 버리세요? 열탕소독으로 평생 쓰는 &lt;플래티넘 실리콘백&gt;</p>
-	                                    <p class="headcount">4,660명 참여</p>
+	                                    <p class="title">{{rank.title}}</p>
+	                                    <p class="headcount" v-if="isStore">{{rank.hit}}명 조회</p>
+	                                    <p class="headcount" v-else>{{rank.fm_headcount}}명 참여</p>
 	                                </div>
-	                                <img src="../images/rank.jpeg" alt="">
-	                            </div>
-	                        </a>
-	                    </li>
-	                    <li>
-	                        <a href="#">
-	                            <p class="number">2</p>
-	                            <div class="rank_content">
-	                                <div class="text">
-	                                    <p class="title">지퍼백 한번 쓰고 버리세요? 열탕소독으로 평생 쓰는 &lt;플래티넘 실리콘백&gt;</p>
-	                                    <p class="headcount">4,660명 참여</p>
-	                                </div>
-	                                <img src="../images/rank.jpeg" alt="">
-	                            </div>
-	                        </a>
-	                    </li>
-	                    <li>
-	                        <a href="#">
-	                            <p class="number">3</p>
-	                            <div class="rank_content">
-	                                <div class="text">
-	                                    <p class="title">지퍼백 한번 쓰고 버리세요? 열탕소독으로 평생 쓰는 &lt;플래티넘 실리콘백&gt;</p>
-	                                    <p class="headcount">4,660명 참여</p>
-	                                </div>
-	                                <img src="../images/rank.jpeg" alt="">
-	                            </div>
-	                        </a>
-	                    </li>
-	                    <li>
-	                        <a href="#">
-	                            <p class="number">4</p>
-	                            <div class="rank_content">
-	                                <div class="text">
-	                                    <p class="title">지퍼백 한번 쓰고 버리세요? 열탕소독으로 평생 쓰는 &lt;플래티넘 실리콘백&gt;</p>
-	                                    <p class="headcount">4,660명 참여</p>
-	                                </div>
-	                                <img src="../images/rank.jpeg" alt="">
-	                            </div>
-	                        </a>
-	                    </li>
-	                    <li>
-	                        <a href="#">
-	                            <p class="number">5</p>
-	                            <div class="rank_content">
-	                                <div class="text">
-	                                    <p class="title">지퍼백 한번 쓰고 버리세요? 열탕소독으로 평생 쓰는 &lt;플래티넘 실리콘백&gt;</p>
-	                                    <p class="headcount">4,660명 참여</p>
-	                                </div>
-	                                <img src="../images/rank.jpeg" alt="">
+	                                <img :src="rank.img" :alt="rank.title" v-if="isStore">
+	                                <img :src="rank.thumb" :alt="rank.title" v-else>
 	                            </div>
 	                        </a>
 	                    </li>
@@ -279,11 +234,11 @@
                     </div>
 	            </div>
 	        </section>
-	        <seciton id="bottom_ad">
+	        <section id="bottom_ad">
 	        	<a :href="bottom_ad.link" target="_blank">
 	        		<img :src="'../images/ad'+bottom_ad.no+'.png'" alt="">
 	        	</a>
-	        </seciton>
+	        </section>
 	    </div>
 	</main>
 	<script>
@@ -306,7 +261,8 @@
 				today_list:[],
 				deadline_list:[],
 				latest_list:[],
-				bottom_ad:{}
+				bottom_ad:{},
+				isStore:false,
 			}
 		},
 		mounted(){
@@ -324,14 +280,21 @@
 			}).catch(error=>{
 				console.log(error.response)
 			})
+			this.rankChange('funding')
 		},
 		methods:{
 			rankChange(type){
+				if(type==='funding'){
+					isStore=false
+				}else{
+					isStore=true
+				}
 				axios.get('../funding/main_rank.do',{
 					params:{
 						type:type
 					}
 				}).then(response=>{
+					console.log(response.data)
 					this.rank_list=response.data
 				}).catch(error=>{
 					console.log(error.response)

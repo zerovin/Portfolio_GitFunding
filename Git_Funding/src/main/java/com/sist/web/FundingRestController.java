@@ -2,6 +2,7 @@ package com.sist.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -88,10 +89,18 @@ public class FundingRestController {
 	
 	@GetMapping(value="funding/main_rank.do", produces="text/plain;charset=UTF-8")
 	public String main_rank_list(String type) throws Exception{
-		if(type=="funding") {
-			
-		}
+		ObjectMapper mapper=new ObjectMapper();
 		String json="";
+		if(type.equals("funding")) {
+			List<FundingVO> funding_list=fService.mainFundingRankListData();
+			for(FundingVO vo:funding_list) {
+				vo.setFm_headcount(new DecimalFormat("###,###").format(vo.getHeadcount()));
+			}
+			json=mapper.writeValueAsString(funding_list);
+		}else {
+			List<GoodsVO> store_list=fService.mainStoreRankListData();
+			json=mapper.writeValueAsString(store_list);
+		}
 		return json;
 	}
 	
@@ -327,5 +336,23 @@ public class FundingRestController {
 		String json=mapper.writeValueAsString(map);
 		
 		return json;
+	}
+	
+	@PostMapping(value="funding/backing_insert.do", produces="text/plain;charset=UTF-8")
+	public String funding_backing_insert(int fno, String content, HttpSession session) {
+		String result="";
+		try {
+			String userId=(String)session.getAttribute("userId");
+			Map map=new HashMap();
+			map.put("fno", fno);
+			map.put("content", content);
+			map.put("userId", userId);
+			fService.fundingBackingInsert(map);
+			fService.fundingBackingInce(fno);
+			result="ok";
+		}catch(Exception ex) {
+			result=ex.getMessage();
+		}
+		return result;
 	}
 }

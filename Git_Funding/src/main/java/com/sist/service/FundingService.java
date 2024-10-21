@@ -7,6 +7,8 @@ public interface FundingService {
 	//메인
 	public List<FundingVO> mainWishListData();
 	public List<FundingVO> mainBackingListData();
+	public List<FundingVO> mainFundingRankListData();
+	public List<GoodsVO> mainStoreRankListData();
 	public List<FundingVO> mainTodayListData();
 	public List<FundingVO> mainDeadlineListData();
 	public FundingVO mainCookieListData(int fno);
@@ -35,4 +37,6 @@ public interface FundingService {
 	public FundingVO fundingDetailData(int fno);
 	public List<FundingImgVO> fundingImgDetailData(int fno);
 	public List<FundingRewardVO> fundingRewardDetailData(int fno);
+	public void fundingBackingInsert(Map map);
+	public void fundingBackingInce(int fno);
 }

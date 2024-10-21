@@ -45,7 +45,7 @@
                         <div class="icons">
                             <button @click="wishUpdate(funding_vo.fno)" v-if="isWish===false"><i class="fa-regular fa-heart"></i>{{funding_vo.fm_wish}}</button>
                             <button @click="wishDelete(funding_vo.fno)" v-else><i class="fa-solid fa-heart"></i>{{funding_vo.fm_wish}}</button>
-                            <button><i class="fa-regular fa-handshake"></i>{{funding_vo.fm_backing}}</button>
+                            <button class="backingBtn" @click="backingWrite()"><i class="fa-regular fa-handshake"></i>{{funding_vo.fm_backing}}</button>
                         </div>
                     </div>
                 </div>
@@ -79,6 +79,13 @@
                 </div>
             </div>
         </section>
+        <aside id="backingWindow" ref="backingWindow">
+        	<h2>친구에게 소개해 보세요 📣</h2>
+        	<p>지지서명으로 프로젝트 관리자에게 힘이 되어주세요!</p>
+        	<textarea placeholder="응원의 글을 남겨주세요 :)" v-model="backingContent"></textarea>
+        	<button class="insert" @click="backingInsert(funding_vo.fno)"><i class="fa-regular fa-handshake"></i> 지지서명하기</button>
+        	<button class="close" @click="backingClose"><i class="fa-solid fa-xmark"></i></button>
+        </aside>
     </div>
     <script>
     	let funding_detail=Vue.createApp({
@@ -91,7 +98,8 @@
     				img_list:[],
     				reward_list:[],
     				isWish:false,
-    				wish_count:0
+    				wish_count:0,
+    				backingContent:''
     			}
     		},
     		mounted(){
@@ -161,6 +169,35 @@
        				}).catch(error=>{
        					console.log(error.response)
        				})
+    			},
+    			backingWrite(){
+    				if(this.sessionId==''){
+       					alert("로그인 후 이용해주세요")
+       				}else{
+	    				$('.backingBtn').click(function(){
+	    					$('#backingWindow').show()
+	    				})
+       				}
+    			},
+    			backingClose(){
+    				$('#backingWindow').hide()
+    				$('#backingWindow textarea').val('')
+    			},
+    			backingInsert(fno){
+    				axios.post('../funding/backing_insert.do',null,{
+    					params:{
+    						fno:fno,
+    						content:this.backingContent
+    					}
+    				}).then(response=>{
+    					if(response.data==="ok"){
+    						location.href="../gitsta/main.do"
+    					}else{
+    						console.log(response.data)
+    					}
+    				}).catch(error=>{
+    					console.log(error)
+    				})
     			},
     			rewardClick(rno){
     				if(this.sessionId==''){

@@ -200,7 +200,7 @@
 	    		        buyer_addr:$('.addr1').text()+" "+this.reward_del_addr2,
 	    		        buyer_postcode:$('.post').text()
 	    		     }, function (rsp) { // callback
-	    		    	location.href="../mypage/reward_buy.do"
+	    		    	location.href="../mypage/funding_buy.do"
 	    			 });
 				},
     		}

@@ -143,4 +143,28 @@ public class FundingServiceImpl implements FundingService{
 		return fDao.mainCookieListData(fno);
 	}
 
+	@Override
+	public void fundingBackingInsert(Map map) {
+		// TODO Auto-generated method stub
+		fDao.fundingBackingInsert(map);
+	}
+
+	@Override
+	public void fundingBackingInce(int fno) {
+		// TODO Auto-generated method stub
+		fDao.fundingBackingInce(fno);
+	}
+
+	@Override
+	public List<FundingVO> mainFundingRankListData() {
+		// TODO Auto-generated method stub
+		return fDao.mainFundingRankListData();
+	}
+
+	@Override
+	public List<GoodsVO> mainStoreRankListData() {
+		// TODO Auto-generated method stub
+		return fDao.mainStoreRankListData();
+	}
+
 }
