@@ -251,6 +251,9 @@
 					console.log(error.response);
 				})
 			},
+			AnswerToQna() {
+				location.href = '../community/Answer.jsp'
+			},
     		range(start,end){
     			let arr=[]
     			let len=end-start

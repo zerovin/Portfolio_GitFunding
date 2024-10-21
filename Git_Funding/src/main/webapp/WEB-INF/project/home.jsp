@@ -122,7 +122,7 @@
 								<i class="fa-solid fa-chevron-right"></i>
 							</button>
 						</div>
-						<div class="NoticeBtn" @click="Notice">
+						<div class="NoticeBtn" @click="Notice()">
 							<button>
 								<i class="fa-solid fa-bullhorn"> 공지 사항</i>
 								<i class="fa-solid fa-chevron-right"></i>
@@ -170,8 +170,11 @@
 	            CenterSelectTab(tab) {
 	                this.CenterSelectedTab = tab
 	            },
+	            Notice() {
+	            	location.href = '../notice/list.do'
+	            },
 	            AcountSettings(){
-	            	window.location.href = '../mypage/info.do'
+	            	location.href = '../mypage/info.do'
 	            }
 	        }
 	    }).mount('#ProjectHome');
