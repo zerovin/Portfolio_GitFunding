@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -103,6 +104,7 @@
     border: none;
     cursor: pointer;
 }
+
 .button:hover {
     background-color: #FFA500;
 }
@@ -115,13 +117,46 @@
     font-size: 14px;
     border: none;
     cursor: pointer;
-    margin-right:212.085px;
+    margin-right:323px;
 }
 .AnswerToQnABtn:hover {
     background-color: #FFA500;
 }
+.AdminAnswerContainer {
+    display: flex;
+    flex-direction: column; /* 상하 정렬을 유지하기 위해 column 설정 */
+    align-items: center; /* 모든 요소를 가운데로 수평 정렬 */
+    width: 100%;
+    padding: 10px;
+}
+.AdminAnswerHeader {
+    text-align: center;
+    width: 100%;
+}
+.AdminAnswerContentContainer {
+    display: flex;
+    justify-content: space-between; /* 좌우로 요소를 배치 */
+    align-items: center;
+    width: 100%;
+    margin-bottom: 15px;
+    padding-right:30px;
+}
+.AdminAnswerContent {
+    flex-grow: 1; /* textarea가 가능한 한 많이 공간을 차지하도록 설정 */
+    margin-left: 10px;
+}
+.AdminAnswerButtonContainer {
+    display: flex;
+   	justify-content: center; /* 버튼을 좌우 중앙에 정렬 */
+    width: 100%;
+}
+#answer-content{
+	border:1px solid #ccc;
+    border-radius:5px;
+}
 </style>
 </head>
+<body>
 <body>
 <div id="detailApp" class="qna_detail">
     <div class="qna_content">
@@ -163,14 +198,25 @@
                     <p style="margin: 10px">{{ answer.content }}</p>
                 </div>
             </div>
+            
             <div class="button-container">
-            	<sec:authorize access="hasRole('ROLE_ADMIN')">
-		        	<button class="AnswerToQnABtn" @click="AnswerToQnA">답변하기</a></li>
-		        </sec:authorize>
-		            
+                <sec:authorize access="hasRole('ROLE_ADMIN')">
+                    <button class="AnswerToQnABtn" @click="AnswerToQnA()">답변하기</button>
+                </sec:authorize>
+                
                 <button class="button" @click="boardUpdate()" v-if="vo.id === sessionId">수정</button>
                 <button class="button" @click="boardDelete()" v-if="vo.id === sessionId">삭제</button>
                 <button class="button" @click="goToList">목록</button>
+            </div>
+
+            <div class="AdminAnswerContainer" v-show="admin_answer_content_area">
+                <h2 class="AdminAnswerHeader">관리자 답변</h2>
+                <div class="AdminAnswerContentContainer">
+                    <textarea id="answer-content" rows="10" cols="50" class="AdminAnswerContent" required v-model="newAnswerContent"></textarea>
+                </div>
+                <div class="AdminAnswerButtonContainer">
+                    <button class="button" @click="registerAnswer">답변 등록</button>
+                </div>
             </div>
         </div>
     </div>
@@ -184,78 +230,98 @@ let detailApp = Vue.createApp({
             qno: ${qno},
             sessionId: '${sessionId}',
             answerList: [],
-            isAdmin: false,
-            groupId: 0
+            admin_answer_content_area: false,
+            newAnswerContent: ''
         }
     },
     mounted() {
-        this.getQnaDetail()
-        this.getQnaAnswers()
+        this.getQnaDetail();
+        this.getQnaAnswers();
     },
     methods: {
-    	boardUpdate(){
-    		window.location.href = '../community/qna_update.do?qno='+this.qno
-    	},
-    	boardDelete(){
-    		axios.get('../community/qna_delete_vue.do',{
-    			params:{
-    				groupId:this.groupId
-    			}
-    		}).then(res=>{
-    			if(res.data==='yes'){
-    				alert("문의가 삭제됐습니다")
-    				location.href="../community/qna_list.do"
-    			}else{
-    				alert("삭제 실패!!")
-    				console.log(res.data)
-    			}
-    		}).catch(error=>{
-    			console.log(error.response)
-    		})
-    	},
-    	getQnaDetail() {
-    	    axios.get('../community/qna_detail_vue.do', {
-    	        params: {
-    	            qno: this.qno
-    	        }
-    	    }).then(res => {
-    	        console.log("QnA Detail Response:", res.data)
-    	        if (res.data) {
-    	            this.vo = res.data
-    	            this.groupId = res.data.group_id
-    	            if (this.groupId) {
-    	                this.getQnaAnswers()
-    	            }
-    	        }
-    	    }).catch(error => {
-    	        console.log("QnA Detail Error:", error.response)
-    	    })
-    	},
-    	getQnaAnswers() {
-    	    axios.get('../community/qna_answers_vue.do', {   
-    	        params: {
-    	            groupId: this.groupId
-    	        }
-    	    }).then(res => {
-    	        console.log("Answers Response:", res.data)
-    	        if (res.data.answerList) {
-    	            this.answerList = res.data.answerList
-    	        } else {
-    	            this.answerList = []
-    	        }
-    	    }).catch(error => {
-    	        console.log("QnA Answer Error:",error.response)
-    	        this.answerList = []
-    	    })
-    	},
-        goToList() {
-            window.location.href = '../community/qna_list.do'
-        },
         AnswerToQnA() {
-	
-		}
+            this.admin_answer_content_area = true;
+        },
+        registerAnswer() {
+            if (this.newAnswerContent.trim() === '') {
+                alert('답변 내용을 입력하세요.');
+                return;
+            }
+
+            axios.post('../community/qna_answer_register.do', {
+                content: this.newAnswerContent,
+                groupId: this.vo.group_id
+            })
+            .then(res => {
+                if (res.data === 'success') {
+                    alert('답변이 등록되었습니다.');
+                    this.answerList.push({
+                        content: this.newAnswerContent,
+                        dbday: new Date().toISOString()
+                    });
+                    this.admin_answer_content_area = false;
+                    this.newAnswerContent = '';
+                } else {
+                    alert('답변 등록에 실패했습니다.');
+                }
+            })
+            .catch(error => {
+                console.error("Error registering answer:", error);
+                alert('오류가 발생했습니다.');
+            });
+        },
+        boardUpdate() {
+            window.location.href = '../community/qna_update.do?qno=' + this.qno;
+        },
+        boardDelete() {
+            axios.get('../community/qna_delete_vue.do', {
+                params: { groupId: this.vo.group_id }
+            })
+            .then(res => {
+                if (res.data === 'yes') {
+                    alert("문의가 삭제됐습니다.");
+                    location.href = "../community/qna_list.do";
+                } else {
+                    alert("삭제 실패!!");
+                }
+            })
+            .catch(error => {
+                console.log(error.response);
+            });
+        },
+        getQnaDetail() {
+            axios.get('../community/qna_detail_vue.do', {
+                params: { qno: this.qno }
+            })
+            .then(res => {
+                if (res.data) {
+                    this.vo = res.data;
+                }
+            })
+            .catch(error => {
+                console.log("QnA Detail Error:", error.response);
+            });
+        },
+        getQnaAnswers() {
+            axios.get('../community/qna_answers_vue.do', {
+                params: { groupId: this.vo.group_id }
+            })
+            .then(res => {
+                if (res.data.answerList) {
+                    this.answerList = res.data.answerList;
+                }
+            })
+            .catch(error => {
+                console.log("QnA Answers Error:", error.response);
+            });
+        },
+        goToList() {
+            window.location.href = '../community/qna_list.do';
+        }
     }
-}).mount('#detailApp')
+});
+
+detailApp.mount('#detailApp');
 </script>
 </body>
 </html>
