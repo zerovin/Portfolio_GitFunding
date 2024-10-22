@@ -62,7 +62,7 @@
                 </button>
             </div>
             <div class="activity-list-item">
-                <button>
+                <button @click="goToFollow">
                     <p>팔로잉</p>
                     <div class="arrow-icon">></div>
                 </button>
@@ -136,6 +136,9 @@
                 },
                 goToQna(){
                 	location.href = '../community/qna_list.do'
+                },
+                goToFollow(){
+                	location.href = '../mypage/follow.do'
                 }
             }
         }).mount('#mypageMainApp');

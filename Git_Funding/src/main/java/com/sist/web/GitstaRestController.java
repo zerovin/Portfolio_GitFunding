@@ -396,4 +396,28 @@ public class GitstaRestController {
 
 	    return json;
 	}
+    
+    @GetMapping(value = "gitsta/follow_total_vue.do", produces = "application/json;charset=UTF-8")
+    public String follow_total_list(String userId) throws Exception {
+        // 팔로잉 목록과 팔로잉 수 가져오기
+        List<MemberVO> followingList = gService.gitstaFollowingListData(userId);
+        int followingCount = gService.getFollowingCount(userId);
+
+        // 팔로워 목록과 팔로워 수 가져오기
+        List<MemberVO> followerList = gService.gitstaFollowerListData(userId);
+        int followerCount = gService.getFollowerCount(userId);
+
+        // 맵에 팔로잉 및 팔로워 정보를 통합
+        Map map = new HashMap<>();
+        map.put("followingList", followingList); // 팔로잉 목록
+        map.put("followerList", followerList);   // 팔로워 목록
+        map.put("followingCount", followingCount); // 팔로잉 수
+        map.put("followerCount", followerCount);   // 팔로워 수
+
+        // JSON 형태로 반환
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(map);
+        return json;
+    }
+
 }

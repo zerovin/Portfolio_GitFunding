@@ -12,7 +12,7 @@ public interface MypageMapper {
 	public MemberVO mypageInfoData(String userId);
 	      
 	@Update("UPDATE funding_member SET nickname=#{nickname} WHERE userId=#{userId}")
-	public void SetNickname(Map map);  
+	public void SetNickname(Map map);   
 	  
 	@Update("UPDATE funding_member SET email=#{email}, gender=#{gender}, addr1=#{addr1}, addr2=#{addr2}, post=#{post}, phone=#{phone} "
 			+"WHERE userId=#{userId}")    
@@ -38,8 +38,8 @@ public interface MypageMapper {
 	
 	@Select("SELECT COUNT(*) FROM funding_alert WHERE userId = #{userId}")
 	public int fundingAlertCount(String userId);
-    
-	 
+     
+	   
 	// 펀딩 구매 내역  
 	@Select("SELECT rb.rbno, rb.rno, f.fno, rb.account, rb.price, rb.delivery, rb.totalprice, rb.userId, rb.name, rb.phone, rb.post, rb.addr1, rb.addr2, rb.requestMsg, rb.regdate, f.thumb, f.title, rb.num "  
 	        + "FROM (SELECT rbno, rno, fno, account, price, delivery, totalprice, userId, name, phone, post, addr1, addr2, requestMsg, regdate, rownum as num "
