@@ -47,4 +47,20 @@ public class FundingController {
 		model.addAttribute("type", type);
 		return "funding/funding_detail";
 	}
+	
+	@GetMapping("funding/detail_notice.do")
+	public String funding_detail_notice(int fno, HttpSession session, Model model) {
+		String id=(String)session.getAttribute("userId");
+		model.addAttribute("fno", fno);
+		model.addAttribute("sessionId", id);
+		return "funding/funding_detail_notice";
+	}
+	
+	@GetMapping("funding/detail_community.do")
+	public String funding_detail_community(int fno, HttpSession session, Model model) {
+		String id=(String)session.getAttribute("userId");
+		model.addAttribute("fno", fno);
+		model.addAttribute("sessionId", id);
+		return "funding/funding_detail_community";
+	}
 }
