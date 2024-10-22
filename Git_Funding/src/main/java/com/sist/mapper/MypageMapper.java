@@ -33,31 +33,29 @@ public interface MypageMapper {
 	        "to_char(f.startdate, 'YYYY-MM-DD') as startdate " +
 	        "FROM funding f " +
 	        "JOIN funding_alert a ON f.fno = a.fno " +
-	        "WHERE a.userId = #{userId}")
+	        "WHERE a.userId = #{userId}")  
 	public List<AlertVO> fundingAlertList(String userId);
 	
 	@Select("SELECT COUNT(*) FROM funding_alert WHERE userId = #{userId}")
 	public int fundingAlertCount(String userId);
-  
-	
-	// 펀딩 구매 내역
-	@Select("SELECT rb.rbno, rb.rno, rb.account, rb.price, rb.delivery, rb.totalprice, rb.userId, rb.name, rb.phone, rb.post, rb.addr1, rb.addr2, rb.requestMsg, rb.regdate,"
-	        + "f.thumb, f.title, rb.num "  
-	        + "FROM (SELECT rb.rbno, rb.rno, rb.account, rb.price, rb.delivery, rb.totalprice, rb.userId, rb.name, rb.phone, rb.post, rb.addr1, rb.addr2, rb.requestMsg, rb.regdate, rownum as num "
-	        + "      FROM (SELECT * FROM reward_buy WHERE userId = #{userId} ORDER BY regdate DESC) "
-	        + "      WHERE rownum <= #{end}) rb "
-	        + "JOIN funding f ON rb.rno = f.fno "
-	        + "WHERE rb.num BETWEEN #{start} AND #{end}")
-	public List<RewardBuyVO> getRewardBuyList(Map map);
-
-
-    @Select("SELECT COUNT(*) FROM reward_buy WHERE userId = #{userId}")
+    
+	 
+	// 펀딩 구매 내역  
+	@Select("SELECT rb.rbno, rb.rno, f.fno, rb.account, rb.price, rb.delivery, rb.totalprice, rb.userId, rb.name, rb.phone, rb.post, rb.addr1, rb.addr2, rb.requestMsg, rb.regdate, f.thumb, f.title, rb.num "  
+	        + "FROM (SELECT rbno, rno, fno, account, price, delivery, totalprice, userId, name, phone, post, addr1, addr2, requestMsg, regdate, rownum as num "
+	        + "FROM (SELECT rbno, rno, fno, account, price, delivery, totalprice, userId, name, phone, post, addr1, addr2, requestMsg, regdate "
+	        + "FROM reward_buy WHERE userId=#{userId} ORDER BY rbno DESC)) rb "
+			+ "JOIN funding f ON f.fno = rb.fno "
+			+ "WHERE rb.num BETWEEN #{start} AND #{end}")   
+	public List<RewardBuyVO> getRewardBuyList(Map map); 
+ 
+    @Select("SELECT CEIL(COUNT(*)/6.0) FROM reward_buy WHERE userId = #{userId}")
     public int getTotalRewardBuyCount(String userId);
  
-    @Select("SELECT rb.rbno, f.thumb, f.title, rb.price, rb.delivery, rb.totalprice, rb.name, rb.phone, rb.post, rb.addr1, rb.addr2, rb.requestmsg, to_char(rb.regdate, 'YYYY-MM-DD') as regdate " +
+    @Select("SELECT rb.rbno, rb.rno, rb.fno, rb.name AS buyerName, fr.name AS rewardName, fr.del_start, rb.totalprice, rb.delivery, rb.phone, rb.post, rb.addr1, rb.addr2, rb.regdate, rb.requestMsg " +
             "FROM reward_buy rb " +
-            "JOIN funding f ON rb.rno = f.fno " +
-            "WHERE rb.rbno = #{rbno}") // rbno(구매 번호)를 통해 상세 정보 조회
+            "JOIN funding_reward fr ON rb.rno = fr.rno " +  // 리워드 정보 조인
+            "WHERE rb.rbno = #{rbno}")  // 구매 번호로 구매 내역 상세 조회
     public RewardBuyVO getPurchaseDetail(int rbno);
 }
         

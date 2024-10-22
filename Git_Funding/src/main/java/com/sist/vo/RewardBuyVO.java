@@ -19,9 +19,11 @@ REGDATE             DATE
 import lombok.Data;
 @Data
 public class RewardBuyVO {
-	private int rbno, rno, account, price, delivery, totalprice, fno;
-	private String userId, name, phone, post, addr1, addr2, requestMsg;
-	private Date regdate;
+	private int rbno, rno, account, price, delivery, totalprice,fno;
+	private String userId, name, phone, post, addr1, addr2, requestMsg,regdate;
 	private String thumb;   
-    private String title;
+    private String title,rewardName,buyerName;
+    private String userName,description,del_start;
+
+
 }

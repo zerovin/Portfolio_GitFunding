@@ -22,7 +22,6 @@
         .purchase-table th, .purchase-table td {
             border: 1px solid #ddd;
             padding: 12px;
-            text-align: left;
         }
 
         .purchase-table th {
@@ -30,9 +29,15 @@
             color: white;
         }
 
+        .purchase-table td {
+            vertical-align: middle;
+            white-space: nowrap;
+            
+        }
         .purchase-table tr:hover {
             background-color: #f2f2f2;
             cursor: pointer;
+            
         }
 
         .purchase-table img {
@@ -43,7 +48,6 @@
         }
 
         .detail-info {
-            display: none;
             background-color: #f9f9f9;
             padding: 15px;
             margin-top: 5px;
@@ -52,12 +56,7 @@
         }
 
         .detail-info td {
-            border-top: none;
             padding: 15px;
-        }
-
-        .show-details {
-            display: table-row;
         }
 
         .detail-box {
@@ -103,59 +102,86 @@
         .pagination a:hover {
             background-color: #e0a800;
         }
+        #fundingtext {
+        	font-size: 30px;
+    text-align: center;
+    font-weight: 400;
+    margin-bottom: 15px;
+        }
     </style>
 </head>
 <body>
     <div id="purchaseApp" class="purchase-list">
-        <h2>구매 목록</h2>
+        <h2 id="fundingtext">펀딩 구매 내역</h2>
         <table class="purchase-table">
             <thead>
                 <tr>
-                    <th>번호</th>
-                    <th>펀딩 이미지</th>
-                    <th>펀딩 제목</th>
+                    <th></th>
+                    <th>펀딩</th>
                     <th>총 가격</th>
                     <th>주문 날짜</th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="purchase in purchases" :key="purchase.rbno" @click="fetchPurchaseDetail(purchase.rbno)">
-                    <td>{{ purchase.rbno }}</td>
+                <tr v-for="purchase in purchases" @click="fetchPurchaseDetail(purchase.rbno)">
                     <td><img :src="purchase.thumb" alt="펀딩 이미지"></td>
                     <td>{{ purchase.title }}</td>
-                    <td>{{ purchase.totalprice }}</td>
+                    <td>{{ purchase.totalprice }}원</td>
                     <td>{{ purchase.regdate }}</td>
-                </tr>
-                <tr v-if="selectedPurchase" class="detail-info show-details">
-                    <td colspan="5">
-                        <div class="detail-box">
-                            <div class="info-item">
-                                <span class="info-label">구매자 이름:</span>
-                                <span class="info-value">{{ selectedPurchase.name }}</span>
-                                <span class="info-label">연락처:</span>
-                                <span class="info-value">{{ selectedPurchase.phone }}</span>
-                            </div>
-                            <div class="info-item">
-                                <span class="info-label">배송 주소:</span>
-                                <span class="info-value">{{ selectedPurchase.addr1 }} {{ selectedPurchase.addr2 }}</span>
-                            </div>
-                            <div class="info-item">
-                                <span class="info-label">요청 메시지:</span>
-                                <span class="info-value">{{ selectedPurchase.requestMsg }}</span>
-                            </div>
-                            <div class="info-item">
-                                <span class="info-label">총 가격:</span>
-                                <span class="info-value">{{ selectedPurchase.totalprice }}</span>
-                                <span class="info-label">배송비:</span>
-                                <span class="info-value">{{ selectedPurchase.delivery }}</span>
-                                <span class="info-label">결제 금액:</span>
-                                <span class="info-value">{{ selectedPurchase.totalprice + selectedPurchase.delivery }}</span>
-                            </div>
-                        </div>
-                    </td>
                 </tr>
             </tbody>
         </table>
+
+        <!-- 클릭 시 상세 정보 출력 -->
+        <div v-if="selectedPurchase" class="detail-info">
+            <div class="detail-box">
+                <!-- 구매자 정보 -->
+                <div class="info-item">
+                    <span class="info-label">구매자 이름:</span>
+                    <span class="info-value">{{ selectedPurchase.buyerName }}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">전화번호:</span>
+                    <span class="info-value">{{ selectedPurchase.phone }}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">주소:</span>
+                    <span class="info-value">{{ selectedPurchase.addr1 }} {{ selectedPurchase.addr2 }}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">우편번호:</span>
+                    <span class="info-value">{{ selectedPurchase.post }}</span>
+                </div>
+
+                <!-- 주문 정보 -->
+                <div class="info-item">
+                    <span class="info-label">총 가격:</span>
+                    <span class="info-value">{{ selectedPurchase.totalprice }}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">배송비:</span>
+                    <span class="info-value">{{ selectedPurchase.delivery }}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">요청 메시지:</span>
+                    <span class="info-value">{{ selectedPurchase.requestMsg }}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">주문 날짜:</span>
+                    <span class="info-value">{{ selectedPurchase.regdate }}</span>
+                </div>
+
+                <!-- 리워드 정보 -->
+                <div class="info-item">
+                    <span class="info-label">리워드명:</span>
+                    <span class="info-value">{{ selectedPurchase.rewardName }}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">배송 시작일:</span>
+                    <span class="info-value">{{ selectedPurchase.del_start }}</span>
+                </div>
+            </div>
+        </div>
 
         <!-- Pagination -->
         <div class="pagination">
@@ -172,7 +198,7 @@
             data() {
                 return {
                     purchases: [],
-                    selectedPurchase: {},
+                    selectedPurchase: null,  // 선택된 구매 항목을 저장
                     curpage: 1,
                     startpage: 1,
                     totalPages: 0,
@@ -200,7 +226,7 @@
                     axios.get('../mypage/funding_buy_detail_vue.do', {
                         params: { rbno }
                     }).then(res => {
-                        console.log(res.data);
+                        console.log(res.data);  // 여기에 콘솔 로그를 출력하여 데이터를 확인
                         this.selectedPurchase = res.data;
                     }).catch(error => {
                         console.error(error.response);

@@ -94,7 +94,7 @@ public class MypageRestController {
 	
 	@GetMapping(value="mypage/funding_buy_vue.do", produces = "text/plain;charset=UTF-8")
 	public String mypagePurchaseList(HttpSession session, int page) throws Exception {
-	    int rowSize = 8; // 한 페이지에 보여줄 항목 수
+	    int rowSize = 6; // 한 페이지에 보여줄 항목 수
 	    int start = (rowSize * page) - (rowSize - 1);
 	    int end = rowSize * page;
 	    String userId=(String)session.getAttribute("userId");
@@ -105,7 +105,7 @@ public class MypageRestController {
 	    map.put("end", end);
 	    int totalpage=mService.getTotalRewardBuyCount(userId);
 		
-		final int BLOCK=8;
+		final int BLOCK=6;
 		int startpage=((page-1)/BLOCK*BLOCK)+1;
 		int endpage=((page-1)/BLOCK*BLOCK)+BLOCK;
 		if(endpage>totalpage) {
@@ -128,10 +128,7 @@ public class MypageRestController {
 	@GetMapping(value="mypage/funding_buy_detail_vue.do", produces = "text/plain;charset=UTF-8")
 	public String mypagePurchaseDetail(int rbno) throws Exception {
 
-	    // 특정 구매 항목의 상세 정보 가져오기
 	    RewardBuyVO vo = mService.getPurchaseDetail(rbno);
-
-	    // ObjectMapper를 사용하여 JSON 문자열로 변환
 	    ObjectMapper mapper = new ObjectMapper();
 	    String json = mapper.writeValueAsString(vo);
 
