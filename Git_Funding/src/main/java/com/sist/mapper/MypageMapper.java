@@ -10,7 +10,7 @@ public interface MypageMapper {
 			+"FROM funding_member "
 			+"WHERE userId=#{userId}") 
 	public MemberVO mypageInfoData(String userId);
-	 
+	      
 	@Update("UPDATE funding_member SET nickname=#{nickname} WHERE userId=#{userId}")
 	public void SetNickname(Map map);  
 	  

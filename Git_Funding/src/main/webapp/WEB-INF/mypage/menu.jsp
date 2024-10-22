@@ -72,7 +72,7 @@
     .mymenu button:hover {
         background-color: #f0f0f0;
     }
-    .gitsta-button {
+    .rgitsta-button {
         display: block;
         width: 90%;
         padding: 10px;
@@ -85,7 +85,7 @@
         transition: background-color 0.3s;
         margin-bottom: 30px;
     }
-    .gitsta-button:hover {
+    .rgitsta-button:hover {
         background-color: #f0f0f0;
     }
     .edit-icon {
@@ -104,14 +104,14 @@
         <p v-if="userInfo.nickname==null">{{ userInfo.userName }} 님</p>
         <p v-else>{{ userInfo.nickname }} 님</p>
         <div class="mymenu">
-            <a href="../project/home.do" class="gitsta-button">프로젝트 관리자</a>
+            <a href="../project/home.do" class="rgitsta-button">프로젝트 관리자</a>
             <div class="mymenu-detail">
                 <p class="mymenu_p">나의 활동</p>
                 <ul>
-                    <li><button @click="cookie()">최근 본</button></li>
-                    <li><button @click="jjimAlert()">찜·알림신청</button></li>
-                    <li><button @click="fundingBuy()">펀딩</button></li>
-                    <li><button @click="storeBuy()">스토어</button></li>
+                    <li><button @click="main">메인</button></li>
+                    <li><button @click="jjimAlert">찜·알림신청</button></li>
+                    <li><button @click="fundingBuy">펀딩</button></li>
+                    <li><button @click="storeBuy">스토어</button></li>
                 </ul>
             </div>
             <div class="mymenu-detail">
@@ -140,7 +140,8 @@
         		axios.get('../mypage/menu_vue.do',{
         			
         		}).then(res=>{
-        			this.userInfo=res.data
+        			console.log(res.data)
+        			this.userInfo=res.data.userInfo
         		}).catch(error=>{
         			console.log(error.response)
         		})
@@ -156,6 +157,9 @@
             },
             jjimAlert(){
             	location.href="../mypage/jjim_alert.do"
+            },
+            main(){
+            	location.href="../mypage/main.do"
             }
         }
     }).mount('#mypageApp');

@@ -131,7 +131,7 @@ public class GitstaRestController {
         // 사용자를 팔로우하고 있는 사람들의 수를 가져옴 (팔로워 수)
         int followerCount = gService.getFollowerCount(userId);
 
-        Map<String, Object> map = new HashMap<>();
+        Map map = new HashMap<>();
         map.put("list", list);    // 사용자를 팔로우하는 사람들의 목록
         map.put("followerCount", followerCount);  // 사용자를 팔로우하고 있는 사람들의 수 (팔로워 수)
 
@@ -373,4 +373,27 @@ public class GitstaRestController {
         gService.commentUpdate(vo);
         return commonsListData(1, vo.getRno());
     }
+    // 마이페이지 카운트
+    @GetMapping(value = "gitsta/stats_vue.do", produces = "application/json;charset=UTF-8")
+	public String getGitstaStats(HttpSession session) throws Exception {
+	    // 세션에서 사용자 ID를 가져옴
+	    String userId = (String) session.getAttribute("userId");
+
+	    // 사용자의 게시물 수, 팔로워 수, 팔로잉 수를 가져옴
+	    int totalPosts = gService.gitstaMyTotalCount(userId);
+	    int followerCount = gService.getFollowerCount(userId);
+	    int followingCount = gService.getFollowingCount(userId);
+
+	    // 결과를 Map에 담아서 반환
+	    Map<String, Object> resultMap = new HashMap<>();
+	    resultMap.put("totalPosts", totalPosts);
+	    resultMap.put("followerCount", followerCount);
+	    resultMap.put("followingCount", followingCount);
+
+	    // JSON으로 변환
+	    ObjectMapper mapper = new ObjectMapper();
+	    String json = mapper.writeValueAsString(resultMap);
+
+	    return json;
+	}
 }

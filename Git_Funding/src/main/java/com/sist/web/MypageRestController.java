@@ -6,8 +6,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.sist.vo.*;
@@ -17,14 +22,53 @@ import com.sist.service.*;
 public class MypageRestController {
 	@Autowired
 	private MypageService mService;
+	@Autowired
+	private FundingService fService;
 	
-	@GetMapping(value="mypage/menu_vue.do",produces = "text/plain;charset=UTF-8")
-	public String mypage_menu(HttpSession session) throws Exception {
-		String userId=(String)session.getAttribute("userId");
-		MemberVO vo=mService.mypageInfoData(userId);
-		ObjectMapper mapper=new ObjectMapper();
-		String json=mapper.writeValueAsString(vo);
-		return json;
+	@GetMapping(value="mypage/menu_vue.do", produces = "text/plain;charset=UTF-8")
+	public String mypage_menu(HttpSession session,HttpServletRequest request) throws Exception {
+	    String userId = (String) session.getAttribute("userId");
+
+	    // 사용자 기본 정보 가져오기
+	    MemberVO vo = mService.mypageInfoData(userId);
+
+	    // 알림 신청 수 가져오기
+	    int alertCount = mService.fundingAlertCount(userId);
+
+	    // 구매 목록 수 가져오기
+	    int fundingCount = mService.getTotalRewardBuyCount(userId);
+	    Cookie[] cookies = request.getCookies();
+	    List<FundingVO> cookie_list = new ArrayList<>();
+	    if (cookies != null) {
+	        for (int i = cookies.length - 1; i >= 0; i--) {
+	            if (cookies[i].getName().startsWith("funding_")) {
+	                String fno = cookies[i].getValue();
+	                FundingVO fundingVO = fService.mainCookieListData(Integer.parseInt(fno));
+	                int percent = (int) (Math.round(fundingVO.getTotalprice() / (double) fundingVO.getTargetprice() * 100));
+	                fundingVO.setFm_percent(new DecimalFormat("###,###").format(percent));
+	                // 상태 설정 (오픈 전/후 여부 판단)
+	                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+	                Date now = new Date();
+	                if (now.before(fundingVO.getStartdate())) {
+	                    fundingVO.setOf(1);  // 오픈 전 상태
+	                }
+	                cookie_list.add(fundingVO);
+	            }
+	        }
+	    }
+
+
+	    // 알림 신청 수와 구매 목록 수를 VO에 포함하거나 새로운 Map에 담기
+	    Map map= new HashMap<>();
+	    map.put("userInfo", vo);
+	    map.put("alertCount", alertCount);
+	    map.put("fundingCount", fundingCount);
+	    map.put("latest_list", cookie_list);
+	    // JSON으로 변환
+	    ObjectMapper mapper = new ObjectMapper();
+	    String json = mapper.writeValueAsString(map);
+
+	    return json;
 	}
 	
 	@PostMapping(value="mypage/set_nick_vue.do",produces = "text/plain;charset=UTF-8")
@@ -134,5 +178,7 @@ public class MypageRestController {
 
 	    return json;
 	}
+
+	
 
 }
