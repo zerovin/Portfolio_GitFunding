@@ -25,7 +25,7 @@
     gap:50px;
 }
 #funding_detail > section .left{
-	width:740px;
+	width:730px;
 }
 #funding_detail > section .left .thumb{
     width:100%;
@@ -245,7 +245,9 @@
 #funding_detail > section .right .reward_list dd{
     font-weight:700;
 }
-#funding_detail #backingWindow{
+#funding_detail #backingWindow,
+#funding_detail #communityWindow{
+	width:350px;
 	position:fixed;
 	top:30%;
 	left:50%;
@@ -256,11 +258,13 @@
 	box-shadow:2px 3px 5px rgba(0,0,0,.3);
 	display:none;
 }
-#funding_detail #backingWindow h2{
+#funding_detail #backingWindow h2,
+#funding_detail #communityWindow h2{
 	font-family: 'NEXON Lv2 Gothic';
 	font-size:24px;
 }
-#funding_detail #backingWindow textarea{
+#funding_detail #backingWindow textarea,
+#funding_detail #communityWindow textarea{
 	resize:none;
 	width:100%;
 	height:100px;
@@ -268,7 +272,8 @@
 	box-sizing:border-box;
 	padding:5px;
 }
-#funding_detail #backingWindow button.insert{
+#funding_detail #backingWindow button.insert,
+#funding_detail #communityWindow button.insert{
 	text-align:center;
 	background:#F8C200;
 	padding:15px 0;
@@ -276,15 +281,26 @@
 	width:100%;
 	font-weight:500;
 }
-#funding_detail #backingWindow button.close{
+#funding_detail #backingWindow button.close,
+#funding_detail #communityWindow span.close{
 	position:absolute;
 	top:15px;
 	right:15px;
 	font-size:20px;
 	paddint:0;
+	cursor:pointer;
+}
+#funding_detail #communityWindow .radio_box{
+	display:flex;
+	gap:20px;
+	margin-top:20px;
+}
+#funding_detail #communityWindow .radio_box input{
+	margin-right:3px;
 }
 
 /*------------ DETAIL NOTICE -----------*/
+/* LIST */
 #funding_detail .notice h2 span{
 	font-size:18px;
 	color:#9e9c9c;
@@ -313,7 +329,44 @@
 	color:#9e9c9c;
 }
 
-/*------------ DETAIL NOTICE -----------*/
+/* DETAIL */
+#funding_detail .notice_detail .goList{
+	display:inline-block;
+	padding:15px;
+	border:1px solid #ccc;
+	border-radius:5px;
+	margin-bottom:50px;
+} 
+#funding_detail .notice_detail .detail_wrap{
+	border-bottom:1px solid #ccc;
+}
+#funding_detail .notice_detail .detail_wrap .top{
+	padding-bottom:20px;
+	border-bottom:1px solid #ccc;
+}
+#funding_detail .notice_detail .detail_wrap .cate{
+	display:block;
+	font-weight:500;
+	margin-bottom:15px;
+}
+#funding_detail .notice_detail .detail_wrap .notice_title{
+	font-size:20px;
+	font-weight:700;
+	line-height:1.3em;
+	margin-bottom:15px;
+}
+#funding_detail .notice_detail .detail_wrap .date{
+	color:#9e9c9c;
+	font-size:14px;
+}
+#funding_detail .notice_detail .detail_wrap .content{
+	padding:50px 0 80px;
+}
+#funding_detail .notice_detail .detail_wrap .content pre{
+	line-height:1.5em;
+}
+
+/*------------ DETAIL PAGINATION -----------*/
 #funding_detail .pagination{
     display:flex;
     justify-content:center;
@@ -336,4 +389,167 @@
     font-weight:bold;
     font-size:18px;
     color:#F8C200;
+}
+
+/*------------ FUNDING COMMUNITY -----------*/
+#funding_detail .community .top{
+	display:flex;
+	justify-content:space-between;
+	align-items:center;
+	margin-bottom:80px;
+}
+#funding_detail .community .top > div{
+	position:relative;
+}
+#funding_detail .community .top > div button{
+	display:block;
+	background:#F8C200;
+	padding:10px;
+	border-radius:5px;
+}
+#funding_detail .community .top > div button i{
+	margin:0 10px;
+}
+/* 글쓰기 */
+#funding_detail .community .top > div .write_list{
+	display:none;
+	position:absolute;
+	top:calc(100% + 10px);
+	right:0;
+	background:#fff;
+	padding:10px;
+	border-radius:5px;
+	border:1px solid #ccc;
+	width:120px;
+	text-align:center;
+}
+#funding_detail .community .top > div .write_list li{
+	padding:10px 0;
+	cursor:pointer;
+}
+
+/* 목록 */
+#funding_detail .community h3{
+	font-size:20px;
+	font-weight:700;
+	padding-bottom:20px;
+	border-bottom:1px solid #ccc;
+	margin-bottom:50px;
+}
+#funding_detail .community h3 span{
+	font-size:16px;
+	color:#9e9c9c;
+	margin-left:5px;
+}
+#funding_detail .community .comm_list img{
+	width:40px;
+}
+#funding_detail .community .comm_list .member_info{
+	display:flex;
+	justify-content:space-between;
+	align-items:center;
+	margin-bottom:10px;
+}
+#funding_detail .community .comm_list .member_info .info{
+	display:flex;
+	gap:10px;
+	align-items:center;
+}
+#funding_detail .community .comm_list .member_info .info .nick{
+	font-weight:500;
+	margin-bottom:3px;
+}
+#funding_detail .community .comm_list .member_info .info .date{
+	font-size:14px;
+	color:#9e9c9c;
+}
+#funding_detail .community .comm_list .member_info button{
+	display:inline-block;
+	padding:10px;
+	background:#F8C200;
+	border-radius:5px;
+}
+#funding_detail .community .comm_list .member_info button:last-child{
+	margin-left:5px;
+	background:#ccc;
+}
+#funding_detail .community .comm_list .content_box{
+	border:1px solid #ccc;
+	border-radius:10px;
+	padding:20px;
+	margin-bottom:10px;
+}
+#funding_detail .community .comm_list .content_box .cate{
+	display:inline-block;
+	background:#4c53dd7d;
+	padding:5px 10px;
+	border-radius:5px;
+	font-weight:500;
+	margin-bottom:20px;
+} 
+#funding_detail .community .comm_list .content_box pre{
+	white-space:wrap;
+	line-height:1.5em;
+}
+#funding_detail .community .comm_list .comment button.show{
+	padding:5px;
+	margin-bottom:10px;
+}
+#funding_detail .community .comm_list .comment button i{
+	font-size:18px;
+	margin-right:3px;
+}
+#funding_detail .community .comm_list .comment .form{
+	display:flex;
+	justify-content:space-between;
+	align-items:center;
+	gap:10px;
+	margin-bottom:20px;
+}
+#funding_detail .community .comm_list .comment .form input{
+	padding:10px;
+	border:1px solid #ccc;
+	border-radius:5px;
+	flex:1;
+}
+#funding_detail .community .comm_list .comment .form button{
+	display:inline-block;
+	background:#F8C200;
+	border-radius:5px;
+	padding:10px 20px;
+}
+#funding_detail .community .comm_list .comment .comment_list > li{
+	display:flex;
+	gap:10px;
+	align-items:start;
+}
+#funding_detail .community .comm_list .comment .comment_list .comm_content{
+	background:#f9fafb;
+	border-radius:10px;
+	padding:20px;
+	flex:1;
+}
+#funding_detail .community .comm_list .comment_list .comm_content > div{
+	display:flex;
+	justify-content:space-between;
+	align-items:center;
+	margin-bottom:20px;
+}
+#funding_detail .community .comm_list .comment_list .comm_content p{
+	font-weight:500;
+}
+#funding_detail .community .comm_list .comment_list .comm_content p span{
+	font-size:14px;
+	color:#9e9c9c;
+	margin-left:5px;
+}
+#funding_detail .community .comm_list .comment_list .comm_content .edit{
+	display:inline-block;
+	padding:5px 10px;
+	background:#ccc;
+	border-radius:5px;
+}
+#funding_detail .community .comm_list .comment_list .comm_content pre{
+	white-space:wrap;
+	line-height:1.5em;
 }

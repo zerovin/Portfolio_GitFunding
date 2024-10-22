@@ -6,21 +6,21 @@
 <body>
 	<div id="funding_detail">
         <ul class="detail_tab">
-            <li><a :href="'../funding/detail_before.do?fno='+fno">상세설명</a></li>
-            <li><a :href="'../funding/detail_notice.do?fno='+fno" class="active">새소식</a></li>
-            <li><a :href="'../funding/detail_community.do?fno='+fno">커뮤니티</a></li>
+            <li><a :href="'../funding/detail_before.do?fno='+fno+'&type='+this.type">상세설명</a></li>
+            <li><a :href="'../funding/detail_notice.do?fno='+fno+'&type='+this.type" class="active">새소식</a></li>
+            <li><a :href="'../funding/detail_community.do?fno='+fno+'&type='+this.type">커뮤니티</a></li>
         </ul>
         <section class="container">
-            <div class="left notice">
-            	<button><i class="fa-solid fa-chevron-left"></i> 목록으로 이동</button>
+            <div class="left notice_detail">
+            	<a :href="'../funding/detail_notice.do?fno='+fno" class="goList"><i class="fa-solid fa-chevron-left"></i> 목록으로 이동</a>
             	<div class="detail_wrap">
 	            	<div class="top">
-	            		<span class="cate"></span>
-	      				<p class="notice_title"></p>
-	      				<span class="date"></span>
+	            		<span class="cate">{{notice_vo.cate}}</span>
+	      				<p class="notice_title">{{notice_vo.title}}</p>
+	      				<span class="date">{{notice_vo.dbday}}</span>
 	          		</div>
 	          		<div class="content">
-	          		
+	          			<pre>{{notice_vo.content}}</pre>
 	          		</div>
           		</div>
             </div>
@@ -41,6 +41,7 @@
     		data(){
     			return{
     				fno:${fno},
+    				dnno:${dnno},
     				sessionId:'${sessionId}',
     				type:'${type}',
     				funding_vo:{},
@@ -48,11 +49,13 @@
     				reward_list:[],
     				isWish:false,
     				wish_count:0,
-    				backingContent:''
+    				backingContent:'',
+    				notice_vo:{}
     			}
     		},
     		mounted(){
     			this.dataRecv()
+    			this.noticeDataRecv()
     			$('.reward_click').click(function(e){
     				if(this.sessionId==''){
     					e.prventDefault()
@@ -61,6 +64,17 @@
     			})
     		},
     		methods:{
+    			noticeDataRecv(){
+    				axios.get('../funding/notice_detail_vue.do',{
+    					params:{
+    						dnno:this.dnno
+    					}
+    				}).then(response=>{
+    					this.notice_vo=response.data
+    				}).catch(error=>{
+    					console.log(error.response)
+    				})	
+    			},
     			dataRecv(){
     				axios.get('../funding/funding_detail_vue.do',{
         				params:{

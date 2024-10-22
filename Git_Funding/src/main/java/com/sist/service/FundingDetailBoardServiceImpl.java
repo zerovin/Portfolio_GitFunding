@@ -22,4 +22,16 @@ public class FundingDetailBoardServiceImpl implements FundingDetailBoardService{
 		return bDao.fundingNoticeTotalPage();
 	}
 
+	@Override
+	public FundingDetailNoticeVO fundingNoticeDetailData(int dnno) {
+		// TODO Auto-generated method stub
+		return bDao.fundingNoticeDetailData(dnno);
+	}
+
+	@Override
+	public void fundingCommInsert(FundingDetailCommVO vo) {
+		// TODO Auto-generated method stub
+		bDao.fundingCommInsert(vo);
+	}
+
 }
