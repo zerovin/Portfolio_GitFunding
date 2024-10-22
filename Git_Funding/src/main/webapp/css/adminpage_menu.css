@@ -1,85 +1,85 @@
-.mymenu-div{
-	font-family:'NEXON Lv2 Gothic';
-	display:flex;
-	flex-direction:column;
-	align-items:center;
-	width:250px;
-	background-color:#ffffff;
-	padding:20px;
-	border-radius:10px;
-	box-shadow:0 4px 8px rgba(0, 0, 0, 0.1);
-	margin:20px;
-}
-.profile-div{
-	position:relative;
-	text-align:center;
-}
-.profile-div img{
-	width:100px;
-	height:100px;
-	border-radius:50%;
-	border: 2px solid #e0e0e0;
-}
-.profile-div .edit-icon{
-	position:absolute;
-	bottom:5px;
-	right:5px;
-	background-color:#ffffff;
-	border-radius:50%;
-	padding:5px;
-	box-shadow:0 2px 4px rgba(0, 0, 0, 0.1);
-}
-.mymenu-div p{
-	font-size:18px;
-	font-weight:bold;
-	margin-top:10px;
-	margin-bottom:20px;
-}
-.mymenu{
-	width:100%;
-}
-.mymenu_p{
-	font-weight:bold;
-	border-bottom:1px solid #e0e0e0;
-	padding-bottom:10px;
-}
-.mymenu_p:hover{
-	cursor:pointer;
-}
-.mymenu-detail{
-	margin-bottom:10px;
-	margin-top:10px;
-}
-.mymenubutton{
-	width:100%;
-	background:none;
-	border:none;
-	padding:10px;
-	text-align:left;
-	border-radius:5px;
-	transition:background-color 0.3s;
-	cursor:pointer;
-	font-size:16px;
-}
-.mymenubutton:hover{
-	background-color:#f0f0f0;
-}
-.gitsta-button{
-	display:block;
-	width:90%;
-	padding:10px;
-	border:1px solid #e0e0e0;
-	background-color:#ffffff;
-	border-radius:5px;
-	text-align:center;
-	margin-top:20px;
-	cursor:pointer;
-	transition:background-color 0.3s;
-	margin-bottom:30px;
-}
-.gitsta-button:hover{
-	background-color:#f0f0f0;
-}
-.edit-icon{
-	width:20px;
-}
+   .AdminMenuDiv {
+        font-family: 'NEXON Lv2 Gothic';
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 250px;
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin: 20px;
+    }
+    .ProfileDiv {
+        position: relative;
+        text-align: center;
+    }
+    .ProfileDiv img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        border: 2px solid #e0e0e0;
+    }
+    .ProfileDiv .ProfileEditIcon {
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
+        background-color: #ffffff;
+        border-radius: 50%;
+        padding: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .AdminMenuDiv p {
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+    .AdminMenu {
+        width: 100%;
+    }
+    .AdminMenu_p {
+        font-weight: bold;
+        border-bottom: 1px solid #e0e0e0;
+        padding-bottom: 10px;
+    }
+    .AdminMenu_p:hover {
+        cursor: pointer;
+    }
+    .AdminMenuDetail {
+        margin-bottom: 10px;
+        margin-top: 10px;
+    }
+    .AdminMenu button {
+        width: 100%;
+        background: none;
+        border: none;
+        padding: 10px;
+        text-align: left;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    .AdminMenu button:hover {
+        background-color: #f0f0f0;
+    }
+    .gitsta-button {
+        display: block;
+        width: 90%;
+        padding: 10px;
+        border: 1px solid #e0e0e0;
+        background-color: #ffffff;
+        border-radius: 5px;
+        text-align: center;
+        margin-top: 20px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        margin-bottom: 30px;
+    }
+    .gitsta-button:hover {
+        background-color: #f0f0f0;
+    }
+    .ProfileEditIcon {
+        width: 20px;
+    }

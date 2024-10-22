@@ -106,7 +106,20 @@
 .button:hover {
     background-color: #FFA500;
 }
-
+.AnswerToQnABtn{
+	padding: 10px 20px;
+    text-decoration: none;
+    color: white;
+    background-color: #f8c200;
+    border-radius: 5px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    margin-right:212.085px;
+}
+.AnswerToQnABtn:hover {
+    background-color: #FFA500;
+}
 </style>
 </head>
 <body>
@@ -151,6 +164,10 @@
                 </div>
             </div>
             <div class="button-container">
+            	<sec:authorize access="hasRole('ROLE_ADMIN')">
+		        	<button class="AnswerToQnABtn" @click="AnswerToQnA">답변하기</a></li>
+		        </sec:authorize>
+		            
                 <button class="button" @click="boardUpdate()" v-if="vo.id === sessionId">수정</button>
                 <button class="button" @click="boardDelete()" v-if="vo.id === sessionId">삭제</button>
                 <button class="button" @click="goToList">목록</button>
@@ -215,7 +232,7 @@ let detailApp = Vue.createApp({
     	    })
     	},
     	getQnaAnswers() {
-    	    axios.get('../community/qna_answers_vue.do', {
+    	    axios.get('../community/qna_answers_vue.do', {   
     	        params: {
     	            groupId: this.groupId
     	        }
@@ -233,7 +250,10 @@ let detailApp = Vue.createApp({
     	},
         goToList() {
             window.location.href = '../community/qna_list.do'
-        }
+        },
+        AnswerToQnA() {
+	
+		}
     }
 }).mount('#detailApp')
 </script>

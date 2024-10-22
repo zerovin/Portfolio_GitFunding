@@ -177,7 +177,7 @@
 	            	location.href = '../mypage/info.do'
 	            }
 	        }
-	    }).mount('#ProjectHome');
+	    }).mount('#ProjectHome')
 	</script>
 </body>
 </html>

@@ -6,7 +6,7 @@
 	<link rel="stylesheet" href="../css/adminpage_home.css">
 </head>
 <body>
-    <div class="home-container">
+    <div id="AdminHomeApp" class="home-container">
         <!-- 대시보드 영역 -->
         <div class="dashboard">
             <div class="dashboard-item" id="click">
@@ -43,7 +43,7 @@
             </div>
             <div class="notice-list-item">
                 <img src="../images/info_icon.png" alt="icon">
-                <p>햄짱짱님, 나만의 브랜드 콘을 해 보실래요?</p>
+                <p>${sessionScope.userId}님, 나만의 브랜드 콘을 해 보실래요?</p>
             </div>
         </div>
         <div class="activity-list">
@@ -56,7 +56,7 @@
             <div class="activity-list-item">
                 <button>
                     <p>찜·알림신청</p>
-                    <div class="arrow-icon"></div>
+                    <div class="arrow-icon">></div>
                 </button>
             </div>
             <div class="activity-list-item">
@@ -65,13 +65,30 @@
                     <div class="arrow-icon">></div>
                 </button>
             </div>
-            <div class="activity-list-item">
+            <div class="activity-list-item" @click="AnswerToQnA()">
                 <button>
-                    <p>문의 하기</p>
+                    <p>문의 답변하기</p>
                     <div class="arrow-icon">></div>
                 </button>
             </div>
         </div>
     </div>
+<script>
+	let AdminHomeApp = Vue.createApp ({
+		data() {
+			return {
+				
+			}
+		},
+		mounted() {
+			
+		},
+		methods: {
+			AnswerToQnA() {
+				location.href = '../community/qna_list.do'
+			}
+		}
+	}).mount('#AdminHomeApp')
+</script>
 </body>
 </html>
