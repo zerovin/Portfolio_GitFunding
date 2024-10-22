@@ -15,6 +15,7 @@
 
         .purchase-table {
             width: 100%;
+            max-width : 700px;
             border-collapse: collapse;
             margin-bottom: 20px;
         }
@@ -32,6 +33,9 @@
         .purchase-table td {
             vertical-align: middle;
             white-space: nowrap;
+            max-width: 400px;
+    		overflow: hidden;
+    		text-overflow: ellipsis;
             
         }
         .purchase-table tr:hover {
@@ -68,7 +72,7 @@
         }
 
         .detail-box .info-item {
-            display: flex;
+            display: block;
             justify-content: space-between;
             margin-bottom: 10px;
             border-bottom: 1px solid #eee;
@@ -134,6 +138,7 @@
 
         <!-- 클릭 시 상세 정보 출력 -->
         <div v-if="selectedPurchase" class="detail-info">
+                <h1 style="text-align: center;font-size: 25px;padding-bottom: 5px;">구매 내역 상세</h1>
             <div class="detail-box">
                 <!-- 구매자 정보 -->
                 <div class="info-item">
@@ -146,21 +151,17 @@
                 </div>
                 <div class="info-item">
                     <span class="info-label">주소:</span>
-                    <span class="info-value">{{ selectedPurchase.addr1 }} {{ selectedPurchase.addr2 }}</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">우편번호:</span>
-                    <span class="info-value">{{ selectedPurchase.post }}</span>
+                    <span class="info-value">{{ selectedPurchase.addr1 }} {{ selectedPurchase.addr2 }}{{ selectedPurchase.post }}</span>
                 </div>
 
                 <!-- 주문 정보 -->
                 <div class="info-item">
-                    <span class="info-label">총 가격:</span>
-                    <span class="info-value">{{ selectedPurchase.totalprice }}</span>
-                </div>
                 <div class="info-item">
                     <span class="info-label">배송비:</span>
                     <span class="info-value">{{ selectedPurchase.delivery }}</span>
+                </div>
+                    <span class="info-label">총 가격:</span>
+                    <span class="info-value">{{ selectedPurchase.totalprice }}</span>
                 </div>
                 <div class="info-item">
                     <span class="info-label">요청 메시지:</span>
