@@ -5,6 +5,7 @@ import java.util.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -146,13 +147,100 @@ public class GoodsRestController {
 	public String cart_delete(@RequestParam List<Integer> selected) {
 		String result="no";
 		try {
-			for(int i:selected) {
-				gService.cartDelete(i);
-			}
+
+				gService.cartDelete(selected);
+
 			result="ok";
 		}catch(Exception ex) {
 			
 		}
+
+		return result;
+	}
+	@PostMapping(value = "goods/order_ok_vue.do",produces = "text/plain;charset=utf-8")
+	public String order_ok(@RequestParam("cList") String cList,HttpServletRequest request,HttpSession session) {
+		String result="no";
+		/*
+    		     	formData.append("cList",JSON.stringify(this.orderList))
+    		     	formData.append("fg_no",this.fg_no)
+    		     	formData.append("option",this.option)
+    		     	formData.append("totalpay",this.totalpay)
+    		     	formData.append("orderId","F_GOODS_"+new Date().getTime()+this.id)
+    		     	formData.append("email",this.email+this.email_domain)
+    		     	formData.append("address",this.post+this.addr1+this.addr2)
+    		     	formData.append("send",this.send)
+    		     	formData.append("recv",this.recv)
+    		     	formData.append("msg",this.msg)
+    		     	formData.append("sendPhone",this.sendPhone)
+    		     	formData.append("recvPhone",this.recvPhone)
+		 */
+		
+		String fg_no=request.getParameter("fg_no");
+		
+		String totalpay=request.getParameter("totalpay");
+		String orderId=request.getParameter("orderId");
+		String email=request.getParameter("email");
+		String address=request.getParameter("email");
+		String send=request.getParameter("send");
+		String recv=request.getParameter("recv");
+		String msg=request.getParameter("msg");
+		String sendPhone=request.getParameter("sendPhone");
+		String recvPhone=request.getParameter("recvPhone");
+		String id=(String)session.getAttribute("userId");
+	
+		Map map=new HashMap();
+		map.put("fgono", orderId);
+		map.put("email", email);
+		map.put("recvaddress",address);
+		map.put("send", send);
+		map.put("recv", recv);
+		map.put("msg", msg);
+		map.put("sendPhone", sendPhone);
+		map.put("recvPhone", recvPhone);
+		map.put("id", id);
+		map.put("payment", totalpay);
+		gService.orderInsert(map);
+		map.clear();
+		try {
+				if(fg_no!=null) {
+					String option=request.getParameter("option");
+					String account=request.getParameter("account");
+					int iaccount=Integer.parseInt(account);
+					int fgno=Integer.parseInt(fg_no);
+		
+					map.put("fgono", orderId);
+					map.put("ops", option);
+					map.put("account", iaccount);
+					map.put("fgno", fgno);
+					gService.orderedDicInsert(map);
+					
+					result="ok";
+				}else if(fg_no==null) {
+			
+				
+					ObjectMapper mapper=new ObjectMapper();
+					List<CartVO> cartList= mapper.readValue(cList, List.class);
+					List<Integer> fgcnoList=new ArrayList<Integer>();
+					for(int i=0;i<cartList.size();i++) {
+						map.put("fgono", orderId);
+						map.put("ops", cartList.get(i).getOps());
+						map.put("account", cartList.get(i).getAccount());
+						map.put("fgno", cartList.get(i).getFgno());
+						gService.orderedDicInsert(map);
+						map.clear();
+						fgcnoList.add(cartList.get(i).getFgcno());
+						
+					}
+					
+					gService.cartDelete(fgcnoList);
+					result="ok";
+				
+				}
+		}
+		catch(Exception ex) {
+				result=ex.getMessage();
+		}
+		
 
 		return result;
 	}

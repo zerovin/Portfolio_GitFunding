@@ -27,6 +27,7 @@ public class GoodsServiceImpl implements GoodsService{
 	@Override
 	public GoodsVO goodsDetailData(int fgno) {
 		// TODO Auto-generated method stub
+		gDao.goodsHitIncrement(fgno);
 		return gDao.goodsDetailData(fgno);
 	}
 	@Override
@@ -50,7 +51,7 @@ public class GoodsServiceImpl implements GoodsService{
 		
 	}
 	@Override
-	public void cartDelete(int fgcno) {
+	public void cartDelete(List<Integer> fgcno) {
 		// TODO Auto-generated method stub
 		gDao.cartDelete(fgcno);
 	}
@@ -58,6 +59,21 @@ public class GoodsServiceImpl implements GoodsService{
 	public List<CartVO> orderListData(List<Integer> fgcno) {
 		// TODO Auto-generated method stub
 		return gDao.orderListData(fgcno);
+	}
+	@Override
+	public GoodsVO goodsOrderData(int fgno) {
+		// TODO Auto-generated method stub
+		return gDao.goodsOrderData(fgno);
+	}
+	@Override
+	public void orderInsert(Map map) {
+		// TODO Auto-generated method stub
+		gDao.orderInsert(map);
+	}
+	@Override
+	public void orderedDicInsert(Map map) {
+		// TODO Auto-generated method stub
+		gDao.orderedDicInsert(map);
 	}
 	
 }

@@ -23,7 +23,7 @@ import com.sist.vo.GoodsVO;
 @Controller
 public class GoodsController {
 	private GoodsService gService;
-	
+	private DecimalFormat df=new DecimalFormat("###,###,###");
 	@Autowired
 	public GoodsController(GoodsService service) {
 		this.gService=service;
@@ -42,8 +42,8 @@ public class GoodsController {
 		return "goods/list";
 	}
 	@PostMapping("goods/order.do")
-	public String goods_order(HttpServletRequest request,Model model) {
-		DecimalFormat df=new DecimalFormat("###,###,###");
+	public String goods_order(HttpServletRequest request,Model model) throws Exception {
+		
 		String[] fgcno=request.getParameterValues("fgcno");
 		String[] account=request.getParameterValues("account");
 		List<Integer> fg=new ArrayList<Integer>();
@@ -58,34 +58,71 @@ public class GoodsController {
 			cList.get(i).setTotalprice(Integer.parseInt(account[i])*Integer.parseInt(cList.get(i).getPrice().replaceAll("[^0-9]", "")));
 			totalgoods+=Integer.parseInt(account[i])*Integer.parseInt(cList.get(i).getPrice().replaceAll("[^0-9]", ""));
 			cList.get(i).setTpay(df.format(Integer.parseInt(account[i])*Integer.parseInt(cList.get(i).getPrice().replaceAll("[^0-9]", ""))));
-			if(cList.get(i).getGvo().getDelivery().trim().equals("텐텐배송")) {
+			String deli=cList.get(i).getGvo().getDelivery();
+			if(deli.equals("텐텐배송")) {
 				delivery+=3000;
-			}else if(cList.get(i).getGvo().getDelivery().trim().equals("업체조건배송")) {
+			}else if(deli.equals("업체조건배송")) {
 				delivery+=5000;
-			}
+			}else if(deli.equals("텐바이텐배송")){
+        		delivery+=4000;
+        	}else if(deli.equals("해외직구 배송")){
+        		delivery+=10000;
+        	}
 		}
 		
-		String total=df.format(totalgoods);
+		String total=df.format(totalgoods);	
 		String delTotal=df.format(delivery);
 		String totalpay=df.format(delivery+totalgoods);
-
-		model.addAttribute("cList",cList);
+		ObjectMapper mapper=new ObjectMapper();
+		String json=mapper.writeValueAsString(cList);
+		
+		
+		model.addAttribute("cList",json);
 		model.addAttribute("totalgoods",total);
 		model.addAttribute("totaldeli",delTotal);
 		model.addAttribute("totalpay",totalpay);
-		
+		model.addAttribute("vo","''");
 		return "goods/order";
 	}
 	@PostMapping("goods/orderDic.do")
-	public String goods_orderDic(HttpServletRequest request,Model model) {
+	public String goods_orderDic(HttpServletRequest request,Model model) throws Exception{
 		String account=request.getParameter("account");
 		String optionSelect=request.getParameter("optionSelect");
 		String fg_no=request.getParameter("fg_no");
 		
-		model.addAttribute("account");
+		GoodsVO vo=gService.goodsOrderData(Integer.parseInt(fg_no));
+		
+		ObjectMapper mapper=new ObjectMapper();
+		String json=mapper.writeValueAsString(vo);
+		
+
+		int goodsprice=Integer.parseInt(vo.getPrice().replaceAll("[^0-9]", ""));
+		int ea=Integer.parseInt(account);
+		int totalprice=goodsprice*ea;
+		
+		String deli=vo.getDelivery();
+		int delivery=0;
+		if(deli.equals("텐텐배송")) {
+			delivery+=3000;
+		}else if(deli.equals("업체조건배송")) {
+			delivery+=5000;
+		}else if(deli.equals("텐바이텐배송")){
+    		delivery+=4000;
+    	}else if(deli.equals("해외직구 배송")){
+    		delivery+=10000;
+    	}
+		
+		String total=df.format(totalprice);
+		String delTotal=df.format(delivery);
+		String totalpay=df.format(totalprice+delivery);
+		model.addAttribute("vo",json);
+		model.addAttribute("account",account);
 		model.addAttribute("option",optionSelect);
 		model.addAttribute("fg_no",fg_no);
-		
+		model.addAttribute("totalgoods",total);
+		model.addAttribute("totaldeli",delTotal);
+		model.addAttribute("totalpay",totalpay);
+		model.addAttribute("cList","''");
 		return "goods/order";
 	}
 	

@@ -9,6 +9,7 @@
 <script type="text/javascript">
 $(function() {
     $('#selectedOrder').on('click', function() {
+    	
         const checkboxes = document.querySelectorAll('.buyCheck');
         const form = $('#item-form')[0]; // jQuery 객체에서 DOM 요소로 변환
         
@@ -52,6 +53,23 @@ $(function() {
         // 폼 제출
         form.submit();
     });
+    $('#item-form').submit(function(e){
+    	
+    	const checkboxes = document.querySelectorAll('.buyCheck');
+    	let hasChecked = false
+    	checkboxes.forEach(checkbox => {
+    		checkbox.checked=true
+            if (checkbox.checked) {
+                hasChecked = true;
+            }
+        });
+
+        if (!hasChecked) {
+        	e.preventDefault()
+            alert('상품목록이 비었습니다');
+            return;
+        }
+    })
 });
 </script>
 </head>
@@ -72,9 +90,12 @@ $(function() {
             	</div>
             	<div></div>
             </div>
-            <div class="cartBox">
+            <div class="cartBox" >
                 <form method="post" action="../goods/order.do" id="item-form">
-	            <div class="cart">
+                <div style="display: flex;justify-content: center;margin: 150px 0px ;" v-if="cartList.length==0" id="cartBlank">
+            		<img src="../images/cart_blank.png">
+            	</div>
+	            <div class="cart" v-if="cartList.length!=0">
 	            	<table style="width: 100%">
 	            	  <tr class="cartList" style="height: 36px;">
 	            	    <th width="5%">
@@ -106,7 +127,7 @@ $(function() {
 	            	      <input type="hidden" :value="vo.fgcno" name="fgcno">
 	            	    </td>
 	            	    <td width="10%">
-	            	      <p>{{vo.gvo.delivery}}</p>
+	            	      <p style="font-size: 13px">{{vo.gvo.delivery}}</p>
 	            	      <p>{{vo.fgno}}</p>
 	            	    </td>
 	            	    <td width="10%">
@@ -117,6 +138,7 @@ $(function() {
 	            	    </td>
 	            	    <td width="25%" style="text-align: left;padding-left: 5px ">
 	            	      <p>{{vo.gvo.title}}</p>
+	            	      <p style="color: #999;margin-top: 3px;font-weight: bold;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">[옵션]:{{vo.ops}}</p>
 	            	    </td>
 	            	    <td width="10%">
 	            	      <p style="text-decoration-line: line-through;color: #899c8f;">{{vo.gvo.price}}</p>
@@ -187,7 +209,7 @@ $(function() {
 	                    <button type="button" @click="cartCancel()">선택상품 삭제</button>
 	                  </div>
 	                  <div>
-	                    <button>품절상품 삭제</button>
+	                    <button type="button">품절상품 삭제</button>
 	                  </div>
 	                </div>
 	              </div>
@@ -255,6 +277,10 @@ $(function() {
                 		delp = 3000
                 	}else if(deli=="업체조건배송"){
                 		delp = 5000
+                	}else if(deli=="텐바이텐배송"){
+                		delp = 4000
+                	}else if(deli=="해외직구 배송"){
+                		delp = 10000
                 	}
                 	return delp
                 },
@@ -262,9 +288,19 @@ $(function() {
                 	return this.cartList.filter(vo=> vo.checked).reduce((total, vo) => total + this. delivery(vo), 0)
                 },
                 cartCancel() {
+                	if(this.cartList.length == 0){
+                		alert("카트 목록이 비었습니다")
+                		return
+                	}
+                	
                     const selected = this.cartList.filter(vo => vo.checked).map(vo => vo.fgcno);
-                    console.log(selected); // 선택된 항목 확인
-
+                    console.log("selected"+selected); // 선택된 항목 확인
+					
+                    if (selected.length == 0){
+                    	alert("체크한 항목이 없습니다")
+                    	return
+                    }
+                    
                     // FormData 객체 생성
                     const formData = new FormData();
                     selected.forEach(id => formData.append('selected', id)); // 각 ID를 FormData에 추가

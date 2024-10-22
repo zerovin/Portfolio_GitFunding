@@ -10,6 +10,9 @@ public interface GoodsService {
 	public List<CartVO> cartListData(String id);
 	public int cartCount(Map map);
 	public void cartUpdate(Map map);
-	public void cartDelete(int fgcno);
+	public void cartDelete(List<Integer> fgcno);
 	public List<CartVO> orderListData(List<Integer> fgcno);
+	public GoodsVO goodsOrderData(int fgno);
+	public void orderInsert(Map map);
+	public void orderedDicInsert(Map map);
 }

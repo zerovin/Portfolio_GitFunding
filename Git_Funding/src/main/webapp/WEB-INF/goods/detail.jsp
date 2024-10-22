@@ -169,8 +169,8 @@ function goSubmit() {
                             </table>
                         </div>
                         <div class="icons">
-                            <button><i class="fa-regular fa-heart"></i>720</button>
-                            <button><i class="fa-regular fa-handshake"></i></i>46</button>
+                            <button type="button"><i class="fa-regular fa-heart"></i>720</button>
+                            <button type="button"><i class="fa-regular fa-handshake"></i></i>46</button>
                         </div>
                     </div>
                     
@@ -272,8 +272,11 @@ function goSubmit() {
 	    			  }).then(response=>{
 	    				  console.log(response)
 	    				  if(response.data==="ok"){
-	    					alert("장바구니로 이동합니다")
-	    				  	location.href="../goods/cart.do"
+	    					if(confirm("장바구니에 추가되었습니다.\r\n장바구니로 이동하시겠습니까?")){
+	    						location.href="../goods/cart.do"
+	    					}else{
+	    						return
+	    					}
 	    				  }else{
 	    					  alert("장바구니담기에 실패했습니다...")
 	    				  }

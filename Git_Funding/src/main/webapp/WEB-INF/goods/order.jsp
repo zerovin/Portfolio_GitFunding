@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 <link rel="stylesheet" href="../css/cart.css">
 <style type="text/css">
  .order > tbody > tr > th{
@@ -81,61 +82,59 @@ input[type="button"]:hover{
 	            	      주문금액
 	            	    </th>
 	            	  </tr>
-	            	    <c:if test="${cList!=null }">
-		            	  <c:forEach var="cvo" items="${cList }">
-			            	  <tr class="cartList"> 
+			          <tr class="cartList" v-if="fg_no==''" v-for="cvo in orderList"> 
 				            	    <td width="3%">
 				            	    </td>
 				            	    <td width="15%">
-				            	      <p>${cvo.gvo.delivery }</p>
-				            	      <p style="margin-top: 4px;">${cvo.fgno }</p>
+				            	      <p>{{cvo.gvo.delivery }}</p>
+				            	      <p style="margin-top: 4px;">{{cvo.fgno }}</p>
 				            	    </td>
 				            	    <td width="10%">
-				            	      <p>${cvo.gvo.brand }</p>
+				            	      <p>{{cvo.gvo.brand }}</p>
 				            	    </td>
 				            	    <td width="12%">
-				            	      <img src="${cvo.gvo.img }" style="width: 60px;height: 60px">
+				            	      <img :src="cvo.gvo.img" style="width: 60px;height: 60px">
 				            	    </td>
 				            	    <td width="25%" style="text-align: left;padding-left: 5px ">
-				            	      <p>${cvo.gvo.title }</p>
+				            	      <p>{{cvo.gvo.title }}</p>
+				            	      <p style="color: #999;margin-top: 3px;font-weight: bold;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">[옵션]:{{cvo.ops}}</p>
 				            	    </td>
 				            	    <td width="10%">
-				            	      <p>${cvo.price }</p>
+				            	      <p>{{cvo.price }}</p>
 				            	    </td>
 				            	    <td width="10%" >
-				            	      <p>${cvo.account }</p>
+				            	      <p>{{cvo.account }}</p>
 				            	    </td>
 				            	    <td width="15%">
-				            	      <p>${cvo.tpay} 원</p>
+				            	      <p>{{cvo.tpay}} 원</p>
 				            	    </td>
-				               </tr>
-			               </c:forEach>
-			               </c:if>
+				       </tr>
 	            	  <tr class="cartList" v-if="fg_no!=''">
 	            	    <td width="3%">
 	            	    </td>
 	            	    <td width="15%">
-	            	      <p>철배송</p>
-	            	      <p style="margin-top: 4px;">12345</p>
+	            	      <p>{{vo.delivery}}</p>
+	            	      <p style="margin-top: 4px;">{{fg_no}}</p>
 	            	    </td>
 	            	    <td width="10%">
-	            	      <p>SA</p>
+	            	      <p>{{vo.brand}}</p>
 	            	    </td>
 	            	    <td width="12%">
-	            	      <img src="http://webimage.10x10.co.kr/image/small/347/S003471382-1.jpg" style="width: 60px;height: 60px">
+	            	      <img :src="vo.img" style="width: 60px;height: 60px">
 	            	    </td>
 	            	    <td width="25%" style="text-align: left;padding-left: 5px ">
-	            	      <p>크아아악</p>
+	            	      <p>{{vo.title}}</p>
+	            	      <p style="color: #999;margin-top: 3px;font-weight: bold;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">[옵션]:{{option}}</p>
 	            	    </td>
 	            	    <td width="10%">
-	            	      <p style="text-decoration-line: line-through;color: #899c8f;">17,000원</p>
-	            	      <p>100원</p>
+	            	      <p style="text-decoration-line: line-through;color: #899c8f;">{{vo.discount}}</p>
+	            	      <p>{{vo.price}}</p>
 	            	    </td>
 	            	    <td width="10%" >
-	            	      <p>1개</p>
+	            	      <p>{{account}}</p>
 	            	    </td>
 	            	    <td width="15%">
-	            	      <p>6000원</p>
+	            	      <p>{{totalpay}} 원</p>
 	            	    </td>
 	            	  </tr>
 	            	</table>
@@ -151,14 +150,14 @@ input[type="button"]:hover{
 		                   <li>
 		                     <div style="display: flex; justify-content: space-between;">
 			                     <span>상품 총 금액</span>
-			                     <span>${totalgoods }원</span>
+			                     <span>{{totalgoods}}원</span>
 		                     </div>
 		                   </li>
 		                   <li><hr style="width: 300px; background-color: rgb(234, 234, 234);height: 1px;border: 0"></li>
 		                   <li>
 		                     <div style="display: flex; justify-content: space-between;">
 			                     <span>배송비</span>
-			                     <span>${totaldeli }원</span>
+			                     <span>{{totaldeli}}원</span>
 		                     </div>
 		                   </li>
 		                   <li><hr style="width: 300px; background-color: rgb(234, 234, 234);height: 1px;border: 0"></li>
@@ -170,7 +169,7 @@ input[type="button"]:hover{
 	                 <div>
 	               	  <div style="margin-top: 10px;">
 		               	  <p style="display: inline; font-weight: bold;font-size: 12px">결제 예정 금액</p>
-		               	  <p style="display: inline;color: #d50c0c;font-size: 20px;font-weight: bold; padding-left: 10px">${totalpay }원</p>
+		               	  <p style="display: inline;color: #d50c0c;font-size: 20px;font-weight: bold; padding-left: 10px">{{totalpay}}원</p>
 	               	  </div>
 	               	 </div>
 	               </div>
@@ -181,10 +180,10 @@ input[type="button"]:hover{
 	              <table style="height: 100px;width: 100%;margin-top: 10px;background-color: white;" class="order" id="orderInfo">
 	                <tr style="height: 50%;border-top: 2px solid;">
 	                  <th width="15%">보내시는 분</th>
-	                  <td width="35%"><input type="text" style="border: 1px solid #999; width:150px"></td>
+	                  <td width="35%"><input type="text" style="border: 1px solid #999; width:150px" v-model="send"></td>
 	                  <th width="15%">이메일</th>
 	                  <td width="35%">
-		                  <input type="text" style="border: 1px solid #999; width:120px">&nbsp;@
+		                  <input type="text" style="border: 1px solid #999; width:120px" v-model="email">&nbsp;@
 		                  <select name="email_domain" v-model="email_domain"> 
 	                                <option value="naver.com">naver.com</option>
 	                                <option value="gmail.com">gmail.com</option>
@@ -197,9 +196,9 @@ input[type="button"]:hover{
 	                  </td>
 	                </tr>
 	                <tr style="height: 50%;border-top:1px solid rgb(234, 234, 234);border-bottom: 1px solid rgb(234, 234, 234);">
-	                  <th width="15%">휴대전화</th>
+	                  <th width="15%">휴대전화</span></th>
 	                  <td width="35%">
-	                    <input type="text" id="phone" name="phone" v-model="phone" @keydown="phoneValidate" placeholder="숫자만 입력해주세요" required style="width: 250px;border-bottom: 1px solid #999;">
+	                    <input type="text" id="phone" name="phone" v-model="sendPhone" @keydown="phoneValidate" placeholder="숫자만 입력해주세요"style="width: 250px;border-bottom: 1px solid #999;">
 	                  </td>
 	                </tr>
 	              </table>
@@ -210,22 +209,21 @@ input[type="button"]:hover{
 	              <table style="width: 100%;margin-top: 10px;background-color: white;" class="order" id="orderLoc">
 	                <tr style="border-top: 2px solid;">
 	                  <th style="width: 15%;padding: 15px 15px;">받으시는분</th>
-	                  <td width="85%"><input type="text" style="border: 1px solid #999; width:150px"></td>
+	                  <td width="85%"><input type="text" style="border: 1px solid #999; width:150px" v-model="recv"></td>
 	                </tr>
 	                <tr style="border-top:1px solid rgb(234, 234, 234);border-bottom: 1px solid rgb(234, 234, 234);">
-	                  <th style="width: 15%;padding: 40px 15px;">주소</th>
+	                  <th style="width: 15%;padding: 40px 15px;">주소<span style="color: #d50c0c;font-size: 20px;">*</span></th>
 	                  <td width="85%" id="post">
 	                    <input type="text" id="post1" name="post" v-model="post" ref="post" placeholder="검색버튼을 눌러주세요" style="background-color: #f1f1f1" required readonly>
 	                    <input type="button" class="post_search" value="우편번호 검색" @click="postSearch()" style="font-size: 15px;width: 120px;background-color: #999; margin-left:10px;color: white;font-weight: bold;padding: 3px 10px;">
-                        <p class="check_msg">{{postValidateMsg}}</p>
 	                    <input type="text" id="addr1" name="addr1" v-model="addr1" required readonly style="margin-top: 10px;width: 400px;display:block;background-color: #f1f1f1">
 	                    <input type="text"  name="addr2" v-model="addr2" style="width: 500px;margin-top: 3px;">
 	                  </td>
 	                </tr>
 	                <tr style="border-top:1px solid rgb(234, 234, 234);border-bottom: 1px solid rgb(234, 234, 234);">
-	                  <th style="width: 15%;padding: 15px 15px;">휴대전화</th>
+	                  <th style="width: 15%;padding: 15px 15px;">휴대전화<span style="color: #d50c0c;font-size: 20px;">*</span></th>
 	                  <td width="85%">
-	                  	<input type="text" id="phone" name="phone" v-model="phone" @keydown="phoneValidate" placeholder="숫자만 입력해주세요" required style="width: 250px;border-bottom: 1px solid #999;">
+	                  	<input type="text" id="phone" name="phone" v-model="recvPhone" @keydown="phoneValidate" placeholder="숫자만 입력해주세요" required style="width: 250px;border-bottom: 1px solid #999;">
 	                  </td>
 	                </tr>
 	                <tr style="border-top:1px solid rgb(234, 234, 234);border-bottom: 1px solid rgb(234, 234, 234);">
@@ -236,7 +234,7 @@ input[type="button"]:hover{
 	                                {{request.name}}
 	                                </option> 
 	                     </select>
-	                     <input type="text" style="border-bottom: 1px solid #999; width: 400px;margin-top: 10px;" v-if="isShow">
+	                     <input type="text" style="border-bottom: 1px solid #999; width: 400px;margin-top: 10px;" v-if="isShow" v-model="msg">
 	                  </td>
 	                </tr>
 	              </table>
@@ -269,6 +267,8 @@ input[type="button"]:hover{
             </div>
       </div>
       <script>
+	     var IMP = window.IMP; 
+	     IMP.init("imp57640514");
          let cartOrder=Vue.createApp({
         	 data(){
         		return{
@@ -282,18 +282,32 @@ input[type="button"]:hover{
         				{name:'직접입력',value:'직접입력'}
         			],
         			order_request:'배송 요청사항 없음',
+        			email:'',
         			email_domain:'naver.com',
-        			postValidateMsg:'',
-        			post:'',
-        			addr1:'',
         			account:'${account}',
         			fg_no:'${fg_no}',
-        			option:'${option}'
-        			
+        			option:'${option}',
+        			orderList:${cList},
+        			vo:${vo},
+        			totalgoods:'${totalgoods}',
+        			totaldeli:'${totaldeli}',
+        			totalpay:'${totalpay}',
+        			id:'${sessionScope.userId}',
+        			recvPhone:'',
+        			addr1:'',
+        			addr2:'',
+        			post:'',
+        			goodsname:'',
+        			order_no:'',
+        			send:'',
+        			recv:'',
+        			msg:'',
+        			sendPhone:'',
+        			recvPhone:''
         		} 
         	 },
         	 mounted(){
-        		 console.log(this.fg_no)
+        		 
         	 },
         	 methods:{
         		 changeSelect(){
@@ -318,8 +332,77 @@ input[type="button"]:hover{
      					}
      				}).open()
      			},
+     			requestPay() {
+        		    IMP.request_pay({
+        		        pg: "html5_inicis",
+        		        pay_method: "card",
+        		        merchant_uid: this.order_no,   // 주문번호
+        		        name: this.goodsname,
+        		        amount: parseFloat(this.totalpay.replace(/[^0-9.-]+/g, '')),         // 숫자 타입
+        		        buyer_email: '',
+        		        buyer_name: '',
+        		        buyer_tel: '',
+        		        buyer_addr: '',
+        		        buyer_postcode: ''
+        		     }, function (rsp) { // callback
+        		    	location.href="../goods/order_ok.do"
+        		    });
+        	    },
      			orderOk(){
-     				location.href="../goods/order_ok.do"
+        	    	console.log(this.addr1)
+        	    	if(this.addr1==''){
+        	    		alert("주소를 입력해주세요")
+        	    		return
+        	    	}
+     				if(this.recvPhone===''){
+     					alert("받는분 휴대전화를 입력하세요")
+     					return
+     				}else if(isNaN(this.recvPhone)){
+     					alert("숫자만 입력하세요.")
+     					return
+     				}
+        	   	
+        	    	if(this.fg_no!=''){
+        	    		this.goodsname=this.vo.title
+        	    	}else if(this.fg_no==''){
+        	    		
+        	    		this.goodsname=this.orderList[0].gvo.title+"..."
+        	    	}
+        	    	this.requestPay()
+        	    	
+        	    	this.orderInsert()
+     			},
+     			orderInsert(){
+     				this.order_no="F_GOODS_"+new Date().getTime()+this.id
+     				
+     				const formData = new FormData()
+    		     	formData.append("cList",JSON.stringify(this.orderList))
+    		     	formData.append("fg_no",this.fg_no)
+    		     	formData.append("option",this.option)
+    		     	formData.append("totalpay",this.totalpay)
+    		     	formData.append("orderId",this.order_no)
+    		     	formData.append("email",this.email+this.email_domain)
+    		     	formData.append("address",this.post+this.addr1+this.addr2)
+    		     	formData.append("send",this.send)
+    		     	formData.append("recv",this.recv)
+    		     	formData.append("msg",this.msg)
+    		     	formData.append("sendPhone",this.sendPhone)
+    		     	formData.append("recvPhone",this.recvPhone)
+    		     	formData.append("account",this.account)
+    		     	
+    		    	axios.post('../goods/order_ok_vue.do',formData,{
+    		    		headers: {
+                            'Content-Type': 'multipart/form-data' // FormData를 사용하므로 Content-Type 설정
+                        }
+    		    	}).then(response=>{
+    		    		console.log(response)
+    		    		if(response.data=="ok"){
+    		    			location.href="../goods/order_ok.do"
+    		    		}else{
+    		    			alert("결제 도중 오류가 발생하였습니다")
+    		    		}
+    		    	})
+    		    	
      			}
         	 }
          }).mount('#cartOrder')

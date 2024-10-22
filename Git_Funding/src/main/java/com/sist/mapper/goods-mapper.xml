@@ -63,6 +63,7 @@
 		LEFT JOIN (SELECT fgno, MAX(img) AS img FROM f_goods_img GROUP BY fgno) fgi ON fc.fgno = fgi.fgno
 		LEFT JOIN f_goods_option fgo ON fc.fgno=fgo.fgno  AND fc.ops=fgo.ops
 		WHERE id=#{id}
+		ORDER BY fgcno DESC
 	</select>
 	<select id="orderListData" resultMap="cartDetail" parameterType="java.util.List">
 		SELECT fgcno,fc.price,fc.fgno,account,fc.ops,fg.title,fg.brand,fg.delivery , fgi.img ,fg.price as gPrice , fgo.ea as max
@@ -74,5 +75,13 @@
         <foreach item="fgcno" collection="list" open="(" separator="," close=")">
             #{fgcno}
         </foreach>
+        ORDER BY fgcno DESC
 	</select>
+	<!--  카트 삭제 -->
+	<delete id="cartDelete" parameterType="java.util.List">
+		DELETE FROM f_goods_cart WHERE fgcno IN
+		<foreach collection="list" item="fgcno" open="(" separator="," close=")">
+			#{fgcno}
+		</foreach>
+	</delete>
 </mapper>

@@ -27,7 +27,9 @@ public class GoodsDAO {
 	public GoodsVO goodsDetailData(int fgno){
 		return mapper.goodsDetailData(fgno);
 	}
-	
+	public void goodsHitIncrement(int fgno) {
+		mapper.goodsHitIncrement(fgno);
+	}
 	public void cartInsert(Map map) {
 		mapper.cartInsert(map);
 	}
@@ -41,11 +43,23 @@ public class GoodsDAO {
 	public void cartUpdate(Map map) {
 		mapper.cartUpdate(map);
 	}
-	public void cartDelete(int fgcno) {
+	public void cartDelete(List<Integer> fgcno) {
 		mapper.cartDelete(fgcno);
 	}
 	
 	public List<CartVO> orderListData(List<Integer> fgcno){
 		return mapper.orderListData(fgcno);
+	}
+	
+	public GoodsVO goodsOrderData(int fgno) {
+		return mapper.goodsOrderData(fgno);
+	}
+	
+	public void orderInsert(Map map) {
+		mapper.orderInsert(map);
+	}
+	
+	public void orderedDicInsert(Map map) {
+		mapper.orderedDicInsert(map);
 	}
 }
