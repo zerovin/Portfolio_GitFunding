@@ -15,7 +15,7 @@ public interface RewardMapper {
 	
 	//리워드 구매
 	@Insert("INSERT INTO reward_buy VALUES(rbuy_rbno_seq.nextval, #{rno}, #{account}, #{price}, #{delivery}, #{totalprice}, #{userId}, #{name}, #{phone}, "
-			+ "#{post}, #{addr1}, #{addr2}, #{requestMsg}, SYSDATE)")
+			+ "#{post}, #{addr1}, #{addr2}, #{requestMsg}, SYSDATE, #{fno})")
 	public void rewardBuyInsert(RewardBuyVO vo);
 	
 	@Update("UPDATE funding_reward SET "

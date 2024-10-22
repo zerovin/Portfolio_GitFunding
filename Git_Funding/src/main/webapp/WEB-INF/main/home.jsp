@@ -154,17 +154,24 @@
 	                </ul>
 	                <ol class="rank_list">
 	                    <li v-for="(rank, idx) in rank_list">
-	                        <a :href="'../goods/detail.do?fgno='+rank.fg_no" v-if="isStore">
-	                        <a :href="'../funding/detail_before.do?fno='+rank.fno" v-else>
+	                        <a :href="'../funding/detail_before.do?fno='+rank.fno" v-if="isFunding">
 	                            <p class="number">{{idx+1}}</p>
 	                            <div class="rank_content">
 	                                <div class="text">
 	                                    <p class="title">{{rank.title}}</p>
-	                                    <p class="headcount" v-if="isStore">{{rank.hit}}명 조회</p>
-	                                    <p class="headcount" v-else>{{rank.fm_headcount}}명 참여</p>
+	                                    <p class="headcount">{{rank.fm_headcount}}명 참여</p>
 	                                </div>
-	                                <img :src="rank.img" :alt="rank.title" v-if="isStore">
-	                                <img :src="rank.thumb" :alt="rank.title" v-else>
+	                                <img :src="rank.thumb" :alt="rank.title">
+	                            </div>
+	                        </a>
+	                        <a :href="'../goods/detail.do?fgno='+rank.fg_no" v-else>
+	                            <p class="number">{{idx+1}}</p>
+	                            <div class="rank_content">
+	                                <div class="text">
+	                                    <p class="title">{{rank.title}}</p>
+	                                    <p class="headcount">{{rank.hit}}명 조회</p>
+	                                </div>
+	                                <img :src="rank.img" :alt="rank.title">
 	                            </div>
 	                        </a>
 	                    </li>
@@ -262,7 +269,7 @@
 				deadline_list:[],
 				latest_list:[],
 				bottom_ad:{},
-				isStore:false,
+				isFunding:true
 			}
 		},
 		mounted(){
@@ -284,11 +291,13 @@
 		},
 		methods:{
 			rankChange(type){
+				
 				if(type==='funding'){
-					isStore=false
+					this.isFunding=true
 				}else{
-					isStore=true
+					this.isFunding=false
 				}
+				console.log(this.isFunding)
 				axios.get('../funding/main_rank.do',{
 					params:{
 						type:type

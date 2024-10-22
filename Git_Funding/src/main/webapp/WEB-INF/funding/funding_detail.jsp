@@ -54,7 +54,7 @@
                     <ul class="reward_list">
                     	<li v-if="type==1" class="open_reward">오픈 예정입니다 ☺️</li>
                         <li v-for="reward in reward_list" v-else>
-                            <button @click="rewardClick(reward.rno)">
+                            <button @click="rewardClick(fno, reward.rno)">
                                 <div class="price_account">
                                     <p class="price">{{reward.fm_price}}원</p>
                                     <span class="account">현재 {{reward.amount}}개 남음!</span>
@@ -199,11 +199,11 @@
     					console.log(error)
     				})
     			},
-    			rewardClick(rno){
+    			rewardClick(fno, rno){
     				if(this.sessionId==''){
        					alert("로그인 후 이용해주세요")
        				}else{
-       					location.href="../reward/reward_buy.do?rno="+rno
+       					location.href="../reward/reward_buy.do?fno="+fno+"&rno="+rno
        				}	
     			}
     		}

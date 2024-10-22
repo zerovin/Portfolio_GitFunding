@@ -74,6 +74,7 @@
     	let reward_buy=Vue.createApp({
     		data(){
     			return{
+    				fno:${fno},
     				rno:${rno},
     				reward_vo:{},
     				account:1,
@@ -156,6 +157,7 @@
     				if(this.reward_del_name && this.reward_del_phone && this.memberInfo.post!='' && this.memberInfo.addr1!=''){
     					axios.post('../reward/buy_ok.do',null,{
     						params:{
+    							"fno":this.fno,
     							"rno":this.rno,
         						"account":this.account,
         						"price":this.reward_vo.price,

@@ -37,7 +37,7 @@ public interface FundingMapper {
 			+ "WHERE rownum<=5")
 	public List<FundingVO> mainFundingRankListData();
 	
-	@Select("SELECT fgno, title, img, hit, rownum " 
+	@Select("SELECT fgno as fg_no, title, img, hit, rownum " 
 			+ "FROM (SELECT fg.fgno, fg.title, fgi.img, fg.hit " 
 			+ "FROM f_goods fg LEFT JOIN (SELECT fgno, MAX(img) as img FROM f_goods_img fgi GROUP BY fgno order by fgno) fgi " 
 			+ "ON fg.fgno=fgi.fgno ORDER BY hit DESC) "
