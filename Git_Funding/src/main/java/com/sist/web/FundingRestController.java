@@ -462,32 +462,32 @@ public class FundingRestController {
 	    return result;
 	}
 	
-	@PostMapping(value = "project/reward_insert_vue.do", produces = "text/plain; charset=UTF-8")
-	public String reward_insert(Map map, HttpSession session, RewardVO vo) {
-	    String result = "";
-
-	    try {
-	        String userId = (String) session.getAttribute("userId");
-	        
-	        map.put("userId", userId);
-	        map.put("price", vo.getPrice());
-	        map.put("amount", vo.getAmount());
-	        map.put("delivery", vo.getDelivery());
-	        map.put("limit", vo.getLimit());
-	        map.put("name", vo.getName());
-	        map.put("description", vo.getDescription());
-	        map.put("del_start", vo.getDel_start());
-	        
-	        fService.funding_rewardInsert(map);
-
-	        result = "ok"; // 성공적으로 처리한 경우
-	    } catch (IllegalArgumentException ex) {
-	        result = "Validation error: " + ex.getMessage(); // 유효성 검사 오류 처리
-	    } catch (Exception ex) {
-	        result = "Error: " + ex.getMessage(); // 일반 오류 처리
-	    }
-
-	    return result;
-	}
+//	@PostMapping(value = "project/reward_insert_vue.do", produces = "text/plain; charset=UTF-8")
+//	public String reward_insert(Map map, HttpSession session, RewardVO vo) {
+//	    String result = "";
+//
+//	    try {
+//	        String userId = (String) session.getAttribute("userId");
+//	        
+//	        map.put("userId", userId);
+//	        map.put("price", vo.getPrice());
+//	        map.put("amount", vo.getAmount());
+//	        map.put("delivery", vo.getDelivery());
+//	        map.put("limit", vo.getLimit());
+//	        map.put("name", vo.getName());
+//	        map.put("description", vo.getDescription());
+//	        map.put("del_start", vo.getDel_start());
+//	        
+//	        fService.funding_rewardInsert(map);
+//
+//	        result = "ok"; // 성공적으로 처리한 경우
+//	    } catch (IllegalArgumentException ex) {
+//	        result = "Validation error: " + ex.getMessage(); // 유효성 검사 오류 처리
+//	    } catch (Exception ex) {
+//	        result = "Error: " + ex.getMessage(); // 일반 오류 처리
+//	    }
+//
+//	    return result;
+//	}
 
 }

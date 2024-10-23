@@ -321,7 +321,7 @@ public class FundingDAO {
     public void fundingImgInsert(Map map) {
     	mapper.fundingImgInsert(map);
     }
-    public void funding_rewardInsert(Map map) {
-    	mapper.funding_rewardInsert(map);
-    }
+//    public void funding_rewardInsert(Map map) {
+//    	mapper.funding_rewardInsert(map);
+//    }
 }

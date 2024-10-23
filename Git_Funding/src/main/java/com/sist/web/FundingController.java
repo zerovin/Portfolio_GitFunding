@@ -56,9 +56,9 @@ public class FundingController {
 		return "project/create_project";
 	}
 	
-	@GetMapping("project/create_funding.do")
-	public String create_funding() {
-		
-		return "project/create_funding";
-	}
+//	@GetMapping("project/create_funding.do")
+//	public String create_funding() {
+//		
+//		return "project/create_funding";
+//	}
 }
