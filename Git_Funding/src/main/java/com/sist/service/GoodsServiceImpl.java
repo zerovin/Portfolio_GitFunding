@@ -85,5 +85,10 @@ public class GoodsServiceImpl implements GoodsService{
 		// TODO Auto-generated method stub
 		return gDao.orderSelect(id);
 	}
+	@Override
+	public OrderVO orderInfo(String fgono) {
+		// TODO Auto-generated method stub
+		return gDao.orderInfo(fgono);
+	}
 	
 }

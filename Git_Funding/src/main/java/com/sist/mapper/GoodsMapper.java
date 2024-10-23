@@ -57,4 +57,8 @@ public interface GoodsMapper {
 	 @Select("SELECT * FROM (SELECT * FROM f_goods_order WHERE id=#{id} ORDER BY buydate DESC) WHERE rownum=1") 
 	 public OrderGVO orderSelect(String id);
 	 
+	 @Select("SELECT fo.ops as ops ,fg.title as title ,fo.account as account "
+	 		+ "FROM f_goods fg JOIN (SELECT ops,fgno,account FROM f_ordered WHERE fgono = #{fgono}) fo "
+	 		+ "ON fg.fgno = fo.fgno")
+	 public OrderVO orderInfo(String fgono);
 }

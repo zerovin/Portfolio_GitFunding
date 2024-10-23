@@ -17,4 +17,5 @@ public interface GoodsService {
 	public void orderedDicInsert(Map map);
 	public int goodsEaData(Map map);
 	public OrderGVO orderSelect(String id);
+	 public OrderVO orderInfo(String fgono);
 }

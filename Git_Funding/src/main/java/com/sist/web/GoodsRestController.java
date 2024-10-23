@@ -298,11 +298,12 @@ public class GoodsRestController {
 	@GetMapping(value = "goods/order_ok_vue.do",produces = "text/plain;charset=utf-8")
 	public String order_ok(String id) throws Exception{
 		
-			OrderGVO vo=gService.orderSelect(id);
-			vo.setRecvAddress(vo.getRecvAddress().replace("^", " "));
+			OrderGVO gvo=gService.orderSelect(id);
+			gvo.setRecvAddress(gvo.getRecvAddress().replace("^", " "));
+			OrderVO vo=gService.orderInfo(gvo.getFgono());
 			Map map=new HashMap();
+			map.put("gvo", gvo);
 			map.put("vo", vo);
-		
 			String json=jsonMaker(map);
 		
 		return json;

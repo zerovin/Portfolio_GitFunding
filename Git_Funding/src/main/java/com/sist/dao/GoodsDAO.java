@@ -69,4 +69,7 @@ public class GoodsDAO {
 	public OrderGVO orderSelect(String id) {
 		return mapper.orderSelect(id);
 	}
+	 public OrderVO orderInfo(String fgono) {
+		 return mapper.orderInfo(fgono);
+	 }
 }

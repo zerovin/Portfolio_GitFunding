@@ -194,11 +194,14 @@
 	      data() {
 	          return {
 	              selectedPurchase:{},  // 선택된 구매 항목을 저장
-	              id:'${sessionScope.userId}'
+	              id:'${sessionScope.userId}',
+	              orderInfo:{},
+	              order:''
 	          }
 	      },
 	      mounted() {
 	    	  this.fetchPurchaseDetail()
+	    	  forEach()
 	      },
 	      methods: {
 	          fetchPurchaseDetail() {
@@ -208,7 +211,8 @@
 	                  }
 	              }).then(res => {
 	                  console.log(res.data);
-	                  this.selectedPurchase = res.data.vo;
+	                  this.selectedPurchase = res.data.gvo;
+	                  this.orderInfo = res.data.vo;
 	              }).catch(error => {
 	                  console.error(error.response);
 	              });
