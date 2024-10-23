@@ -372,7 +372,7 @@ input[type="button"]:hover{
         	    	this.orderInsert()
      			},
      			orderInsert(){
-     				this.order_no="F_GOODS_"+new Date().getTime()+this.id
+     				this.order_no="F_GOODS_"+this.id+new Date().getTime()
      				
      				const formData = new FormData()
     		     	formData.append("cList",JSON.stringify(this.orderList))

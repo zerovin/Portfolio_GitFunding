@@ -62,4 +62,8 @@ public class MypageController {
 		MemberVO vo=mService.mypageInfoData(userId);
 		return "mypage/jjim_alert";
 	}
+	@GetMapping("mypage/store_ordered.do")
+	public String store_ordered() {
+		return "mypage/store_ordered";
+	}
 }

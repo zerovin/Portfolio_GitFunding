@@ -69,7 +69,16 @@ public class GoodsDAO {
 	public OrderGVO orderSelect(String id) {
 		return mapper.orderSelect(id);
 	}
-	 public OrderVO orderInfo(String fgono) {
+	 public List<OrderVO> orderInfo(String fgono) {
 		 return mapper.orderInfo(fgono);
+	 }
+	 public List<OrderGVO> mypageStore(Map map){
+		 return mapper.mypageStore(map);
+	 }
+	 public int mypageStoreTotal(String id) {
+		 return mapper.mypageStoreTotal(id);
+	 }
+	 public OrderGVO mypageOrder(String fgono) {
+		 return mapper.mypageOrder(fgono);
 	 }
 }

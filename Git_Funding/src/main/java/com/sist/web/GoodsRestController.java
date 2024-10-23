@@ -300,10 +300,18 @@ public class GoodsRestController {
 		
 			OrderGVO gvo=gService.orderSelect(id);
 			gvo.setRecvAddress(gvo.getRecvAddress().replace("^", " "));
-			OrderVO vo=gService.orderInfo(gvo.getFgono());
+			List<OrderVO> oList=gService.orderInfo(gvo.getFgono());
+			String info="";
+			for(OrderVO vo:oList) {
+				if(vo.getOps().equals("default")) {
+					vo.setOps("기본");
+				}
+				info+=vo.getTitle()+"("+vo.getOps()+") : "+vo.getAccount()+"개 , ";
+			}
+			info=info.substring(0, info.lastIndexOf(",")-1);
 			Map map=new HashMap();
 			map.put("gvo", gvo);
-			map.put("vo", vo);
+			map.put("info", info);
 			String json=jsonMaker(map);
 		
 		return json;

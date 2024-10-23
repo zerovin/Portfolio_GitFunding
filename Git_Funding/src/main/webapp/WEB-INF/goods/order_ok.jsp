@@ -181,9 +181,9 @@
                 </div>
 
                 <!-- 리워드 정보 -->
-                <div class="info-item">
+                <div class="info-item" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
                     <span class="info-label">구매한 상품:</span>
-                    <span class="info-value"></span>
+                    <span class="info-value" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">{{orderInfo}}</span>
                 </div>
             </div>
         </div>
@@ -195,13 +195,12 @@
 	          return {
 	              selectedPurchase:{},  // 선택된 구매 항목을 저장
 	              id:'${sessionScope.userId}',
-	              orderInfo:{},
-	              order:''
+	              orderInfo:''
 	          }
 	      },
 	      mounted() {
 	    	  this.fetchPurchaseDetail()
-	    	  forEach()
+	    	  
 	      },
 	      methods: {
 	          fetchPurchaseDetail() {
@@ -212,7 +211,7 @@
 	              }).then(res => {
 	                  console.log(res.data);
 	                  this.selectedPurchase = res.data.gvo;
-	                  this.orderInfo = res.data.vo;
+	                  this.orderInfo = res.data.info;
 	              }).catch(error => {
 	                  console.error(error.response);
 	              });

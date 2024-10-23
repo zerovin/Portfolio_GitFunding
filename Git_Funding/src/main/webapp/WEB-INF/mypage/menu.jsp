@@ -160,6 +160,9 @@
             },
             main(){
             	location.href="../mypage/main.do"
+            },
+            storeBuy(){
+            	location.href="../mypage/store_ordered.do"
             }
         }
     }).mount('#mypageApp');

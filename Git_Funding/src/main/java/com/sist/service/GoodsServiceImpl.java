@@ -86,9 +86,24 @@ public class GoodsServiceImpl implements GoodsService{
 		return gDao.orderSelect(id);
 	}
 	@Override
-	public OrderVO orderInfo(String fgono) {
+	public List<OrderVO> orderInfo(String fgono) {
 		// TODO Auto-generated method stub
 		return gDao.orderInfo(fgono);
+	}
+	@Override
+	public List<OrderGVO> mypageStore(Map map) {
+		// TODO Auto-generated method stub
+		return gDao.mypageStore(map);
+	}
+	@Override
+	public int mypageStoreTotal(String id) {
+		// TODO Auto-generated method stub
+		return gDao.mypageStoreTotal(id);
+	}
+	@Override
+	public OrderGVO mypageOrder(String fgono) {
+		// TODO Auto-generated method stub
+		return gDao.mypageOrder(fgono);
 	}
 	
 }

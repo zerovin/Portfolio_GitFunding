@@ -92,7 +92,7 @@ $(function(){
 	    }
 	});
 	$('#buyForm').submit(function(e){
-		if(${sessionScope.id==null}){
+		if(${sessionScope.id!=null}){
 			e.preventDefault()
 			alert("로그인 후 이용해주세요")
 			return

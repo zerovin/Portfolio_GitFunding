@@ -24,6 +24,8 @@ public class MypageRestController {
 	private MypageService mService;
 	@Autowired
 	private FundingService fService;
+	@Autowired
+	private GoodsService gService;
 	
 	@GetMapping(value="mypage/menu_vue.do", produces = "text/plain;charset=UTF-8")
 	public String mypage_menu(HttpSession session,HttpServletRequest request) throws Exception {
@@ -179,6 +181,65 @@ public class MypageRestController {
 	    return json;
 	}
 
+	// 스토어
+	@GetMapping(value="mypage/store_order_vue.do" , produces = "text/plain;charset=UTF-8")
+	public String mypageStore(int page , HttpSession session) throws Exception{
+		
+		
+		int rowSize = 6; // 한 페이지에 보여줄 항목 수
+	    int start = (rowSize * page) - (rowSize - 1);
+	    int end = rowSize * page;
+	    String id=(String)session.getAttribute("userId");
+
+	    Map map = new HashMap();
+	    map.put("id", id);
+	    map.put("start", start);
+	    map.put("end", end);
+	    int totalpage=gService.mypageStoreTotal(id);
+		
+		final int BLOCK=6;
+		int startpage=((page-1)/BLOCK*BLOCK)+1;
+		int endpage=((page-1)/BLOCK*BLOCK)+BLOCK;
+		if(endpage>totalpage) {
+			endpage=totalpage;
+		}
+		List<OrderGVO> list=gService.mypageStore(map);
+
+	    map = new HashMap();
+	    map.put("list", list);
+	    map.put("curpage", page);
+	    map.put("startpage", startpage);
+	    map.put("totalpage", totalpage);
+
+	    ObjectMapper mapper = new ObjectMapper();
+	    String json = mapper.writeValueAsString(map);
+
+	    return json;
+	}
 	
+	@GetMapping(value = "mypage/store_buy_detail_vue.do",produces = "text/plain;charset=utf-8")
+	public String order_ok(String fgono) throws Exception{
+		
+			OrderGVO gvo=gService.mypageOrder(fgono);
+			gvo.setRecvAddress(gvo.getRecvAddress().replace("^", " "));
+			List<OrderVO> oList=gService.orderInfo(fgono);
+			String info="";
+			for(OrderVO vo:oList) {
+				if(vo.getOps().equals("default")) {
+					vo.setOps("기본");
+				}
+				info+=vo.getTitle()+"("+vo.getOps()+") : "+vo.getAccount()+"개 , ";
+			}
+			info=info.substring(0, info.lastIndexOf(",")-1);
+			Map map=new HashMap();
+			map.put("gvo", gvo);
+			map.put("info", info);
+
+		    ObjectMapper mapper = new ObjectMapper();
+		    String json = mapper.writeValueAsString(map);
+
+		    return json;
+		
+	}
 
 }
