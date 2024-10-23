@@ -166,4 +166,19 @@ public class FundingServiceImpl implements FundingService{
 		// TODO Auto-generated method stub
 		return fDao.mainStoreRankListData();
 	}
+
+	@Override
+	public void funding_insert() {
+		fDao.funding_insert();
+	}
+
+	@Override
+	public void fundingImgInsert(Map map) {
+		fDao.fundingImgInsert(map);
+	}
+
+	@Override
+	public void funding_rewardInsert(Map map) {
+		fDao.funding_rewardInsert(map);
+	}
 }

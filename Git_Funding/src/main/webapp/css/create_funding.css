@@ -1,0 +1,151 @@
+.CreateFunding {
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.UserNameContainer{
+    text-align:center;
+    font-weight:bold;
+    font-size:large;
+}
+.UserNameContainer h2{
+    text-align:center;
+    font-weight:bold;
+    font-size:xx-large;
+}
+.UserNameContainer p{
+	margin-bottom:50px;
+}
+.CreateBodyContainer{
+	padding-left:300px;
+	padding-right:300px;
+}
+.CreateBodyContainer2{
+	border: 1px solid #f8c200;
+}
+.SubjectContainer h4{
+	margin-bottom:10px;
+	font-weight:bold;
+}
+.SubjectContainer p{
+	margin-bottom:20px;
+}
+.subjectContainerTextArea{
+/* 	border:2px solid #ccc; #ccc; */
+	margin-bottom:20px;
+}
+.SelectCategoryContainer{
+	border-top:1px solid #ccc;;
+	padding-top:20px;
+	margin-top:20px;
+}
+.SelectCategoryContainer h4{
+	margin-bottom:10px;
+	font-weight:bold;
+}
+.SelectCategory option{
+	margin: 5px;
+	border:1px solid #ccc; #ccc;
+}
+.UplodaThumContainer{
+	border-top:1px solid #ccc;;
+	padding-top:20px;
+	margin-top: 30px;
+}
+.UplodaThumContainer h4{
+	font-weight:bold;
+	margin-bottom:20px;
+}
+.UplodaThumContainer P{
+	margin-top:20px;
+	margin-bottom:20px;
+}
+.UplodaThumContainer input{
+	margin-bottom:20px;
+	border:1px solid #ccc; #ccc;
+}
+.TargetPriceContainer{
+	border-top:1px solid #ccc;;
+	padding-top:20px;
+	margin-top: 20px;
+}
+.TargetPriceContainer h4{
+	margin-top:20px;
+	margin-bottom:20px;
+}
+.TargetPriceContainer p{
+	margin-top:20px;
+	font-weight:bold;
+}
+.TargetPriceContainerinput{
+	margin-top:10px;
+	margin-right:10px;
+	margin-bottom:10px;
+	border:1px solid #ccc;
+} 
+.AddRewardContainer{
+	border-top:1px solid #ccc;;
+	padding-top:20px;
+	margin-top:20px;
+	margin-bottom:20px;
+}
+.AddRewardContainer h4{
+	margin-top:20px; 
+}
+.AddRewardContainer p{
+	margin-top:20px; 
+}
+.AddRewardContainer button{
+	margin-top:20px; 
+	margin-bottom:20px; 
+	border:none;
+    background-color:#f8c200;
+    color:white;
+    padding:10px 20px;
+    cursor:pointer;
+    border-radius:5px;
+    font-size:14px;
+    width:190px;
+}
+.MakerInfoContainer{
+	border-top:1px solid #ccc;;
+	padding-top:20px;
+	margin-top:20px;
+	margin-bottom:20px;
+}
+.MakerInfoContainer h4{
+	margin-top:20px;
+}
+.MakerInfoContainer p{
+	margin-top:20px;
+}
+.InsertMakerImageContainter {
+	border-top:1px solid #ccc;;
+	padding-top:20px;
+    width: 100%; /* 가로폭을 100%로 설정 */
+    max-width: 600px; /* 최대 너비 설정 (원하는 너비로 조정 가능) */
+    margin-bottom: 20px; /* 아래쪽 여백 설정 */
+}
+.InsertMakerImageContainter h4{
+	margin-bottom:20px;
+}
+.MakerInfoTextArea{
+	margin-top:10px;
+	margin-bottom:10px;
+}
+.CreateFundingBtn {
+    border:none;
+    background-color:#f8c200;
+    color:white;
+    padding:10px 20px;
+    cursor:pointer;
+    border-radius:5px;
+    font-size:14px;
+    margin:5px;
+    width:115px;
+    margin-left:165px;
+    
+}

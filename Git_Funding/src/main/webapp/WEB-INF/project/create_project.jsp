@@ -31,7 +31,7 @@
 				<p><i class="fa-solid fa-circle"></i> 국내단독은 프로젝트 성공 후 일부 금액을 선정산 받을 수 있고,</p>
 				<p><i class="fa-solid fa-circle"></i> 특별구성·한정판은 배송 및 환불 완료 후 정산받을 수 있어요.</p>
 				<p><i class="fa-solid fa-circle"></i> 아래 3가지 혜택 중 1가지 이상의 혜택을 반드시 포함해야 해요.</p>
-				<p><i class="fa-solid fa-circle"></i> 국내 단독 / 특별 구성 / 한정판</p>
+				<p><i class="fa-solid fa-circle"></i> 국내 단독 / 특별 구성 / 한정판</p> 
         </div>
     </section>
     <script>

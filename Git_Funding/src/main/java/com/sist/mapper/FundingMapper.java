@@ -3,6 +3,7 @@ import java.util.*;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
@@ -177,4 +178,21 @@ public interface FundingMapper {
 			+ "backing=backing+1 "
 			+ "WHERE fno=#{fno}")
 	public void fundingBackingInce(int fno);
+	
+	// 펀딩 프로젝트 생성
+	@Insert("INSERT INTO funding (fno, title, description, type, thumb, targetprice, totalprice, headcount, period, wish, backing, p_admin, link, startdate, enddate, alert) " 
+	        + "VALUES(funding_fno_seq.nextval, #{title}, #{description}, #{type}, #{thumb}, #{targetprice}, #{totalprice}, #{headcount}, #{period}, #{wish}, #{backing}, #{p_admin}, #{link}, #{startdate}, #{enddate}, #{alert})")
+	public void funding_insert();
+
+	// 펀딩 프로젝트 생성의 이미지 등록
+	// 펀딩 번호(참조), 펀딩 이미지, 첨부된 사진의 개수
+	@Insert("INSERT INTO funding_img (fno, image, order_num) "
+            + "VALUES ((SELECT MAX(fno) FROM funding), #{image}, #{orderNum})")
+    public void fundingImgInsert(Map map);
+	
+	// 펀딩 프로젝트 생성의 리워드 등록
+	// 리워드 넘버, funding번호 (참조), 리워드 이름, 리워드 가격, 리워드 현재 개수, 리워드 설명, 리워드 배송비, 리워드 배송 시작일, 리워드 총 개수
+	@Insert("INSERT INTO funding_reward (rno, fno, name, price, amount, description, delivery, del_start, limit) "
+			+ "VALUES(fr_rno_seq.nextval, #{fno}, #{name}, #{price}, #{amount}, #{description}, #{delivery}, #{del_start}, #{limit})")
+	public void funding_rewardInsert(Map map);
 }

@@ -49,10 +49,16 @@ public class FundingController {
 		return "funding/funding_detail";
 	}
 	
-	@GetMapping("funding/funding_insert.do")
-	public String funding_insert() {
+	@GetMapping("project/create_project.do")
+	public String create_project(HttpSession session) {
+		String id = (String)session.getAttribute("userId");
 		
-		return "funing/insert";
+		return "project/create_project";
 	}
 	
+	@GetMapping("project/create_funding.do")
+	public String create_funding() {
+		
+		return "project/create_funding";
+	}
 }

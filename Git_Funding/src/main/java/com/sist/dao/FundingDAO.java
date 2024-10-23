@@ -304,12 +304,24 @@ public class FundingDAO {
 	}
 	
 	/*
-		@Insert("INSERT INTO funding (fno, title, description, type, thumb, targetPrice, totalPrice, headCount, period, "
-		        + "wish, backing, p_admin, link, startDate, endDate, alert) "
-		        + "VALUES (funding_fno_seq.nextval, #{title}, #{description}, #{type}, #{thumb}, #{targetPrice}, #{totalPrice}, "
-		        + "#{headCount}, #{period}, #{wish}, #{backing}, #{p_admin}, #{link}, #{startDate}, #{endDate}, #{alert})")
+		// 펀딩 프로젝트 생성
+		@Insert("INSERT INTO funding (fno, title, description, type, thumb, targetprice, totalprice, headcount, period, wish, backing, p_admin, link, startdate, enddate, alert) " 
+		        + "VALUES(funding_fno_seq.nextval, #{title}, #{description}, #{type}, #{thumb}, #{targetprice}, #{totalprice}, #{headcount}, #{period}, #{wish}, #{backing}, #{p_admin}, #{link}, #{startdate}, #{enddate}, #{alert})")
+		public void funding_insert();
 	 */
-	public void fundingInsert(Map map) {
-		mapper.fundingInsert(map);
+	public void funding_insert() {
+		mapper.funding_insert();
 	}
+
+	/*
+		// 펀딩 프로젝트 생성의 이미지 등록
+		@Insert("INSERT INTO funding_img (fno, image, order_num) "
+	        	+ "VALUES ((SELECT MAX(fno) FROM funding), #{image}, #{orderNum})")
+	 */
+    public void fundingImgInsert(Map map) {
+    	mapper.fundingImgInsert(map);
+    }
+    public void funding_rewardInsert(Map map) {
+    	mapper.funding_rewardInsert(map);
+    }
 }

@@ -32,6 +32,9 @@ public interface FundingService {
 	public int fundingTotalPage();
 	public List<FundingVO> fundingCateListData(Map map);
 	public int fundingCateTotalPage(String cate);
+	public void funding_insert();
+	public void fundingImgInsert(Map map);
+	public void funding_rewardInsert(Map map);
 	
 	//상세
 	public FundingVO fundingDetailData(int fno);
@@ -39,6 +42,4 @@ public interface FundingService {
 	public List<FundingRewardVO> fundingRewardDetailData(int fno);
 	public void fundingBackingInsert(Map map);
 	public void fundingBackingInce(int fno);
-	
-	//펀딩 추가
 }
