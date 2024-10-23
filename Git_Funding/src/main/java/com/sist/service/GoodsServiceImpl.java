@@ -75,5 +75,15 @@ public class GoodsServiceImpl implements GoodsService{
 		// TODO Auto-generated method stub
 		gDao.orderedDicInsert(map);
 	}
+	@Override
+	public int goodsEaData(Map map) {
+		// TODO Auto-generated method stub
+		return gDao.goodsEaData(map);
+	}
+	@Override
+	public OrderGVO orderSelect(String id) {
+		// TODO Auto-generated method stub
+		return gDao.orderSelect(id);
+	}
 	
 }

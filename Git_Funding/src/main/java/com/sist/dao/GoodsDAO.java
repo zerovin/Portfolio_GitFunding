@@ -62,4 +62,11 @@ public class GoodsDAO {
 	public void orderedDicInsert(Map map) {
 		mapper.orderedDicInsert(map);
 	}
+	
+	public int goodsEaData(Map map) {
+		return mapper.goodsEaData(map);
+	}
+	public OrderGVO orderSelect(String id) {
+		return mapper.orderSelect(id);
+	}
 }

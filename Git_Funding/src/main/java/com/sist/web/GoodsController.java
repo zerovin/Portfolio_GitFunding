@@ -91,7 +91,6 @@ public class GoodsController {
 		String fg_no=request.getParameter("fg_no");
 		
 		GoodsVO vo=gService.goodsOrderData(Integer.parseInt(fg_no));
-		
 		ObjectMapper mapper=new ObjectMapper();
 		String json=mapper.writeValueAsString(vo);
 		

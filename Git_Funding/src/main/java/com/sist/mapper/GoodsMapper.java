@@ -42,11 +42,19 @@ public interface GoodsMapper {
 	
 	
 	@Insert("INSERT INTO f_goods_order(fgono,id,payment,recvaddress,msg,send,recv,sendphone,recvphone,email) "
-			+ "VALUES(#{fgono},#{id},#{payment},#{recvaddress},#{msg},#{send},#{recv},#{sendphone},#{recvphone},#{email})")
+			+ "VALUES(#{fgono},#{id},#{payment},#{recvaddress},#{msg},#{send},#{recv},#{sendPhone},#{recvPhone},#{email})")
 	public void orderInsert(Map map);
+
+	// 남은 수량 검사
+	@Select("SELECT ea FROM f_goods_option WHERE fgno=#{fgno} AND ops=#{ops}")
+	public int goodsEaData(Map map);
 	
-	// 바로 주문
 	@Insert("INSERT INTO f_ordered VALUES(#{fgono},#{fgno},#{ops},#{account})")
 	public void orderedDicInsert(Map map);
-	// 카트로 주문
+	
+	// 주문 확인
+	
+	 @Select("SELECT * FROM (SELECT * FROM f_goods_order WHERE id=#{id} ORDER BY buydate DESC) WHERE rownum=1") 
+	 public OrderGVO orderSelect(String id);
+	 
 }

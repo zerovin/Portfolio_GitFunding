@@ -86,6 +86,18 @@ $(function(){
 	        readmore.removeClass('active')
 	    }
 	})
+	document.querySelector('input[type="number"]').addEventListener('keydown', function(event) {
+	    if (event.key === 'Enter') {
+	        event.preventDefault(); // 기본 동작 방지
+	    }
+	});
+	$('#buyForm').submit(function(e){
+		if(${sessionScope.id==null}){
+			e.preventDefault()
+			alert("로그인 후 이용해주세요")
+			return
+		}
+	})
 	
 })
 function imgChange(){
@@ -99,9 +111,7 @@ function imgChange(){
 	        thumbNail.classList.remove("fade-out"); // 불투명도 원래대로 복원
 	 }, 100); // 0.5초 후에 src를 변경
 }
-function goSubmit() {
-    $("#buyForm").submit();
-}
+
 </script>
 </head>
 <body>
@@ -115,7 +125,7 @@ function goSubmit() {
 	          <span class="space" v-if="vo.cate4!=null">&nbsp;&nbsp;&gt;&nbsp;&nbsp;</span>
 	          <span class="space" v-if="vo.cate4!=null">{{vo.cate4 }}</span>
             </div>
-            <form id="butForm" method="post" action="../goods/orderDic.do">
+            <form id="buyForm" method="post" action="../goods/orderDic.do">
             
             <div class="right" style="display: flex; width: 100%">
                	<div style="width: 55%">
@@ -163,7 +173,7 @@ function goSubmit() {
                             	    <p>주문수량</p>
                             	  </th>
                             	  <td>
-                            	    <input type="number" style="border: 1px solid #f1f1f1; width: 80px;" min="1" :max="max" v-model="account" name="account">
+                            	    <input type="number" style="border: 1px solid #f1f1f1; width: 80px;" min="0" :max="max" v-model="account" name="account">
                             	  </td>
                             	</tr>
                             </table>
@@ -171,6 +181,7 @@ function goSubmit() {
                         <div class="icons">
                             <button type="button"><i class="fa-regular fa-heart"></i>720</button>
                             <button type="button"><i class="fa-regular fa-handshake"></i></i>46</button>
+                            <input type="hidden" name="optionSelect" v-if="option=='default'" value="default">
                         </div>
                     </div>
                     
@@ -190,7 +201,7 @@ function goSubmit() {
 
                     <div style="display:flex;justify-content: center;gap:10px;" >
                     	<input type="hidden" name="fg_no" :value="fg_no">
-                    	<div><button style="margin:10px 0px;padding: 15px 80px;background-color: #d50c0c;color: white;" id="buyBtn" onclick="goSubmit()">바로구매</button></div>
+                    	<div><button style="margin:10px 0px;padding: 15px 80px;background-color: #d50c0c;color: white;" id="buyBtn">바로구매</button></div>
                     	<div><input type="button" value="장바구니" style="margin:10px 0px;padding: 15px 80px;border: 1px solid #d50c0c;color: #d50c0c;" id="cartBtn" @click="cartBuy()"></div>
                     </div>
                 </div>
@@ -259,9 +270,16 @@ function goSubmit() {
     		  cartBuy(){
     			  if(this.sessionId==''){
      					alert("로그인 후 이용해주세요")
-     					
+     					return
      			  }else{
-    			  
+     				  if(this.max==0){
+     					  alert("품절상품입니다")
+     					  return
+     				  }
+    			  	  if(this.account==0){
+    			  		  alert("수량을 선택해주세요")
+    			  		  return
+    			  	  }
 	    			  axios.post('../goods/cart_insert_vue.do',null,{
 	    				  params:{
 	    					  fg_no:this.fg_no,
