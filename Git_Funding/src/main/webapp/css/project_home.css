@@ -359,7 +359,7 @@
 }
 
 .pagination button {
-    background-color: #4CAF50;
+    background-color: #4CAF50; /* 기본 버튼 색상 */
     color: white;
     border: none;
     padding: 10px;
@@ -370,7 +370,7 @@
 }
 
 .pagination button:disabled {
-    background-color: #ddd;
+    background-color: #ddd;  /* 비활성화된 버튼 색상 */
     cursor: not-allowed;
 }
 
@@ -379,6 +379,32 @@
     margin: 0 10px;
 }
 
+/* 비활성화된 버튼 스타일 (페이징 버튼) */
+.pagination .inactive-btn {
+    background-color: #ccc;  /* 회색 */
+    color: #333;  /* 텍스트 색상 */
+    border: 1px solid #999;
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+/* 활성화된 버튼 스타일 (페이징 버튼) */
+.pagination .active-btn {
+    background-color: #007bff;  /* 파란색 */
+    color: white;  /* 텍스트 색상 */
+    border: 1px solid #0056b3;
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+/* 공통 버튼 hover 스타일 (비활성화된 버튼에는 적용되지 않도록 예외 처리) */
+.pagination button:hover:not(:disabled):not(.active-btn) {
+    background-color: #f0f0f0; /* hover 시 연한 회색 */
+}
+
+/* 프로젝트 생성 버튼 스타일 */
 .CreateProjectBtn {
     background-color: #007bff;
     color: white;

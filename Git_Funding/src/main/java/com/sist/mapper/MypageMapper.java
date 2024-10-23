@@ -53,7 +53,7 @@ public interface MypageMapper {
     public int getTotalRewardBuyCount(String userId);
  
     @Select("SELECT rb.rbno, rb.rno, rb.fno, rb.name AS buyerName, fr.name AS rewardName, fr.del_start, rb.totalprice, rb.delivery, rb.phone, rb.post, rb.addr1, rb.addr2, rb.regdate, rb.requestMsg " +
-            "FROM reward_buy rb " + 
+            "FROM reward_buy rb " +  
             "JOIN funding_reward fr ON rb.rno = fr.rno " +  // 리워드 정보 조인
             "WHERE rb.rbno = #{rbno}")  // 구매 번호로 구매 내역 상세 조회
     public RewardBuyVO getPurchaseDetail(int rbno);

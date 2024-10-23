@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sist.vo.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.service.*;
 
@@ -19,20 +20,17 @@ public class ProjectRestController {
 	@Autowired
 	private MypageService mService;
 	
-	@GetMapping(value = "project/home_vue.do", produces = "text/plain; charset = UTF-8")
-	public String mypage_menu(HttpSession session) throws Exception {
-		String userId = (String)session.getAttribute("userId");
-		
-		// 세션에 userId가 없는 경우 처리
-		if (userId == null) {
-			return "{\"error\": \"User not logged in\"}";
-		}
-		
-		MemberVO vo = mService.mypageInfoData(userId);
-		ObjectMapper mapper = new ObjectMapper();
-		String json = mapper.writeValueAsString(vo);
-		
-		return json;
+	@GetMapping(value = "project/home_vue.do", produces = "application/json; charset=UTF-8")
+	public String homePage(HttpSession session) throws JsonProcessingException {
+	    Map<String, Object> response = new HashMap<>();
+	    String nickname = (String) session.getAttribute("nickname");
+	    String userName = (String) session.getAttribute("userName"); // 필요하다면 userName도 가져옵니다.
+	    
+	    response.put("nickname", nickname);
+	    response.put("userName", userName);
+	    
+	    ObjectMapper mapper = new ObjectMapper();
+	    return mapper.writeValueAsString(response);
 	}
 	
 	// 프로젝트 관리자 펀딩 내역

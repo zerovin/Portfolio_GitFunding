@@ -9,10 +9,11 @@
 	<div id="ProjectHome" class="container">
 		<div class="LeftArea">
 			<div class="profile_wrap">
-				<img src="../images/profile.png" alt="프로필이미지">		
+				<img src="${sessionScope.profile }" alt="프로필이미지">		
 				<a href="#" class="profile_edit"><i class="fa-regular fa-pen-to-square"></i></a>	
 			</div>
-			<a href="#" class="user_name">{{userName}}님 <i class="fa-solid fa-chevron-right"></i></a>
+			<a href="#" class="user_name" v-if="nickname === null">{{userName}}님 <i class="fa-solid fa-chevron-right"></i></a>
+			<a href="#" class="user_name" v-else>{{nickname}}님 <i class="fa-solid fa-chevron-right"></i></a>
 			<button class=GoToMyPageBtn @click="GoToMyPage()">마이페이지로 이동</button>
 		</div>
 		<div class="CenterArea">
@@ -66,7 +67,7 @@
 				    <div class="CenterAreaCenter2nd">		    	 
 				    	<ul>
 				            <li :class="{ active: CenterSelectedTab === 'funding' }" @click="CenterSelectTab('funding')">
-				                <dl>나의 펀딩</dl>
+				                <dl>{{count}}개의 프로젝트 목록</dl>
 				            </li>
 				        </ul>
 				        <div v-if="CenterSelectedTab === 'funding'" class="FundingView">
@@ -86,12 +87,18 @@
 					        </ul>
 					
 					        <!-- 페이징 버튼 -->
-					        <div class="pagination">
-							    <button v-if="startPage > 1" @click="prev">이전</button>
-							    <button v-for="i in range(startPage, endPage)" :class="{active: i === curpage}" @click="pageChange(i)">{{ i }}</button>
-							    <button v-if="endPage < totalpage" @click="next">다음</button>
+								<div class="pagination">
+									<button v-if="startPage > 1" @click="prev"
+										:class="{'inactive-btn': curpage !== startPage}">이전</button>
+
+									<button v-for="i in range(startPage, endPage)"
+										:class="{ 'active-btn': i === curpage, 'inactive-btn': i !== curpage }"
+										@click="pageChange(i)">{{ i }}</button>
+
+									<button v-if="endPage < totalpage" @click="next"
+										:class="{'inactive-btn': curpage !== endPage}">다음</button>
+								</div>
 							</div>
-					    </div>
 					    
 					    <!-- 프로젝트가 없는 경우 -->
 					    <div v-else>
@@ -149,6 +156,7 @@
 	    data() {
 	        return {
 	            userName: '',
+	            nickname: null,
 	            TopSelectedTab: 'Home',
 	            CenterSelectedTab: 'funding',
 	            projectList: [],  // 프로젝트 리스트 데이터를 저장할 배열
@@ -167,7 +175,8 @@
 	        dataRecv() {
 	            axios.get('../project/home_vue.do')
 	            .then(response => {
-	                this.userName = response.data.userName;  // 사용자 이름 설정
+	            	 this.userName = response.data.userName;  // 서버에서 받은 사용자 이름
+	                 this.nickname = response.data.nickname;   // 사용자 이름 설정
 	            }).catch(error => {
 	                console.log(error.response);
 	            });
