@@ -244,7 +244,7 @@ let totalFeedApp = Vue.createApp({
         selectRandomFollowing() {
             let shuffled = this.followingList.sort(() => 0.5 - Math.random())
             this.randomFollowingList = shuffled.slice(0, 8)
-        },
+        }, 
         loadFeed() {
             axios.get('../gitsta/total_feed_vue.do')
             .then(response => {

@@ -6,6 +6,19 @@
     <meta charset="UTF-8">
     <title>구매 목록</title>
     <style>
+     .no-purchases {
+            text-align: center;
+            padding: 40px 0;
+            font-size: 20px;
+            color: #888;
+            font-weight: bold;
+        }
+
+        .no-purchases-icon {
+            font-size: 50px;
+            color: #f8c200;
+            margin-bottom: 10px;
+        }
         .purchase-list {
             width: 800px;
             margin: 0 auto;
@@ -117,7 +130,11 @@
 <body>
     <div id="purchaseApp" class="purchase-list">
         <h2 id="fundingtext">펀딩 구매 내역</h2>
-        <table class="purchase-table">
+        <div v-if="purchases.length === 0" class="no-purchases">
+            <div class="no-purchases-icon">🛒</div>
+            구매 내역이 없습니다!!
+        </div>
+        <table v-else class="purchase-table">
             <thead>
                 <tr>
                     <th></th>
@@ -137,7 +154,7 @@
         </table>
 
         <!-- 클릭 시 상세 정보 출력 -->
-        <div v-if="selectedPurchase" class="detail-info">
+        <div id="detailSection" v-if="selectedPurchase" class="detail-info">
                 <h1 style="text-align: center;font-size: 25px;padding-bottom: 5px;">구매 내역 상세</h1>
             <div class="detail-box">
                 <!-- 구매자 정보 -->
@@ -194,69 +211,82 @@
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script>
-        const purchaseApp = Vue.createApp({
-            data() {
-                return {
-                    purchases: [],
-                    selectedPurchase: null,  // 선택된 구매 항목을 저장
-                    curpage: 1,
-                    startpage: 1,
-                    totalPages: 0,
-                    pages: []
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    const purchaseApp = Vue.createApp({
+        data() {
+            return {
+                purchases: [],
+                selectedPurchase: null,  // 선택된 구매 항목을 저장
+                curpage: 1,
+                startpage: 1,
+                totalPages: 0,
+                pages: []
+            }
+        },
+        mounted() {
+            this.fetchPurchases();
+
+            $(document).on('click', '.purchase-table tr', function() {
+                const $detailSection = $('#detailSection');
+                if ($detailSection.is(':visible')) {
+                    $detailSection.slideUp();  // 닫기
+                } else {
+                    $detailSection.slideDown();  // 열기
+                }
+            });
+        },
+        methods: {
+            fetchPurchases() {
+                axios.get('../mypage/funding_buy_vue.do', {
+                    params: { page: this.curpage }
+                }).then(res => {
+                    console.log(res.data);
+                    this.purchases = res.data.list;
+                    this.totalPages = res.data.totalpage;
+                    this.startpage = res.data.startpage;
+                    this.generatePages();
+
+                    // 페이지 변경 시 상세 정보 닫기
+                    $('#detailSection').slideUp();
+                }).catch(error => {
+                    console.error(error.response);
+                });
+            },
+            fetchPurchaseDetail(rbno) {
+                axios.get('../mypage/funding_buy_detail_vue.do', {
+                    params: { rbno }
+                }).then(res => {
+                    console.log(res.data);
+                    this.selectedPurchase = res.data;
+                }).catch(error => {
+                    console.error(error.response);
+                });
+            },
+            generatePages() {
+                this.pages = [];
+                for (let i = this.startpage; i <= this.totalPages; i++) {
+                    this.pages.push(i);
                 }
             },
-            mounted() {
+            changePage(page) {
+                this.curpage = page;
                 this.fetchPurchases();
             },
-            methods: {
-                fetchPurchases() {
-                    axios.get('../mypage/funding_buy_vue.do', {
-                        params: { page: this.curpage }
-                    }).then(res => {
-                        console.log(res.data);
-                        this.purchases = res.data.list;
-                        this.totalPages = res.data.totalpage;
-                        this.startpage = res.data.startpage;
-                        this.generatePages();
-                    }).catch(error => {
-                        console.error(error.response);
-                    });
-                },
-                fetchPurchaseDetail(rbno) {
-                    axios.get('../mypage/funding_buy_detail_vue.do', {
-                        params: { rbno }
-                    }).then(res => {
-                        console.log(res.data);  // 여기에 콘솔 로그를 출력하여 데이터를 확인
-                        this.selectedPurchase = res.data;
-                    }).catch(error => {
-                        console.error(error.response);
-                    });
-                },
-                generatePages() {
-                    this.pages = [];
-                    for (let i = this.startpage; i <= this.totalPages; i++) {
-                        this.pages.push(i);
-                    }
-                },
-                changePage(page) {
-                    this.curpage = page;
+            prevPage() {
+                if (this.curpage > 1) {
+                    this.curpage--;
                     this.fetchPurchases();
-                },
-                prevPage() {
-                    if (this.curpage > 1) {
-                        this.curpage--;
-                        this.fetchPurchases();
-                    }
-                },
-                nextPage() {
-                    if (this.curpage < this.totalPages) {
-                        this.curpage++;
-                        this.fetchPurchases();
-                    }
+                }
+            },
+            nextPage() {
+                if (this.curpage < this.totalPages) {
+                    this.curpage++;
+                    this.fetchPurchases();
                 }
             }
-        }).mount('#purchaseApp');
-    </script>
+        }
+    }).mount('#purchaseApp');
+</script>
 </body>
 </html>

@@ -6,16 +6,16 @@
 <body>
 	<div id="funding_detail">
         <ul class="detail_tab">
-            <li><a :href="'../funding/detail_before.do?fno='+fno">상세설명</a></li>
-            <li><a :href="'../funding/detail_notice.do?fno='+fno" class="active">새소식</a></li>
-            <li><a :href="'../funding/detail_community.do?fno='+fno">커뮤니티</a></li>
+            <li><a :href="'../funding/detail_before.do?fno='+fno+'&type='+this.type">상세설명</a></li>
+            <li><a :href="'../funding/detail_notice.do?fno='+fno+'&type='+this.type" class="active">새소식</a></li>
+            <li><a :href="'../funding/detail_community.do?fno='+fno+'&type='+this.type">커뮤니티</a></li>
         </ul>
         <section class="container">
             <div class="left notice">
             	<h2>새소식 <span>{{count}}</span></h2>
             	<ul class="notice_list">
             		<li class="notice_li" v-for="notice in notice_list">
-            			<a href="'../funding/detail_notice_detail.do?fno='+fno+'&dnno='+notice.dnno">
+            			<a :href="'../funding/detail_notice_detail.do?fno='+fno+'&dnno='+notice.dnno">
             				<span class="cate">{{notice.cate}}</span>
             				<p class="notice_title">{{notice.title}}</p>
             				<span class="date">{{notice.dbday}}</span>

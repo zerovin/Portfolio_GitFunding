@@ -1,5 +1,6 @@
 package com.sist.dao;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -29,5 +30,24 @@ public class FundingDetailBoardDAO {
 	 */
 	public int fundingNoticeTotalPage() {
 		return mapper.fundingNoticeTotalPage();
+	}
+	
+	/*
+	 @Select("SELECT dnno, cate, title, TO_CHAR(regdate, 'YYYY.MM.DD HH24:MI:SS') as dbday, content "
+			+ "FROM funding_detail_notice "
+			+ "WHERE dnno=#{dnno}")
+	public FundingDetailNoticeVO fundingNoticeDetailData(int dnno); 
+	 */
+	public FundingDetailNoticeVO fundingNoticeDetailData(int dnno) {
+		return mapper.fundingNoticeDetailData(dnno);
+	}
+	
+	/*
+	@Insert("INSERT INTO funding_detail_comm "
+			+ "VALUES(fdc_dcno_pk.nextval, #{fno), #{userId}, #{cate}, #{content}, SYSDATE)")
+	public void fundingCommInsert(FundingDetailCommVO vo); 
+	 */
+	public void fundingCommInsert(FundingDetailCommVO vo) {
+		mapper.fundingCommInsert(vo);
 	}
 }

@@ -6,9 +6,9 @@
 <body>
 	<div id="funding_detail">
         <ul class="detail_tab">
-            <li><a :href="'../funding/detail_before.do?fno='+fno" class="active">상세설명</a></li>
-            <li><a :href="'../funding/detail_notice.do?fno='+fno">새소식</a></li>
-            <li><a :href="'../funding/detail_community.do?fno='+fno">커뮤니티</a></li>
+            <li><a :href="'../funding/detail_before.do?fno='+fno+'&type='+this.type" class="active">상세설명</a></li>
+            <li><a :href="'../funding/detail_notice.do?fno='+fno+'&type='+this.type">새소식</a></li>
+            <li><a :href="'../funding/detail_community.do?fno='+fno+'&type='+this.type">커뮤니티</a></li>
         </ul>
         <section class="container">
             <div class="left">

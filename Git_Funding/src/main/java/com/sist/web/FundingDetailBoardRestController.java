@@ -2,8 +2,11 @@ package com.sist.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.*;
+
+import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.service.*;
@@ -42,5 +45,27 @@ public class FundingDetailBoardRestController {
 		ObjectMapper mapper=new ObjectMapper();
 		String json=mapper.writeValueAsString(map);
 		return json;
+	}
+	
+	@GetMapping(value="funding/notice_detail_vue.do", produces="text/plain;charset=UTF-8")
+	public String funding_notice_detail(int dnno) throws Exception{
+		FundingDetailNoticeVO vo=bService.fundingNoticeDetailData(dnno);
+		ObjectMapper mapper=new ObjectMapper();
+		String json=mapper.writeValueAsString(vo);
+		return json;
+	}
+	
+	@PostMapping(value="funding/community_insert.do", produces="text/plain;charset=UTF-8")
+	public String funding_community_insert(FundingDetailCommVO vo, HttpSession session) {
+		String result="";
+		try {
+			String id=(String)session.getAttribute("userId");
+			vo.setUserId(id);
+			bService.fundingCommInsert(vo);
+			result="ok";
+		}catch(Exception ex) {
+			result=ex.getMessage();
+		}
+		return result;
 	}
 }

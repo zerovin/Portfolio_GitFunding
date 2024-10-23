@@ -6,53 +6,64 @@
 <body>
 	<div id="funding_detail">
         <ul class="detail_tab">
-            <li><a :href="'../funding/detail_before.do?fno='+fno">상세설명</a></li>
-            <li><a :href="'../funding/detail_notice.do?fno='+fno">새소식</a></li>
-            <li><a :href="'../funding/detail_community.do?fno='+fno" class="active">커뮤니티</a></li>
+            <li><a :href="'../funding/detail_before.do?fno='+fno+'&type='+this.type">상세설명</a></li>
+            <li><a :href="'../funding/detail_notice.do?fno='+fno+'&type='+this.type">새소식</a></li>
+            <li><a :href="'../funding/detail_community.do?fno='+fno+'&type='+this.type" class="active">커뮤니티</a></li>
         </ul>
         <section class="container">
-            <div class="left notice">
-            	<h2>커뮤니티 <span>4</span></h2>
-            	<ul class="notice_list">
-            		<li class="notice_li">
-            			<a href="">
-            				<span class="cate">리워드안내</span>
-            				<p class="notice_title">소비자의 안전과 제품의 신뢰성을 갖춘 필수인증[KC마크]</p>
-            				<div class="date_reply">
-            					<span>2024.10.09</span>
-            					<span>댓글 7</span>
+            <div class="left community">
+           		<div class="top">
+	            	<h2>커뮤니티 <span>4</span></h2>
+	            	<div>
+		            	<button @click="openList()"><i class="fa-solid fa-pencil"></i> 글쓰기 <i class="fa-solid fa-chevron-down"></i></button>
+		            	<ul class="write_list">
+		            		<li @click="commWrite()">응원·의견·리뷰</li>
+		            		<li @click="backingWrite()">지지서명</li>
+		            	</ul>
+	            	</div>
+           		</div>
+            	<h3>응원·의견·리뷰<span>21</span></h3>
+            	<ul class="comm_list">
+            		<li>
+            			<div class="member_info">
+            				<div class="info">
+            					<img src="../images/profile.png" alt="">
+            					<div class="text">
+            						<p class="nick">닉네임</p>
+            						<p class="date">2024.10.10</p>
+            					</div>
             				</div>
-            			</a>
-            		</li>
-            		<li class="notice_li">
-            			<a href="">
-            				<span class="cate">이벤트</span>
-            				<p class="notice_title">📢 72시간 오픈런 이벤트 참여하면 선물이 팡팡🎉 72시간 오픈런 이벤트 참여하면 선물이 팡팡🎉 72시간 오픈런 이벤트 참여하면 선물이 팡팡🎉</p>
-            				<div class="date_reply">
-            					<span>2024.10.09</span>
-            					<span>댓글 7</span>
+            				<div class="follow_edit">
+            					<button><i class="fa-solid fa-plus"></i> 팔로우</button>
+            					<button><i class="fa-regular fa-pen-to-square"></i> 수정</button>
             				</div>
-            			</a>
-            		</li>
-            		<li class="notice_li">
-            			<a href="">
-            				<span class="cate">리워드안내</span>
-            				<p class="notice_title">소비자의 안전과 제품의 신뢰성을 갖춘 필수인증[KC마크]</p>
-            				<div class="date_reply">
-            					<span>2024.10.09</span> | 
-            					<span>댓글 7</span>
+            			</div>
+            			<div class="content_box">
+            				<span class="cate">응원</span>
+            				<pre>한번쯤 미니어처를 만들어보고싶었는데, 우연히 발견하여 펀딩하였습니다..! 과연 투박한 손으로 완성할수있을지 기대가됩니다...!! 잘 완성되어서 앞으로도 다른 미니어처도 만들수있는 계기가된다면 너무너무 좋겠네요</pre>
+            			</div>
+            			<div class="comment">
+            				<button class="show"><i class="fa-regular fa-comment-dots"></i> 댓글</button>
+            				<div class="wrap">
+	            				<div class="form">
+	            					<img src="../images/profile.png" alt="">
+	            					<input type="text" placeholder="댓글을 작성해주세요">
+	            					<button>입력</button>
+	            				</div>
+	            				<ul class="comment_list">
+	            					<li>
+	            						<img src="../images/profile.png" alt="">
+	            						<div class="comm_content">
+	            							<div>
+		            							<p>제이닷 <span>2024.10.11</span></p>
+		            							<button class="edit">수정</button>
+	            							</div>
+	            							<pre>선택하신 제품에 따라 난이도는 상이하지만 잘 하실 수 있을거에요!! 참여해주셔서 감사합니다^^^^^^^^^^^^^^^^^^^^^^^^^^^</pre>
+	            						</div>
+	            					</li>
+	            				</ul>
             				</div>
-            			</a>
-            		</li>
-            		<li class="notice_li">
-            			<a href="">
-            				<span class="cate">이벤트</span>
-            				<p class="notice_title">📢 72시간 오픈런 이벤트 참여하면 선물이 팡팡🎉</p>
-            				<div class="date_reply">
-            					<span>2024.10.09</span>
-            					<span>댓글 7</span>
-            				</div>
-            			</a>
+            			</div>
             		</li>
             	</ul>
             </div>
@@ -114,6 +125,27 @@
                 </div>
             </div>
         </section>
+        <aside id="communityWindow" ref="communityWindow">
+        	<h2>응원·의견·리뷰 📣</h2>
+        	<p>응원·의견·리뷰를 자유롭게 작성해주세요!</p>
+       		<div class="radio_box">
+	        	<div>
+	        		<input type="radio" name="cate" id="cheer" value="응원" v-model="comm_cate">
+	        		<label for="cheer">응원</label>
+	        	</div>
+	        	<div>
+	        		<input type="radio" name="cate" id="opinion" value="의견" v-model="comm_cate">
+	        		<label for="opinion">의견</label>
+	        	</div>
+	        	<div>
+	        		<input type="radio" name="cate" id="review" value="리뷰" v-model="comm_cate">
+	        		<label for="review">리뷰</label>
+	        	</div>
+        	</div>
+        	<textarea placeholder="소통의 글을 남겨주세요 :)" v-model="commContent"></textarea>
+        	<button class="insert" @click="commInsert(funding_vo.fno)">등록하기</button>
+        	<span class="close" @click="commInsertClose"><i class="fa-solid fa-xmark"></i></span>
+        </aside>
         <aside id="backingWindow" ref="backingWindow">
         	<h2>친구에게 소개해 보세요 📣</h2>
         	<p>지지서명으로 프로젝트 관리자에게 힘이 되어주세요!</p>
@@ -134,7 +166,10 @@
     				reward_list:[],
     				isWish:false,
     				wish_count:0,
-    				backingContent:''
+    				backingContent:'',
+    				isOpen:false,
+    				comm_cate:'',
+    				commContent:'',
     			}
     		},
     		mounted(){
@@ -147,6 +182,45 @@
     			})
     		},
     		methods:{
+    			openList(){
+    				if(this.isOpen==false){
+    					$('.write_list').show();
+    					this.isOpen=true
+    				}else{
+    					$('.write_list').hide();
+    					this.isOpen=false
+    				}
+    			},
+    			commWrite(){
+    				if(this.sessionId==''){
+       					alert("로그인 후 이용해주세요")
+       				}else{
+	    				$('#communityWindow').show()
+       				}
+    			},
+    			commInsertClose(){
+    				$('#communityWindow').hide()
+    				$('#communityWindow textarea').val('')
+    			},
+    			commInsert(fno){
+    				axios.post('../funding/community_insert.do',null,{
+    					params:{
+    						fno:fno,
+    						cate:this.comm_cate,
+    						content:this.commContent
+    					}
+    				}).then(response=>{
+    					if(response.data==="ok"){
+    						//this.commDataRecv()
+    						this.commInsertClose()
+    						this.openList()
+    					}else{
+    						console.log(response.data)
+    					}
+    				}).catch(error=>{
+    					console.log(error)
+    				})
+    			},
     			dataRecv(){
     				axios.get('../funding/funding_detail_vue.do',{
         				params:{
@@ -209,9 +283,7 @@
     				if(this.sessionId==''){
        					alert("로그인 후 이용해주세요")
        				}else{
-	    				$('.backingBtn').click(function(){
-	    					$('#backingWindow').show()
-	    				})
+	    				$('#backingWindow').show()
        				}
     			},
     			backingClose(){

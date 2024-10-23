@@ -35,7 +35,7 @@ public class GitstaDAO {
 	public void feedInsert(GitstaVO vo) {
 		mapper.feedInsert(vo);
 	}
-	//팔로잉
+
 	public List<MemberVO> gitstaFollowingListData(String userId){
 		return mapper.gitstaFollowingListData(userId);
 	}

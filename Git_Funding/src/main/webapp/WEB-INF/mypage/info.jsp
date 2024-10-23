@@ -206,7 +206,7 @@
                 getUserInfo() {
                     axios.get('../mypage/menu_vue.do')
                         .then(res => {
-                            this.userInfo = res.data;
+                            this.userInfo = res.data.userInfo;
                         })
                         .catch(error => {
                             console.log(error.response)

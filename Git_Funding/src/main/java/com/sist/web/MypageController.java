@@ -39,6 +39,12 @@ public class MypageController {
 		MemberVO vo=mService.mypageInfoData(userId);
 		return "mypage/info";
 	}
+	@GetMapping("mypage/follow.do")
+	public String mypage_follow(HttpSession session) {
+		String userId=(String)session.getAttribute("userId");
+		MemberVO vo=mService.mypageInfoData(userId);
+		return "mypage/follow";
+	}
 	@GetMapping("mypage/info_update.do")
 	public String mypage_info_update(HttpSession session) {
 		String userId=(String)session.getAttribute("userId");

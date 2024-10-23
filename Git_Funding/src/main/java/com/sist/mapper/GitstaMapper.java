@@ -61,6 +61,9 @@ public interface GitstaMapper {
 	
 	@Select("SELECT COUNT(*) FROM follow WHERE followerId = #{userId}")
 	public int getFollowingCount(@Param("userId") String userId); 
+	
+
+	
 	//팔로워
 	@Select("SELECT m.userId, m.nickname, m.userName, m.profile "
 	        + "FROM follow f "
