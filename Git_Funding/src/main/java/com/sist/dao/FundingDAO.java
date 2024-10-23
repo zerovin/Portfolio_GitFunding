@@ -302,4 +302,14 @@ public class FundingDAO {
 	public void fundingBackingInce(int fno) {
 		mapper.fundingBackingInce(fno);
 	}
+	
+	/*
+		@Insert("INSERT INTO funding (fno, title, description, type, thumb, targetPrice, totalPrice, headCount, period, "
+		        + "wish, backing, p_admin, link, startDate, endDate, alert) "
+		        + "VALUES (funding_fno_seq.nextval, #{title}, #{description}, #{type}, #{thumb}, #{targetPrice}, #{totalPrice}, "
+		        + "#{headCount}, #{period}, #{wish}, #{backing}, #{p_admin}, #{link}, #{startDate}, #{endDate}, #{alert})")
+	 */
+	public void fundingInsert(Map map) {
+		mapper.fundingInsert(map);
+	}
 }

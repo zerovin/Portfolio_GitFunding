@@ -39,4 +39,6 @@ public interface FundingService {
 	public List<FundingRewardVO> fundingRewardDetailData(int fno);
 	public void fundingBackingInsert(Map map);
 	public void fundingBackingInce(int fno);
+	
+	//펀딩 추가
 }

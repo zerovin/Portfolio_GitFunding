@@ -166,5 +166,4 @@ public class FundingServiceImpl implements FundingService{
 		// TODO Auto-generated method stub
 		return fDao.mainStoreRankListData();
 	}
-
 }
