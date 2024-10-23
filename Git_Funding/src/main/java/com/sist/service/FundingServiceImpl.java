@@ -177,8 +177,8 @@ public class FundingServiceImpl implements FundingService{
 		fDao.fundingImgInsert(map);
 	}
 
-	@Override
-	public void funding_rewardInsert(Map map) {
-		fDao.funding_rewardInsert(map);
-	}
+//	@Override
+//	public void funding_rewardInsert(Map map) {
+//		fDao.funding_rewardInsert(map);
+//	}
 }

@@ -189,10 +189,4 @@ public interface FundingMapper {
 	@Insert("INSERT INTO funding_img (fno, image, order_num) "
             + "VALUES ((SELECT MAX(fno) FROM funding), #{image}, #{orderNum})")
     public void fundingImgInsert(Map map);
-	
-	// 펀딩 프로젝트 생성의 리워드 등록
-	// 리워드 넘버, funding번호 (참조), 리워드 이름, 리워드 가격, 리워드 현재 개수, 리워드 설명, 리워드 배송비, 리워드 배송 시작일, 리워드 총 개수
-	@Insert("INSERT INTO funding_reward (rno, fno, name, price, amount, description, delivery, del_start, limit) "
-			+ "VALUES(fr_rno_seq.nextval, #{fno}, #{name}, #{price}, #{amount}, #{description}, #{delivery}, #{del_start}, #{limit})")
-	public void funding_rewardInsert(Map map);
 }
