@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.util.*;
 import com.sist.mapper.*;
 import com.sist.vo.AlertVO;
+import com.sist.vo.FundingVO;
 import com.sist.vo.MemberVO;
 import com.sist.vo.RewardBuyVO;
 import com.sist.vo.WishVO;
@@ -59,4 +60,18 @@ public class MypageDAO {
     public int goodsBuyTotalCount(String userId) {
     	return mapper.goodsBuyTotalCount(userId);
     }
+    
+    // 프로젝트 관리자 펀딩 내역
+    public List<FundingVO> myFundingListData(Map map){
+    	return mapper.myFundingListData(map);
+    }
+	
+	public int myFundingTotalCount(String userId) {
+		return mapper.myFundingTotalCount(userId);
+	}
+	
+	public int myFundingTotalPage(String userId) {
+		return mapper.myFundingTotalPage(userId);
+	}
+	
 }

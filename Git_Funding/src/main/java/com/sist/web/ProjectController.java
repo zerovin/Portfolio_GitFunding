@@ -9,4 +9,8 @@ public class ProjectController {
 	public String project_home() {
 		return "project/home";
 	}
+	@GetMapping("project/reward_detail.do")
+	public String reward_detail(int fno) {
+		return "project/reward_detail";
+	}
 }

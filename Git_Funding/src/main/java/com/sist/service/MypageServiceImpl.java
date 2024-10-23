@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.sist.dao.MypageDAO;
 import com.sist.vo.AlertVO;
+import com.sist.vo.FundingVO;
 import com.sist.vo.MemberVO;
 import com.sist.vo.RewardBuyVO;
 import com.sist.vo.WishVO;
@@ -71,6 +72,21 @@ public class MypageServiceImpl implements MypageService{
 	@Override
 	public int goodsBuyTotalCount(String userId) {
 		return mDao.goodsBuyTotalCount(userId);
+	}
+
+	@Override
+	public List<FundingVO> myFundingListData(Map map) {
+		return mDao.myFundingListData(map);
+	}
+
+	@Override
+	public int myFundingTotalCount(String userId) {
+		return mDao.myFundingTotalCount(userId);
+	}
+
+	@Override
+	public int myFundingTotalPage(String userId) {
+		return mDao.myFundingTotalPage(userId);
 	}
 
 }

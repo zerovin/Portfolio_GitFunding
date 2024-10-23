@@ -60,44 +60,49 @@
 				                        <dd>- 0</dd> 
 				                    </dl>
 				                </li>
-				                <li> 
-				                    <dl>
-				                        <dt>앵콜 요청</dt>
-				                        <dd>- <br>(보류)</dd>
-				                    </dl>
-				                </li>
 				            </ul>
 				        </div>
 				    </div>
 				    <div class="CenterAreaCenter2nd">		    	 
 				    	<ul>
 				            <li :class="{ active: CenterSelectedTab === 'funding' }" @click="CenterSelectTab('funding')">
-				                <dl>펀딩・프리오더</dl>
-				            </li>
-				            <li :class="{ active: CenterSelectedTab === 'store' }" @click="CenterSelectTab('store')">
-				                <dl>스토어</dl>
+				                <dl>나의 펀딩</dl>
 				            </li>
 				        </ul>
-				        <div class="FundingStoreViewContainer" id="FundingStoreView">
-			        		<div v-if="CenterSelectedTab === 'funding'" class="FundingView">
-		        				<i class="fa-solid fa-gift" style="text-align:center; font-size: 50px"></i>
-			        			<p class="FundingViewText">새로운 도전을</p>
-			        			<p><br>시작해보세요.</p>
-			        			<p><br>제품・콘텐츠・서비스 출시, 성장까지 깃펀딩이 함께합니다.</p>
-			        			<div>
-			        				<button class="CreateProjectBtn" @click="CreateProject">프로젝트 만들기</button>
-			        			</div>
-			        		</div>
-			        		<div v-if="CenterSelectedTab === 'store'" class="StoreView">
-		        				<i class="fa-solid fa-store" style="text-align:center; font-size: 50px"></i>
-			        			<p class="StoreViewText">새로운 도전을</p>
-			        			<p><br>시작해보세요.</p>
-			        			<p><br>제품・콘텐츠・서비스 출시, 성장까지 깃펀딩이 함께합니다.</p>
-			        			<div>
-			        				<button class="CreateProjectBtn" @click="CreateProject">프로젝트 만들기</button>
-			        			</div>
-			        		</div>
-				    	</div>
+				        <div v-if="CenterSelectedTab === 'funding'" class="FundingView">
+						    <div v-if="CenterSelectedTab === 'funding'" class="FundingView">
+					    <!-- 프로젝트 리스트 출력 -->
+					    <div v-if="projectList.length > 0">
+					        <ul class="project-list">
+					            <li v-for="project in projectList" :key="project.fno" class="project-item" @click="rewardDetail(project.fno)">
+					                <img :src="project.thumb" alt="프로젝트 이미지" class="project-image">
+					                <div class="project-info">
+					                    <h3>{{ project.title }}</h3>
+					                    <p>달성률: {{ project.fm_percent }}%</p>
+					                    <p>달성 금액: {{ project.fm_totalprice }}원</p>
+					                    <p>D-Day: {{ project.dday }}일 남음</p>
+					                </div>
+					            </li>
+					        </ul>
+					
+					        <!-- 페이징 버튼 -->
+					        <div class="pagination">
+							    <button v-if="startPage > 1" @click="prev">이전</button>
+							    <button v-for="i in range(startPage, endPage)" :class="{active: i === curpage}" @click="pageChange(i)">{{ i }}</button>
+							    <button v-if="endPage < totalpage" @click="next">다음</button>
+							</div>
+					    </div>
+					    
+					    <!-- 프로젝트가 없는 경우 -->
+					    <div v-else>
+					        <p>프로젝트가 없습니다.</p>
+					        <div>
+					            <button class="CreateProjectBtn" @click="CreateProject">프로젝트 만들기</button>
+					        </div>
+					    </div>
+					</div>
+
+						</div>
 				    </div>
 				</div>
 				<div class="CenterAreaBottomContainer">
@@ -140,44 +145,95 @@
 		</div>
 	</div>
 	<script>
-	    let ProjectHomeApp = Vue.createApp({
-	        data() {
-	            return {
-	                // 데이터가 필요할 경우 추가
-	            	userName: '',
-	            	TopSelectedTab: 'Home',
-	            	CenterSelectedTab: 'funding'
+	let ProjectHomeApp = Vue.createApp({
+	    data() {
+	        return {
+	            userName: '',
+	            TopSelectedTab: 'Home',
+	            CenterSelectedTab: 'funding',
+	            projectList: [],  // 프로젝트 리스트 데이터를 저장할 배열
+	            curpage: 1,  // 현재 페이지
+	            totalpage: 0,  // 총 페이지 수
+	            startPage: 1,  // 시작 페이지
+	            endPage: 0,    // 끝 페이지
+	            count: 0       // 총 프로젝트 개수
+	        };
+	    },
+	    mounted() {
+	        this.dataRecv();  // 사용자 이름 받아오기
+	        this.getProjectList();  // 프로젝트 리스트 데이터 가져오기
+	    },
+	    methods: {
+	        dataRecv() {
+	            axios.get('../project/home_vue.do')
+	            .then(response => {
+	                this.userName = response.data.userName;  // 사용자 이름 설정
+	            }).catch(error => {
+	                console.log(error.response);
+	            });
+	        },
+	        getProjectList() {
+	            axios.get('../funding/my_funding_list_vue.do', {
+	                params: {
+	                    page: this.curpage  // 현재 페이지 번호 전송
+	                }
+	            })
+	            .then(response => {
+	                this.projectList = response.data.list;
+	                this.curpage = response.data.curpage;
+	                this.totalpage = response.data.totalpage;
+	                this.endPage = response.data.endpage;
+	                this.startPage = response.data.startpage;
+	                this.count = response.data.count;
+	            }).catch(error => {
+	                console.log(error.response);
+	            });
+	        },
+	        range(start, end) {
+	            let arr = [];
+	            for (let i = start; i <= end; i++) {
+	                arr.push(i);
+	            }
+	            return arr;
+	        },
+	        pageChange(page) {
+	            this.curpage = page;
+	            this.getProjectList();
+	        },
+	        prev() {
+	            if (this.startPage > 1) {
+	                this.curpage = this.startPage - 1;
+	                this.getProjectList();
 	            }
 	        },
-	        mounted() {
-	        	this.dataRecv()
-	        },
-	        methods: {
-	        	dataRecv() {
-	        		axios.get('../project/home_vue.do')
-	        		.then(response => {
-	        			this.userName = response.data.userName
-	        		}).catch(error => {
-	        			console.log(error.response)
-	        		})
-	        	},
-	            GoToMyPage() {
-	                window.location.href = '../mypage/main.do'
-	            },
-	            navigateTo(tab) {
-	            	this.TopSelectedTab = tab
-	            },
-	            CenterSelectTab(tab) {
-	                this.CenterSelectedTab = tab
-	            },
-	            Notice() {
-	            	location.href = '../notice/list.do'
-	            },
-	            AcountSettings(){
-	            	location.href = '../mypage/info.do'
+	        next() {
+	            if (this.endPage < this.totalpage) {
+	                this.curpage = this.endPage + 1;
+	                this.getProjectList();
 	            }
+	        },
+	        GoToMyPage() {
+	            window.location.href = '../mypage/main.do';
+	        },
+	        navigateTo(tab) {
+	            this.TopSelectedTab = tab;
+	        },
+	        CenterSelectTab(tab) {
+	            this.CenterSelectedTab = tab;
+	        },
+	        Notice() {
+	            location.href = '../notice/list.do';
+	        },
+	        AcountSettings() {
+	            location.href = '../mypage/info.do';
+	        },
+	        rewardDetail(fno) {
+	        	location.href = '../project/reward_detail.do?fno='+fno;
 	        }
-	    }).mount('#ProjectHome')
+	    }
+	}).mount('#ProjectHome');
+
+
 	</script>
 </body>
 </html>

@@ -19,4 +19,9 @@ public interface MypageService {
     public int getTotalRewardBuyCount(String userId);
     public RewardBuyVO getPurchaseDetail(int rbno);
     public int goodsBuyTotalCount(String userId);
+    
+    // 프로젝트 관리자 페이지 펀딩 목록
+    public List<FundingVO> myFundingListData(Map map);
+	public int myFundingTotalCount(String userId);
+	public int myFundingTotalPage(String userId);
 }

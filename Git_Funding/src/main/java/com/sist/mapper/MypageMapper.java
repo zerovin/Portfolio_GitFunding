@@ -17,7 +17,7 @@ public interface MypageMapper {
 	@Update("UPDATE funding_member SET email=#{email}, gender=#{gender}, addr1=#{addr1}, addr2=#{addr2}, post=#{post}, phone=#{phone} "
 			+"WHERE userId=#{userId}")    
 	public void mypageInfoUpdate(MemberVO vo);    
-	   
+	    
 	// 찜 목록  
 	@Select("SELECT f.fno, f.title, f.type, f.thumb, w.wno, w.userId, w.cate, to_char(w.regdate, 'YYYY-MM-DD') as dbday " +
 	        "FROM funding f " + 
@@ -53,12 +53,29 @@ public interface MypageMapper {
     public int getTotalRewardBuyCount(String userId);
  
     @Select("SELECT rb.rbno, rb.rno, rb.fno, rb.name AS buyerName, fr.name AS rewardName, fr.del_start, rb.totalprice, rb.delivery, rb.phone, rb.post, rb.addr1, rb.addr2, rb.regdate, rb.requestMsg " +
-            "FROM reward_buy rb " +
+            "FROM reward_buy rb " + 
             "JOIN funding_reward fr ON rb.rno = fr.rno " +  // 리워드 정보 조인
             "WHERE rb.rbno = #{rbno}")  // 구매 번호로 구매 내역 상세 조회
     public RewardBuyVO getPurchaseDetail(int rbno);
     // 상품 구매 
     @Select("SELECT COUNT(*) FROM f_goods_order WHERE id = #{userId}")
     public int goodsBuyTotalCount(String userId);
+    
+    // 프로젝트 관리자 페이지 펀딩 내역
+    @Select("SELECT fno, title, thumb, p_admin, targetprice, totalprice, TO_CHAR(headcount, 'FM999,999') as fm_headcount, TO_CHAR(enddate, 'YYYYMMDD') as endday, num "
+			+ "FROM (SELECT fno, title, thumb, p_admin, targetprice, totalprice, headcount, enddate, rownum as num "
+			+ "FROM (SELECT fno, title, thumb, p_admin, targetprice, totalprice, headcount, enddate "
+			+ "FROM funding WHERE userId=#{userId} "
+			+ "ORDER BY fno DESC)) "
+			+ "WHERE num BETWEEN #{start} AND #{end}")
+	public List<FundingVO> myFundingListData(Map map);
+	
+	@Select("SELECT COUNT(*) FROM funding WHERE userId=#{userId}")
+	public int myFundingTotalCount(String userId);
+	
+	@Select("SELECT CEIL(COUNT(*)/4.0) FROM funding "
+				+ "WHERE userId=#{userId}")
+	public int myFundingTotalPage(String userId);
+
 }
         

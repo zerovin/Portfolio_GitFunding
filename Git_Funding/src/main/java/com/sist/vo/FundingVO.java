@@ -22,7 +22,7 @@ ALERT                NUMBER
  */
 @Data
 public class FundingVO {
-	private int fno, targetprice, totalprice, headcount, wish, backing, alert, percent, dday, isAlert, of;
-	private String title, description, type, thumb, period, p_admin, link, startday, endday, fm_headcount, fm_totalprice, fm_wish, fm_backing, fm_percent;
+	private int fno, targetprice, totalprice, headcount, wish, backing, alert, percent, dday, isAlert, of, count;
+	private String title, userId, description, type, thumb, period, p_admin, link, startday, endday, fm_headcount, fm_totalprice, fm_wish, fm_backing, fm_percent;
 	private Date startdate, enddate;
 }
