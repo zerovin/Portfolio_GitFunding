@@ -448,7 +448,7 @@ public class FundingRestController {
 	            map.put("image", filenames.toString()); // 이미지 경로
 	            map.put("orderNum", files.size()); // 파일 개수
 	            fService.fundingImgInsert(map); // DB에 정보 등록
-//	            fService.funding_insert(list);
+//	            fService.funding_insert(list);  
 	        }
 
 	        result = "ok";
