@@ -8,12 +8,15 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sist.vo.*;
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.service.*;
 
@@ -88,7 +91,11 @@ public class GoodsRestController {
 		DecimalFormat df=new DecimalFormat();
 		
 		String realprice=df.format(price*(100-discount)/10000*100)+"원";
-		
+		for(Goods2VO gvo:vo.getGvo()) {
+			if(gvo.getEa()==0) {
+				gvo.setOps(gvo.getOps()+"(품절)");
+			}
+		}
 		vo.setRealprice(realprice);
 		
 		Map map=new HashMap();
@@ -158,8 +165,8 @@ public class GoodsRestController {
 		return result;
 	}
 	@PostMapping(value = "goods/order_ok_vue.do",produces = "text/plain;charset=utf-8")
-	public String order_ok(@RequestParam("cList") String cList,HttpServletRequest request,HttpSession session) {
-		String result="no";
+	public String order_ok(@RequestParam("cList") String cListJ,HttpServletRequest request,HttpSession session) throws Exception{
+		String result="";
 		/*
     		     	formData.append("cList",JSON.stringify(this.orderList))
     		     	formData.append("fg_no",this.fg_no)
@@ -176,72 +183,128 @@ public class GoodsRestController {
 		 */
 		
 		String fg_no=request.getParameter("fg_no");
-		
 		String totalpay=request.getParameter("totalpay");
 		String orderId=request.getParameter("orderId");
 		String email=request.getParameter("email");
-		String address=request.getParameter("email");
+		if(email.equals("@")) {
+			email=(String)session.getAttribute("email");
+		}
+		String address=request.getParameter("address");
 		String send=request.getParameter("send");
+		if(send.equals("")) {
+			send=(String)session.getAttribute("userName");
+		}
 		String recv=request.getParameter("recv");
 		String msg=request.getParameter("msg");
 		String sendPhone=request.getParameter("sendPhone");
+		if(sendPhone.equals("")) {
+			sendPhone=(String)session.getAttribute("phone");
+		}
 		String recvPhone=request.getParameter("recvPhone");
 		String id=(String)session.getAttribute("userId");
 	
 		Map map=new HashMap();
-		map.put("fgono", orderId);
-		map.put("email", email);
-		map.put("recvaddress",address);
-		map.put("send", send);
-		map.put("recv", recv);
-		map.put("msg", msg);
-		map.put("sendPhone", sendPhone);
-		map.put("recvPhone", recvPhone);
-		map.put("id", id);
-		map.put("payment", totalpay);
-		gService.orderInsert(map);
-		map.clear();
+		
+		
+		
 		try {
-				if(fg_no!=null) {
+				
+		
+				if(!fg_no.equals("")) {
 					String option=request.getParameter("option");
 					String account=request.getParameter("account");
 					int iaccount=Integer.parseInt(account);
 					int fgno=Integer.parseInt(fg_no);
-		
-					map.put("fgono", orderId);
-					map.put("ops", option);
-					map.put("account", iaccount);
 					map.put("fgno", fgno);
-					gService.orderedDicInsert(map);
-					
-					result="ok";
-				}else if(fg_no==null) {
-			
-				
-					ObjectMapper mapper=new ObjectMapper();
-					List<CartVO> cartList= mapper.readValue(cList, List.class);
-					List<Integer> fgcnoList=new ArrayList<Integer>();
-					for(int i=0;i<cartList.size();i++) {
-						map.put("fgono", orderId);
-						map.put("ops", cartList.get(i).getOps());
-						map.put("account", cartList.get(i).getAccount());
-						map.put("fgno", cartList.get(i).getFgno());
-						gService.orderedDicInsert(map);
-						map.clear();
-						fgcnoList.add(cartList.get(i).getFgcno());
+					map.put("ops", option);
+					int ea=gService.goodsEaData(map);
+					// 수량 검사
+					if(ea<iaccount) {
+						result=fg_no;
+					}else {
 						
+						map.put("fgono", orderId);
+						map.put("account", iaccount);
+						
+						gService.orderedDicInsert(map);
+						map.put("email", email);
+						map.put("recvaddress",address);
+						map.put("send", send);
+						map.put("recv", recv);
+						map.put("msg", msg);
+						map.put("sendPhone", sendPhone);
+						map.put("recvPhone", recvPhone);
+						map.put("id", id);
+						map.put("payment", totalpay);
+						gService.orderInsert(map);
+						
+						result="ok";
 					}
+				}else if(fg_no.equals("")) {
 					
-					gService.cartDelete(fgcnoList);
-					result="ok";
-				
+					ObjectMapper mapper=new ObjectMapper();
+					List<CartVO> cList= mapper.readValue( cListJ, mapper.getTypeFactory().constructCollectionType(List.class, CartVO.class));
+					List<Integer> fgcnoList=new ArrayList<Integer>();
+					for(int i=0;i<cList.size();i++) {
+						map.put("fgno", cList.get(i).getFgno());
+						map.put("ops", cList.get(i).getOps());
+						int ea=gService.goodsEaData(map);
+						if(ea<cList.get(i).getAccount()) {
+							result=result+cList.get(i).getFgno()+",";
+						}
+						map.clear();
+					}
+					if(result.equals("")) {
+						
+						for(int i=0;i<cList.size();i++) {
+							map.put("fgono", orderId);
+							map.put("fgno", cList.get(i).getFgno());
+							map.put("ops", cList.get(i).getOps());
+							map.put("account", cList.get(i).getAccount());
+							gService.orderedDicInsert(map);
+							map.clear();
+							fgcnoList.add(cList.get(i).getFgcno());
+						}
+						gService.cartDelete(fgcnoList);
+						
+						map.put("fgono", orderId);
+						map.put("email", email);
+						map.put("recvaddress",address);
+						map.put("send", send);
+						map.put("recv", recv);
+						map.put("msg", msg);
+						map.put("sendPhone", sendPhone);
+						map.put("recvPhone", recvPhone);
+						map.put("id", id);
+						map.put("payment", totalpay);
+						gService.orderInsert(map);
+						result="ok";
+						
+						
+					}else {
+						result.substring(0, result.length()-1);
+					}
 				}
+				
 		}
 		catch(Exception ex) {
-				result=ex.getMessage();
+				result="no";
+				ex.printStackTrace();
 		}
 		
 
 		return result;
+	}
+	@GetMapping(value = "goods/order_ok_vue.do",produces = "text/plain;charset=utf-8")
+	public String order_ok(String id) throws Exception{
+		
+			OrderGVO vo=gService.orderSelect(id);
+			vo.setRecvAddress(vo.getRecvAddress().replace("^", " "));
+			Map map=new HashMap();
+			map.put("vo", vo);
+		
+			String json=jsonMaker(map);
+		
+		return json;
 	}
 }

@@ -198,7 +198,7 @@ input[type="button"]:hover{
 	                <tr style="height: 50%;border-top:1px solid rgb(234, 234, 234);border-bottom: 1px solid rgb(234, 234, 234);">
 	                  <th width="15%">휴대전화</span></th>
 	                  <td width="35%">
-	                    <input type="text" id="phone" name="phone" v-model="sendPhone" @keydown="phoneValidate" placeholder="숫자만 입력해주세요"style="width: 250px;border-bottom: 1px solid #999;">
+	                    <input type="text" id="phone" name="phone" v-model="sendPhone" placeholder="숫자만 입력해주세요"style="width: 250px;border-bottom: 1px solid #999;">
 	                  </td>
 	                </tr>
 	              </table>
@@ -223,7 +223,7 @@ input[type="button"]:hover{
 	                <tr style="border-top:1px solid rgb(234, 234, 234);border-bottom: 1px solid rgb(234, 234, 234);">
 	                  <th style="width: 15%;padding: 15px 15px;">휴대전화<span style="color: #d50c0c;font-size: 20px;">*</span></th>
 	                  <td width="85%">
-	                  	<input type="text" id="phone" name="phone" v-model="recvPhone" @keydown="phoneValidate" placeholder="숫자만 입력해주세요" required style="width: 250px;border-bottom: 1px solid #999;">
+	                  	<input type="text" id="phone" name="phone" v-model="recvPhone" placeholder="숫자만 입력해주세요" required style="width: 250px;border-bottom: 1px solid #999;">
 	                  </td>
 	                </tr>
 	                <tr style="border-top:1px solid rgb(234, 234, 234);border-bottom: 1px solid rgb(234, 234, 234);">
@@ -368,7 +368,6 @@ input[type="button"]:hover{
         	    		
         	    		this.goodsname=this.orderList[0].gvo.title+"..."
         	    	}
-        	    	this.requestPay()
         	    	
         	    	this.orderInsert()
      			},
@@ -381,10 +380,16 @@ input[type="button"]:hover{
     		     	formData.append("option",this.option)
     		     	formData.append("totalpay",this.totalpay)
     		     	formData.append("orderId",this.order_no)
-    		     	formData.append("email",this.email+this.email_domain)
-    		     	formData.append("address",this.post+this.addr1+this.addr2)
+    		     	if(this.email==''){
+    		     		this.email_domain=''
+    		     	}
+    		     	formData.append("email",this.email+"@"+this.email_domain)
+    		     	formData.append("address",this.post+'^'+this.addr1+'^'+this.addr2)
     		     	formData.append("send",this.send)
     		     	formData.append("recv",this.recv)
+    		     	if(this.order_request!='직접입력'){
+    		     		this.msg=this.order_request
+    		     	}
     		     	formData.append("msg",this.msg)
     		     	formData.append("sendPhone",this.sendPhone)
     		     	formData.append("recvPhone",this.recvPhone)
@@ -397,9 +402,13 @@ input[type="button"]:hover{
     		    	}).then(response=>{
     		    		console.log(response)
     		    		if(response.data=="ok"){
-    		    			location.href="../goods/order_ok.do"
+    		    			this.requestPay()
+    		    		}else if(response.data=="no"){
+    		    			alert("결제중 오류가 발생하였습니다")
+    		    			return
     		    		}else{
-    		    			alert("결제 도중 오류가 발생하였습니다")
+    		    			alert("상품번호:"+response.data+" 의 남은 수량이 선택하신 수량보다 적습니다")
+    		    			return
     		    		}
     		    	})
     		    	
