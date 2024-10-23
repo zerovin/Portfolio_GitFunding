@@ -9,4 +9,5 @@ public interface FundingDetailBoardService {
 	public int fundingNoticeTotalPage();
 	public FundingDetailNoticeVO fundingNoticeDetailData(int dnno);
 	public void fundingCommInsert(FundingDetailCommVO vo);
+	public List<FundingDetailCommVO> fundingCommListData(int fno);
 }

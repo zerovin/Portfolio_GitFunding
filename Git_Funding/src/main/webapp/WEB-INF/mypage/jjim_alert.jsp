@@ -57,6 +57,7 @@
 .funding-item img {
     width: 100px;
     height: 100px;
+    object-fit:cover;
     border-radius: 8px;
     margin-right: 20px;
 }
@@ -96,6 +97,7 @@
 
 .funding-item .btn-cancel {
     background-color: #ff4d4d;
+    word-break:keep-all;
 }
 .title {
     white-space: pre-wrap;

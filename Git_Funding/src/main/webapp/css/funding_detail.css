@@ -247,6 +247,7 @@
 }
 #funding_detail #backingWindow,
 #funding_detail #communityWindow{
+	font-family: 'NEXON Lv2 Gothic';
 	width:350px;
 	position:fixed;
 	top:30%;
@@ -265,6 +266,7 @@
 }
 #funding_detail #backingWindow textarea,
 #funding_detail #communityWindow textarea{
+	font-family: 'NEXON Lv2 Gothic';
 	resize:none;
 	width:100%;
 	height:100px;

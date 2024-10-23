@@ -50,4 +50,14 @@ public class FundingDetailBoardDAO {
 	public void fundingCommInsert(FundingDetailCommVO vo) {
 		mapper.fundingCommInsert(vo);
 	}
+	
+	/*
+	@Select("SELECT * FROM funding_detail_comm "
+			+ "WHERE fno=#{fno} "
+			+ "ORDER BY dcno DESC")
+	public List<FundingDetailCommVO> fundingCommListData(int fno); 
+	 */
+	public List<FundingDetailCommVO> fundingCommListData(int fno){
+		return mapper.fundingCommListData(fno);
+	}
 }

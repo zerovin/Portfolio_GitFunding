@@ -28,4 +28,9 @@ public interface FundingDetailBoardMapper {
 	@Insert("INSERT INTO funding_detail_comm "
 			+ "VALUES(fdc_dcno_pk.nextval, #{fno}, #{userId}, #{cate}, #{content}, SYSDATE)")
 	public void fundingCommInsert(FundingDetailCommVO vo);
+	
+	@Select("SELECT * FROM funding_detail_comm "
+			+ "WHERE fno=#{fno} "
+			+ "ORDER BY dcno DESC")
+	public List<FundingDetailCommVO> fundingCommListData(int fno);
 }
