@@ -112,6 +112,7 @@
                     <li><button @click="jjimAlert">찜·알림신청</button></li>
                     <li><button @click="fundingBuy">펀딩</button></li>
                     <li><button @click="storeBuy">스토어</button></li>
+                    <li><button @click="goToFollow">팔로우</button></li>
                 </ul>
             </div>
             <div class="mymenu-detail">
@@ -163,6 +164,9 @@
             },
             storeBuy(){
             	location.href="../mypage/store_ordered.do"
+            },
+            goToFollow(){
+            	location.href = '../mypage/follow.do'
             }
         }
     }).mount('#mypageApp');

@@ -57,5 +57,8 @@ public interface MypageMapper {
             "JOIN funding_reward fr ON rb.rno = fr.rno " +  // 리워드 정보 조인
             "WHERE rb.rbno = #{rbno}")  // 구매 번호로 구매 내역 상세 조회
     public RewardBuyVO getPurchaseDetail(int rbno);
+    // 상품 구매 
+    @Select("SELECT COUNT(*) FROM f_goods_order WHERE id = #{userId}")
+    public int goodsBuyTotalCount(String userId);
 }
         

@@ -55,4 +55,8 @@ public class MypageDAO {
     public RewardBuyVO getPurchaseDetail(int rbno) {
     	return mapper.getPurchaseDetail(rbno);
     }
+    // 상품 구매
+    public int goodsBuyTotalCount(String userId) {
+    	return mapper.goodsBuyTotalCount(userId);
+    }
 }

@@ -28,7 +28,7 @@
 
         .purchase-table {
             width: 100%;
-            max-width : 700px;
+            max-width : 800px;
             border-collapse: collapse;
             margin-bottom: 20px;
         }
@@ -129,7 +129,7 @@
 </head>
 <body>
     <div id="purchaseApp" class="purchase-list">
-        <h2 id="fundingtext">펀딩 구매 내역</h2>
+        <h2 id="fundingtext">상품 구매 내역</h2>
         <div v-if="purchases.length === 0" class="no-purchases">
             <div class="no-purchases-icon">🛒</div>
             구매 내역이 없습니다!!

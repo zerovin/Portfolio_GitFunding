@@ -18,4 +18,5 @@ public interface MypageService {
 	public List<RewardBuyVO> getRewardBuyList(Map map);
     public int getTotalRewardBuyCount(String userId);
     public RewardBuyVO getPurchaseDetail(int rbno);
+    public int goodsBuyTotalCount(String userId);
 }

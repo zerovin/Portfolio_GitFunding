@@ -37,8 +37,12 @@ public class MypageRestController {
 	    // 알림 신청 수 가져오기
 	    int alertCount = mService.fundingAlertCount(userId);
 
-	    // 구매 목록 수 가져오기
+	    // 펀딩 구매 목록 수 가져오기
 	    int fundingCount = mService.getTotalRewardBuyCount(userId);
+	    
+	    // 상품 구매 목록 수 가져오기
+	    int storeCount = mService.goodsBuyTotalCount(userId);
+	    
 	    Cookie[] cookies = request.getCookies();
 	    List<FundingVO> cookie_list = new ArrayList<>();
 	    if (cookies != null) {
@@ -65,6 +69,7 @@ public class MypageRestController {
 	    map.put("userInfo", vo);
 	    map.put("alertCount", alertCount);
 	    map.put("fundingCount", fundingCount);
+	    map.put("storeCount", storeCount);
 	    map.put("latest_list", cookie_list);
 	    // JSON으로 변환
 	    ObjectMapper mapper = new ObjectMapper();

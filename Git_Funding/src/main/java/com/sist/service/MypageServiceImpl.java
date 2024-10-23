@@ -68,4 +68,9 @@ public class MypageServiceImpl implements MypageService{
 		return mDao.getPurchaseDetail(rbno);
 	}
 
+	@Override
+	public int goodsBuyTotalCount(String userId) {
+		return mDao.goodsBuyTotalCount(userId);
+	}
+
 }

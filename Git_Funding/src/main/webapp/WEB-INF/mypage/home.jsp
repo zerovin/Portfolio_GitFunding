@@ -129,7 +129,7 @@
                     location.href = '../mypage/funding_buy.do'
                 },
                 goToStore() {
-                    location.href = '../mypage/store_buy.do'
+                    location.href = '../mypage/store_ordered.do'
                 },
                 goToGitsta() {
                     location.href = '../gitsta/main.do'
