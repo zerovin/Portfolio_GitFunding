@@ -24,6 +24,4 @@ public class RewardBuyVO {
 	private String thumb;   
     private String title,rewardName,buyerName;
     private String userName,description,del_start;
-
-
 }

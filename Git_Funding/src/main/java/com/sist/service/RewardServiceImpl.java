@@ -28,4 +28,8 @@ public class RewardServiceImpl implements RewardService{
 		rDao.rewardBuyMinusAmount(vo);
 	}
 
+	@Override
+	public void funding_rewardInsert(RewardVO vo) {
+		rDao.funding_rewardInsert(vo);	
+	}
 }

@@ -19,5 +19,5 @@ import lombok.Data;
 @Data
 public class RewardVO {
 	private int rno, fno, price, amount, delivery, limit;
-	private String name, description, del_start;
+	private String name, description, del_start, userId;
 }

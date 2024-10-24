@@ -1,0 +1,558 @@
+#funding_detail .detail_tab{
+    position:sticky;
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    border-bottom:1px solid #ccc;
+    background:#fff;
+    margin-bottom:50px;
+    background:#fff;
+    z-index:999;
+}
+#funding_detail .detail_tab h2{
+    display:block;
+    padding:20px;
+    font-size:18px;
+    border-bottom:3px solid transparent;
+    font-weight:bold;
+}
+#funding_detail .detail_tab h2:active{
+/*     border-color:#F8C200; */
+}
+#funding_detail > section{
+	font-family: 'NEXON Lv2 Gothic';
+    display:grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap:50px;
+}
+#funding_detail > section .left{
+	width:730px;
+}
+#funding_detail > section .left .thumb{
+    width:100%;
+    object-fit: cover;
+    margin-bottom:50px;
+}
+#funding_detail > section h2{
+    font-weight:700;
+    font-size:22px;
+    display:inline-block;
+    padding:10px;
+    border-bottom:3px solid #F8C200;
+}
+#funding_detail > section .left .img_scroll .imgs{
+    height:2000px;
+    overflow:hidden;
+}
+#funding_detail > section .left .img_scroll img{
+    width:100%;
+}
+#funding_detail > section .left .img_scroll > .readmore{
+    width:100%;
+    border:1px solid #F8C200;
+    color:#F8C200;
+    height:50px;
+    line-height:50px;
+    text-align:center;
+    box-shadow:0 -30px 20px#fff;
+}
+#funding_detail > section .left .img_scroll > .readmore i{
+    color:#F8C200;
+}
+#funding_detail > section .right .top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-bottom:1px solid #ccc;
+    padding:10px 0 20px;
+    margin-bottom:20px;
+}
+#funding_detail > section .right .top p{
+    font-size:18px;
+    color:#495057;
+}
+#funding_detail > section .right .top .share{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:5px;
+    color:#9e9c9c;
+    font-size:14px;
+    width:70px;
+    height:30px;
+    border:1px solid #9e9c9c;
+    border-radius:25px;
+    transition:.3s;
+}
+#funding_detail > section .right .top .share:hover{
+    border-color:#1E1A1A;
+    color:#1E1A1A;
+}
+#funding_detail > section .right .top i{
+    font-size:18px;
+    color:#9e9c9c;
+    transition:.3s;
+}
+#funding_detail > section .right .top .share:hover i{
+    color:#1E1A1A;
+}
+#funding_detail > section .right .content{
+    margin-bottom:50px;
+}
+#funding_detail > section .right .content .title{
+    font-size:20px;
+    font-weight:700;
+    line-height:1.2em;
+    margin-bottom:20px;
+}
+#funding_detail > section .right .content .desc{
+    font-size:15px;
+    line-height:1.4em;
+    letter-spacing:0.0125em;
+    margin-bottom:20px;
+}
+#funding_detail > section .right .p_admin{
+    color:#9e9c9c;
+    margin-bottom:30px;
+}
+#funding_detail > section .right .num_icon{
+    display:flex;
+    justify-content:space-between;
+    align-items:end;
+    padding-bottom:30px;
+    border-bottom:1px solid #ccc;
+}
+#funding_detail > section .right .num_icon .nums > div{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:20px;
+}
+#funding_detail > section .right .num_icon .nums .big{
+    color:#F8C200;
+    font-size:18px;
+}
+#funding_detail > section .right .num_icon .nums .num{
+    color:#F8C200;
+    font-size:24px;
+    font-weight:700;
+}
+#funding_detail > section .right .num_icon .nums > *:last-child .num{
+    color:#1E1A1A;
+}
+#funding_detail > section .right .num_icon .nums .small{
+    font-size:14px;
+    color:#495057;
+    background:rgba(248, 194, 0, .3);
+    padding:7px 5px 5px;
+    border-radius:5px;
+}
+#funding_detail > section .right .num_icon .icons button{
+    display:inline-flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:5px;
+    width:60px;
+    height:60px;
+    border:1px solid #9e9c9c;
+    border-radius:5px;
+    color:#9e9c9c;
+    font-size:14px;
+    transition:.3s;
+    margin:0 3px;
+}
+#funding_detail > section .right .num_icon .icons button:hover{
+    color:#1E1A1A;
+    border-color:#1E1A1A;
+}
+#funding_detail > section .right .num_icon .icons button i{
+    font-size:20px;
+    color:#9e9c9c;
+    transition:.3s;
+}
+#funding_detail > section .right .num_icon .icons button:hover i{
+    color:#1E1A1A;
+}
+#funding_detail > section .right .reward_list{
+    height:calc(100vh - 210px);
+    overflow-y:scroll;
+}
+#funding_detail > section .right .reward_list li.open_reward{
+	text-align:center;
+	font-size:24px;
+	height: calc(100vh - 210px);
+	line-height:calc(100vh - 210px);
+	background:rgba(248, 194, 0, .2);
+}
+#funding_detail > section .right .reward_list li > button{
+	width:100%;
+    display:block;
+    border:1px solid #ccc;
+    border-radius:10px;
+    padding:20px;
+    text-align:left;
+}
+#funding_detail > section .right .reward_list li + li > button{
+    margin-top:20px;
+}
+#funding_detail > section .right .reward_list li > button:hover{
+    border-color:#F8C200;
+    background:rgba(248, 194, 0, .2);
+}
+#funding_detail > section .right .reward_list .price_account{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:10px;
+}
+#funding_detail > section .right .reward_list .price{
+    font-weight:700;
+    font-size:20px;
+}
+#funding_detail > section .right .reward_list .account{
+    font-size:14px;
+    color:#495057;
+    background:rgba(248, 194, 0, .3);
+    padding:7px 5px 5px;
+    border-radius:5px;
+}
+#funding_detail > section .right .reward_list button:hover .account{
+    background:#F8C200;
+    color:#1E1A1A;
+}
+#funding_detail > section .right .reward_list .re_title{
+    padding-bottom:20px;
+    border-bottom:1px solid #ccc;
+}
+#funding_detail > section .right .reward_list pre{
+    padding:20px 0;
+    font-size:15px;
+    line-height:1.5em;
+    white-space:pre-wrap;
+    border-bottom:1px solid #ccc;
+}
+#funding_detail > section .right .reward_list dl{
+    padding:15px 0;
+    border-bottom:1px solid #ccc;
+    display:flex;
+    justify-content:space-between;
+    font-size:14px;
+}
+#funding_detail > section .right .reward_list dl:last-of-type{
+    padding-bottom:0;
+    border-bottom:none;
+}
+#funding_detail > section .right .reward_list dd{
+    font-weight:700;
+}
+#funding_detail #backingWindow,
+#funding_detail #communityWindow{
+	font-family: 'NEXON Lv2 Gothic';
+	width:350px;
+	position:fixed;
+	top:30%;
+	left:50%;
+	transform:translate(-50%);
+	background:#fff;
+	border-radius:10px;
+	padding:40px;
+	box-shadow:2px 3px 5px rgba(0,0,0,.3);
+	display:none;
+}
+#funding_detail #backingWindow h2,
+#funding_detail #communityWindow h2{
+	font-family: 'NEXON Lv2 Gothic';
+	font-size:24px;
+}
+#funding_detail #backingWindow textarea,
+#funding_detail #communityWindow textarea{
+	font-family: 'NEXON Lv2 Gothic';
+	resize:none;
+	width:100%;
+	height:100px;
+	margin:20px 0;
+	box-sizing:border-box;
+	padding:5px;
+}
+#funding_detail #backingWindow button.insert,
+#funding_detail #communityWindow button.insert{
+	text-align:center;
+	background:#F8C200;
+	padding:15px 0;
+	border-radius:5px;
+	width:100%;
+	font-weight:500;
+}
+#funding_detail #backingWindow button.close,
+#funding_detail #communityWindow span.close{
+	position:absolute;
+	top:15px;
+	right:15px;
+	font-size:20px;
+	paddint:0;
+	cursor:pointer;
+}
+#funding_detail #communityWindow .radio_box{
+	display:flex;
+	gap:20px;
+	margin-top:20px;
+}
+#funding_detail #communityWindow .radio_box input{
+	margin-right:3px;
+}
+
+/*------------ DETAIL NOTICE -----------*/
+/* LIST */
+#funding_detail .notice h2 span{
+	font-size:18px;
+	color:#9e9c9c;
+}
+#funding_detail .notice .notice_list{
+	margin-bottom:50px;
+}
+#funding_detail .notice .notice_li{
+	padding:20px 0;
+	border-bottom:1px solid #ccc;
+}
+#funding_detail .notice .notice_li .cate{
+	display:block;
+	font-size:14px;
+	font-weight:500;
+	margin-bottom:10px;
+}
+#funding_detail .notice .notice_li .notice_title{
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	margin-bottom:10px;
+}
+#funding_detail .notice .notice_li span.date{
+	font-size:14px;
+	color:#9e9c9c;
+}
+
+/* DETAIL */
+#funding_detail .notice_detail .goList{
+	display:inline-block;
+	padding:15px;
+	border:1px solid #ccc;
+	border-radius:5px;
+	margin-bottom:50px;
+} 
+#funding_detail .notice_detail .detail_wrap{
+	border-bottom:1px solid #ccc;
+}
+#funding_detail .notice_detail .detail_wrap .top{
+	padding-bottom:20px;
+	border-bottom:1px solid #ccc;
+}
+#funding_detail .notice_detail .detail_wrap .cate{
+	display:block;
+	font-weight:500;
+	margin-bottom:15px;
+}
+#funding_detail .notice_detail .detail_wrap .notice_title{
+	font-size:20px;
+	font-weight:700;
+	line-height:1.3em;
+	margin-bottom:15px;
+}
+#funding_detail .notice_detail .detail_wrap .date{
+	color:#9e9c9c;
+	font-size:14px;
+}
+#funding_detail .notice_detail .detail_wrap .content{
+	padding:50px 0 80px;
+}
+#funding_detail .notice_detail .detail_wrap .content pre{
+	line-height:1.5em;
+}
+
+/*------------ DETAIL PAGINATION -----------*/
+#funding_detail .pagination{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:20px;
+    margin-bottom:30px;
+}
+#funding_detail .pagination li:first-child i,
+#funding_detail .pagination li:last-child i{
+    background:#F8C200;
+    color:#fff;
+    display:block;
+    width:30px;
+    height:30px;
+    text-align:center;
+    line-height:32px;
+    border-radius:3px;
+}
+#funding_detail .pagination li.active a{
+    font-weight:bold;
+    font-size:18px;
+    color:#F8C200;
+}
+
+/*------------ FUNDING COMMUNITY -----------*/
+#funding_detail .community .top{
+	display:flex;
+	justify-content:space-between;
+	align-items:center;
+	margin-bottom:80px;
+}
+#funding_detail .community .top > div{
+	position:relative;
+}
+#funding_detail .community .top > div button{
+	display:block;
+	background:#F8C200;
+	padding:10px;
+	border-radius:5px;
+}
+#funding_detail .community .top > div button i{
+	margin:0 10px;
+}
+/* 글쓰기 */
+#funding_detail .community .top > div .write_list{
+	display:none;
+	position:absolute;
+	top:calc(100% + 10px);
+	right:0;
+	background:#fff;
+	padding:10px;
+	border-radius:5px;
+	border:1px solid #ccc;
+	width:120px;
+	text-align:center;
+}
+#funding_detail .community .top > div .write_list li{
+	padding:10px 0;
+	cursor:pointer;
+}
+
+/* 목록 */
+#funding_detail .community h3{
+	font-size:20px;
+	font-weight:700;
+	padding-bottom:20px;
+	border-bottom:1px solid #ccc;
+	margin-bottom:50px;
+}
+#funding_detail .community h3 span{
+	font-size:16px;
+	color:#9e9c9c;
+	margin-left:5px;
+}
+#funding_detail .community .comm_list img{
+	width:40px;
+}
+#funding_detail .community .comm_list .member_info{
+	display:flex;
+	justify-content:space-between;
+	align-items:center;
+	margin-bottom:10px;
+}
+#funding_detail .community .comm_list .member_info .info{
+	display:flex;
+	gap:10px;
+	align-items:center;
+}
+#funding_detail .community .comm_list .member_info .info .nick{
+	font-weight:500;
+	margin-bottom:3px;
+}
+#funding_detail .community .comm_list .member_info .info .date{
+	font-size:14px;
+	color:#9e9c9c;
+}
+#funding_detail .community .comm_list .member_info button{
+	display:inline-block;
+	padding:10px;
+	background:#F8C200;
+	border-radius:5px;
+}
+#funding_detail .community .comm_list .member_info button:last-child{
+	margin-left:5px;
+	background:#ccc;
+}
+#funding_detail .community .comm_list .content_box{
+	border:1px solid #ccc;
+	border-radius:10px;
+	padding:20px;
+	margin-bottom:10px;
+}
+#funding_detail .community .comm_list .content_box .cate{
+	display:inline-block;
+	background:#4c53dd7d;
+	padding:5px 10px;
+	border-radius:5px;
+	font-weight:500;
+	margin-bottom:20px;
+} 
+#funding_detail .community .comm_list .content_box pre{
+	white-space:wrap;
+	line-height:1.5em;
+}
+#funding_detail .community .comm_list .comment button.show{
+	padding:5px;
+	margin-bottom:10px;
+}
+#funding_detail .community .comm_list .comment button i{
+	font-size:18px;
+	margin-right:3px;
+}
+#funding_detail .community .comm_list .comment .form{
+	display:flex;
+	justify-content:space-between;
+	align-items:center;
+	gap:10px;
+	margin-bottom:20px;
+}
+#funding_detail .community .comm_list .comment .form input{
+	padding:10px;
+	border:1px solid #ccc;
+	border-radius:5px;
+	flex:1;
+}
+#funding_detail .community .comm_list .comment .form button{
+	display:inline-block;
+	background:#F8C200;
+	border-radius:5px;
+	padding:10px 20px;
+}
+#funding_detail .community .comm_list .comment .comment_list > li{
+	display:flex;
+	gap:10px;
+	align-items:start;
+}
+#funding_detail .community .comm_list .comment .comment_list .comm_content{
+	background:#f9fafb;
+	border-radius:10px;
+	padding:20px;
+	flex:1;
+}
+#funding_detail .community .comm_list .comment_list .comm_content > div{
+	display:flex;
+	justify-content:space-between;
+	align-items:center;
+	margin-bottom:20px;
+}
+#funding_detail .community .comm_list .comment_list .comm_content p{
+	font-weight:500;
+}
+#funding_detail .community .comm_list .comment_list .comm_content p span{
+	font-size:14px;
+	color:#9e9c9c;
+	margin-left:5px;
+}
+#funding_detail .community .comm_list .comment_list .comm_content .edit{
+	display:inline-block;
+	padding:5px 10px;
+	background:#ccc;
+	border-radius:5px;
+}
+#funding_detail .community .comm_list .comment_list .comm_content pre{
+	white-space:wrap;
+	line-height:1.5em;
+}

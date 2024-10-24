@@ -41,4 +41,8 @@ public class RewardDAO {
 	public void rewardBuyMinusAmount(RewardBuyVO vo){
 		mapper.rewardBuyMinusAmount(vo);
 	}
+	
+	public void funding_rewardInsert(RewardVO vo) {
+		mapper.funding_rewardInsert(vo);
+	}
 }

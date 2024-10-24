@@ -86,7 +86,7 @@ public interface FundingMapper {
 	@Select("SELECT CEIL(COUNT(*)/12.0) FROM funding "
 			+ "WHERE startdate>SYSDATE")
 	public int openTotalPage();
-	
+		
 	//오픈 카테고리 분류별 출력
 	@Select("SELECT fno, title, thumb, p_admin, targetprice, totalprice, alert, TO_CHAR(startdate, 'MM\"월 \"DD\"일\"') as startday, num "
 			+ "FROM (SELECT fno, title, thumb, p_admin, targetprice, totalprice, alert, startdate, rownum as num "
