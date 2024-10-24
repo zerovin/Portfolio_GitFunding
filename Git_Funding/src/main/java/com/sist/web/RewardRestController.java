@@ -65,19 +65,19 @@ public class RewardRestController {
 		return result;
 	}
 	
-	@PostMapping(value = "funding/reward_insert.do", produces = "text/plain; charset=UTF-8")
-	public String funding_rewardInsert(RewardVO vo, HttpSession session) {
-		String result = "";
-		try {
-			String userId = (String)session.getAttribute("userId");
-			vo.setUserId(userId);
-			rService.funding_rewardInsert(vo);
-			
-			result = "ok";
-		} catch (Exception ex) {
-			result = ex.getMessage();
-		}
-		
-		return result;
-	}
+//	@PostMapping(value = "funding/reward_insert.do", produces = "text/plain; charset=UTF-8")
+//	public String funding_rewardInsert(RewardVO vo, HttpSession session) {
+//		String result = "";
+//		try {
+//			String userId = (String)session.getAttribute("userId");
+//			vo.setUserId(userId);
+//			rService.funding_rewardInsert(vo);
+//			
+//			result = "ok";
+//		} catch (Exception ex) {
+//			result = ex.getMessage();
+//		}
+//		
+//		return result;
+//	}
 }

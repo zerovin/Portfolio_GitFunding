@@ -15,25 +15,31 @@
 			<section class="RightBottom">
 				<div class="RightBottomTopContainer">
 					<h2>리워드 목록</h2>
-					<button>리워드 추가</button>
+					<button @click="NavToRewardInsert()">리워드 추가</button>
 				</div>
 				<div class="RewardPrintContainer" v-for="vo in reward_detail_list">
 					<div class="Reward1st">
-						<span>{{vo.price}}</span>
-						<span>{{vo.amount}}어마운트</span>
-						<span>{{vo.name}}네임</span>
+						<div class="Reward1stTop">
+							<p>가격 : {{vo.price}}</p>
+								<div class="Reward1stTopBtnBox">
+									<button class="RewardUpBtn" @click="RewardUp(vo.rno)">수정</button>
+									<button class="RewardDelBtn" @click="RewardDel(vo.rno)">삭제</button>
+								</div>
+						</div>
+						<br><p>남은 개수 : {{vo.amount}}</p>
+						<br><p>리워드 명 : {{vo.name}}</p>
 					</div>
 					<div class="Reward2nd">
-						<span>리워드 구성 : {{vo.discription}}디스크립션</span>
+						<span>리워드 구성 : {{vo.description}}</span>
 					</div>
 					<div class="Reward3rd">
-						<span>배송비 {{vo.delivery}}딜리버리</span>
+						<span>배송비 : {{vo.delivery}}</span>
 					</div>
 					<div class="Reward4th">
-						<span>발송 시작일 {{vo.del_start}}딜_스타트</span>
+						<span>발송 시작일 : {{vo.del_start}}</span>
 					</div>
 					<div class="Reward5th">
-						<span>제한 수량 {{vo.limit}}리미트</span>
+						<span>총 개수 : {{vo.limit}}</span>
 					</div>
 				</div>
 			</section>
@@ -59,7 +65,30 @@
 					}).then(response => {
 						console.log(response.data)
 						
-						this.reward_detail_list = response.data
+						this.reward_detail_list = response.data.list
+					}).catch(error => {
+						console.log(error.response)
+					})
+				},
+				NavToRewardInsert() {
+					location.href = '../project/reward_insert.do'
+				},
+				RewardUp() {
+					
+				},
+				RewardDel() {
+					axios.get('../project/reward_delete_vue.do', {
+						params : {
+							fno : this.fno
+							rno : rno
+						}
+					}).then(respones => {
+						if (response.data === 'yes') {
+							location.href = '../project/reward_detail_vue.do'
+						} else {
+							alert('삭제 실패')
+							console.log(response.data)
+						}
 					}).catch(error => {
 						console.log(error.response)
 					})

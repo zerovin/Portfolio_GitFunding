@@ -27,16 +27,22 @@ public class RewardServiceImpl implements RewardService{
 		// TODO Auto-generated method stub
 		rDao.rewardBuyMinusAmount(vo);
 	}
-
-	@Override
-	public void funding_rewardInsert(RewardVO vo) {
-		rDao.funding_rewardInsert(vo);	
-	}
-
+	
 	@Override
 	public List<RewardVO> project_rewardDetailList(int fno) {
 		// TODO Auto-generated method stub
 		return rDao.project_rewardDetailList(fno);
 	}
+
+	@Override
+	public void fundingRewardInsert(RewardVO vo) {
+		rDao.fundingRewardInsert(vo);
+	}
+
+	@Override
+	public void rewardDelete(int fno, int rno) {
+		rDao.rewardDelete(fno, rno);
+	}
+
 
 }

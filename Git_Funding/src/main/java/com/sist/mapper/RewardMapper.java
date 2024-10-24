@@ -1,6 +1,8 @@
 package com.sist.mapper;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -36,5 +38,15 @@ public interface RewardMapper {
 	// 리워드 넘버, funding번호 (참조), 리워드 이름, 리워드 가격, 리워드 현재 개수, 리워드 설명, 리워드 배송비, 리워드 배송 시작일, 리워드 총 개수
 	@Insert("INSERT INTO funding_reward (rno, fno, name, price, amount, description, delivery, del_start, limit, userId) "
 			+ "VALUES(fr_rno_seq.nextval, #{fno}, #{name}, #{price}, #{amount}, #{description}, #{delivery}, #{del_start}, #{limit}, #{userId})")
-	public void funding_rewardInsert(RewardVO vo);
+	public void fundingRewardInsert(RewardVO vo);
+	
+	
+	
+	
+	// 리워드 삭제
+	@Delete("DELETE FROM funding_reward "
+	        + "WHERE fno = #{fno} AND rno = #{rno}") 
+	public void rewardDelete(@Param("fno") int fno, @Param("rno") int rno);
+
+
 }

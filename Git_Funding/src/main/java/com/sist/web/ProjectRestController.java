@@ -7,6 +7,7 @@ import java.util.*;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -107,13 +108,56 @@ public class ProjectRestController {
 	    return json;
 	}
 	
+	// 리워드 상세
 	@GetMapping(value = "project/reward_detail_vue.do", produces = "text/plain; charset=UTF-8")
-	public String reward_detail(int fno) throws Exception {
+	public String reward_detail(int fno, HttpSession session) throws Exception {
+//		int ffno = Integer.parseInt(fno);
+		String userId = (String)session.getAttribute("userId");
+		
 		List<RewardVO> list = rService.project_rewardDetailList(fno);
-			
+		
+		Map map = new HashMap();
+		map.put("userId", userId);
+		map.put("list", list);
+		
+		
 		ObjectMapper mapper = new ObjectMapper();
-		String json = mapper.writeValueAsString(list);
+		String json = mapper.writeValueAsString(map);
 				
 		return json;
 	}
+	
+	// 리워드 수정
+	@GetMapping(value = "project/reward_update_vue.do", produces = "text/plain; charset=UTF-8")
+	public String reward_update(int fno, int rno, Model model) {
+		
+		model.addAttribute("fno", fno);
+		model.addAttribute("rno", rno);
+		
+		// 업데이트 매퍼, 메서드 만들어야 함
+//		RewardVO vo = rService.reward_update(model);
+		
+		ObjectMapper mapper = new ObjectMapper();
+//		String json = mapper.writeValueAsString(vo);
+		
+		return "";
+	}
+	
+	// 리워드 삭제
+	@GetMapping(value = "project/reward_delete_vue.do", produces = "text/plain; charset=UTF-8") 
+	public String reward_delete(int fno, int rno) throws Exception {
+	    String result;
+
+	    try {
+	        // 리워드 삭제
+	        rService.rewardDelete(fno, rno);
+	        result = "yes";
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        result = "no";
+	    }
+
+	    return result;
+	}
+
 }

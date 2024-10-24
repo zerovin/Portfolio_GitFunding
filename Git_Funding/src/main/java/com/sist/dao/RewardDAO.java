@@ -42,11 +42,17 @@ public class RewardDAO {
 		mapper.rewardBuyMinusAmount(vo);
 	}
 	
-	public void funding_rewardInsert(RewardVO vo) {
-		mapper.funding_rewardInsert(vo);
-	}
-	
 	public List<RewardVO> project_rewardDetailList(int fno) {
 		return mapper.project_rewardDetailList(fno);
+	}
+	
+	public void fundingRewardInsert(RewardVO vo) {
+		mapper.fundingRewardInsert(vo);
+	}
+	
+	
+	
+	public void rewardDelete(int fno, int rno) {
+		mapper.rewardDelete(fno, rno);
 	}
 }
