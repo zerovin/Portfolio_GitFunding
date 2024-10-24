@@ -70,7 +70,7 @@ public interface MypageMapper {
 			+ "WHERE num BETWEEN #{start} AND #{end}")
 	public List<FundingVO> myFundingListData(Map map);
 	
-	@Select("SELECT COUNT(*) FROM funding WHERE userId=#{userId}")
+	@Select("SELECT COUNT(*), SUM(alert), SUM(wish), SUM(backing), SUM(totalprice) FROM funding WHERE userId={userId}")
 	public int myFundingTotalCount(String userId);
 	
 	@Select("SELECT CEIL(COUNT(*)/4.0) FROM funding "

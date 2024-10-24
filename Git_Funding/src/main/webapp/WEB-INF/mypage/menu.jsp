@@ -118,9 +118,9 @@
             <div class="mymenu-detail">
                 <p class="mymenu_p" style="margin-top: 25px;">정보 관리</p>
                 <ul>
-                    <li><button>커뮤니티 관리</button></li>
-                    <li><button @click="qnaInfo()">문의 내역</button></li>
-                    <li><button @click="infoUpdate()">정보 수정</button></li>
+                    <li><button @click="commuInfo">커뮤니티 관리</button></li>
+                    <li><button @click="qnaInfo">문의 내역</button></li>
+                    <li><button @click="infoUpdate">정보 수정</button></li>
                     <li><button>회원 탈퇴</button></li>
                 </ul>
             </div>
@@ -167,6 +167,9 @@
             },
             goToFollow(){
             	location.href = '../mypage/follow.do'
+            },
+            commuInfo(){
+            	location.href = '../mypage/community.do'
             }
         }
     }).mount('#mypageApp');
