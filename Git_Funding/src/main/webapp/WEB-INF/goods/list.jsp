@@ -68,6 +68,11 @@ a{
 		            <button id="searchBtn" @click="searchInfo()">검색</button>
 	            </div>
 			</div>
+			<div v-if="isShow" style="display: flex;justify-content: center;height: 500px;">
+				<div style="margin: 0px auto;">
+					<p style="margin-top: 250px;font-size: 20px;font-size: bold;">검색 결과가 없습니다.</p>
+				</div>
+			</div>
             <ul class="list">
                 <li v-for="vo in goods_list">
                     <a :href="'../goods/detail.do?fgno='+vo.fg_no" class="f_list">
@@ -103,6 +108,7 @@ a{
 		let goods=Vue.createApp({
 			data(){
 				return{
+					isShow:false,
 					search:'',
 					goods_list:[],
 					cateInfo:'${cateInfo}',
@@ -140,6 +146,7 @@ a{
 				 searchInfo(){
 					 this.cateInfo = '4'
 					 this.dataRecv()
+					 
 				 },
 				 changeCategory(category) {
 						this.curpage=1
@@ -190,6 +197,11 @@ a{
 	    				this.totalpage=response.data.totalpage
 	    				this.startpage=response.data.startpage
 	    				this.endpage=response.data.endpage
+	    				if(response.data.totalpage == 0 ){
+	    					this.isShow = true
+	    				}else{
+	    					this.isShow = false
+	    				}
 						
 					})
 				}
