@@ -70,5 +70,5 @@ public class FundingDetailBoardDAO {
 	 */
 	public FundingDetailCommVO fundingCommUpdateData(int dcno) {
 		return mapper.fundingCommUpdateData(dcno);
-	}
+	} 
 }
