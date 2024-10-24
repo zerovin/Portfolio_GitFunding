@@ -23,6 +23,15 @@ public interface RewardMapper {
 			+ "WHERE rno=#{rno}")
 	public void rewardBuyMinusAmount(RewardBuyVO vo);
 	
+	/*
+	 * 	private int rno, fno, price, amount, delivery, limit;
+		private String name, description, del_start, userId;
+	 */
+	@Select("SELECT rno, fno, price, amount, delivery, limit, name, description, del_start, userId "
+			+ "FROM funding_reward "
+			+ "WHERE fno=#{fno}")
+	public List<RewardVO> project_rewardDetailList(int fno);
+	
 	// 펀딩 프로젝트 생성의 리워드 등록
 	// 리워드 넘버, funding번호 (참조), 리워드 이름, 리워드 가격, 리워드 현재 개수, 리워드 설명, 리워드 배송비, 리워드 배송 시작일, 리워드 총 개수
 	@Insert("INSERT INTO funding_reward (rno, fno, name, price, amount, description, delivery, del_start, limit, userId) "

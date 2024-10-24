@@ -45,4 +45,8 @@ public class RewardDAO {
 	public void funding_rewardInsert(RewardVO vo) {
 		mapper.funding_rewardInsert(vo);
 	}
+	
+	public List<RewardVO> project_rewardDetailList(int fno) {
+		return mapper.project_rewardDetailList(fno);
+	}
 }

@@ -20,6 +20,9 @@ public class ProjectRestController {
 	@Autowired
 	private MypageService mService;
 	
+	@Autowired
+	private RewardService rService;
+	
 	@GetMapping(value = "project/home_vue.do", produces = "application/json; charset=UTF-8")
 	public String homePage(HttpSession session) throws JsonProcessingException {
 	    Map<String, Object> response = new HashMap<>();
@@ -102,5 +105,15 @@ public class ProjectRestController {
 	    ObjectMapper mapper = new ObjectMapper();
 	    String json = mapper.writeValueAsString(map);
 	    return json;
+	}
+	
+	@GetMapping(value = "project/reward_detail_vue.do", produces = "text/plain; charset=UTF-8")
+	public String reward_detail(int fno) throws Exception {
+		List<RewardVO> list = rService.project_rewardDetailList(fno);
+			
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(list);
+				
+		return json;
 	}
 }

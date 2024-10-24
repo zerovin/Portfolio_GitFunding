@@ -7,4 +7,5 @@ public interface RewardService {
 	public void rewardBuyInsert(RewardBuyVO vo);
 	public void rewardBuyMinusAmount(RewardBuyVO vo);
 	public void funding_rewardInsert(RewardVO vo);
+	public List<RewardVO> project_rewardDetailList(int fno);
 }

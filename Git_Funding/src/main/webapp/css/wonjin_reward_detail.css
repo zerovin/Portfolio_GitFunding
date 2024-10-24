@@ -1,0 +1,85 @@
+.PageWrapper{
+/* 	display:flex; */
+/* 	height:100vh;  */
+}
+.LeftContainer{
+/* 	width:40%; */
+/* 	background-color:#f0f0f0; */
+/* 	padding:20px; */
+}
+.RightContainer{
+/* 	width:60%; */
+/* 	display:flex; */
+/* 	flex-direction:column; */
+}
+.RightTop{
+/* 	height:40%;  */
+/* 	background-color:#e0e0e0; */
+/* 	padding:20px; */
+}
+.RightBottomTopContainer{
+    display: flex; /* 가로로 배치 */
+    justify-content: space-between; /* 제목과 버튼 사이에 공간 배치 */
+    align-items: center; /* 세로 중앙 정렬 */
+    margin-bottom: 20px; /* 아래쪽 여백 */
+}
+.RightBottomTopContainer button{
+    display:block;
+    background:#F8C200;
+    padding:20px 10px;
+    border-radius:5px;
+    font-weight:500; 
+    margin-right:413px;	
+}
+.CteateReward{
+	display:block;
+    background:#F8C200;
+    padding:20px 10px;
+    border-radius:5px;
+    font-weight:500;
+    margin-left:800px;
+}
+.RightBottom h2{
+	font-weight:900;
+	font-size:40px;
+	margin-left:400px;
+	margin-bottom:10px;
+}
+.RewardPrintContainer{
+	margin-left:400px;
+    margin-bottom:15px;
+    padding:10px; 
+    width:35%;
+    border:1px solid #ccc;
+}
+.RewardPrintContainer h3{
+	padding-top:30px;
+	font-weight:bold;
+}
+.Reward1st{
+	display:block;
+/* 	border-top:1px solid #ccc; */
+/* 	margin-top:50px; */
+	padding-top:10px;
+}
+.Reward2nd{
+	display:block;
+	margin-top:10px;
+	padding-top:10px;
+}
+.Reward3rd{
+	display:block;
+	margin-top:10px;
+	padding-top:10px;
+}
+.Reward4th{
+	display:block;
+	margin-top:10px;
+	padding-top:10px;
+}
+.Reward5th{
+	display:block;
+	margin-top:10px;
+	padding-top:10px;
+	padding-bottom:10px;
+}

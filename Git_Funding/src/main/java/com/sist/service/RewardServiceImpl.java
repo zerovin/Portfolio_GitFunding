@@ -32,4 +32,11 @@ public class RewardServiceImpl implements RewardService{
 	public void funding_rewardInsert(RewardVO vo) {
 		rDao.funding_rewardInsert(vo);	
 	}
+
+	@Override
+	public List<RewardVO> project_rewardDetailList(int fno) {
+		// TODO Auto-generated method stub
+		return rDao.project_rewardDetailList(fno);
+	}
+
 }
