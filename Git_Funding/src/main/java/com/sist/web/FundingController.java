@@ -28,6 +28,11 @@ public class FundingController {
 		return "funding/funding_list";
 	}
 	
+	@GetMapping("funding/find.do")
+	public String funding_find() {
+		return "funding/find";
+	}
+	
 	@GetMapping("funding/detail_before.do")
 	public String funding_detail_before(int fno, String type, HttpServletResponse response, RedirectAttributes ra) {
 		Cookie cookie=new Cookie("funding_"+fno, String.valueOf(fno));

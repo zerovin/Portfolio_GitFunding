@@ -9,9 +9,9 @@
 	    <div class="container">
 	        <section id="search_cate">
 	            <div class="search">
-	                <form>
+	                <form method="GET" action="../funding/find.do">
 	                    <label for="search">검색</label>
-	                    <input type="search" name="search" id="search">
+	                    <input type="search" name="keyword" id="search">
 	                    <button>검색</button>
 	                </form>
 	                <div class="best_search">
@@ -255,6 +255,7 @@
 	let main_list=Vue.createApp({
 		data(){
 			return{
+				keyword:'',
 				category:[{first:"✅️",second:'전체'},{first:"🖥",second:"테크·가전"},{first:"👗",second:"패션"},{first:"💄",second:"뷰티"},{first:"🏠",second:"홈·리빙"},
    					{first:"⚽",second:"스포츠·아웃도어"},{first:"🍴",second:"푸드"},{first:"📚",second:"도서·전자책"},{first:"✏️",second:"클래스"},
    					{first:"🎀",second:"디자인"},{first:"🐶",second:"반려동물"},{first:"🎨",second:"아트"},{first:"🎁",second:"캐릭터·굿즈"},
@@ -290,6 +291,15 @@
 			this.rankChange('funding')
 		},
 		methods:{
+			/*
+			search(){
+				axios.get('../funding/find.do',{
+					params:{
+						keyword:this.keyword
+					}
+				})
+			},
+			*/
 			rankChange(type){
 				
 				if(type==='funding'){
