@@ -40,4 +40,10 @@ public class FundingDetailBoardServiceImpl implements FundingDetailBoardService{
 		return bDao.fundingCommListData(fno);
 	}
 
+	@Override
+	public FundingDetailCommVO fundingCommUpdateData(int dcno) {
+		// TODO Auto-generated method stub
+		return bDao.fundingCommUpdateData(dcno);
+	}
+
 }

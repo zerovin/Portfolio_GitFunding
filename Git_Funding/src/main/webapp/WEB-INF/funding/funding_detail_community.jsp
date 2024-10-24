@@ -22,29 +22,32 @@
 		            	</ul>
 	            	</div>
            		</div>
-            	<h3>응원·의견·리뷰<span>21</span></h3>
+            	<h3>응원·의견·리뷰<span>{{comm_list.length}}</span></h3>
             	<ul class="comm_list">
-            		<li>
+            		<li v-for="comm in comm_list">
             			<div class="member_info">
             				<div class="info">
-            					<img src="../images/profile.png" alt="">
+            					<img :src="comm.mvo.profile" alt="comm.mvo.nickname">
             					<div class="text">
-            						<p class="nick">닉네임</p>
-            						<p class="date">2024.10.10</p>
+            						<p class="nick">{{comm.mvo.nickname}}</p>
+            						<p class="date">{{comm.dbday}}</p>
             					</div>
             				</div>
             				<div class="follow_edit">
             					<button><i class="fa-solid fa-plus"></i> 팔로우</button>
-            					<button><i class="fa-regular fa-pen-to-square"></i> 수정</button>
+            					<button v-if="sessionId==comm.userId" @click="updateOpen(comm.dcno)"><i class="fa-regular fa-pen-to-square"></i> 수정</button>
+            					<button v-if="sessionId==comm.userId"><i class="fa-solid fa-trash"></i> 삭제</button>
             				</div>
             			</div>
             			<div class="content_box">
-            				<span class="cate">응원</span>
-            				<pre>한번쯤 미니어처를 만들어보고싶었는데, 우연히 발견하여 펀딩하였습니다..! 과연 투박한 손으로 완성할수있을지 기대가됩니다...!! 잘 완성되어서 앞으로도 다른 미니어처도 만들수있는 계기가된다면 너무너무 좋겠네요</pre>
+            				<span class="cate cheer" v-if="comm.cate=='응원'">{{comm.cate}}</span>
+            				<span class="cate opinion" v-if="comm.cate=='의견'">{{comm.cate}}</span>
+            				<span class="cate review" v-if="comm.cate=='리뷰'">{{comm.cate}}</span>
+            				<pre>{{comm.content}}</pre>
             			</div>
             			<div class="comment">
-            				<button class="show"><i class="fa-regular fa-comment-dots"></i> 댓글</button>
-            				<div class="wrap">
+            				<button class="show" @click="commentOpen(comm.dcno)" ><i class="fa-regular fa-comment-dots"></i> 댓글</button>
+            				<div class="wrap" :id="'commentWrap'+comm.dcno">
 	            				<div class="form">
 	            					<img src="../images/profile.png" alt="">
 	            					<input type="text" placeholder="댓글을 작성해주세요">
@@ -143,7 +146,8 @@
 	        	</div>
         	</div>
         	<textarea placeholder="소통의 글을 남겨주세요 :)" v-model="commContent"></textarea>
-        	<button class="insert" @click="commInsert(funding_vo.fno)">등록하기</button>
+        	<button class="insert" v-if="isUpdate" @click="commUpdate(funding_vo.fno)">수정하기</button>
+        	<button class="insert" v-else @click="commInsert(funding_vo.fno)">등록하기</button>
         	<span class="close" @click="commInsertClose"><i class="fa-solid fa-xmark"></i></span>
         </aside>
         <aside id="backingWindow" ref="backingWindow">
@@ -168,11 +172,16 @@
     				wish_count:0,
     				backingContent:'',
     				isOpen:false,
+    				comm_list:[],
     				comm_cate:'',
     				commContent:'',
+    				isCommentOpen:false,
+    				isUpdate:false,
+    				commUpdateData:{}
     			}
     		},
     		mounted(){
+    			this.commListRecv()
     			this.dataRecv()
     			$('.reward_click').click(function(e){
     				if(this.sessionId==''){
@@ -201,25 +210,65 @@
     			commInsertClose(){
     				$('#communityWindow').hide()
     				$('#communityWindow textarea').val('')
+    				this.isUpdate=false
     			},
     			commInsert(fno){
-    				axios.post('../funding/community_insert.do',null,{
+    				if(this.cate==='' || this.commContent===''){
+    					this.$refs.commContent.focus()
+    				}else{
+	    				axios.post('../funding/community_insert.do',null,{
+	    					params:{
+	    						fno:fno,
+	    						cate:this.comm_cate,
+	    						content:this.commContent
+	    					}
+	    				}).then(response=>{
+	    					if(response.data==="ok"){
+	    						this.commListRecv()
+	    						this.commInsertClose()
+	    						this.openList()
+	    					}else{
+	    						console.log(response.data)
+	    					}
+	    				}).catch(error=>{
+	    					console.log(error)
+	    				})
+    				}
+    			},
+    			updateOpen(dcno){
+    				this.isUpdate=true
+    				this.commWrite()
+    				axios.get('../funding/comm_update_data.do',{
     					params:{
-    						fno:fno,
-    						cate:this.comm_cate,
-    						content:this.commContent
+    						dcno:dcno
     					}
     				}).then(response=>{
-    					if(response.data==="ok"){
-    						//this.commDataRecv()
-    						this.commInsertClose()
-    						this.openList()
-    					}else{
-    						console.log(response.data)
-    					}
+    					this.commUpdateData=response.data
     				}).catch(error=>{
-    					console.log(error)
+    					console.log(error.response)
     				})
+    			},
+    			commListRecv(){
+    				axios.get('../funding/comm_list_vue.do',{
+    					params:{
+    						fno:this.fno
+    					}	
+    				}).then(response=>{
+    					console.log(response.data)
+    					this.comm_list=response.data
+    				}).catch(error=>{
+    					console.log(error.response)
+    				})
+    			},
+    			commentOpen(dcno){
+    				if(this.isCommentOpen==false){
+    					$('.comment .wrap').hide()
+	    				$('#commentWrap'+dcno).show()
+	    				this.isCommentOpen=true
+    				}else{
+    					$('#commentWrap'+dcno).hide()
+    					this.isCommentOpen=false
+    				}
     			},
     			dataRecv(){
     				axios.get('../funding/funding_detail_vue.do',{

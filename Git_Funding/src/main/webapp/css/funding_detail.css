@@ -446,6 +446,9 @@
 #funding_detail .community .comm_list img{
 	width:40px;
 }
+#funding_detail .community .comm_list li + li{
+	margin-top:30px;
+}
 #funding_detail .community .comm_list .member_info{
 	display:flex;
 	justify-content:space-between;
@@ -468,12 +471,14 @@
 #funding_detail .community .comm_list .member_info button{
 	display:inline-block;
 	padding:10px;
-	background:#F8C200;
+	background:#ccc;
 	border-radius:5px;
 }
-#funding_detail .community .comm_list .member_info button:last-child{
+#funding_detail .community .comm_list .member_info button + button{
 	margin-left:5px;
-	background:#ccc;
+}
+#funding_detail .community .comm_list .member_info button:first-child{
+	background:#F8C200;
 }
 #funding_detail .community .comm_list .content_box{
 	border:1px solid #ccc;
@@ -488,7 +493,13 @@
 	border-radius:5px;
 	font-weight:500;
 	margin-bottom:20px;
+}
+#funding_detail .community .comm_list .content_box .cate.opinion{
+	background:#4cdd647d;	
 } 
+#funding_detail .community .comm_list .content_box .cate.review{
+	background:#dd4c4c7d;	
+}
 #funding_detail .community .comm_list .content_box pre{
 	white-space:wrap;
 	line-height:1.5em;
@@ -500,6 +511,9 @@
 #funding_detail .community .comm_list .comment button i{
 	font-size:18px;
 	margin-right:3px;
+}
+#funding_detail .community .comm_list .comment .wrap{
+	display:none;
 }
 #funding_detail .community .comm_list .comment .form{
 	display:flex;

@@ -60,4 +60,15 @@ public class FundingDetailBoardDAO {
 	public List<FundingDetailCommVO> fundingCommListData(int fno){
 		return mapper.fundingCommListData(fno);
 	}
+	
+	/*
+	//수정
+	@Select("SELECT fno, dcno, cate, content "
+			+ "FROM funding_detail_comm "
+			+ "WHERE dcno=#{dcno}")
+	public FundingDetailCommVO fundingCommUpdateData(int dcno); 
+	 */
+	public FundingDetailCommVO fundingCommUpdateData(int dcno) {
+		return mapper.fundingCommUpdateData(dcno);
+	}
 }

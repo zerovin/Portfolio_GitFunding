@@ -68,4 +68,25 @@ public class FundingDetailBoardRestController {
 		}
 		return result;
 	}
+	
+	@GetMapping(value="funding/comm_list_vue.do", produces="text/plain;charset=UTF-8")
+	public String funding_comm_list(int fno) throws Exception{
+		List<FundingDetailCommVO> list=bService.fundingCommListData(fno);
+		for(FundingDetailCommVO vo:list) {
+			if(vo.getMvo().getNickname()==null) {
+				vo.getMvo().setNickname(vo.getMvo().getUserName());
+			}
+		}
+		ObjectMapper mapper=new ObjectMapper();
+		String json=mapper.writeValueAsString(list);
+		return json;
+	}
+	
+	@GetMapping(value="funding/comm_update_data.do", produces="text/plain;charset=UTF-8")
+	public String funding_comm_update_data(int dcno) throws Exception{
+		FundingDetailCommVO vo=bService.fundingCommUpdateData(dcno);
+		ObjectMapper mapper=new ObjectMapper();
+		String json=mapper.writeValueAsString(vo);
+		return json;
+	}
 }

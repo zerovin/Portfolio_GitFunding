@@ -2,6 +2,8 @@ package com.sist.mapper;
 import java.util.*;
 
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 
 import com.sist.vo.*;
@@ -25,12 +27,25 @@ public interface FundingDetailBoardMapper {
 	public FundingDetailNoticeVO fundingNoticeDetailData(int dnno);
 	
 	//커뮤니티
-	@Insert("INSERT INTO funding_detail_comm "
-			+ "VALUES(fdc_dcno_pk.nextval, #{fno}, #{userId}, #{cate}, #{content}, SYSDATE)")
+	@Insert("INSERT INTO funding_detail_comm(dcno, fno, userId, cate, content) "
+			+ "VALUES(fdc_dcno_pk.nextval, #{fno}, #{userId}, #{cate}, #{content})")
 	public void fundingCommInsert(FundingDetailCommVO vo);
 	
-	@Select("SELECT * FROM funding_detail_comm "
-			+ "WHERE fno=#{fno} "
+	@Results({
+		@Result(property="mvo.nickname", column="nickname"),
+		@Result(property="mvo.userName", column="userName"),
+		@Result(property="mvo.profile", column="profile")
+	})
+	@Select("SELECT fdc.*, nickname, userName, profile "
+			+ "FROM funding_detail_comm fdc, funding_member fm "
+			+ "WHERE fdc.userId=fm.userId "
+			+ "AND fno=#{fno} "
 			+ "ORDER BY dcno DESC")
 	public List<FundingDetailCommVO> fundingCommListData(int fno);
+	
+	//수정
+	@Select("SELECT fno, dcno, cate, content "
+			+ "FROM funding_detail_comm "
+			+ "WHERE dcno=#{dcno}")
+	public FundingDetailCommVO fundingCommUpdateData(int dcno);
 }
