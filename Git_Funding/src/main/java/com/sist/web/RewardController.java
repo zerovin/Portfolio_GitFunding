@@ -48,7 +48,7 @@ public class RewardController {
 //        service.insertFundingReward(reward);
 //
 //        return "redirect:/funding/funding_detail.do?fno=" + reward.getFno();
-    }
+//    }
 	
 	
 }
