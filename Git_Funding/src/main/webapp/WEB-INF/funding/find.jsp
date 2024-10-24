@@ -79,7 +79,7 @@
 		let funding_find=Vue.createApp({
 			data(){
 				return{
-					keyword:'',
+					keyword:'${keyword}',
 					find_list:[],
 					curpage:1,
 					totalpage:0,
@@ -88,7 +88,7 @@
 				}
 			},
 			mounted(){
-				
+				this.search()
 			},
 			methods:{
 				search(){

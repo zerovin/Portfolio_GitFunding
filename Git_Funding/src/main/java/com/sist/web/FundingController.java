@@ -29,7 +29,8 @@ public class FundingController {
 	}
 	
 	@GetMapping("funding/find.do")
-	public String funding_find() {
+	public String funding_find(String keyword, Model model) {
+		model.addAttribute("keyword", keyword);
 		return "funding/find";
 	}
 	

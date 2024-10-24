@@ -112,6 +112,7 @@ public class FundingRestController {
 			}
 			in.close();
 		}
+		System.out.println(sb);
 		return sb.toString();
 	}
 	
