@@ -5,7 +5,7 @@
 </head>
 <body>
 	<div id="funding_find" class="container">
-		<div class="search">
+		<div class="search"> 
 		    <form method="GET" action="../funding/find.do" @submit.prevent="search()">
 		        <label for="search">검색</label>
 		        <input type="search" name="keyword" id="search" ref="search" v-model="keyword">
