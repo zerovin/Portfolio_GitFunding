@@ -62,9 +62,9 @@ public interface MypageMapper {
     public int goodsBuyTotalCount(String userId);
     
     // 프로젝트 관리자 페이지 펀딩 내역
-    @Select("SELECT fno, title, thumb, p_admin, targetprice, totalprice, TO_CHAR(headcount, 'FM999,999') as fm_headcount, TO_CHAR(enddate, 'YYYYMMDD') as endday, num "
-			+ "FROM (SELECT fno, title, thumb, p_admin, targetprice, totalprice, headcount, enddate, rownum as num "
-			+ "FROM (SELECT fno, title, thumb, p_admin, targetprice, totalprice, headcount, enddate "
+    @Select("SELECT fno, title, thumb, p_admin, targetprice, totalprice, TO_CHAR(headcount, 'FM999,999') as fm_headcount, TO_CHAR(enddate, 'YYYYMMDD') as endday, wish, alert, backing,  num "
+			+ "FROM (SELECT fno, title, thumb, p_admin, targetprice, totalprice, headcount, enddate, wish, alert, backing, rownum as num "
+			+ "FROM (SELECT fno, title, thumb, p_admin, targetprice, totalprice, headcount, enddate, wish, alert, backing "
 			+ "FROM funding WHERE userId=#{userId} "
 			+ "ORDER BY fno DESC)) "
 			+ "WHERE num BETWEEN #{start} AND #{end}")
