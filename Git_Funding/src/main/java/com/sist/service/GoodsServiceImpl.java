@@ -20,9 +20,9 @@ public class GoodsServiceImpl implements GoodsService{
 		return gDao.goodsListData(map);
 	}
 	@Override
-	public int goodsTotalData(String cate1) {
+	public int goodsTotalData(Map map) {
 		// TODO Auto-generated method stub
-		return gDao.goodsTotalData(cate1);
+		return gDao.goodsTotalData(map);
 	}
 	@Override
 	public GoodsVO goodsDetailData(int fgno) {
