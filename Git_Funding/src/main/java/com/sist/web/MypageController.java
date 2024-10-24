@@ -51,6 +51,11 @@ public class MypageController {
 		MemberVO vo=mService.mypageInfoData(userId);
 		return "mypage/info_update";
 	}
+	@GetMapping("mypage/community.do")
+	public String mypage_community(HttpSession session) {
+		String userId=(String)session.getAttribute("userId");
+		return "mypage/community";
+	}
 	@GetMapping("mypage/jjim_alert.do")
 	public String jjim_alert(Model model,HttpSession session) {
 		String userId=(String)session.getAttribute("userId");

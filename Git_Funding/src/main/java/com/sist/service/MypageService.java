@@ -20,6 +20,10 @@ public interface MypageService {
     public RewardBuyVO getPurchaseDetail(int rbno);
     public int goodsBuyTotalCount(String userId);
     
+    public List<FundingDetailCommVO> myFundingCommuList(Map map);
+    public int myFundingCommuTotalPage(String userId);
+    public int myFundingCommuListCount(String userId);
+    
     // 프로젝트 관리자 페이지 펀딩 목록
     public List<FundingVO> myFundingListData(Map map);
 	public int myFundingTotalCount(String userId);

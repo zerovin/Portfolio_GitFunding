@@ -17,8 +17,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.text.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -89,6 +94,26 @@ public class FundingRestController {
 		ObjectMapper mapper=new ObjectMapper();
 		String json=mapper.writeValueAsString(map);
 		return json;
+	}
+	
+	@GetMapping(value="funding/find_vue.do", produces="text/plain;charset=UTF-8")
+	public String funding_find(String keyword) throws Exception{
+		String strUrl="http://localhost:9200/funding/_search?q=title="+URLEncoder.encode(keyword, "UTF-8");
+		URL url=new URL(strUrl);
+		//URL 연결
+		HttpURLConnection conn=(HttpURLConnection)url.openConnection();
+		StringBuffer sb=new StringBuffer(); //데이터를 모아둔다
+		if(conn!=null) { //사이트에 연결이 된 경우
+			BufferedReader in=new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+			while(true) {
+				String data=in.readLine();
+				if(data==null) break;
+				sb.append(data);
+			}
+			in.close();
+		}
+		System.out.println(sb);
+		return sb.toString();
 	}
 	
 	@GetMapping(value="funding/main_rank.do", produces="text/plain;charset=UTF-8")

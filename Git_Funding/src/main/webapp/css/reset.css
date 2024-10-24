@@ -52,7 +52,9 @@ input,
 button{
 	background:none;
 	border:none;
-	cursor: pointer;
+}
+button{
+	cursor:pointer;
 }
 select{
 	border:none;

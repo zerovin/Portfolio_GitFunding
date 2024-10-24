@@ -1,0 +1,207 @@
+/* ---------------- SEARCH ---------------- */
+#funding_find{
+	font-family: 'NEXON Lv2 Gothic';
+}
+#funding_find .search{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:40px;
+    margin-bottom:60px;
+}
+#funding_find .search form{
+    display:flex;
+    align-items:center;
+    gap:20px;
+    position:relative;
+}
+#funding_find .search form label{
+    display:none;
+}
+#funding_find .search form input{
+    width:550px;
+    height:50px;
+    border:2px solid #F8C200;
+    border-radius:27px;
+    padding:25px;
+    padding-right:40px;
+}
+#funding_find .search form button{
+    width:24px;
+    height:23px;
+    background:url(../images/search.png) no-repeat;
+    text-indent:-9999em;
+    position:absolute;
+    right:20px;
+    top:50%;
+    transform:translateY(-50%);
+}
+#funding_find .best_search{
+    position:relative;
+    padding:10px;
+    padding-right:20px;
+}
+#funding_find .rolling{
+    overflow:hidden;
+    height:54px;
+}
+#funding_find .rolling li{
+    width:200px;
+}
+#funding_find .rolling img{
+    position:absolute;
+    top:50%;
+    right:0;
+    transform:translateY(-50%);
+    cursor: pointer;
+    transition:.3s;
+}
+#funding_find .rolling img.rotate{
+    transform:translateY(-50%) rotate(180deg);
+}
+#funding_find .search .rolling a{
+    height:54px;
+    line-height:54px;
+}
+#funding_find .search a{
+    display:inline-flex;
+    gap:15px;
+    font-weight:500;
+    font-size:18px;
+}
+#funding_find .search a > p{
+    white-space: nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+#funding_find .search span{
+    color:#F8C200;
+}
+#funding_find .search_list{
+    display:none;
+    position:absolute;
+    top:calc(100% + 10px);
+    left:0;
+    padding:40px 30px;
+    border-radius:10px;
+    box-shadow: 1px 1px 5px rgba(201, 173, 73, .3);
+    background:#fff;
+    z-index:1;
+}
+#funding_find .search_list .top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+#funding_find .search_list h3{
+    font-weight:500;
+    font-size:18px;
+    padding-left:5px;
+}
+#funding_find .search_list button{
+    color:#aba3a3;
+}
+#funding_find .search_list li{
+    width:200px;
+}
+#funding_find .search_list a{
+    padding:5px 0;
+    margin-bottom:5px;
+    font-weight:400;
+    font-size:16px;
+}
+#funding_find .search span{
+    width:20px;
+    text-align:right;
+}
+
+/* ---------------- LIST ---------------- */
+#funding_find h2{
+	font-weight:700;
+    font-size:22px;
+    display:inline-block;
+    padding:10px;
+    border-bottom:3px solid #F8C200;
+}
+#funding_find h2 span{
+	color:#9e9c9c;
+}
+#funding_find .list_wrap .list{
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap:40px 20px;
+    margin:30px 0 70px;
+}
+#funding_find .list_wrap .open_alert,
+#funding_find .list_wrap .cancel_alert{
+	font-family: 'NEXON Lv2 Gothic';
+    border:1px solid #F8C200;
+    color:#F8C200;
+    margin-top:10px;
+    text-align:center;
+    width:100%;
+    padding:10px;
+    border-radius:5px;
+}
+#funding_find .list_wrap .open_alert span{
+	font-weight:500;
+	color:#F8C200;
+}
+#funding_find .list_wrap .cancel_alert{
+    background:#ccc;
+    color:#fff;
+}
+#funding_find .list_wrap .progress{
+    margin-top:20px;
+}
+#funding_find .list_wrap .progress .top{
+    display:flex;
+    justify-content:space-between;
+    align-items:end;
+    margin-bottom:10px;
+}
+#funding_find .list_wrap .progress .top .num{
+    color:#F8C200;
+    font-size:20px;
+    font-weight:500;
+    margin-right:10px;
+}
+#funding_find .list_wrap .progress .top .remain{
+    font-size:14px;
+    background:#ccc;
+    border-radius:3px;
+    color:#fff;
+    padding:5px;
+}
+#funding_find .list_wrap .progress .progress_bar{
+    width:100%;
+    height:6px;
+	background:linear-gradient(to right, transparent, #F8C200);
+    border-radius:3px;
+}
+
+/* ---------------- PAGINATION ---------------- */
+#funding_find .list_wrap .pagination{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:20px;
+    margin-bottom:30px;
+}
+#funding_find .list_wrap .pagination li:first-child i,
+#funding_find .list_wrap .pagination li:last-child i{
+    background:#F8C200;
+    color:#fff;
+    display:block;
+    width:30px;
+    height:30px;
+    text-align:center;
+    line-height:32px;
+    border-radius:3px;
+}
+#funding_find .list_wrap .pagination li.active a{
+    font-weight:bold;
+    font-size:18px;
+    color:#F8C200;
+}

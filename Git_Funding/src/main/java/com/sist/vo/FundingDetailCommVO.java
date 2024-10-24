@@ -13,6 +13,6 @@ import lombok.Data;
 @Data
 public class FundingDetailCommVO {
 	private int dcno, fno;
-	private String userId, cate, content, dbday;
+	private String userId, cate, content, dbday, title, thumb;
 	private Date regdate;
 }
