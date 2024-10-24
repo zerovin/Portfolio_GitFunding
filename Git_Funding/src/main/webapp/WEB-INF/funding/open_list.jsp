@@ -76,7 +76,7 @@
 	   					}
 	   				}).then(response=>{
 	   					this.list=response.data.list
-	   					this.curpage=response.data.curpage
+	   					this.curpage=1
 	   					this.totalpage=response.data.totalpage
 	   					this.startpage=response.data.startpage
 	   					this.endpage=response.data.endpage
