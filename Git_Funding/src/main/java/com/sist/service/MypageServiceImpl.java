@@ -89,4 +89,9 @@ public class MypageServiceImpl implements MypageService{
 		return mDao.myFundingTotalPage(userId);
 	}
 
+	@Override
+	public List<FundingVO> myFundingTotalData(String userId) {
+		return mDao.myFundingTotalData(userId);
+	}
+
 }

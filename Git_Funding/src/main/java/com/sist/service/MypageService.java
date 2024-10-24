@@ -24,4 +24,5 @@ public interface MypageService {
     public List<FundingVO> myFundingListData(Map map);
 	public int myFundingTotalCount(String userId);
 	public int myFundingTotalPage(String userId);
+	public List<FundingVO> myFundingTotalData(String userId);
 }

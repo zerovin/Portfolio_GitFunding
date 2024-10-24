@@ -73,5 +73,8 @@ public class MypageDAO {
 	public int myFundingTotalPage(String userId) {
 		return mapper.myFundingTotalPage(userId);
 	}
+	public List<FundingVO> myFundingTotalData(String userId){
+		return mapper.myFundingTotalData(userId);
+	}
 	
 }

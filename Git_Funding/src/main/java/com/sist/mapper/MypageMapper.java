@@ -61,6 +61,9 @@ public interface MypageMapper {
     @Select("SELECT COUNT(*) FROM f_goods_order WHERE id = #{userId}")
     public int goodsBuyTotalCount(String userId);
     
+    
+    // 커뮤니티 내역 출력
+    
     // 프로젝트 관리자 페이지 펀딩 내역
     @Select("SELECT fno, title, thumb, p_admin, targetprice, totalprice, TO_CHAR(headcount, 'FM999,999') as fm_headcount, TO_CHAR(enddate, 'YYYYMMDD') as endday, wish, alert, backing,  num "
 			+ "FROM (SELECT fno, title, thumb, p_admin, targetprice, totalprice, headcount, enddate, wish, alert, backing, rownum as num "
@@ -70,8 +73,11 @@ public interface MypageMapper {
 			+ "WHERE num BETWEEN #{start} AND #{end}")
 	public List<FundingVO> myFundingListData(Map map);
 	
-	@Select("SELECT COUNT(*), SUM(alert), SUM(wish), SUM(backing), SUM(totalprice) FROM funding WHERE userId={userId}")
+	@Select("SELECT COUNT(*) FROM funding WHERE userId={userId}")
 	public int myFundingTotalCount(String userId);
+	
+	@Select("SELECT alert, wish, backing, totalprice FROM funding WHERE userId={userId}")
+	public List<FundingVO> myFundingTotalData(String userId);
 	
 	@Select("SELECT CEIL(COUNT(*)/4.0) FROM funding "
 				+ "WHERE userId=#{userId}")
