@@ -34,31 +34,35 @@
 				<div class="CenterAreaCenterContainer"> 
 				    <div class="CenterAreaCenter1st">
 				        <div class="RefreshTodaysDataContainer">
-				            <button type="button">
-								<span>오늘 데이터 한번에 보기<i class="fa-solid fa-rotate-right" style="margin-left: 20px; font-size: 20px"></i></span>
-				            </button>
-				            <span>10건</span>
+							<p>데이터 한번에 보기<i class="fa-solid fa-check" style="margin-left:10px;"></i></p>
+				            <p>{{count}}건</p>
 				        </div>
 				        
 				        <!-- 우측 하단 부분을 2행으로 나눔 -->
 				        <div class="ViewTodayDataContainer">
-				            <ul class="ViewTodayData"> 
-				                <li> 
-				                    <dl>
-				                        <dt>찜・알림신청</dt>
-				                        <dd>- 0</dd>
+				            <ul class="ViewTodayData">
+				            	<li> 
+				                 	<dl>
+				                        <dt>알림신청</dt>
+				                        <dd>{{allalert}}</dd>
 				                    </dl>
 				                </li>
 				                <li> 
 				                    <dl>
-				                        <dt>결제(예약)</dt> 
-				                        <dd>+ 0￦</dd> 
+				                        <dt>위시리스트</dt>
+				                        <dd>{{allwish}}</dd>
 				                    </dl>
 				                </li>
 				                <li>
 				                    <dl>
 				                        <dt>지지서명</dt> 
-				                        <dd>- 0</dd> 
+				                        <dd>{{allbacking}}</dd> 
+				                    </dl>
+				                </li>
+				                <li>				                     
+				                    <dl>
+				                        <dt>결제(예약)</dt> 
+				                        <dd>{{allprice}}</dd> 
 				                    </dl>
 				                </li>
 				            </ul>
@@ -164,7 +168,11 @@
 	            totalpage: 0,  // 총 페이지 수
 	            startPage: 1,  // 시작 페이지
 	            endPage: 0,    // 끝 페이지
-	            count: 0       // 총 프로젝트 개수
+	            count: 0,       // 총 프로젝트 개수
+	            allalert:0,
+	            allwish:0,
+	            allbacking:0,
+	            allprice:0
 	        };
 	    },
 	    mounted() {
@@ -194,6 +202,10 @@
 	                this.endPage = response.data.endpage;
 	                this.startPage = response.data.startpage;
 	                this.count = response.data.count;
+	                this.allalert=response.data.allalert.toLocaleString();
+	                this.allwish=response.data.allwish.toLocaleString();
+	                this.allbacking=response.data.allbacking.toLocaleString();
+	                this.allprice=response.data.allprice.toLocaleString();
 	            }).catch(error => {
 	                console.log(error.response);
 	            });

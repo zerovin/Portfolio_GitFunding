@@ -54,15 +54,10 @@ public class ProjectRestController {
 	    map.put("end", end);
 	    
 	    List<FundingVO> list = mService.myFundingListData(map);
-	    
 	    for (FundingVO vo : list) {
 	        vo.setFm_totalprice(new DecimalFormat("###,###").format(vo.getTotalprice()));
 	        int percent = (int) (Math.round(vo.getTotalprice() / (double) vo.getTargetprice() * 100));
 	        vo.setFm_percent(new DecimalFormat("###,###").format(percent));
-	        if (percent >= 100) {
-	            percent = 100;
-	        }
-	        vo.setPercent(percent);
 
 	        Date today = new Date();
 	        Date endday = new SimpleDateFormat("yyyyMMdd").parse(vo.getEndday());
@@ -79,6 +74,19 @@ public class ProjectRestController {
 	        endpage = totalpage;
 	    }
 	    int count=mService.myFundingTotalCount(userId);
+	    
+	    List<FundingVO> total_list=mService.myFundingTotalData(userId);
+	    int allalert=0;
+	    int allwish=0;
+	    int allbacking=0;
+	    int allprice=0;
+	    for(FundingVO tvo:total_list) {
+	    	allalert+=tvo.getAlert();
+	    	allwish+=tvo.getWish();
+	    	allbacking+=tvo.getBacking();
+	    	allprice+=tvo.getTotalprice();
+	    }
+	    
 	    map = new HashMap<>();
 	    map.put("list", list);
 	    map.put("curpage", page);
@@ -86,6 +94,10 @@ public class ProjectRestController {
 	    map.put("startpage", startpage);
 	    map.put("endpage", endpage);
 	    map.put("count", count);
+	    map.put("allalert", allalert);
+	    map.put("allwish", allwish);
+	    map.put("allbacking", allbacking);
+	    map.put("allprice", allprice);
 
 	    ObjectMapper mapper = new ObjectMapper();
 	    String json = mapper.writeValueAsString(map);

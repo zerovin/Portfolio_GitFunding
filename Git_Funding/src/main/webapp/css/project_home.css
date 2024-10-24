@@ -119,17 +119,13 @@
 	display:flex;
 	justify-content:space-between;
 	align-items:center;
-	margin-bottom:200px;
 	font-size:38px;
 }
-.CenterAreaCenter1st button{
-/* 		width: 300px; */
-	font-weight:bold;
-	background:none;
-	cursor:pointer;
-	font-size:30px;
-	justify-content:space-between;
-/*     	transition: background-color 0.3s; */
+.CenterAreaCenter1st p:first-child{
+	font-weight: bold;
+    background: none;
+    cursor: pointer;
+    font-size: 30px;
 }
 .CenterAreaCenter1st ul{
 	display:flex;
