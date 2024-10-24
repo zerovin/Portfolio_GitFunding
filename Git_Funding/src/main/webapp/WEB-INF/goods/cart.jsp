@@ -152,8 +152,8 @@ $(function() {
 	            	      <input type="hidden" value="delivery(vo)">
 	            	    </td>
 	            	    <td width="8%">
-	            	      <input type="button" value="바로 주문" style="font-size: 13px;width: 62px;background-color: #F8C200;color: white;line-height: 13px;border-radius: 5px;">
-	            	      <input type="button" value="X삭제" style="font-size: 13px;width: 62px;background-color: #444;color: white;line-height: 13px;border-radius: 5px;">
+	            	      <!-- <input type="button" value="바로 주문" style="font-size: 13px;width: 62px;background-color: #F8C200;color: white;line-height: 13px;border-radius: 5px;">
+	            	      <input type="button" value="X삭제" style="font-size: 13px;width: 62px;background-color: #444;color: white;line-height: 13px;border-radius: 5px;"> -->
 	            	    </td>
 	            	  </tr>
 	            	  <tr>
@@ -209,7 +209,7 @@ $(function() {
 	                    <button type="button" @click="cartCancel()">선택상품 삭제</button>
 	                  </div>
 	                  <div>
-	                    <button type="button">품절상품 삭제</button>
+	                   
 	                  </div>
 	                </div>
 	              </div>

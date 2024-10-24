@@ -19,8 +19,8 @@ public interface GoodsMapper {
 	public List<CartVO> orderListData(List<Integer> fgcno);
 	public void cartDelete(List<Integer> fgcno);
 	
-	@Select("SELECT COUNT(*) FROM f_goods WHERE cate1 LIKE '%'||#{cate1}||'%'")
-	public int goodsTotalData(String cate1);
+	@Select("SELECT COUNT(*) FROM f_goods WHERE ${cateInfo} LIKE '%'||#{cate}||'%'")
+	public int goodsTotalData(Map map);
 	
 	@Update("UPDATE f_goods SET hit=hit+1 WHERE fgno=#{fgno}")
 	public void goodsHitIncrement(int fgno);

@@ -30,6 +30,24 @@ a{
     color: white;
     font-weight: bold;
 }
+#search{
+	width: 550px;
+    height: 50px;
+    border: 2px solid #F8C200;
+    border-radius: 27px;
+   
+}
+#searchBtn{
+	width: 24px;
+    height: 23px;
+    background: url(../images/search.png) no-repeat;
+    text-indent: -9999em;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+   
+}
 </style>
 </head>
 <body>
@@ -42,6 +60,13 @@ a{
 				   <div v-for="category in cate_list" :class="{ active: cate === category }" @click="changeCategory(category)">
 				  	{{category}}
 				   </div>
+			</div>
+			<div style="display: flex;justify-content: center;">
+				<div style=" position: relative;">
+					<label for="search" style="display: none;">검색</label>
+		            <input type="search" name="search" id="search" v-model="search" @keydown="handleKeyDown">
+		            <button id="searchBtn" @click="searchInfo()">검색</button>
+	            </div>
 			</div>
             <ul class="list">
                 <li v-for="vo in goods_list">
@@ -78,7 +103,7 @@ a{
 		let goods=Vue.createApp({
 			data(){
 				return{
-					cateInfo:1,
+					search:'',
 					goods_list:[],
 					cateInfo:'${cateInfo}',
 					cate:'${cate}',
@@ -107,9 +132,20 @@ a{
 				this.dataRecv()
 			},
 			methods:{
+				 handleKeyDown(event){
+					 if (event.key === 'Enter') {
+					       this.searchInfo()
+					 } 
+				 },
+				 searchInfo(){
+					 this.cateInfo = '4'
+					 this.dataRecv()
+				 },
 				 changeCategory(category) {
 						this.curpage=1
 		            	this.cate = category
+		            	this.cateInfo = 1
+		            	this.search = ''
 		            	this.dataRecv()
 		           
 		         },
@@ -144,7 +180,8 @@ a{
 						params:{
 							page:this.curpage,
 							cate:this.cate,
-							cateInfo:this.cateInfo
+							cateInfo:this.cateInfo,
+							fd:this.search
 						}
 					}).then(response=>{
 						console.log(response)

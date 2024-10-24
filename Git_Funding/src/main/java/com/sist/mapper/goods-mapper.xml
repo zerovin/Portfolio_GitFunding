@@ -40,6 +40,9 @@
 			   <when test="cateInfo == 3">
 				WHERE fg.cate3 LIKE '%'||#{cate}||'%'
 			  </when>
+			  <when test="cateInfo == 4">
+			  	WHERE fg.title LIKE '%'||#{cate}||'%'
+			  </when>
 			   <otherwise>
 				WHERE fg.cate1 LIKE '%'||#{cate}||'%'
 			  </otherwise>

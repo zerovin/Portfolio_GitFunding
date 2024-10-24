@@ -20,8 +20,8 @@ public class GoodsDAO {
 		
 	}
 	
-	public int goodsTotalData(String cate1) {
-		return mapper.goodsTotalData(cate1);
+	public int goodsTotalData(Map map) {
+		return mapper.goodsTotalData(map);
 	}
 	
 	public GoodsVO goodsDetailData(int fgno){

@@ -36,8 +36,9 @@ public class GoodsRestController {
 		  return json;
 	}
 	
+	
 	@GetMapping(value = "goods/list_vue.do",produces = "text/plain;charset=utf-8")
-	public String goodsListData(int page , String cate , String cateInfo) throws Exception {
+	public String goodsListData(int page , String cate , String cateInfo , String fd) throws Exception {
 		int rowsize=12;
 		int start=(page*rowsize)-(rowsize-1);
 		int end=page*rowsize;
@@ -47,7 +48,11 @@ public class GoodsRestController {
 		Map map=new HashMap();
 		map.put("start", start);
 		map.put("end", end);
-		map.put("cate", cate);
+		if(fd.equals("")) {
+			map.put("cate", cate);
+		}else {
+			map.put("cate", fd);
+		}
 		map.put("cateInfo", cateInfo);
 		List<GoodsVO> list=gService.goodsListData(map);
 		for(GoodsVO vo:list) {
@@ -57,7 +62,23 @@ public class GoodsRestController {
 			String realprice=df.format(price*(100-discount)/10000*100)+"원";
 			vo.setRealprice(realprice);
 		}
-		int total=gService.goodsTotalData(cate);
+
+		int total=0;
+		if(cateInfo.equals("1") || cateInfo.equals("")) {
+			map.put("cateInfo", "cate1");
+		}else if(cateInfo.equals("2")) {
+			map.put("cateInfo", "cate2");
+		}else if(cateInfo.equals("3")) {
+			map.put("cateInfo", "cate3");
+		}else if(cateInfo.equals("4")) {
+			map.put("cateInfo", "title");
+		}
+		total=gService.goodsTotalData(map);
+		
+		
+		
+		
+		
 		int totalpage=(int)Math.ceil(total/(double)rowsize);
 		
 		final int BLOCK=10;
