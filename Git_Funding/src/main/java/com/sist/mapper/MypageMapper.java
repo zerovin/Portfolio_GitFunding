@@ -63,6 +63,21 @@ public interface MypageMapper {
     
     
     // 커뮤니티 내역 출력
+    @Select("SELECT c.dcno, c.fno, c.userId, c.cate, c.content, TO_CHAR(c.regdate, 'YYYY.MM.DD HH24:MI:SS') as dbday," 
+            +"f.title, f.thumb, c.num " 
+            +"FROM (SELECT dcno, fno, userId, cate, content, regdate, rownum as num " 
+            +"FROM (SELECT dcno, fno, userId, cate, content, regdate " 
+            +"FROM funding_detail_comm WHERE userId = #{userId} ORDER BY dcno DESC) " 
+            +"WHERE rownum <= #{end}) c " 
+            +"JOIN funding f ON c.fno = f.fno " 
+            +"WHERE c.num BETWEEN #{start} AND #{end}")
+    List<FundingDetailCommVO> myFundingCommuList(String userId);
+
+    @Select("SELECT CEIL(COUNT(*)/5.0) FROM funding_detail_comm WHERE userId = #{userId}")
+    int myFundingCommuTotalPage(String userId);
+
+    @Select("SELECT COUNT(*) FROM funding_detail_comm WHERE userId = #{userId}")
+    int myFundingCommuListCount(String userId);
     
     // 프로젝트 관리자 페이지 펀딩 내역
     @Select("SELECT fno, title, thumb, p_admin, targetprice, totalprice, TO_CHAR(headcount, 'FM999,999') as fm_headcount, TO_CHAR(enddate, 'YYYYMMDD') as endday, wish, alert, backing,  num "
@@ -73,10 +88,10 @@ public interface MypageMapper {
 			+ "WHERE num BETWEEN #{start} AND #{end}")
 	public List<FundingVO> myFundingListData(Map map);
 	
-	@Select("SELECT COUNT(*) FROM funding WHERE userId={userId}")
+	@Select("SELECT COUNT(*) FROM funding WHERE userId=#{userId}")
 	public int myFundingTotalCount(String userId);
 	
-	@Select("SELECT alert, wish, backing, totalprice FROM funding WHERE userId={userId}")
+	@Select("SELECT alert, wish, backing, totalprice FROM funding WHERE userId=#{userId}")
 	public List<FundingVO> myFundingTotalData(String userId);
 	
 	@Select("SELECT CEIL(COUNT(*)/4.0) FROM funding "

@@ -175,6 +175,9 @@ public class MypageRestController {
 
 	    return json;
 	}
+	
+	
+	
 
 	@GetMapping(value="mypage/funding_buy_detail_vue.do", produces = "text/plain;charset=UTF-8")
 	public String mypagePurchaseDetail(int rbno) throws Exception {

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.util.*;
 import com.sist.mapper.*;
 import com.sist.vo.AlertVO;
+import com.sist.vo.FundingDetailCommVO;
 import com.sist.vo.FundingVO;
 import com.sist.vo.MemberVO;
 import com.sist.vo.RewardBuyVO;
@@ -60,6 +61,26 @@ public class MypageDAO {
     public int goodsBuyTotalCount(String userId) {
     	return mapper.goodsBuyTotalCount(userId);
     }
+    
+    // 커뮤니티 관리
+    /*
+     * @Select("SELECT c.dcno, c.fno, c.userId, c.cate, c.content, TO_CHAR(c.regdate, 'YYYY.MM.DD HH24:MI:SS') as dbday," 
+            +"f.title, f.thumb, c.num " 
+            +"FROM (SELECT dcno, fno, userId, cate, content, regdate, rownum as num " 
+            +"FROM (SELECT dcno, fno, userId, cate, content, regdate " 
+            +"FROM funding_detail_comm WHERE userId = #{userId} ORDER BY dcno DESC) " 
+            +"WHERE rownum <= #{end}) c " 
+            +"JOIN funding f ON c.fno = f.fno " 
+            +"WHERE c.num BETWEEN #{start} AND #{end}")
+	    List<FundingDetailCommVO> myFundingCommuList(String userId);
+	
+	    @Select("SELECT CEIL(COUNT(*)/5.0) FROM funding_detail_comm WHERE userId = #{userId}")
+	    int myFundingCommuTotalPage(String userId);
+	
+	    @Select("SELECT COUNT(*) FROM funding_detail_comm WHERE userId = #{userId}")
+	    int myFundingCommuListCount(String userId);
+     */
+    
     
     // 프로젝트 관리자 펀딩 내역
     public List<FundingVO> myFundingListData(Map map){
