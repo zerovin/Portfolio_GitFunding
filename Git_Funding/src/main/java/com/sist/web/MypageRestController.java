@@ -177,6 +177,40 @@ public class MypageRestController {
 	}
 	
 	
+	@GetMapping(value="mypage/community_vue.do", produces = "text/plain;charset=UTF-8")
+	public String mypageCommunity(HttpSession session, int page) throws Exception {
+		int rowSize = 4; // 한 페이지에 보여줄 항목 수
+		int start = (rowSize * page) - (rowSize - 1);
+		int end = rowSize * page;
+		String userId=(String)session.getAttribute("userId");
+		
+		Map map = new HashMap();
+		map.put("userId", userId);
+		map.put("start", start);
+		map.put("end", end);
+		int totalpage=mService.myFundingCommuTotalPage(userId);
+		int count=mService.myFundingCommuListCount(userId);
+		
+		final int BLOCK=5;
+		int startpage=((page-1)/BLOCK*BLOCK)+1;
+		int endPage=((page-1)/BLOCK*BLOCK)+BLOCK;
+		if(endPage>totalpage) {
+			endPage=totalpage;
+		}
+		List<FundingDetailCommVO> list=mService.myFundingCommuList(map);
+		
+		map = new HashMap();
+		map.put("list", list);
+		map.put("curpage", page);
+		map.put("startpage", startpage);
+		map.put("endPage", endPage);
+		map.put("totalpage", totalpage);
+		map.put("count", count);
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(map);
+		
+		return json;
+	}
 	
 
 	@GetMapping(value="mypage/funding_buy_detail_vue.do", produces = "text/plain;charset=UTF-8")

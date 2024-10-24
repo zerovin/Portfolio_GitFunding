@@ -72,15 +72,23 @@ public class MypageDAO {
             +"WHERE rownum <= #{end}) c " 
             +"JOIN funding f ON c.fno = f.fno " 
             +"WHERE c.num BETWEEN #{start} AND #{end}")
-	    List<FundingDetailCommVO> myFundingCommuList(String userId);
+	    public List<FundingDetailCommVO> myFundingCommuList(String userId);
 	
 	    @Select("SELECT CEIL(COUNT(*)/5.0) FROM funding_detail_comm WHERE userId = #{userId}")
-	    int myFundingCommuTotalPage(String userId);
+	    public int myFundingCommuTotalPage(String userId);
 	
 	    @Select("SELECT COUNT(*) FROM funding_detail_comm WHERE userId = #{userId}")
-	    int myFundingCommuListCount(String userId);
+	    public int myFundingCommuListCount(String userId);
      */
-    
+    public List<FundingDetailCommVO> myFundingCommuList(Map map){
+    	return mapper.myFundingCommuList(map);
+    }
+    public int myFundingCommuTotalPage(String userId) {
+    	return mapper.myFundingCommuTotalPage(userId);
+    }
+    public int myFundingCommuListCount(String userId) {
+    	return mapper.myFundingCommuListCount(userId);
+    }
     
     // 프로젝트 관리자 펀딩 내역
     public List<FundingVO> myFundingListData(Map map){
