@@ -212,6 +212,41 @@ public class MypageRestController {
 		return json;
 	}
 	
+	@GetMapping(value="mypage/qna_vue.do", produces = "text/plain;charset=UTF-8")
+	public String mypageQna(HttpSession session, int page) throws Exception {
+		int rowSize = 10 ; // 한 페이지에 보여줄 항목 수
+		int start = (rowSize * page) - (rowSize - 1);
+		int end = rowSize * page;
+		String userId=(String)session.getAttribute("userId");
+		
+		Map map = new HashMap();
+		map.put("userId", userId);
+		map.put("start", start);
+		map.put("end", end);
+		int totalpage=mService.myQnaTotalPage(userId);
+		int count=mService.myQnaTotalCount(userId);
+		
+		final int BLOCK=5;
+		int startPage=((page-1)/BLOCK*BLOCK)+1;
+		int endPage=((page-1)/BLOCK*BLOCK)+BLOCK;
+		if(endPage>totalpage) {
+			endPage=totalpage;
+		}
+		List<QnaVO> list=mService.myQnaListData(map);
+		
+		map = new HashMap();
+		map.put("list", list);
+		map.put("curpage", page);
+		map.put("startPage", startPage);
+		map.put("endPage", endPage);
+		map.put("totalpage", totalpage);
+		map.put("count", count);
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(map);
+		
+		return json;
+	}
+	
 
 	@GetMapping(value="mypage/funding_buy_detail_vue.do", produces = "text/plain;charset=UTF-8")
 	public String mypagePurchaseDetail(int rbno) throws Exception {

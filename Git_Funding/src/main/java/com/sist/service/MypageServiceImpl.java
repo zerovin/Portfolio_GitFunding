@@ -11,6 +11,7 @@ import com.sist.vo.AlertVO;
 import com.sist.vo.FundingDetailCommVO;
 import com.sist.vo.FundingVO;
 import com.sist.vo.MemberVO;
+import com.sist.vo.QnaVO;
 import com.sist.vo.RewardBuyVO;
 import com.sist.vo.WishVO;
 
@@ -108,6 +109,21 @@ public class MypageServiceImpl implements MypageService{
 	@Override
 	public int myFundingCommuListCount(String userId) {
 		return mDao.myFundingCommuListCount(userId);
+	}
+
+	@Override
+	public List<QnaVO> myQnaListData(Map map) {
+		return mDao.myQnaListData(map);
+	}
+
+	@Override
+	public int myQnaTotalPage(String userId) {
+		return mDao.myQnaTotalPage(userId);
+	}
+
+	@Override
+	public int myQnaTotalCount(String userId) {
+		return mDao.myQnaTotalCount(userId);
 	}
 
 }

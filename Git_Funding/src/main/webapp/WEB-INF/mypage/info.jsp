@@ -112,7 +112,7 @@
             </div>
             <div class="info-section">
                 <span class="info-label">비밀번호:</span>
-                <span class="info-value"><button>변경하기</button></span>
+                <span class="info-value"><button @click="pwUpdate">변경하기</button></span>
             </div>
             <div class="info-section">
                 <span class="info-label">이메일:</span>
@@ -237,6 +237,9 @@
                 },
                 goToEditPage() {
                     location.href = '../mypage/info_update.do'; // 정보 수정 페이지로 이동
+                },
+                pwUpdate(){
+                    location.href = '../mypage/pw_update.do'; // 정보 수정 페이지로 이동
                 }
             }
         }).mount('#myinfoApp')
