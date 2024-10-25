@@ -4,38 +4,40 @@
 <html>
 <head>
 <meta charset="UTF-8">
-	<link rel="stylesheet" href="../css/main.css">
+	<link rel="stylesheet" href="../css/project_reward_insert">
 <script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
 	<div id="AddReward">
-		<h2>리워드 등록</h2>
-		<div>
-			<label>가격을 입력하세요:</label>
-			<input type="number" v-model="price" placeholder="가격" required>
+		<div class="RewardContainer">
+			<h2>리워드 등록</h2>
+			<div class="PriceContainer">
+				<label>가격을 입력하세요:</label>
+				<input type="number" v-model="price" placeholder="가격" required>
+			</div>
+			<div class="NameContainer">
+				<label>리워드명을 입력하세요:</label>
+				<input type="text" v-model="name" placeholder="리워드명" required>
+			</div>
+			<div class="LabelContainer">
+				<label>수량을 입력하세요:</label>
+				<input type="number" v-model="limit" placeholder="수량" required>
+			</div>
+			<div class="DescriptionContainer">
+				<label>구성을 입력하세요:</label>
+				<input type="text" v-model="description" placeholder="구성" required>
+			</div>
+			<div class="DeliveryContainer">
+				<label>배송비 입력하세요:</label>
+				<input type="number" v-model="delivery" placeholder="배송비" required>
+			</div>
+			<div class="del_startContainer">
+				<label>발송 시작일을 입력하세요:</label>
+				<input type="date" v-model="del_start" required>
+			</div>
+			<button @click="submitReward">등록하기</button>
 		</div>
-		<div>
-			<label>리워드명을 입력하세요:</label>
-			<input type="text" v-model="name" placeholder="리워드명" required>
-		</div>
-		<div>
-			<label>수량을 입력하세요:</label>
-			<input type="number" v-model="limit" placeholder="수량" required>
-		</div>
-		<div>
-			<label>구성을 입력하세요:</label>
-			<input type="text" v-model="description" placeholder="구성" required>
-		</div>
-		<div>
-			<label>배송비 입력하세요:</label>
-			<input type="number" v-model="delivery" placeholder="배송비" required>
-		</div>
-		<div>
-			<label>발송 시작일을 입력하세요:</label>
-			<input type="date" v-model="del_start" required>
-		</div>
-		<button @click="submitReward">등록하기</button>
 	</div>
 
 	<script>

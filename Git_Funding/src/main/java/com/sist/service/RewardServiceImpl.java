@@ -41,8 +41,7 @@ public class RewardServiceImpl implements RewardService{
 	
 	@Override
 	public RewardVO fundingRewardUpdateData(Map map) {
-		rDao.fundingRewardUpdateData(map);
-		return null;
+		return rDao.fundingRewardUpdateData(map);
 	}
 	
 	@Override

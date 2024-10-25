@@ -40,14 +40,15 @@ public interface RewardMapper {
 			+ "VALUES(fr_rno_seq.nextval, #{fno}, #{name}, #{price}, #{amount}, #{description}, #{delivery}, #{del_start}, #{limit}, #{userId})")
 	public void fundingRewardInsert(RewardVO vo);
 	
-	@Select("SELECT rno, fno, price, amount, delivery, limit, name, description, del_start "
+	@Select("SELECT fno, rno, price, amount, delivery, limit, name, description, del_start "
 			+ "FROM funding_reward "
-			+ "WHERE fno=#{fno} AND rno=#{rno}")
+			+ "WHERE rno=#{rno}")
 	public RewardVO fundingRewardUpdateData(Map map);
 	
 	@Update("UPDATE funding_reward SET "
-			+ "price=#{price}, amount=#{amount}, delivery=#{delivery}, limit=#{limit}, name=#{name}, description=#{description}, del_start=#{del_start} "
-			+ "WHERE fno=#{fno} AND rno=#{rno}")
+			+ "price=#{vo.price}, amount=#{vo.amount}, delivery=#{vo.delivery}, limit=#{vo.limit}, "
+			+ "description=#{vo.description}, del_start=#{vo.del_start} "
+			+ "WHERE rno=#{vo.rno}")
 	public void fundingRewardUpdate(Map map);
 	
 	// 리워드 삭제

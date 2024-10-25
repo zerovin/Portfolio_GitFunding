@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sist.vo.*;
+
+import oracle.net.aso.m;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.service.*;
@@ -144,29 +147,48 @@ public class ProjectRestController {
 	}
 	
 	// 리워드 수정
-	@GetMapping(value = "project/reward_update_vue.do", produces = "text/plain; charset=UTF-8")
-	public String reward_update(int fno, int rno, Map map) throws Exception{
-		
-		map.put("fno",  fno);
+	@PostMapping(value = "project/reward_update_vue.do", produces = "text/plain; charset=UTF-8")
+	public String reward_update(int rno, HttpSession session) throws Exception {
+		String result = "";
+		Map map = new HashMap();
 		map.put("rno", rno);
 		
 		RewardVO vo = rService.fundingRewardUpdateData(map);
+		map.put("vo", vo);
 		
 		ObjectMapper mapper = new ObjectMapper();
-		String json = mapper.writeValueAsString(vo);
+		String json = mapper.writeValueAsString(map);
 		
-		return "json";
+		return json;
 	}
+	
+	// 리워드 수정OK
+	@PostMapping(value = "project/reward_update_vue_ok.do", produces = "text/plain; charset=UTF-8")
+	public String reward_update_ok(RewardVO vo, HttpSession session) {
+		System.out.println(vo);
+		String result = "";
+		vo.setUserId((String)session.getAttribute("userId"));
+		vo.setAmount(vo.getLimit());
+		Map map = new HashMap();
+		map.put("vo", vo);
+		try {
+			rService.fundingRewardUpdate(map); // 리워드 정보 DB에 저장
+			result = "yes";
+		} catch (Exception ex) {
+			result = ex.getMessage(); // 에러 발생 시 메시지 반환
+		}
+		
+		return result; // 결과 반환
+	}
+	
 	
 	// 리워드 삭제
 	@GetMapping(value = "project/reward_delete_vue.do", produces = "text/plain; charset=UTF-8") 
 	public String reward_delete(int rno) throws Exception {
 	    String result = "";
-//	    int rrno = Integer.parseInt(rno);
 	    try {
 	    	Map map = new HashMap();
 	    	map.put("rno", rno);
-//	    	System.out.println(rno);
 	        rService.rewardDelete(map);
 	        
 	        result = "yes";

@@ -32,10 +32,9 @@ public class ProjectController {
 	}
 	
 	@GetMapping("project/reward_update.do")
-	public String fundingRewardUpdate(int rno, int fno, Model model) {
+	public String fundingRewardUpdate(int rno, Model model) {
 		
 		model.addAttribute("rno", rno);
-		model.addAttribute("fno", fno);
 		
 		return "project/reward_update";
 	}

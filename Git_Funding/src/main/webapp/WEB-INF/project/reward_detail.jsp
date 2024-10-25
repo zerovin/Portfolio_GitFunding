@@ -73,28 +73,36 @@
 				NavToRewardInsert() {
 					location.href = '../project/reward_insert.do?fno=' + this.fno
 				},
-				RewardUp() {
-					location.href = '../project/reward_update.do'
+				RewardUp(UpRno) {
+					location.href = '../project/reward_update.do?rno=' + UpRno
 				},
 				RewardDel(Rno) {
 					let no = Rno
 					console.log(no)
 					console.log('noError')
-					axios.get('../project/reward_delete_vue.do', {
-						params : {
-							rno : no
-						}
-					}).then(response => {
-						if (response.data === 'yes') {
-							this.dataRecv()
-						} else {
-							alert('삭제 실패')
-							console.log(response.data)
-						}
-					}).catch(error => {
-						console.log(error.response)
-					})
+					if (confirm("정말로 삭제하시겠습니까?")) {
+						
+						axios.get('../project/reward_delete_vue.do', {
+							params : {
+								rno : no
+							}
+						}).then(response => {
+							if (response.data === 'yes') {
+								this.dataRecv()
+							} else {
+								alert('삭제 실패')
+								console.log(response.data)
+							}
+						}).catch(error => {
+							console.log(error.response)
+						})
+					} else {
+						alert('삭제를 취소합니다.')
+						
+						return
+					}
 				}
+
 			}
 		}).mount('.PageWrapper')
 	</script>
