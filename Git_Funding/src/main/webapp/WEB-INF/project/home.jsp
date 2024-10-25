@@ -37,7 +37,9 @@
 							<p>데이터 한번에 보기<i class="fa-solid fa-check" style="margin-left:10px;"></i></p>
 				            <p>{{count}}건</p>
 				        </div>
-				        
+				        <div>
+				        	<img src="../images/funding_totalprice.png" style="width: 100%">
+				        </div>
 				        <!-- 우측 하단 부분을 2행으로 나눔 -->
 				        <div class="ViewTodayDataContainer">
 				            <ul class="ViewTodayData">
