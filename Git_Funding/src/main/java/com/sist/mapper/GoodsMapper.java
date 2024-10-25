@@ -54,7 +54,7 @@ public interface GoodsMapper {
 	
 	// 주문 확인
 	
-	 @Select("SELECT * FROM (SELECT * FROM f_goods_order WHERE id=#{id} ORDER BY buydate DESC) WHERE rownum=1") 
+	 @Select("SELECT fgono,send,sendPhone,recvAddress,payment,msg,TO_CHAR(buydate, 'YYYY/MM/DD') as dbday FROM (SELECT fgono,send,sendPhone,recvAddress,payment,msg,buydate FROM f_goods_order WHERE id=#{id} ORDER BY buydate DESC) WHERE rownum=1") 
 	 public OrderGVO orderSelect(String id);
 	 
 	 @Select("SELECT fo.ops as ops ,fg.title as title ,fo.account as account "

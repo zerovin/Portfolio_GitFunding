@@ -129,10 +129,10 @@
 </head>
 <body>
     <div id="purchaseApp" class="purchase-list">
-        <h2 id="fundingtext">상품 구매 내역</h2>
+        <h2 id="fundingtext">상품 주문 내역</h2>
         <div v-if="purchases.length === 0" class="no-purchases">
             <div class="no-purchases-icon">🛒</div>
-            구매 내역이 없습니다!!
+            주문 내역이 없습니다!!
         </div>
         <table v-else class="purchase-table">
             <thead>
@@ -191,7 +191,7 @@
 
                 <!-- 리워드 정보 -->
                 <div class="info-item" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
-                    <span class="info-label">구매한 상품:</span>
+                    <span class="info-label">주문한 상품:</span>
                     <span class="info-value" >{{orderInfo}}</span>
                 </div>
             </div>
