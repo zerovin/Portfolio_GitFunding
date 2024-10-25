@@ -39,6 +39,9 @@
     padding:10px;
     border-bottom:3px solid #F8C200;
 }
+#funding_detail > section h2 span{
+	color:#9e9c9c;
+}
 #funding_detail > section .left .img_scroll .imgs{
     height:2000px;
     overflow:hidden;
@@ -246,7 +249,9 @@
     font-weight:700;
 }
 #funding_detail #backingWindow,
-#funding_detail #communityWindow{
+#funding_detail #communityWindow,
+#funding_detail #updateWindow,
+#funding_detail #commDeleteWindow{
 	font-family: 'NEXON Lv2 Gothic';
 	width:350px;
 	position:fixed;
@@ -260,12 +265,14 @@
 	display:none;
 }
 #funding_detail #backingWindow h2,
-#funding_detail #communityWindow h2{
+#funding_detail #communityWindow h2,
+#funding_detail #updateWindow h2{
 	font-family: 'NEXON Lv2 Gothic';
 	font-size:24px;
 }
 #funding_detail #backingWindow textarea,
-#funding_detail #communityWindow textarea{
+#funding_detail #communityWindow textarea,
+#funding_detail #updateWindow textarea{
 	font-family: 'NEXON Lv2 Gothic';
 	resize:none;
 	width:100%;
@@ -275,7 +282,8 @@
 	padding:5px;
 }
 #funding_detail #backingWindow button.insert,
-#funding_detail #communityWindow button.insert{
+#funding_detail #communityWindow button.insert,
+#funding_detail #updateWindow button.insert{
 	text-align:center;
 	background:#F8C200;
 	padding:15px 0;
@@ -284,7 +292,8 @@
 	font-weight:500;
 }
 #funding_detail #backingWindow button.close,
-#funding_detail #communityWindow span.close{
+#funding_detail #communityWindow span.close,
+#funding_detail #updateWindow span.close{
 	position:absolute;
 	top:15px;
 	right:15px;
@@ -292,13 +301,37 @@
 	paddint:0;
 	cursor:pointer;
 }
-#funding_detail #communityWindow .radio_box{
+#funding_detail #communityWindow .radio_box,
+#funding_detail #updateWindow .radio_box{
 	display:flex;
 	gap:20px;
 	margin-top:20px;
 }
-#funding_detail #communityWindow .radio_box input{
+#funding_detail #communityWindow .radio_box input,
+#funding_detail #updateWindow .radio_box input{
 	margin-right:3px;
+}
+#funding_detail #commDeleteWindow{
+	text-align:center;
+}
+#funding_detail #commDeleteWindow p{
+	margin-bottom:20px;
+}
+#funding_detail #commDeleteWindow .delete_btns{
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	gap:10px;
+}
+#funding_detail #commDeleteWindow .delete_btns button{
+	display:block;
+	text-align:center;
+	background:#F8C200;
+	padding:10px 20px; 
+	border-radius:5px;
+}
+#funding_detail #commDeleteWindow .delete_btns .cancel{
+	background:#ccc;
 }
 
 /*------------ DETAIL NOTICE -----------*/
@@ -366,6 +399,7 @@
 }
 #funding_detail .notice_detail .detail_wrap .content pre{
 	line-height:1.5em;
+	white-space:pre-wrap;
 }
 
 /*------------ DETAIL PAGINATION -----------*/
@@ -445,6 +479,8 @@
 }
 #funding_detail .community .comm_list img{
 	width:40px;
+	height:40px;
+	object-fit:contain;
 }
 #funding_detail .community .comm_list li + li{
 	margin-top:30px;
@@ -534,12 +570,15 @@
 	border-radius:5px;
 	padding:10px 20px;
 }
-#funding_detail .community .comm_list .comment .comment_list > li{
+#funding_detail .comment_list{
+	display:none;
+}
+#funding_detail .community .comm_list .comment_list > li{
 	display:flex;
 	gap:10px;
 	align-items:start;
 }
-#funding_detail .community .comm_list .comment .comment_list .comm_content{
+#funding_detail .community .comm_list .comment_list .comm_content{
 	background:#f9fafb;
 	border-radius:10px;
 	padding:20px;

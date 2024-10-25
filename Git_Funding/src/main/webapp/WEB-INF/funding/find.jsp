@@ -48,7 +48,7 @@
 		    </div>
 		</div>
 		<div class="list_wrap">
-			<h2>키워드 <span>검색결과</span></h2>
+			<h2>{{keyword}} <span>검색결과</span></h2>
 		    <ul class="list">
 		        <li v-for="vo in find_list">
 		            <a :href="'../funding/detail_before.do?fno='+vo._source.fno" class="f_list">
@@ -56,13 +56,6 @@
 		                <p class="percent">{{vo._source.headcount}}명이 참여했어요!</p>
 		                <p class="title">{{vo._source.title}}</p>
 		                <p class="p_admin">{{vo._source.p_admin}}</p>
-		                <div class="progress">
-		                    <div class="top">
-		                        <p class="current"><span class="num">{{vo._source.fm_percent}}%</span>{{vo._source.totalprice}}원</p>
-		                        <p class="remain">{{vo._source.dday}}일 남음</p>
-		                    </div>
-		                    <div class="progress_bar" :style="'width:'+vo._source.percent+'%'"></div>
-		                </div>
 		            </a>
 		        </li>
 		    </ul>

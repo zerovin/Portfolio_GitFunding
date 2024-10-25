@@ -11,4 +11,7 @@ public interface FundingDetailBoardService {
 	public void fundingCommInsert(FundingDetailCommVO vo);
 	public List<FundingDetailCommVO> fundingCommListData(int fno);
 	public FundingDetailCommVO fundingCommUpdateData(int dcno);
+	public void fundingCommUpdate(FundingDetailCommVO vo);
+	public void fundingCommDelete(int dcno);
+	public void commReplyInsert(int dcno, FundingDetailCommVO vo);
 }

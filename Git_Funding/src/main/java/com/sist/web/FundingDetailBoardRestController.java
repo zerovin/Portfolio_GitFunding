@@ -89,4 +89,42 @@ public class FundingDetailBoardRestController {
 		String json=mapper.writeValueAsString(vo);
 		return json;
 	}
+	
+	@PostMapping(value="funding/comm_update.do", produces="text/plain;charset=UTF-8")
+	public String funding_comm_update(FundingDetailCommVO vo) {
+		String result="";
+		try {
+			bService.fundingCommUpdate(vo);
+			result="ok";
+		}catch(Exception ex) {
+			result=ex.getMessage();
+		}
+		return result;
+	}
+	
+	@GetMapping(value="funding/comm_delete.do", produces="text/plain;charset=UTF-8")
+	public String funding_comm_delete(int dcno) {
+		String result="";
+		try {
+			bService.fundingCommDelete(dcno);
+			result="ok";
+		}catch(Exception ex) {
+			result=ex.getMessage();
+		}
+		return result;
+	}
+	
+	@PostMapping(value="funding/reply_insert.do", produces="text/plain;charset=UTF-8")
+	public String funding_comm_reply_insert(int dcno, FundingDetailCommVO vo, HttpSession session) {
+		String result="";
+		try {
+			String userId=(String)session.getAttribute("userId");
+			vo.setUserId(userId);
+			bService.commReplyInsert(dcno, vo);
+			result="ok";
+		}catch(Exception ex) {
+			result=ex.getMessage();
+		}
+		return result;
+	}
 }
