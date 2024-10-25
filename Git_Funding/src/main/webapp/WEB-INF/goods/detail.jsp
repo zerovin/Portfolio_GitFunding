@@ -89,11 +89,11 @@ $(function(){
 	        readmore.removeClass('active')
 	    }
 	})
-	/* document.querySelector('input[type="number"]').addEventListener('keydown', function(event) {
+	 document.querySelector('input[type="number"]').addEventListener('keydown', function(event) {
 	    if (event.key === 'Enter') {
 	        event.preventDefault(); // 기본 동작 방지
 	    }
-	}); */
+	}); 
 	$('#buyForm').submit(function(e){
 		if(${sessionScope.userId==null}){
 			e.preventDefault()

@@ -8,6 +8,11 @@
 <link rel="stylesheet" href="../css/cart.css">
 <script type="text/javascript">
 $(function() {
+	document.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault(); // 기본 폼 제출 방지
+        }
+    });
     $('#selectedOrder').on('click', function() {
     	
         const checkboxes = document.querySelectorAll('.buyCheck');
@@ -182,8 +187,8 @@ $(function() {
 	            	      <input type="hidden" value="delivery(vo)">
 	            	    </td>
 	            	    <td width="8%">
-	            	      <!-- <input type="button" value="바로 주문" style="font-size: 13px;width: 62px;background-color: #F8C200;color: white;line-height: 13px;border-radius: 5px;">
-	            	      <input type="button" value="X삭제" style="font-size: 13px;width: 62px;background-color: #444;color: white;line-height: 13px;border-radius: 5px;"> -->
+	            	      	<input type="button" value="바로 주문" style="font-size: 13px;width: 62px;background-color: #F8C200;color: white;line-height: 13px;border-radius: 5px;">
+	            	      <input type="button" value="X삭제" style="font-size: 13px;width: 62px;background-color: #444;color: white;line-height: 13px;border-radius: 5px;">
 	            	    </td>
 	            	  </tr>
 	            	  <tr>
