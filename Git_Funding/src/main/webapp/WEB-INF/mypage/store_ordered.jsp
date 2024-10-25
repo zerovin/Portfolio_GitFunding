@@ -186,7 +186,7 @@
                 </div>
                 <div class="info-item">
                     <span class="info-label">주문 날짜:</span>
-                    <span class="info-value">{{ selectedPurchase.buydate }}</span>
+                    <span class="info-value">{{ selectedPurchase.dbday }}</span>
                 </div>
 
                 <!-- 리워드 정보 -->

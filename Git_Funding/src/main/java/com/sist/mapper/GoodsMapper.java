@@ -72,6 +72,6 @@ public interface GoodsMapper {
 	 @Select("SELECT CEIL(COUNT(*)/6.0) FROM f_goods_order WHERE id=#{id}")
 	 public int mypageStoreTotal(String id);
 	 
-	 @Select("SELECT * FROM f_goods_order WHERE fgono=#{fgono}")
+	 @Select("SELECT fgono,send,sendPhone,recvAddress,payment,msg,TO_CHAR(buydate, 'YYYY/MM/DD') as dbday FROM f_goods_order WHERE fgono=#{fgono}")
 	 public OrderGVO mypageOrder(String fgono);
 }
