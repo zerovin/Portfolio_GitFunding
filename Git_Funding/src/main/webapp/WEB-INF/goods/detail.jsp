@@ -55,6 +55,9 @@
 p:hover,h1:hover,h3:hover {
 	cursor: default;
 }
+#cartBtn:hover{
+	cursor: pointer;
+}
 #buyBtn:hover,#cartBtn:hover{
 	filter: brightness(0.9);
 }
@@ -86,15 +89,25 @@ $(function(){
 	        readmore.removeClass('active')
 	    }
 	})
-	document.querySelector('input[type="number"]').addEventListener('keydown', function(event) {
+	/* document.querySelector('input[type="number"]').addEventListener('keydown', function(event) {
 	    if (event.key === 'Enter') {
 	        event.preventDefault(); // 기본 동작 방지
 	    }
-	});
+	}); */
 	$('#buyForm').submit(function(e){
 		if(${sessionScope.userId==null}){
 			e.preventDefault()
 			alert("로그인 후 이용해주세요")
+			return
+		}
+		
+		let account = $('#account');
+		let max = parseInt(account.max,10)
+		let value = parseInt(account.value,10)
+		
+		if(value > max){
+			e.preventDefault()
+			alert(max+"보다 많은 수량은 선택할 수 없습니다")
 			return
 		}
 	})
@@ -184,7 +197,7 @@ function imgChange(){
                             	    <p>주문수량</p>
                             	  </th>
                             	  <td>
-                            	    <input type="number" style="border: 1px solid #f1f1f1; width: 80px;" min="0" :max="max" v-model="account" name="account">
+                            	    <input type="number" style="border: 1px solid #f1f1f1; width: 80px;" min="0" :max="max" v-model="account" name="account" id="account">
                             	  </td>
                             	</tr>
                             </table>
@@ -291,6 +304,12 @@ function imgChange(){
     			  		  alert("수량을 선택해주세요")
     			  		  return
     			  	  }
+    			  	  if(this.account>this.max){
+    			  		alert(this.max+"보다 많은 수량은 선택할 수 없습니다")
+    					return
+    			  	  }
+    			  	  
+    			  	  
 	    			  axios.post('../goods/cart_insert_vue.do',null,{
 	    				  params:{
 	    					  fg_no:this.fg_no,

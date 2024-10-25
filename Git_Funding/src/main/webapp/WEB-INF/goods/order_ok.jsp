@@ -146,7 +146,7 @@
             	<div></div>
             </div>
             <div id="detailSection" v-if="selectedPurchase" class="detail-info">
-                <h1 style="text-align: center;font-size: 25px;padding-bottom: 5px;">구매 내역 상세</h1>
+                <h1 style="text-align: center;font-size: 25px;padding-bottom: 5px;">주문 내역 상세</h1>
             <div class="detail-box">
             	<div class="info-item">
                     <span class="info-label">주문번호:</span>
@@ -182,8 +182,14 @@
 
                 <!-- 리워드 정보 -->
                 <div class="info-item" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
-                    <span class="info-label">구매한 상품:</span>
+                    <span class="info-label">주문한 상품:</span>
                     <span class="info-value" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">{{orderInfo}}</span>
+                </div>
+                
+                <div style="display: flex;justify-content: center;height: 130px;">
+                	<div style="padding-top: 50px;">
+                		<a style="border: 1px solid; padding: 20px 60px;" href="../mypage/store_ordered.do">마이페이지로 이동</a>
+                	</div>
                 </div>
             </div>
         </div>

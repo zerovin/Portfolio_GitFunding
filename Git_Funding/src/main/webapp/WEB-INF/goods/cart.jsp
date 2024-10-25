@@ -14,44 +14,72 @@ $(function() {
         const form = $('#item-form')[0]; // jQuery 객체에서 DOM 요소로 변환
         
         let hasChecked = false; // 체크된 항목이 있는지 여부를 추적
-
+     	// 수량 확인
+		let account_ok = true
+		
         checkboxes.forEach(checkbox => {
             if (checkbox.checked) {
                 hasChecked = true; // 체크된 항목 발견
             }
+            let max = parseInt(checkbox.getAttribute('data-max'),10);
+            let account = parseInt(checkbox.getAttribute('data-account'),10);
+            
+            if(account > max){
+            	alert(checkbox.getAttribute('data-title')+"의 수량은"+max+"개를 넘을 수 없습니다")
+            	account_ok = false
+            	return
+            }
         });
-
+        
         // 체크된 항목이 없으면 경고
         if (!hasChecked) {
             alert('체크된 항목이 없습니다.');
             return;
+        }	
+        
+        if(account_ok){
+	        // 기존의 숨겨진 input 삭제
+	        const existingInputs = form.querySelectorAll('input[name="fgcno"], input[name="account"]');
+	        existingInputs.forEach(input => input.remove());
+	        
+			
+	        checkboxes.forEach(checkbox => {
+	            if (checkbox.checked) {
+	                // fgcno 숨겨진 input 생성
+	                
+	                let max = parseInt(checkbox.getAttribute('data-max'),10);
+	                let account = parseInt(checkbox.getAttribute('data-account'),10);
+	                
+	                if(account > max){
+	                	alert(checkbox.getAttribute('data-title')+"의 수량은"+max+"개를 넘을 수 없습니다")
+	                	account_ok = false
+	                	return
+	                }
+	                
+	                
+	                const hiddenNoInput = document.createElement('input');
+	                hiddenNoInput.type = 'hidden'; // 수정: hiddenInput -> hiddenNoInput
+	                hiddenNoInput.name = 'fgcno';
+	                hiddenNoInput.value = checkbox.getAttribute('data-fgcno');
+	                form.appendChild(hiddenNoInput);
+	
+	                // account 숨겨진 input 생성
+	                const hiddenEaInput = document.createElement('input');
+	                hiddenEaInput.type = 'hidden'; // 수정: hiddenInput -> hiddenEaInput
+	                hiddenEaInput.name = 'account';
+	                hiddenEaInput.value = checkbox.getAttribute('data-account');
+	                form.appendChild(hiddenEaInput);
+	            }
+	        });
+	
+			
+	        // 폼 제출
+	       
+	        form.submit();
         }
-
-        // 기존의 숨겨진 input 삭제
-        const existingInputs = form.querySelectorAll('input[name="fgcno"], input[name="account"]');
-        existingInputs.forEach(input => input.remove());
-
-        checkboxes.forEach(checkbox => {
-            if (checkbox.checked) {
-                // fgcno 숨겨진 input 생성
-                const hiddenNoInput = document.createElement('input');
-                hiddenNoInput.type = 'hidden'; // 수정: hiddenInput -> hiddenNoInput
-                hiddenNoInput.name = 'fgcno';
-                hiddenNoInput.value = checkbox.getAttribute('data-fgcno');
-                form.appendChild(hiddenNoInput);
-
-                // account 숨겨진 input 생성
-                const hiddenEaInput = document.createElement('input');
-                hiddenEaInput.type = 'hidden'; // 수정: hiddenInput -> hiddenEaInput
-                hiddenEaInput.name = 'account';
-                hiddenEaInput.value = checkbox.getAttribute('data-account');
-                form.appendChild(hiddenEaInput);
-            }
-        });
-
-
-        // 폼 제출
-        form.submit();
+        else{
+        	return
+        }
     });
     $('#item-form').submit(function(e){
     	
@@ -123,7 +151,9 @@ $(function() {
 	            	  </tr>
 	            	  <tr class="cartList" v-for="vo in cartList">
 	            	    <td width="5%">
-	            	      <input type="checkbox" name="itemIds" class="buyCheck" style="height: 80px;"  v-model="vo.checked" :data-fgcno="vo.fgcno" :data-account="vo.account">
+	            	      <input type="checkbox" name="itemIds" class="buyCheck" style="height: 80px;"  v-model="vo.checked" :data-fgcno="vo.fgcno" 
+	            	      :data-account="vo.account" :data-max="vo.max" :data-title="vo.gvo.title">
+	            	      
 	            	      <input type="hidden" :value="vo.fgcno" name="fgcno">
 	            	    </td>
 	            	    <td width="10%">
