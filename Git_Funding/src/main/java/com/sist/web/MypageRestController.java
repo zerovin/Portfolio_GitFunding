@@ -202,7 +202,7 @@ public class MypageRestController {
 		map = new HashMap();
 		map.put("list", list);
 		map.put("curpage", page);
-		map.put("startpage", startpage);
+		map.put("startPage", startpage);
 		map.put("endPage", endPage);
 		map.put("totalpage", totalpage);
 		map.put("count", count);

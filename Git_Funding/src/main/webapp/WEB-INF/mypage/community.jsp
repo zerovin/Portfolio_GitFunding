@@ -152,21 +152,17 @@
             <!-- Pagination -->
             </div>
 			<div class="pagination">
-			    <!-- 이전 버튼 -->
-			    <button v-if="curpage > 1" @click="prev" :disabled="curpage === 1">이전</button>
-			
-			    <!-- 페이지 번호 버튼 -->
-			    <button v-for="i in range(startPage, endPage)" 
-			            :class="{ 'active-btn': i === curpage, 'inactive-btn': i !== curpage }" 
-			            @click="pageChange(i)">
-			        {{ i }}
-			    </button>
-			
-			    <!-- 다음 버튼 -->
-			    <button v-if="curpage < totalpage" @click="next" :disabled="curpage === totalpage">다음</button>
-			</div>
+				<button v-if="startPage > 1" @click="prev"
+					:class="{'inactive-btn': curpage !== startPage}">이전</button>
 
-        </div>
+				<button v-for="i in range(startPage, endPage)"
+					:class="{ 'active-btn': i === curpage, 'inactive-btn': i !== curpage }"
+					@click="pageChange(i)">{{ i }}</button>
+
+				<button v-if="endPage < totalpage" @click="next"
+					:class="{'inactive-btn': curpage !== endPage}">다음</button>
+			</div>
+		</div>
     </div>
 
     <script>
