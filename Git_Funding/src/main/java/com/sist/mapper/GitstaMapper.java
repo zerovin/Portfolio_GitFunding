@@ -80,7 +80,9 @@ public interface GitstaMapper {
 	
 	@Delete("DELETE FROM follow WHERE followerId = #{followerId} AND followingId = #{followingId}")
 	public void deleteFollow(@Param("followerId") String followerId, @Param("followingId") String followingId);
-	 
+	// 팔로우 상태 확인
+	@Select("SELECT COUNT(*) FROM follow WHERE followerId = #{sessionId} AND followingId = #{userId}")
+	public int followCheck(@Param("sessionId") String sessionId, @Param("userId") String userId);
 	// 피드 수정
 	@Update("UPDATE gitsta_feed SET content=#{content}, filename=#{filename}, filesize=#{filesize}, filecount=#{filecount}, modifydate=SYSDATE WHERE no=#{no}")
 	public void updatePost(GitstaVO vo);

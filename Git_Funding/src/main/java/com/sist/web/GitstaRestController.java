@@ -216,6 +216,16 @@ public class GitstaRestController {
         }
     }
     
+    @GetMapping(value = "follow_check_vue.do", produces = "text/plain;charset=UTF-8")
+    public String follow_check(HttpSession session,String sessionId, String userId) throws Exception {
+    	sessionId=(String)session.getAttribute("userId");
+    	int check=gService.followCheck(sessionId, userId);
+    	ObjectMapper mapper = new ObjectMapper();
+    	Map<String, Integer> map = new HashMap<>();
+    	map.put("followStatus", check);
+    	return mapper.writeValueAsString(map);
+    }
+    
     @PostMapping(value = "gitsta/follow.do", produces = "text/plain;charset=UTF-8")
     public String followUser(String followerId, String followingId) {
         try {

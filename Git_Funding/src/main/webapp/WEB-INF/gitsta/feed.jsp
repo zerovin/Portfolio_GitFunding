@@ -141,6 +141,19 @@ body {
     background-color: #e0e0e0;
     cursor: not-allowed;
 }
+follow-btn {
+    background-color: #f8c200;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s;
+}
+
+.follow-btn:hover {
+    background-color: #e0a700;
+}
 </style>
 </head>
 <body>
@@ -157,6 +170,12 @@ body {
 	    <h2 v-if="myInfo.nickname == null">{{myInfo.userName}}님</h2>
 	    <h2 v-else>{{myInfo.nickname}}</h2>
 	    <p>{{myInfo.msg}}</p>
+	    <!-- 팔로우/언팔로우 버튼 -->
+        <div class="buttons">
+            <button v-if="sessionId !== userId" @click="toggleFollow" class="follow-btn">
+                {{ followStatus ? '언팔로우' : '팔로우' }}
+            </button>
+        </div>
     </div>
 
     <div class="profile-stats">
@@ -172,11 +191,6 @@ body {
             <span>{{ followingCount }}</span> <!-- 팔로잉 수 출력 -->
             팔로잉
         </div>
-    </div>
-
-    <div class="buttons">
-        <button>지지</button>
-        <button>포스팅</button>
     </div>
 
 		<div class="grid">
@@ -202,28 +216,28 @@ const myfeedApp = Vue.createApp({
             totalPostCount: 0,
             hasMore: true,
             page: 1,
-            nickname: '',
-            userInfo: {},
             userId: '',
             myInfo: {},
             sessionId: '',
             followerCount: 0,
-            followingCount: 0
+            followingCount: 0,
+            followStatus: false // 팔로우 상태 저장
         }
     },
     mounted() {
-        const urlParams = new URLSearchParams(window.location.search)
-        this.userId = urlParams.get('userId') 
-        this.myFeed()
-        this.myinfoData()
-        this.getSessionId()
-        this.loadFollowCount() // 팔로우 및 팔로워 수 불러오기
+        const urlParams = new URLSearchParams(window.location.search);
+        this.userId = urlParams.get('userId');
+        this.myFeed();
+        this.myinfoData();
+        this.getSessionId();
+        this.loadFollowCount();
+        this.checkFollowStatus(); // 팔로우 상태 확인
     },
     methods: {
         getSessionId() {
             axios.get('../gitsta/getSessionId.do')
                 .then(response => {
-                    this.sessionId = response.data; // 가져온 sessionId 저장
+                    this.sessionId = response.data;
                 })
                 .catch(error => {
                     console.error('세션 ID 가져오기 오류:', error.response);
@@ -233,22 +247,18 @@ const myfeedApp = Vue.createApp({
             axios.get('../gitsta/info_vue.do', {
                 params: { userId: this.userId }
             }).then(res => {
-                console.log(res.data);
                 this.myInfo = res.data;
             }).catch(error => {
                 console.log(error.response);
-            })
+            });
         },
         loadFollowCount() {
             axios.get('../gitsta/follower_count_vue.do', {
-                params: {
-                    userId: this.userId
-                }
+                params: { userId: this.userId }
             })
             .then(response => {
-                console.log(response.data);
-                this.followerCount = response.data.followerCount; // 팔로워 수 저장
-                this.followingCount = response.data.followingCount; // 팔로잉 수 저장
+                this.followerCount = response.data.followerCount;
+                this.followingCount = response.data.followingCount;
             })
             .catch(error => {
                 console.error('팔로워 및 팔로잉 수 가져오기 오류:', error);
@@ -261,12 +271,33 @@ const myfeedApp = Vue.createApp({
                 this.feedList = res.data.list;
                 this.totalPostCount = res.data.totalPostCount;
                 this.hasMore = res.data.hasMore;
-                if (res.data.nickname) {
-                    this.nickname = res.data.nickname;
-                }
             }).catch(error => {
                 console.error(error.response);
-            })
+            });
+        },
+        checkFollowStatus() {
+            axios.get('../follow_check_vue.do', {
+                params: { sessionId: this.sessionId, userId: this.userId }
+            }).then(response => {
+                this.followStatus = response.data.followStatus === 1;
+            }).catch(error => {
+                console.error('팔로우 상태 확인 오류:', error);
+            });
+        },
+        toggleFollow() {
+            const url = this.followStatus ? '../gitsta/unfollow.do' : '../gitsta/follow.do';
+            axios.post(url, null, {
+                params: { followerId: this.sessionId, followingId: this.userId }
+            }).then(response => {
+                if (response.data === 'success') {
+                    this.followStatus = !this.followStatus;
+                    this.loadFollowCount(); // 팔로우 수 갱신
+                } else {
+                    console.error('팔로우/언팔로우 실패');
+                }
+            }).catch(error => {
+                console.error('팔로우/언팔로우 오류:', error);
+            });
         },
         createPost() {
             window.location.href = '../gitsta/create_post.do';
@@ -281,8 +312,8 @@ const myfeedApp = Vue.createApp({
                 this.myFeed();
             }
         },
-        postDetail(no){
-            window.location.href = "../gitsta/post_detail.do?no="+no;
+        postDetail(no) {
+            window.location.href = "../gitsta/post_detail.do?no=" + no;
         }
     }
 }).mount('#myfeedApp');

@@ -73,6 +73,11 @@ public class GitstaServiceImpl implements GitstaService{
 	public int getFollowerCount(String userId) {
 		return gDao.getFollowerCount(userId);
 	}
+	// 팔로우 상태 확인
+	@Override
+	public int followCheck(String sessionId, String userId) {
+		return gDao.followCheck(sessionId, userId);
+	}
 
 	@Override
 	public void setFeedDisplayDate(List<GitstaVO> list) {
@@ -171,6 +176,7 @@ public class GitstaServiceImpl implements GitstaService{
 	public GitstaReVO commentDeleteInfoData(int gno) {
 		return gDao.commentDeleteInfoData(gno);
 	}
+
 
 
 

@@ -58,6 +58,9 @@ public class GitstaDAO {
 	public void deleteFollow(String followerId,String followingId) {
 		mapper.deleteFollow(followerId, followingId);
 	}
+	public int followCheck(String sessionId, String userId) {
+		return mapper.followCheck(sessionId, userId);
+	}
 	
 	// 상세보기
 	public GitstaVO gitstaDetailData(int no) {

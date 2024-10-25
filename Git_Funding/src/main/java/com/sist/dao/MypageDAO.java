@@ -64,23 +64,6 @@ public class MypageDAO {
     }
     
     // 커뮤니티 관리
-    /*
-     * @Select("SELECT c.dcno, c.fno, c.userId, c.cate, c.content, TO_CHAR(c.regdate, 'YYYY.MM.DD HH24:MI:SS') as dbday," 
-            +"f.title, f.thumb, c.num " 
-            +"FROM (SELECT dcno, fno, userId, cate, content, regdate, rownum as num " 
-            +"FROM (SELECT dcno, fno, userId, cate, content, regdate " 
-            +"FROM funding_detail_comm WHERE userId = #{userId} ORDER BY dcno DESC) " 
-            +"WHERE rownum <= #{end}) c " 
-            +"JOIN funding f ON c.fno = f.fno " 
-            +"WHERE c.num BETWEEN #{start} AND #{end}")
-	    public List<FundingDetailCommVO> myFundingCommuList(String userId);
-	
-	    @Select("SELECT CEIL(COUNT(*)/5.0) FROM funding_detail_comm WHERE userId = #{userId}")
-	    public int myFundingCommuTotalPage(String userId);
-	
-	    @Select("SELECT COUNT(*) FROM funding_detail_comm WHERE userId = #{userId}")
-	    public int myFundingCommuListCount(String userId);
-     */
     public List<FundingDetailCommVO> myFundingCommuList(Map map){
     	return mapper.myFundingCommuList(map);
     }

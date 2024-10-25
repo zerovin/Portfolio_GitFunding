@@ -22,15 +22,14 @@ public interface GitstaService {
 	public int getFollowerCount(@Param("userId") String userId);
 	public void insertFollow(String followerId,String followingId);
 	public void deleteFollow(String followerId,String followingId);
+	public int followCheck(String sessionId, String userId);
 	public void setFeedDisplayDate(List<GitstaVO> list);
 	public GitstaVO gitstaDetailData(int no);
 	public String deletePost(int no);
 	public GitstaVO deleteInfoData(int no);
 	public String updatePost(GitstaVO vo);
 	public GitstaVO postUpdateData(int no);   
-	
-	
-	public List<GitstaReVO> commentListData(Map<String, Object> map);  // 댓글 목록 가져오기
+	public List<GitstaReVO> commentListData(Map<String, Object> map);
     public int commentTotalPage(int rno);   
     public void commentInsert(GitstaReVO vo);                       
     public void commentReplyReplyInsert(int gno, GitstaReVO vo);                    
