@@ -245,7 +245,7 @@ let detailApp = Vue.createApp({
     	    })
     	},
         goToList() {
-            window.location.href = '../community/qna_list.do'
+    		window.history.back()
         }
     }
 }).mount('#detailApp')

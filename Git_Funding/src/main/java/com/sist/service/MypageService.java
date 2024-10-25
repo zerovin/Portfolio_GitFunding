@@ -29,4 +29,9 @@ public interface MypageService {
 	public int myFundingTotalCount(String userId);
 	public int myFundingTotalPage(String userId);
 	public List<FundingVO> myFundingTotalData(String userId);
+	
+	// 나의 문의 내역
+	public List<QnaVO> myQnaListData(Map map);
+	public int myQnaTotalPage(String userId);
+	public int myQnaTotalCount(String userId);	
 }

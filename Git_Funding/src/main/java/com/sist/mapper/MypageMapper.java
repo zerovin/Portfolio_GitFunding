@@ -6,14 +6,17 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 public interface MypageMapper {
+	// 나의 정보 확인
 	@Select("SELECT userId,userName,userPwd,gender,email,post,addr1,addr2,phone,profile,nickname "
 			+"FROM funding_member "
 			+"WHERE userId=#{userId}") 
 	public MemberVO mypageInfoData(String userId);
-	      
+	 
+	// 닉네임 설정
 	@Update("UPDATE funding_member SET nickname=#{nickname} WHERE userId=#{userId}")
 	public void SetNickname(Map map);   
-	  
+	 
+	// 정보 업데이트
 	@Update("UPDATE funding_member SET email=#{email}, gender=#{gender}, addr1=#{addr1}, addr2=#{addr2}, post=#{post}, phone=#{phone} "
 			+"WHERE userId=#{userId}")    
 	public void mypageInfoUpdate(MemberVO vo);    
@@ -38,8 +41,7 @@ public interface MypageMapper {
 	
 	@Select("SELECT COUNT(*) FROM funding_alert WHERE userId = #{userId}")
 	public int fundingAlertCount(String userId);
-     
-	   
+     	   
 	// 펀딩 구매 내역  
 	@Select("SELECT rb.rbno, rb.rno, f.fno, rb.account, rb.price, rb.delivery, rb.totalprice, rb.userId, rb.name, rb.phone, rb.post, rb.addr1, rb.addr2, rb.requestMsg, rb.regdate, f.thumb, f.title, rb.num "  
 	        + "FROM (SELECT rbno, rno, fno, account, price, delivery, totalprice, userId, name, phone, post, addr1, addr2, requestMsg, regdate, rownum as num "
@@ -57,6 +59,7 @@ public interface MypageMapper {
             "JOIN funding_reward fr ON rb.rno = fr.rno " +  // 리워드 정보 조인
             "WHERE rb.rbno = #{rbno}")  // 구매 번호로 구매 내역 상세 조회
     public RewardBuyVO getPurchaseDetail(int rbno);
+ 
     // 상품 구매 
     @Select("SELECT COUNT(*) FROM f_goods_order WHERE id = #{userId}")
     public int goodsBuyTotalCount(String userId);
@@ -98,5 +101,19 @@ public interface MypageMapper {
 				+ "WHERE userId=#{userId}")
 	public int myFundingTotalPage(String userId);
 
+	// 나의 문의 내역
+	@Select("SELECT qno,subject,type,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,reok,id,num "
+			+ "FROM (SELECT qno,subject,type,regdate,reok,id,rownum as num "
+			+ "FROM (SELECT qno,subject,type,regdate,reok,id "
+			+ "FROM site_qna WHERE id=#{userId} ORDER BY qno DESC)) "
+			+ "WHERE num BETWEEN #{start} AND #{end}")
+	public List<QnaVO> myQnaListData(Map map);
+	
+	@Select("SELECT CEIL(COUNT(*)/10.0) FROM site_qna WHERE id=#{userId}")
+	public int myQnaTotalPage(String userId);
+	
+	@Select("SELECT COUNT(*) FROM site_qna WHERE id=#{userId}")
+	public int myQnaTotalCount(String userId);
+	
 }
         

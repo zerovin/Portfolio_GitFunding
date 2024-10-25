@@ -56,6 +56,16 @@ public class MypageController {
 		String userId=(String)session.getAttribute("userId");
 		return "mypage/community";
 	}
+	@GetMapping("mypage/pw_update.do")
+	public String mypage_pw_update(HttpSession session) {
+		String userId=(String)session.getAttribute("userId");
+		return "mypage/pw_update";
+	}
+	@GetMapping("mypage/delete_info.do")
+	public String mypage_delete_info(HttpSession session) {
+		String userId=(String)session.getAttribute("userId");
+		return "mypage/delete_info";
+	}
 	@GetMapping("mypage/jjim_alert.do")
 	public String jjim_alert(Model model,HttpSession session) {
 		String userId=(String)session.getAttribute("userId");

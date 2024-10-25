@@ -9,6 +9,7 @@ import com.sist.vo.AlertVO;
 import com.sist.vo.FundingDetailCommVO;
 import com.sist.vo.FundingVO;
 import com.sist.vo.MemberVO;
+import com.sist.vo.QnaVO;
 import com.sist.vo.RewardBuyVO;
 import com.sist.vo.WishVO;
 @Repository
@@ -104,6 +105,18 @@ public class MypageDAO {
 	}
 	public List<FundingVO> myFundingTotalData(String userId){
 		return mapper.myFundingTotalData(userId);
+	}
+	// 나의 문의 내역
+	public List<QnaVO> myQnaListData(Map map){
+		return mapper.myQnaListData(map);
+	}
+	
+	public int myQnaTotalPage(String userId) {
+		return mapper.myQnaTotalPage(userId);
+	}
+	
+	public int myQnaTotalCount(String userId) {
+		return mapper.myQnaTotalCount(userId);
 	}
 	
 }
