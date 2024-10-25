@@ -50,9 +50,15 @@ public class RewardDAO {
 		mapper.fundingRewardInsert(vo);
 	}
 	
+	public RewardVO fundingRewardUpdateData(Map map) {
+		return mapper.fundingRewardUpdateData(map);
+	}
 	
+	public void fundingRewardUpdate(Map map) {
+		mapper.fundingRewardUpdate(map);
+	}
 	
-	public void rewardDelete(int fno, int rno) {
-		mapper.rewardDelete(fno, rno);
+	public void rewardDelete(Map map) {
+		mapper.rewardDelete(map);
 	}
 }

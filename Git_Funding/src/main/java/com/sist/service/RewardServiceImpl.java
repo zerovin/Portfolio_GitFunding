@@ -38,11 +38,20 @@ public class RewardServiceImpl implements RewardService{
 	public void fundingRewardInsert(RewardVO vo) {
 		rDao.fundingRewardInsert(vo);
 	}
-
+	
 	@Override
-	public void rewardDelete(int fno, int rno) {
-		rDao.rewardDelete(fno, rno);
+	public RewardVO fundingRewardUpdateData(Map map) {
+		rDao.fundingRewardUpdateData(map);
+		return null;
+	}
+	
+	@Override
+	public void fundingRewardUpdate(Map map) {
+		rDao.fundingRewardUpdate(map);
 	}
 
-
+	@Override
+	public void rewardDelete(Map map) {
+		rDao.rewardDelete(map);
+	}
 }

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sist.vo.*;
@@ -111,7 +112,6 @@ public class ProjectRestController {
 	// 리워드 상세
 	@GetMapping(value = "project/reward_detail_vue.do", produces = "text/plain; charset=UTF-8")
 	public String reward_detail(int fno, HttpSession session) throws Exception {
-//		int ffno = Integer.parseInt(fno);
 		String userId = (String)session.getAttribute("userId");
 		
 		List<RewardVO> list = rService.project_rewardDetailList(fno);
@@ -127,30 +127,48 @@ public class ProjectRestController {
 		return json;
 	}
 	
+	// 리워드 등록
+	@PostMapping(value = "project/reward_insert_vue.do", produces = "text/plain; charset=UTF-8")
+	public String reward_insert(RewardVO vo, HttpSession session) {
+		String result = "";
+		vo.setUserId((String)session.getAttribute("userId"));
+		vo.setAmount(vo.getLimit());
+	    try {
+	        rService.fundingRewardInsert(vo); // 리워드 정보 DB에 저장
+	        result = "yes";
+	    } catch (Exception ex) {
+	        result = ex.getMessage(); // 에러 발생 시 메시지 반환
+	    }
+	    
+	    return result; // 결과 반환
+	}
+	
 	// 리워드 수정
 	@GetMapping(value = "project/reward_update_vue.do", produces = "text/plain; charset=UTF-8")
-	public String reward_update(int fno, int rno, Model model) {
+	public String reward_update(int fno, int rno, Map map) throws Exception{
 		
-		model.addAttribute("fno", fno);
-		model.addAttribute("rno", rno);
+		map.put("fno",  fno);
+		map.put("rno", rno);
 		
-		// 업데이트 매퍼, 메서드 만들어야 함
-//		RewardVO vo = rService.reward_update(model);
+		RewardVO vo = rService.fundingRewardUpdateData(map);
 		
 		ObjectMapper mapper = new ObjectMapper();
-//		String json = mapper.writeValueAsString(vo);
+		String json = mapper.writeValueAsString(vo);
 		
-		return "";
+		return "json";
 	}
 	
 	// 리워드 삭제
 	@GetMapping(value = "project/reward_delete_vue.do", produces = "text/plain; charset=UTF-8") 
-	public String reward_delete(int fno, int rno) throws Exception {
-	    String result;
-
+	public String reward_delete(int rno) throws Exception {
+	    String result = "";
+//	    int rrno = Integer.parseInt(rno);
 	    try {
-	        // 리워드 삭제
-	        rService.rewardDelete(fno, rno);
+	    	Map map = new HashMap();
+	    	map.put("rno", rno);
+//	    	System.out.println(rno);
+	        rService.rewardDelete(map);
+	        
 	        result = "yes";
 	    } catch (Exception e) {
 	        e.printStackTrace();
@@ -159,5 +177,4 @@ public class ProjectRestController {
 
 	    return result;
 	}
-
 }

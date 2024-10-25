@@ -49,7 +49,7 @@
 		let detail_listApp = Vue.createApp({
 			data() {
 				return {
-					fno : '${fno}',
+					fno : ${fno},
 					reward_detail_list : []
 				}
 			},
@@ -71,20 +71,22 @@
 					})
 				},
 				NavToRewardInsert() {
-					location.href = '../project/reward_insert.do'
+					location.href = '../project/reward_insert.do?fno=' + this.fno
 				},
 				RewardUp() {
-					
+					location.href = '../project/reward_update.do'
 				},
-				RewardDel() {
+				RewardDel(Rno) {
+					let no = Rno
+					console.log(no)
+					console.log('noError')
 					axios.get('../project/reward_delete_vue.do', {
 						params : {
-							fno : this.fno
-							rno : rno
+							rno : no
 						}
-					}).then(respones => {
+					}).then(response => {
 						if (response.data === 'yes') {
-							location.href = '../project/reward_detail_vue.do'
+							this.dataRecv()
 						} else {
 							alert('삭제 실패')
 							console.log(response.data)

@@ -8,6 +8,7 @@ public interface RewardService {
 	public void rewardBuyMinusAmount(RewardBuyVO vo);
 	public List<RewardVO> project_rewardDetailList(int fno);
 	public void fundingRewardInsert(RewardVO vo);
-	
-	public void rewardDelete(int fno, int rno);
+	public RewardVO fundingRewardUpdateData(Map map);
+	public void fundingRewardUpdate(Map map);
+	public void rewardDelete(Map map);
 }

@@ -36,17 +36,24 @@ public interface RewardMapper {
 	
 	// 펀딩 프로젝트 생성의 리워드 등록
 	// 리워드 넘버, funding번호 (참조), 리워드 이름, 리워드 가격, 리워드 현재 개수, 리워드 설명, 리워드 배송비, 리워드 배송 시작일, 리워드 총 개수
-	@Insert("INSERT INTO funding_reward (rno, fno, name, price, amount, description, delivery, del_start, limit, userId) "
+	@Insert("INSERT INTO funding_reward(rno, fno, name, price, amount, description, delivery, del_start, limit, userId) "
 			+ "VALUES(fr_rno_seq.nextval, #{fno}, #{name}, #{price}, #{amount}, #{description}, #{delivery}, #{del_start}, #{limit}, #{userId})")
 	public void fundingRewardInsert(RewardVO vo);
 	
+	@Select("SELECT rno, fno, price, amount, delivery, limit, name, description, del_start "
+			+ "FROM funding_reward "
+			+ "WHERE fno=#{fno} AND rno=#{rno}")
+	public RewardVO fundingRewardUpdateData(Map map);
 	
-	
+	@Update("UPDATE funding_reward SET "
+			+ "price=#{price}, amount=#{amount}, delivery=#{delivery}, limit=#{limit}, name=#{name}, description=#{description}, del_start=#{del_start} "
+			+ "WHERE fno=#{fno} AND rno=#{rno}")
+	public void fundingRewardUpdate(Map map);
 	
 	// 리워드 삭제
 	@Delete("DELETE FROM funding_reward "
-	        + "WHERE fno = #{fno} AND rno = #{rno}") 
-	public void rewardDelete(@Param("fno") int fno, @Param("rno") int rno);
+	        + "WHERE rno=#{rno}") 
+	public void rewardDelete(Map map);
 
 
 }
