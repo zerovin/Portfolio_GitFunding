@@ -98,6 +98,17 @@ $(function(){
 			return
 		}
 	})
+	$('.share').click(function(e){
+			let temp=document.createElement("textarea");
+			document.body.appendChild(temp);
+			let current_url=window.document.location.href;
+			temp.value = current_url;
+			temp.select();
+			document.execCommand("copy");
+			document.body.removeChild(temp);
+			alert("현재 URL이 복사되었습니다.");
+			e.preventDefault()
+		})
 	
 })
 function imgChange(){
@@ -135,7 +146,7 @@ function imgChange(){
                 <div class="content" style="width: 42%; margin-bottom: 0px;">
                 	<div class="top">
 	                    <p class="cate">{{vo.cate3 }}</p>
-	                    <button class="share"><i class="fa-solid fa-share-nodes"></i>공유</button>
+	                    <button class="share" type=""><i class="fa-solid fa-share-nodes"></i>공유</button>
                 	</div>
                 	<p class="p_admin" style="margin-bottom: 5px">{{vo.brand }}</p>
                     <p class="title">{{vo.title }}</p>
