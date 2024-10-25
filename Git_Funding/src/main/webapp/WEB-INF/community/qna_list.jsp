@@ -173,7 +173,7 @@
                     
                     <td style="text-align: left;">
 					    <span v-if="vo.secret == 1 && vo.id !== sessionId" >
-					    <a :href="'../community/qna_detail.do?qno='+vo.qno" style="color: gray">비밀글입니다</a></span>
+					    <a :href="'../community/qna_detail.do?qno='+vo.qno" style="color: gray">🔒비밀글입니다</a></span>
 			            <span v-else><a :href="'../community/qna_detail.do?qno='+vo.qno">{{ vo.subject }}</a></span>
 					</td>
                     

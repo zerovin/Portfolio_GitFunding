@@ -37,6 +37,7 @@
         font-weight: bold;
     }
     .post-date {
+    	margin-top: 10px;
         font-size: 14px;
         color: #888;
     }
@@ -63,8 +64,11 @@
     }
     .funding-info {
         margin-top: 10px;
-        font-size: 14px;
-        color: #666;
+	    font-size: 14px;
+	    color: #666;
+	    background-color: #f5f5f5; /* 연한 회색 배경 */
+	    padding: 12px; /* 내부 여백 */
+	    border-radius: 5px; /* 둥근 테두리 */
     }
     .funding-info img {
         width: 50px;
@@ -145,7 +149,7 @@
                 </div>
 
                 <!-- 펀딩 정보 -->
-                <div class="funding-info">
+                <div class="funding-info" @click="Fdetail(list.fno)" style="cursor: pointer;">
                     <img :src="list.thumb" alt="funding thumbnail">
                     {{list.title}}
                 </div>
@@ -220,6 +224,9 @@
                         this.curpage = this.endPage + 1;
                         this.dataRecv();
                     }
+                },
+                Fdetail(fno) {
+                	location.href="../funding/funding_detail.do?fno="+fno
                 }
             }
         }).mount('#myCommApp');

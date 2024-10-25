@@ -10,115 +10,138 @@
 .qna_detail {
     width: 960px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 25px;
     font-family: 'NexonLv2Gothic';
-    background-color: #F9F9F9;
-    border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #F5F7FA;
+    border-radius: 12px;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
 }
+
 .qna_detail > h1 {
     text-align: center;
     font-weight: bold;
-    font-size: 35px;
+    font-size: 36px;
     color: #2C3E50;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
+
 .qna_content {
     background: #FFFFFF;
     padding: 30px;
-    border-radius: 8px;
-    margin-top: 20px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+    margin-top: 25px;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.08);
 }
+
 .qna_title {
-    font-size: 26px;
-    margin-bottom: 20px;
-    color: #34495E;
-    border-bottom: 2px solid #f8c200;
-    padding-bottom: 10px;
+    font-size: 28px;
+    margin-bottom: 25px;
+    color: #2C3E50;
+    border-bottom: 3px solid #F0A500;
+    padding-bottom: 12px;
     text-align: center;
 }
+
 .info_table {
     width: 100%;
     border-collapse: collapse;
-    background: white;
+    background: #FFFFFF;
     border-radius: 8px;
     overflow: hidden;
-    margin-bottom: 20px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+    margin-bottom: 25px;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.08);
 }
+
 .info_table th, .info_table td {
-    padding: 15px;
+    padding: 18px;
     text-align: left;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #E0E0E0;
 }
+
 .info_table th {
-    background-color: #f8c200;
-    color: white;
+    background-color: #F0A500;
+    color: #FFFFFF;
     font-weight: bold;
     text-align: center;
+    font-size: 16px;
 }
+
 .info_table td {
-    color: #333;
+    color: #34495E;
+    font-size: 15px;
 }
+
 .content {
     white-space: pre-wrap;
-    background-color: #fff;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    font-family: 'NexonLv2Gothic';
+    background-color: #FFFFFF;
+    padding: 22px;
+    border: 1px solid #E0E0E0;
+    border-radius: 8px;
     overflow: auto;
     min-height: 300px;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
+    font-size: 16px;
+    color: #333;
 }
+
 .answer {
     white-space: pre-wrap;
-    background-color: #fff;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    background-color: #F9F9F9;
+    padding: 22px;
+    border: 1px solid #E0E0E0;
+    border-radius: 8px;
     overflow: auto;
-    min-height: 100px;
-    margin-top: 20px;
+    margin-top: 25px;
 }
+
 .answer_item {
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 10px;
-    margin-bottom: 10px;
+    border-bottom: 1px solid #E0E0E0;
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+    color: #444;
 }
+
 .answer_item:last-child {
     border-bottom: none;
 }
+
 .button-container {
     margin-top: 30px;
     text-align: right;
 }
+
 .button {
-    padding: 10px 20px;
+    padding: 12px 24px;
     text-decoration: none;
-    color: white;
-    background-color: #f8c200;
-    border-radius: 5px;
-    font-size: 14px;
+    color: #FFFFFF;
+    background-color: #F0A500;
+    border-radius: 6px;
+    font-size: 15px;
     border: none;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
+
 .button:hover {
-    background-color: #FFA500;
+    background-color: #FFB347;
 }
-.AnswerToQnABtn{
-	padding: 10px 20px;
+
+.AnswerToQnABtn {
+    padding: 12px 24px;
     text-decoration: none;
-    color: white;
-    background-color: #f8c200;
-    border-radius: 5px;
-    font-size: 14px;
+    color: #FFFFFF;
+    background-color: #F0A500;
+    border-radius: 6px;
+    font-size: 15px;
     border: none;
     cursor: pointer;
-    margin-right:212.085px;
+    margin-right: 212px;
+    transition: background-color 0.3s ease;
 }
+
 .AnswerToQnABtn:hover {
-    background-color: #FFA500;
+    background-color: #FFB347;
 }
 </style>
 </head>
@@ -126,7 +149,7 @@
 <div id="detailApp" class="qna_detail">
     <div class="qna_content">
         <div v-if="vo.secret == 1 && vo.id !== sessionId" class="content" style="text-align: center;">
-            <p style="margin-bottom: 10px">비밀글입니다. 작성자만 볼 수 있습니다.<p>
+            <p style="margin-bottom: 50px; margin-top:100px">🔒비밀글입니다. 작성자만 볼 수 있습니다.<p>
             <button class="button" @click="goToList">돌아가기</button>
         </div>
         <div v-else>
