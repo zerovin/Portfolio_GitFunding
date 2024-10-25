@@ -177,6 +177,11 @@ public class GitstaServiceImpl implements GitstaService{
 		return gDao.commentDeleteInfoData(gno);
 	}
 
+	@Override
+	public String deletePostWithComments(int no) {
+		return gDao.deletePostWithComments(no);
+	}
+
 
 
 

@@ -40,7 +40,7 @@ public interface GitstaMapper {
 	@Select("SELECT COUNT(*) FROM gitsta_feed")
 	public int gitstaTotalCount();
 	
-	@Select("SELECT gf.no, gf.fno, gf.userId, gf.content, gf.filename, gf.filesize, gf.filecount, gf.projectname, gf.type, " +
+	@Select("SELECT gf.no, gf.fno, gf.userId, gf.content, gf.filename, gf.filesize, gf.filecount, gf.projectname, gf.type, gf.replycount," +
 	        "TO_CHAR(gf.regdate, 'YYYY-MM-DD') as dbday, TO_CHAR(gf.modifydate, 'YYYY-MM-DD') as mday, " +
 	        "fm.userName, fm.nickname " +
 	        "FROM gitsta_feed gf " +
@@ -68,7 +68,7 @@ public interface GitstaMapper {
 	@Select("SELECT m.userId, m.nickname, m.userName, m.profile "
 	        + "FROM follow f "
 	        + "JOIN funding_member m ON f.followerId = m.userId "
-	        + "WHERE f.followingId = #{userId} "
+	        + "WHERE f.followingId = #{userId} " 
 	        + "ORDER BY m.nickname ASC")
 	public List<MemberVO> gitstaFollowerListData(@Param("userId") String userId);
 	
@@ -87,11 +87,14 @@ public interface GitstaMapper {
 	@Update("UPDATE gitsta_feed SET content=#{content}, filename=#{filename}, filesize=#{filesize}, filecount=#{filecount}, modifydate=SYSDATE WHERE no=#{no}")
 	public void updatePost(GitstaVO vo);
 	
-	// 피드 삭제
+	// 피드 삭제 (댓글도 함께 삭제 해야하기에 수정..)
 	@Select("SELECT filename,type FROM gitsta_feed WHERE no=#{no}")
 	public GitstaVO deleteInfoData(int no);
 	@Delete("DELETE FROM gitsta_feed WHERE no=#{no}")
 	public void deletePost(int no);
+	@Delete("DELETE FROM gitsta_comment WHERE rno=#{no}")
+	public void deleteCommentsByRno(@Param("no") int no);
+
 	
 	// 댓글
 	// 댓글 목록 가져오기 (funding_member와 조인하여 userName, nickname, profile 추가)
@@ -159,6 +162,8 @@ public interface GitstaMapper {
     @Update("UPDATE gitsta_feed SET replycount=replycount-1 WHERE no = #{rno}")
     public void commentReplyDecrement(int rno);
 
+    
+    
     // 댓글 수정
     @Update("UPDATE gitsta_comment SET msg=#{msg}, modifydate=SYSDATE WHERE gno=#{gno}")
     public void commentUpdate(GitstaReVO vo);

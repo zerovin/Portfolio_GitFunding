@@ -230,3 +230,17 @@
     font-size: 14px;
     color: #666;
 }
+.post-actions button {
+    background-color: #ffa500;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #ffffff;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    font-size: 14px;
+}
+.post-actions button:hover {
+    background-color: #cc8400;
+}

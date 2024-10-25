@@ -267,7 +267,6 @@ let totalFeedApp = Vue.createApp({
             })
             .then(response => {
                 if (response.data === 'success') {
-                    alert('팔로우 성공!');
                     this.updateFollowStatus(userId, true);
                     this.loadFollowingList(); // 팔로잉 목록 다시 로드
                 } else {
@@ -288,7 +287,6 @@ let totalFeedApp = Vue.createApp({
             })
             .then(response => {
                 if (response.data === 'success') {
-                    alert('언팔로우 성공!');
                     this.updateFollowStatus(userId, false);
                     this.loadFollowingList(); // 팔로잉 목록 다시 로드
                 } else {

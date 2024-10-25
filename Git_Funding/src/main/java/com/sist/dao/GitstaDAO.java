@@ -77,14 +77,26 @@ public class GitstaDAO {
 	}
 	
 	// 삭제하기
-	public GitstaVO deleteInfoData(int no) {
-		return mapper.deleteInfoData(no);
-	}
-	public String deletePost(int no) {
-		String result="yes";
-		mapper.deletePost(no);
-		return result;
-	}
+
+	@Transactional
+    public String deletePostWithComments(int no) {
+        String result = "yes";
+        // 댓글 삭제
+        mapper.deleteCommentsByRno(no);
+        // 피드 삭제
+        mapper.deletePost(no);
+        return result;
+    }
+
+    public GitstaVO deleteInfoData(int no) {
+        return mapper.deleteInfoData(no);
+    }
+
+    public String deletePost(int no) {
+        String result = "yes";
+        mapper.deletePost(no);
+        return result;
+    }
 	
 	// 댓글
 	// 댓글 목록 가져오기

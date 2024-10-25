@@ -17,6 +17,11 @@
         <div class="post-info" v-else><span style="font-weight: bold">{{vo.userName}}</span>님의 포스팅&nbsp;</div>
         <span class="tag" v-if="vo.dbday === vo.mday">{{ vo.dbday }}</span>
         <span class="tag" v-else>[수정됨]{{ vo.mday }}</span>
+        <div class="post-actions" v-if="sessionId===vo.userId">
+            <button @click="postUpdate()" style="margin-left: 5px">수정</button>
+            <button v-if="vo.replycount<1" @click="postDelete()">삭제</button>
+            <button v-else @click="postReDelete()">삭제</button>
+        </div>
     </div>
 
     <div class="project-info" v-if="vo.type === 1">
@@ -144,6 +149,41 @@
                  console.log(error.response);
              });
          },
+         postDelete(){
+	        	axios.get('../gitsta/post_delete_vue.do',{
+	        		params:{
+	   				 no:this.no
+	   			 }
+	        	}).then(res=>{
+	        		if(res.data==='yes'){
+						alert("게시글이 삭제되었습니다")
+						location.href="../gitsta/main.do"
+					}else{
+						alert("삭제에 실패했어요 ㅠ.ㅠ")
+					}
+				}).catch(error=>{
+					console.log(error.response)
+				})
+	        },
+	        postReDelete(){
+	        	axios.get('../gitsta/post_delete_with_comments_vue.do',{
+	        		params:{
+	   				 no:this.no
+	   			 }
+	        	}).then(res=>{
+	        		if(res.data==='yes'){
+						alert("게시글이 삭제되었습니다")
+						location.href="../gitsta/main.do"
+					}else{
+						alert("삭제에 실패했어요 ㅠ.ㅠ")
+					}
+				}).catch(error=>{
+					console.log(error.response)
+				})
+	        },
+	        postUpdate(){
+	            window.location.href = "../gitsta/update_post.do?no=" + this.no;
+	        },
          prevPage() {
              if (this.curpage > 1) {
                  this.curpage--;

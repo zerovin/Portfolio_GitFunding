@@ -274,6 +274,33 @@ public class GitstaRestController {
 		return result;
 	}
     
+    @GetMapping(value = "gitsta/post_delete_with_comments_vue.do", produces = "text/plain;charset=UTF-8")
+    public String deletePostWithComments(@RequestParam("no") int no, HttpServletRequest request) {
+        String result = "yes";
+
+        try {
+            GitstaVO vo = gService.deleteInfoData(no);  // 삭제 정보 가져오기
+            // 게시글과 댓글 삭제 트랜잭션 실행
+            result = gService.deletePostWithComments(no);
+            // 파일 삭제 처리
+            if (result.equals("yes") && vo.getType() == 1) {
+                String path = request.getSession().getServletContext().getRealPath("/") + "profile" + File.separator;
+                StringTokenizer st = new StringTokenizer(vo.getFilename(), ",");
+                while (st.hasMoreTokens()) {
+                    File file = new File(path + st.nextToken());
+                    if (file.exists()) {
+                        file.delete();  // 파일 삭제
+                    }
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            result = "fail";  // 오류 발생 시 결과를 "fail"로 설정
+        }
+        return result;
+    }
+    
+    
     @GetMapping(value="gitsta/post_update_vue.do", produces = "text/plain;charset=UTF-8")
     public String post_update(int no) throws Exception {
     	GitstaVO vo=gService.postUpdateData(no);

@@ -159,7 +159,7 @@ follow-btn {
 <body>
 <div id="myfeedApp" class="instagram-page">
 	<div class="header">
-	    <a href="../gitsta/main.do"><img src="../images/back.png" alt="뒤로가기"></a>
+	    <img src="../images/back.png" alt="뒤로가기" onclick="javascript:history.back()">
 	    <div v-if="myInfo.userId === sessionId">
 	        <button @click="createPost" style="background-color: #f8c200; border: none; border-radius: 5px; padding: 10px 20px; cursor: pointer;">새 글</button>
 	    </div>

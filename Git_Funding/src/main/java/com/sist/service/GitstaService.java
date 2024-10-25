@@ -26,6 +26,7 @@ public interface GitstaService {
 	public void setFeedDisplayDate(List<GitstaVO> list);
 	public GitstaVO gitstaDetailData(int no);
 	public String deletePost(int no);
+	public String deletePostWithComments(int no);
 	public GitstaVO deleteInfoData(int no);
 	public String updatePost(GitstaVO vo);
 	public GitstaVO postUpdateData(int no);   
