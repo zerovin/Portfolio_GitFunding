@@ -64,9 +64,8 @@
 }
 .NoticeSearch{
     display:flex;
-    justify-content:flex-end;
+    justify-content:flex-end;	
     align-items:center;
-    gap:120px;
     margin-right:10px;
     margin-bottom:30px;
 }
@@ -105,6 +104,11 @@
 	border-radius: 5px;
 	font-weight: bold;
 	color: white;
+}
+#search{
+}
+.search_box{
+	margin-right:180px;
 }
 #CreateNotice:hover{
 	background-color: #FFA500;
@@ -195,7 +199,7 @@
 		    </li>
 		</ul>
 		<div class="NoticeSearch">
-		    <form>
+		    <form class="search_box">
 		        <label for="NoticeSearch">검색</label>
 		        <input type="search" name="search" id="search">
 		        <button>검색</button>

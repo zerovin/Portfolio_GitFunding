@@ -1,5 +1,8 @@
 package com.sist.dao;
 
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,5 +70,9 @@ public class MemberDAO {
 	 */
 	public MemberVO rewardDeliveryMemberInfo(String userId) {
 		return mapper.rewardDeliveryMemberInfo(userId);
+	}
+	
+	public List<MemberVO> memberListData(Map map) {
+		return mapper.memberListData(map);
 	}
 }

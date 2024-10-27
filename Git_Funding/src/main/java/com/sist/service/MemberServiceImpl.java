@@ -1,5 +1,8 @@
 package com.sist.service;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.sist.dao.*;
@@ -43,5 +46,10 @@ public class MemberServiceImpl implements MemberService{
 	public MemberVO rewardDeliveryMemberInfo(String userId) {
 		// TODO Auto-generated method stub
 		return mDao.rewardDeliveryMemberInfo(userId);
+	}
+
+	@Override
+	public List<MemberVO> memberListData(Map map) {
+		return mDao.memberListData(map);
 	}
 }

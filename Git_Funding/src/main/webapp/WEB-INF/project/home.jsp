@@ -10,7 +10,7 @@
 		<div class="LeftArea">
 			<div class="profile_wrap">
 				<img src="${sessionScope.profile }" alt="프로필이미지">		
-				<a href="#" class="profile_edit"><i class="fa-regular fa-pen-to-square"></i></a>	
+				<a href="../mypage/info.do" class="profile_edit"><i class="fa-regular fa-pen-to-square"></i></a>	
 			</div>
 			<a href="#" class="user_name" v-if="nickname === null">{{userName}}님 <i class="fa-solid fa-chevron-right"></i></a>
 			<a href="#" class="user_name" v-else>{{nickname}}님 <i class="fa-solid fa-chevron-right"></i></a>
@@ -24,10 +24,11 @@
 						    <i class="fa-solid fa-chart-line"> </i>
 						    <span class="Tabsbutton-text"> 메이커 홈</span>
 						</button>
-						<button type="button" class="Tabsbutton2" :class="{ active: TopSelectedTab === 'settlementDate' }" @click="navigateTo('settlementDate')">
-						    <i class="fa-solid fa-sack-dollar"> </i>
-						    <span class="Tabsbutton-text"> 정산일</span>
-						</button>
+<!-- 정산일 버튼 주석처리 했습니다. -->
+<!-- 						<button type="button" class="Tabsbutton2" :class="{ active: TopSelectedTab === 'settlementDate' }" @click="navigateTo('settlementDate')"> -->
+<!-- 						    <i class="fa-solid fa-sack-dollar"> </i> -->
+<!-- 						    <span class="Tabsbutton-text"> 정산일</span> -->
+<!-- 						</button> -->
 				    </nav>
 				</div>
 
@@ -123,7 +124,7 @@
 						<div class="ProjectManagementContainerText">
 							<h4>프로젝트 문의</h4>
 						</div>
-						<div class="ProjectQnABtn" @click="ProjectQnA">
+						<div class="ProjectQnABtn" @click="ProjectQnA()">
 							<button>								
 								<i class="fa-regular fa-envelope"> 서포터 문의</i>
 								<i class="fa-solid fa-chevron-right"></i>
@@ -134,12 +135,13 @@
 						<div class="CustomerCenterContainerText">
 							<h4>고객 센터</h4>
 						</div>
-						<div class="OneByOneChatBtn" @click="OneByOneChat">
-							<button>
-								<i class="fa-regular fa-comment-dots"> 1:1 채팅 상담</i>
-								<i class="fa-solid fa-chevron-right"></i>
-							</button>
-						</div>
+<!-- 	1:1 채팅 상담 기능 비활성화 주석 -->
+<!-- 						<div class="OneByOneChatBtn" @click="OneByOneChat"> -->
+<!-- 							<button> -->
+<!-- 								<i class="fa-regular fa-comment-dots"> 1:1 채팅 상담</i> -->
+<!-- 								<i class="fa-solid fa-chevron-right"></i> -->
+<!-- 							</button> -->
+<!-- 						</div> -->
 						<div class="NoticeBtn" @click="Notice()">
 							<button>
 								<i class="fa-solid fa-bullhorn"> 공지 사항</i>
@@ -234,6 +236,9 @@
 	                this.curpage = this.endPage + 1;
 	                this.getProjectList();
 	            }
+	        },
+	        ProjectQnA() {
+	        	location.href = '../community/faq_list.do';
 	        },
 	        GoToMyPage() {
 	            window.location.href = '../mypage/main.do';

@@ -25,4 +25,9 @@ public class AdminPageController {
 		
 		return "adminpage/home";
 	}
+	
+	@GetMapping("member/list.do")
+	public String adminpage_memberList(Map map) {
+		return "adminpage/memberList";
+	}
 }

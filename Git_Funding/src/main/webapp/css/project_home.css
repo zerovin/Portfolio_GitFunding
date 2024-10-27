@@ -258,14 +258,16 @@
 .CustomerCenterContainer{
 	display:grid;
     grid-template-columns:1fr 1fr;/*1fr; 2개의 열 생성*/
-    grid-template-rows:1fr 1fr 1fr;/*1fr; 2개의 행 생성*/
+/*     원래는 3행이나 2행으로 임시 변경 */
+    grid-template-rows:1fr 1fr;/*1fr; 2개의 행 생성*/
     align-items:end;
 }
 .CustomerCenterContainerText{
 	font-weight:400;
 	font-size:25px;	
 	padding-top:30px;
-	padding-bottom:20px;
+/* 	2행으로 임시 변경, 간격 조정 */
+/* 	padding-bottom:20px; */
 	grid-column:1;
 	grid-row:1;
 }

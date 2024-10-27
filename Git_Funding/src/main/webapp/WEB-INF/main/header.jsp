@@ -31,7 +31,7 @@
 		            <li><a href="../member/logout.do">로그아웃</a></li>
                 </c:if>
             </ul>
-            <a href="../project/create_project.do" class="make_btn">프로젝트 만들기</a>
+<!--             <a href="../project/create_project.do" class="make_btn">프로젝트 만들기</a> -->
         </div>
     </div>
 </header>
