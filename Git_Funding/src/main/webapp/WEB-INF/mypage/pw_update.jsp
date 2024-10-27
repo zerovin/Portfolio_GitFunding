@@ -5,6 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://unpkg.com/vue@3"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <style>
         .password-change-wrapper {
             width: 800px;
@@ -78,7 +80,7 @@
             <input type="password" class="password-input" placeholder="새 비밀번호 입력">
             <input type="password" class="password-input" placeholder="새 비밀번호 확인">
             <button class="change-button">비밀번호 변경</button>
-            <button class="cancel-button">취소</button>
+            <button class="cancel-button"  onclick="window.history.back()">취소</button>
         </div>
     </div>
 </body>

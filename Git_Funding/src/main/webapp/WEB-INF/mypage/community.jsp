@@ -128,6 +128,44 @@
         cursor: not-allowed;
         opacity: 0.5;
     }
+    .delete-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+	}
+	
+	.delete-popup {
+	    background-color: #fff;
+	    padding: 20px;
+	    border-radius: 10px;
+	    text-align: center;
+	    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	}
+	
+	.popup-buttons button {
+	    padding: 10px 20px;
+	    margin: 5px;
+	    border: none;
+	    border-radius: 5px;
+	    cursor: pointer;
+	}
+	
+	.popup-buttons button:first-child {
+	    background-color: #FF6666;
+	    color: #fff;
+	}
+	
+	.popup-buttons button:last-child {
+	    background-color: #ccc;
+	    color: #000;
+	}
 </style>
 </head>
 <body>
@@ -144,7 +182,7 @@
                         <div class="post-date">{{list.dbday}}</div>
                     </div>
                     <div class="mypost-actions">
-                        <button class="mypost-button">삭제</button>
+                        <button class="mypost-button" @click="showDeleteConfirm(list.dcno)">삭제</button>
                     </div>
                 </div>
 
@@ -166,70 +204,105 @@
 				<button v-if="endPage < totalpage" @click="next"
 					:class="{'inactive-btn': curpage !== endPage}">다음</button>
 			</div>
+			<div v-if="showDeletePopup" class="delete-popup-overlay">
+				<div class="delete-popup">
+					<p>삭제하시겠습니까?</p>
+					<div class="popup-buttons">
+						<button @click="confirmDelete">네</button>
+						<button @click="cancelDelete">아니오</button>
+					</div>
+				</div>
+			</div>
 		</div>
     </div>
 
     <script>
-        let myCommApp = Vue.createApp({
-            data() {
-                return {
-                    comm_list: [],
-                    curpage: 1,
-                    totalpage: 0,
-                    startPage: 0,
-                    endPage: 0,
-                    count: 0
-                };
+    let myCommApp = Vue.createApp({
+        data() {
+            return {
+                comm_list: [],
+                curpage: 1,
+                totalpage: 0,
+                startPage: 0,
+                endPage: 0,
+                count: 0,
+                delete_dcno: 0,
+                showDeletePopup: false  
+            };
+        },
+        mounted() {
+            this.dataRecv()
+        },
+        methods: {
+            dataRecv() {
+                axios.get('../mypage/community_vue.do', {
+                    params: {
+                        page: this.curpage
+                    }
+                }).then(res => {
+                    this.comm_list = res.data.list;
+                    this.curpage = res.data.curpage;
+                    this.totalpage = res.data.totalpage;
+                    this.startPage = res.data.startPage;
+                    this.endPage = res.data.endPage;
+                    this.count = res.data.count;
+                }).catch(error => {
+                    console.log(error.response);
+                });
             },
-            mounted() {
+            range(start, end) {
+                let arr = [];
+                for (let i = start; i <= end; i++) {
+                    arr.push(i);
+                }
+                return arr;
+            },
+            pageChange(page) {
+                this.curpage = page;
                 this.dataRecv();
             },
-            methods: {
-                dataRecv() {
-                    axios.get('../mypage/community_vue.do', {
-                        params: {
-                            page: this.curpage
-                        }
-                    }).then(res => {
-                        console.log(res.data);
-                        this.comm_list = res.data.list;
-                        this.curpage = res.data.curpage;
-                        this.totalpage = res.data.totalpage;
-                        this.startPage = res.data.startPage;
-                        this.endPage = res.data.endPage;
-                        this.count = res.data.count;
-                    }).catch(error => {
-                        console.log(error.response);
-                    });
-                },
-                range(start, end) {
-                    let arr = [];
-                    for (let i = start; i <= end; i++) {
-                        arr.push(i);
-                    }
-                    return arr;
-                },
-                pageChange(page) {
-                    this.curpage = page;
+            prev() {
+                if (this.startPage > 1) {
+                    this.curpage = this.startPage - 1;
                     this.dataRecv();
-                },
-                prev() {
-                    if (this.startPage > 1) {
-                        this.curpage = this.startPage - 1;
-                        this.dataRecv();
-                    }
-                },
-                next() {
-                    if (this.endPage < this.totalpage) {
-                        this.curpage = this.endPage + 1;
-                        this.dataRecv();
-                    }
-                },
-                Fdetail(fno) {
-                	location.href="../funding/funding_detail.do?fno="+fno
                 }
+            },
+            next() {
+                if (this.endPage < this.totalpage) {
+                    this.curpage = this.endPage + 1;
+                    this.dataRecv();
+                }
+            },
+            Fdetail(fno) {
+                location.href = "../funding/funding_detail.do?fno=" + fno;
+            },
+            showDeleteConfirm(dcno) {
+                this.delete_dcno = dcno
+                this.showDeletePopup = true
+            },
+            confirmDelete() {
+                axios.get('../funding/comm_delete.do', {
+                    params: {
+                        dcno: this.delete_dcno
+                    }
+                }).then(response => {
+                    if (response.data === 'ok') {
+                        alert("삭제되었습니다!")
+                        this.dataRecv()
+                    } else {
+                        console.log(response.data)
+                    }
+                    this.showDeletePopup = false
+                }).catch(error => {
+                    console.log(error.response);
+                    this.showDeletePopup = false
+                })
+            },
+            cancelDelete() {
+                this.showDeletePopup = false
             }
-        }).mount('#myCommApp');
+        }
+    }).mount('#myCommApp')
     </script>
 </body>
 </html>

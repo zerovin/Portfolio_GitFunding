@@ -113,13 +113,13 @@
                     <li><button @click="fundingBuy">펀딩</button></li>
                     <li><button @click="storeBuy">스토어</button></li>
                     <li><button @click="commuInfo">커뮤니티 내역</button></li>
+                    <li><button @click="qnaInfo">문의 내역</button></li>
                     <li><button @click="goToFollow">팔로우</button></li>
                 </ul>
             </div>
             <div class="mymenu-detail">
                 <p class="mymenu_p" style="margin-top: 25px;">정보 관리</p>
                 <ul>
-                    <li><button @click="qnaInfo">문의 내역</button></li>
                     <li><button @click="infoUpdate">정보 수정</button></li>
                     <li><button @click="infoPwUp">비밀번호 변경</button></li>
                     <li><button @click="infoDelete">회원 탈퇴</button></li>
