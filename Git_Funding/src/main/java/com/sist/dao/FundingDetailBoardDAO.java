@@ -89,11 +89,29 @@ public class FundingDetailBoardDAO {
 	
 	/*
 	//삭제
-	@Delete("DELETE funding_detail_comm WHERE dcno=#{dcno}")
-	public void fundingCommDelete(int dcno); 
+	@Select("SELECT group_id, group_step FROM funding_detail_comm "
+			+ "WHERE dcno=#{dcno}")
+	public FundingDetailCommVO commDeleteInfoData(int dcno);
+	*/
+	public FundingDetailCommVO commDeleteInfoData(int dcno) {
+		return mapper.commDeleteInfoData(dcno);
+	}
+	
+	/*
+	@Delete("<script>"
+			+ "DELETE FROM funding_detail_comm "
+			+ "WHERE "
+			+ "<if test=\"group_step==0\">"
+			+ "group_id=#{group_id}"
+			+ "</if> "
+			+ "<if test=\"group_step!=0\">"
+			+ "dcno=#{dcno}"
+			+ "</if>"
+			+ "</script>")
+	public void commDelete(Map map);
 	 */
-	public void fundingCommDelete(int dcno) {
-		mapper.fundingCommDelete(dcno);
+	public void commDelete(Map map) {
+		mapper.commDelete(map);
 	}
 	
 	/*
@@ -128,4 +146,14 @@ public class FundingDetailBoardDAO {
 		mapper.commDepthIncrement(dcno);
 	}
 
+	/*
+	//수정
+	@Update("UPDATE funding_detail_comm SET "
+			+ "content=#{content}, modifydate=SYSDATE "
+			+ "WHERE dcno=#{dcno}")
+	ppublic void commReplyUpdate(FundingDetailCommVO vo);
+	 */
+	public void commReplyUpdate(FundingDetailCommVO vo) {
+		mapper.commReplyUpdate(vo);
+	}
 }

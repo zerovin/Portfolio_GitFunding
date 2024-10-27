@@ -25,17 +25,18 @@
             	<h3>응원·의견·리뷰<span>{{comm_list.length}}</span></h3>
             	<ul class="comm_list">
             		<li v-for="comm in comm_list">
-            			<div v-if="comm.group_tab===0">
+            			<div v-if="comm.group_tab==0" class="group0">
 	            			<div class="member_info">
 	            				<div class="info">
-	            					<img :src="comm.mvo.profile" alt="comm.mvo.nickname">
+	            					<img :src="comm.mvo.profile" :alt="comm.mvo.nickname">
 	            					<div class="text">
 	            						<p class="nick">{{comm.mvo.nickname}}</p>
-	            						<p class="date">{{comm.dbday}}</p>
+	            						<p class="date" v-if="comm.moday==null">{{comm.dbday}}</p> 
+	            						<p class="date" v-else>{{comm.moday}} 수정</p> 
 	            					</div>
 	            				</div>
 	            				<div class="follow_edit">
-	            					<button><i class="fa-solid fa-plus"></i> 팔로우</button>
+	            					<button v-if="sessionId!=comm.userId" class="follow"><i class="fa-solid fa-plus" @click="followUser(comm.userId)"></i> 팔로우</button>
 	            					<button v-if="sessionId==comm.userId" @click="updateOpen(comm.dcno)"><i class="fa-regular fa-pen-to-square"></i> 수정</button>
 	            					<button v-if="sessionId==comm.userId" @click="deleteOpen(comm.dcno)"><i class="fa-solid fa-trash"></i> 삭제</button>
 	            				</div>
@@ -47,25 +48,39 @@
 	            				<pre>{{comm.content}}</pre>
 	            			</div>
 	            			<div class="comment">
-	            				<button class="show" @click="commentOpen(comm.group_id)"><i class="fa-regular fa-comment-dots"></i> 댓글</button>
+	            				<button class="show" @click="commentOpen(comm.group_id)">
+	            					<i class="fa-regular fa-comment-dots"></i> 
+	            					댓글 
+	            					<span class="replyLength" :data-id="comm.group_id"></span>
+	            				</button>
 	            				<div class="wrap" :id="'commentWrap'+comm.group_id">
 		            				<div class="form">
-		            					<img src="../images/profile.png" alt="">
-		            					<input type="text" placeholder="댓글을 작성해주세요" :id="'reply'+comm.dcno" @keydown.enter="replyInsert(comm.dcno)">
-		            					<button @click="replyInsert(comm.dcno)">입력</button>
+		            					<img :src="sessionPf!=''?sessionPf:'../images/profile.png'" alt="">
+		            					<textarea placeholder="댓글을 작성해주세요" :id="'reply'+comm.dcno"></textarea>
+		            					<button @click="replyInsert(comm.dcno, comm.group_id)">입력</button>
 		            				</div>
 		            			</div>
 		            		</div>
 	            		</div>
-           				<ul class="comment_list" :id="'commentList'+comm.group_id">
-           					<li v-if="comm.group_tab===1">
+           				<ul :class="'comment_list commentList'+comm.group_id" v-if="comm.group_tab==1">
+           					<li>
            						<img :src="comm.mvo.profile" alt="comm.mvo.nickname">
            						<div class="comm_content">
            							<div>
-            							<p>{{comm.mvo.nickname}} <span>{{comm.dbday}}</span></p>
-            							<button class="edit">수정</button>
+            							<p>{{comm.mvo.nickname}} 
+            								<span v-if="comm.moday==null">{{comm.dbday}}</span>
+            								<span v-else>{{comm.moday}} 수정</span>
+            							</p>
+            							<div class="btns">
+	            							<button class="edit" :id="'edit'+comm.dcno" @click="replyUpdateOpen(comm.dcno)">수정</button>
+	            							<button class="replyDel" @click="deleteOpen(comm.dcno)">삭제</button>            							
+            							</div>
            							</div>
            							<pre>{{comm.content}}</pre>
+           							<div class="updateForm" :id="'updateForm'+comm.dcno">
+           								<textarea v-model="updateReplyContent"></textarea>
+           								<button @click="replyUpdate(comm.dcno)">수정</button>
+           							</div>
            						</div>
            					</li>
            				</ul>
@@ -193,6 +208,7 @@
     			return{
     				fno:${fno},
     				sessionId:'${sessionId}',
+    				sessionPf:'${sessionPf}',
     				type:'${type}',
     				funding_vo:{},
     				img_list:[],
@@ -209,7 +225,9 @@
     				update_dcno:0,
     				update_cate:'',
     				updateContent:'',
-    				delete_dcno:0
+    				delete_dcno:0,
+    				isReplyUpdate:false,
+    				updateReplyContent:''
     			}
     		},
     		mounted(){
@@ -239,6 +257,22 @@
     					}	
     				}).then(response=>{
     					this.comm_list=response.data
+    				    setTimeout(() => {
+    						let replyLength=$('.replyLength')
+  							replyLength.each(function(){
+	    				    	let group_id=$(this).attr('data-id')
+	    				    	let target=$('.commentList'+group_id)
+	    				    	if(target.length==0){
+		    				    	$(this).text('')	    				    		
+	    				    	}else{
+	    				    		$(this).text(target.length)
+	    				    	}
+	    				    })
+   						 }, 100)
+    				    $('.replyLength').each(function(item){
+    				    	let group_id=item.attr('data-id')
+    				    	item.text($('#commentList'+group_id).length)
+    				    })
     				}).catch(error=>{
     					console.log(error.response)
     				})
@@ -337,7 +371,6 @@
     					if(response.data==='ok'){
     						this.commListRecv()
     						this.deleteClose()
-    						this.openList()
     					}else{
     						console.log(response.data)
     					}
@@ -351,18 +384,19 @@
     			},
     			commentOpen(group_id){
     				if(this.isCommentOpen==false){
-	    				$('#commentWrap'+group_id).find('input').val('')
+	    				$('#commentWrap'+group_id).find('textarea').val('')
     					$('.comment .wrap').hide()
+    					$('.comment_list').hide()
 	    				$('#commentWrap'+group_id).show()
-	    				$('#commentList'+group_id).show()
+	    				$('.commentList'+group_id).show()
 	    				this.isCommentOpen=true
     				}else{
     					$('#commentWrap'+group_id).hide()
-    					$('#commentList'+group_id).hide()
+    					$('.commentList'+group_id).hide()
     					this.isCommentOpen=false
     				}
     			},
-    			replyInsert(dcno){
+    			replyInsert(dcno, group_id){
     				let content=$('#reply'+dcno).val()
     				if(this.sessionId==''){
     					alert("로그인 후 이용해주세요")
@@ -376,10 +410,15 @@
     							content:content
     						}
     					}).then(response=>{
-    						console.log(response.data)
-    						if(response.data==='ok'){
+    						if(response.data=='ok'){
     							this.commListRecv()
-    							$('#commentWrap'+dcno).find('input').val('')
+	    						$('#reply'+dcno).val('')
+	    						setTimeout(() => {
+		    						let commentList=$('.commentList'+group_id)
+	   								if (commentList.length) {
+	   				                    commentList.show();
+	   				                }  
+	    						 }, 100)
     						}else{
     							console.log(response.data)
     						}
@@ -388,6 +427,91 @@
     					})
     				}
     			},
+    			replyUpdateOpen(dcno){
+    				console.log(dcno)
+    				if(this.isReplyUpdate==false){
+    					axios.get('../funding/comm_update_data.do',{
+        					params:{
+        						dcno:dcno
+        					}
+        				}).then(response=>{
+        					this.updateReplyContent=response.data.content
+        				}).catch(error=>{
+        					console.log(error.response)
+        				})
+    					$('.updateForm').css({display:'none'})
+    					$('#updateForm'+dcno).css({display:'flex'})
+    					$('.edit').text('수정')
+    					$('#edit'+dcno).text('수정취소')
+    					this.isReplyUpdate=true
+    				}else{
+    					$('.updateForm').css({display:'none'})
+    					$('.updateForm').find('textarea').val('')
+    					$('.edit').text('수정')
+    					this.isReplyUpdate=false
+    				}
+    			},
+    			replyUpdate(dcno){
+    				if(this.updateReplyContent==''){
+    					$('#updateForm'+dcno).find('textarea').focus()
+    				}else{
+    					axios.post('../funding/comm_reply_update.do',null,{
+    						params:{
+    							dcno:dcno,
+    							content:this.updateReplyContent
+    						}
+    					}).then(response=>{
+    						if(response.data=="ok"){
+    							this.commListRecv()
+    							this.replyUpdateOpen(dcno)
+    						}else{
+    							console.log(response.data)
+    						}
+    					}).catch(error=>{
+    						console.log(error.response)
+    					})
+    				}
+    			},
+    			followUser(userId) {
+    	            axios.post('../gitsta/follow.do', null, {
+    	                params: {
+    	                    followerId: this.sessionId,
+    	                    followingId: userId
+    	                }
+    	            })
+    	            .then(response => {
+    	                if (response.data === 'success') {
+    	                    this.updateFollowStatus(userId, true);
+    	                    this.loadFollowingList(); // 팔로잉 목록 다시 로드
+    	                } else {
+    	                    alert('팔로우 실패. 다시 시도해 주세요.');
+    	                }
+    	            })
+    	            .catch(error => {
+    	                console.error('팔로우 오류:', error);
+    	                alert('팔로우 오류가 발생했습니다.');
+    	            });
+    	        },
+    	        unfollowUser(userId) {
+    	            axios.post('../gitsta/unfollow.do', null, {
+    	                params: {
+    	                    followerId: this.sessionId,
+    	                    followingId: userId
+    	                }
+    	            })
+    	            .then(response => {
+    	                if (response.data === 'success') {
+    	                    this.updateFollowStatus(userId, false);
+    	                    this.loadFollowingList(); // 팔로잉 목록 다시 로드
+    	                } else {
+    	                    alert('언팔로우 실패. 다시 시도해 주세요.');
+    	                }
+    	            })
+    	            .catch(error => {
+    	                console.error('언팔로우 오류:', error);
+    	                alert('언팔로우 오류가 발생했습니다.');
+    	            });
+    	        },
     			dataRecv(){
     				axios.get('../funding/funding_detail_vue.do',{
         				params:{

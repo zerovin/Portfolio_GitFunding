@@ -37,7 +37,7 @@
             </ul>
             <ul class="pagination">
                 <li v-if="startpage>1"><a @click="prev()"><i class="fa-solid fa-angles-left"></i></a></li>
-                <li v-for="i in range(startpage,endpage)" :class="i===curpage?'active':''"><a @click="pageChange(i)">{{i}}</a></li>
+                <li :class="i==curpage?'active':''" v-for="i in range(startpage,endpage)"><a @click="pageChange(i)">{{i}}</a></li>
                 <li v-if="endpage<totalpage"><a @click="next()"><i class="fa-solid fa-angles-right"></i></a></li>
             </ul>
         </div>
@@ -69,7 +69,7 @@
    				}else{
 	   				axios.get('../funding/cate_change.do',{
 	   					params:{
-	   						page:this.curpage,
+	   						page:1,
 	   						cate:cate,
 	   						type:2
 	   					}
@@ -113,7 +113,7 @@
     				}
     			}).then(response=>{
     				this.list=response.data.list
-    				this.curpage=1
+    				this.curpage=this.curpage
     				this.totalpage=response.data.totalpage
     				this.startpage=response.data.startpage
     				this.endpage=response.data.endpage

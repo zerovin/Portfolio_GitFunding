@@ -47,7 +47,7 @@ public class MainController {
 	
 	@GetMapping("main/main.do")
 	public String main_main(Model model) {
-		/* 유튜브
+		/* 유튜브 */
 		String data=nDao.naverSelectData();
 		String key=youtubeGetKey(data);
 		//System.out.println(key);
@@ -67,7 +67,7 @@ public class MainController {
 			}
 		}
 		request.setAttribute("cookie_list", list);
-			*/
+			
 		return "main";
 	}
 }

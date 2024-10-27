@@ -17,7 +17,7 @@ public class NaverDataLabTask {
    @Autowired
    private NaverDAO nDao;
    
-   //@Scheduled(fixedRate = 5000)
+   @Scheduled(fixedRate = 5000)
    public void dataLab() {
 	   try{
 		   nDao.naverDelete();

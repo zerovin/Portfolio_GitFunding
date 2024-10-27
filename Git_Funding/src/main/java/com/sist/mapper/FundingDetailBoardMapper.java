@@ -34,13 +34,20 @@ public interface FundingDetailBoardMapper {
 			+ "VALUES(fdc_dcno_pk.nextval, #{fno}, #{userId}, #{cate}, (SELECT NVL(MAX(group_id)+1,1) FROM funding_detail_comm), #{content})")
 	public void fundingCommInsert(FundingDetailCommVO vo);
 	
+	
+	/*
+	private int dcno, fno, group_id, group_step, group_tab, depth, root;
+	private String userId, cate, content, dbday, moday, title, thumb;
+	private Date regdate, modifydate;
+	private MemberVO mvo=new MemberVO();
+	 */
 	@Results({
 		@Result(property="mvo.nickname", column="nickname"),
 		@Result(property="mvo.userName", column="userName"),
 		@Result(property="mvo.profile", column="profile")
 	})
-
-	@Select("SELECT fdc.*, nickname, userName, profile "
+	@Select("SELECT dcno, fno, group_id, group_step, group_tab, fdc.userId, cate, content, TO_CHAR(fdc.regdate, 'YYYY.MM.DD') as dbday, "
+			+ "TO_CHAR(fdc.modifydate, 'YYYY.MM.DD') as moday, nickname, userName, profile "
 			+ "FROM funding_detail_comm fdc, funding_member fm "
 			+ "WHERE fdc.userId=fm.userId AND fno=#{fno} "
 			+ "ORDER BY group_id DESC, group_step ASC")
@@ -58,8 +65,21 @@ public interface FundingDetailBoardMapper {
 	public void fundingCommUpdate(FundingDetailCommVO vo);
 	
 	//삭제
-	@Delete("DELETE funding_detail_comm WHERE dcno=#{dcno}")
-	public void fundingCommDelete(int dcno);
+	@Select("SELECT group_id, group_step FROM funding_detail_comm "
+			+ "WHERE dcno=#{dcno}")
+	public FundingDetailCommVO commDeleteInfoData(int dcno);
+	
+	@Delete("<script>"
+			+ "DELETE FROM funding_detail_comm "
+			+ "WHERE "
+			+ "<if test=\"group_step==0\">"
+			+ "group_id=#{group_id}"
+			+ "</if> "
+			+ "<if test=\"group_step!=0\">"
+			+ "dcno=#{dcno}"
+			+ "</if>"
+			+ "</script>")
+	public void commDelete(Map map);
 	
 	//대댓글
 	//입력
@@ -81,4 +101,11 @@ public interface FundingDetailBoardMapper {
 			+ "depth=depth+1 "
 			+ "WHERE dcno=#{dcno}")
 	public void commDepthIncrement(int dcno);
+	
+	//수정
+	@Update("UPDATE funding_detail_comm SET "
+			+ "content=#{content}, modifydate=SYSDATE "
+			+ "WHERE dcno=#{dcno}")
+	public void commReplyUpdate(FundingDetailCommVO vo);
+	
 }

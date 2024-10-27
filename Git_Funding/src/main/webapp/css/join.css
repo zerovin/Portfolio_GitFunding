@@ -81,6 +81,9 @@
     padding:5px;
     border-bottom:1px solid #1E1A1A;
 }
+#join .join_wrap .input_wrap input[type="password"]{
+	font-family:"sans-serif";
+}
 #join .join_wrap .input_wrap .radios{
     display:flex;
     gap:30px;

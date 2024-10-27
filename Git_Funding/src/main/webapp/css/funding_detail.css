@@ -22,7 +22,7 @@
 	font-family: 'NEXON Lv2 Gothic';
     display:grid;
     grid-template-columns: 1.6fr 1fr;
-    gap:50px;
+    gap:40px;
 }
 #funding_detail > section .left{
 	width:730px;
@@ -513,7 +513,7 @@
 #funding_detail .community .comm_list .member_info button + button{
 	margin-left:5px;
 }
-#funding_detail .community .comm_list .member_info button:first-child{
+#funding_detail .community .comm_list .member_info button.follow{
 	background:#F8C200;
 }
 #funding_detail .community .comm_list .content_box{
@@ -558,11 +558,14 @@
 	gap:10px;
 	margin-bottom:20px;
 }
-#funding_detail .community .comm_list .comment .form input{
+#funding_detail .community .comm_list .comment .form textarea{
+	resize:none;
+	height:40px;
 	padding:10px;
 	border:1px solid #ccc;
 	border-radius:5px;
 	flex:1;
+	box-sizing:border-box;
 }
 #funding_detail .community .comm_list .comment .form button{
 	display:inline-block;
@@ -588,23 +591,44 @@
 	display:flex;
 	justify-content:space-between;
 	align-items:center;
-	margin-bottom:20px;
+	margin-bottom:10px;
 }
 #funding_detail .community .comm_list .comment_list .comm_content p{
 	font-weight:500;
 }
 #funding_detail .community .comm_list .comment_list .comm_content p span{
 	font-size:14px;
+	font-weight:400;
 	color:#9e9c9c;
 	margin-left:5px;
 }
-#funding_detail .community .comm_list .comment_list .comm_content .edit{
+#funding_detail .community .comm_list .comment_list .comm_content button{
 	display:inline-block;
 	padding:5px 10px;
 	background:#ccc;
 	border-radius:5px;
 }
+#funding_detail .community .comm_list .comment_list .comm_content button:last-child{
+	margin-left:5px;
+}
 #funding_detail .community .comm_list .comment_list .comm_content pre{
 	white-space:wrap;
 	line-height:1.5em;
+}
+#funding_detail .community .comm_list .comment_list .comm_content .updateForm{
+	display:none;
+	justify-content:space-between;
+	gap:10px;
+	margin-top:10px;
+}
+#funding_detail .community .comm_list .comment_list .comm_content .updateForm textarea{
+	flex:1;
+	resize:none;
+	padding:10px;
+	height:40px;
+	box-sizing:border-box;
+}
+#funding_detail .community .comm_list .comment_list .comm_content .updateForm button{
+	background:#F8C200;
+	padding:12px 15px;
 }

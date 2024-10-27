@@ -106,7 +106,12 @@ public class FundingDetailBoardRestController {
 	public String funding_comm_delete(int dcno) {
 		String result="";
 		try {
-			bService.fundingCommDelete(dcno);
+			FundingDetailCommVO vo=bService.commDeleteInfoData(dcno);
+			Map map=new HashMap();
+			map.put("dcno", dcno);
+			map.put("group_id", vo.getGroup_id());
+			map.put("group_step", vo.getGroup_step());
+			bService.commDelete(map);
 			result="ok";
 		}catch(Exception ex) {
 			result=ex.getMessage();
@@ -121,6 +126,18 @@ public class FundingDetailBoardRestController {
 			String userId=(String)session.getAttribute("userId");
 			vo.setUserId(userId);
 			bService.commReplyInsert(dcno, vo);
+			result="ok";
+		}catch(Exception ex) {
+			result=ex.getMessage();
+		}
+		return result;
+	}
+	
+	@PostMapping(value="funding/comm_reply_update.do", produces="text/plain;charset=UTF-8")
+	public String funding_comm_reply_update(FundingDetailCommVO vo) {
+		String result="";
+		try {
+			bService.commReplyUpdate(vo);
 			result="ok";
 		}catch(Exception ex) {
 			result=ex.getMessage();

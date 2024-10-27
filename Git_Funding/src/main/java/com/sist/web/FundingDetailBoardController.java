@@ -19,9 +19,11 @@ public class FundingDetailBoardController {
 	@GetMapping("funding/detail_community.do")
 	public String funding_detail_community(int fno, String type, HttpSession session, Model model) {
 		String id=(String)session.getAttribute("userId");
+		String profile=(String)session.getAttribute("profile");
 		model.addAttribute("fno", fno);
 		model.addAttribute("type", type);
 		model.addAttribute("sessionId", id);
+		model.addAttribute("sessionPf", profile);
 		return "funding/funding_detail_community";
 	}
 	

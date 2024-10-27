@@ -19,7 +19,7 @@ import lombok.Data;
 @Data
 public class FundingDetailCommVO {
 	private int dcno, fno, group_id, group_step, group_tab, depth, root;
-	private String userId, cate, content, dbday, title, thumb;
+	private String userId, cate, content, dbday, moday, title, thumb;
 	private Date regdate, modifydate;
 	private MemberVO mvo=new MemberVO();
 }
