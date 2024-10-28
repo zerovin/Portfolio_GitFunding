@@ -57,7 +57,7 @@
         <div class="activity-list">
             <div class="activity-list-item">
                 <button @click="goToAlert">
-                    <p>찜·알림신청</p>
+                    <p>장바구니</p>
                     <div class="arrow-icon"></div>
                 </button>
             </div>
@@ -123,7 +123,7 @@
                         });
                 },
                 goToAlert() {
-                    location.href = '../mypage/jjim_alert.do'
+                    location.href = '../goods/cart.do'
                 },
                 goToFunding() {
                     location.href = '../mypage/funding_buy.do'
