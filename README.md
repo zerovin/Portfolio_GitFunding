@@ -4,12 +4,12 @@
 <h2>⛏사용기술</h2>
 <h3>Frontend</h3>
 <ul>
-  <li><b>Langualge</b> : HTML3, CSS3, JavaScript</li>
+  <li><b>Language</b> : HTML3, CSS3, JavaScript</li>
   <li><b>Library & Framework</b> : Vue3, JQuery</li>
 </ul>
 <h3>Backend</h3>
 <ul>
-  <li><b>Langualge</b> : Java11</li>
+  <li><b>Language</b> : Java11</li>
   <li><b>Library & Framework</b> : Spring Framework, Spring Security</li>
   <li><b>Database</b> : Oracle21c, ElasticSearch</li>
   <li><b>ORM</b> : MyBatis</li>
