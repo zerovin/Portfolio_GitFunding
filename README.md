@@ -4,7 +4,7 @@
 <h2>⛏사용기술</h2>
 <h3>Frontend</h3>
 <ul>
-  <li><b>Language</b> : HTML3, CSS3, JavaScript</li>
+  <li><b>Language</b> : HTML5, CSS3, JavaScript</li>
   <li><b>Library & Framework</b> : Vue3, JQuery</li>
 </ul>
 <h3>Backend</h3>
