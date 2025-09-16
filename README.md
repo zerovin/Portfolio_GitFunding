@@ -19,7 +19,7 @@
 <ul>
   <li>
     <p>메인페이지</p>
-    <img src="https://github.com/user-attachments/assets/2e498b98-d932-402f-b28d-060e15c02ba2" alt="깃펀딩 메인페이지">
+    <img src="./images/main.png" alt="깃펀딩 메인페이지">
     <ul>
       <li>JQuery - 메인페이지 UI 구현</li>
       <li>Vue - 탭 목록 구현</li>
@@ -29,7 +29,7 @@
   </li>
   <li>
     <p>로그인/회원가입</p>
-    <img src="https://github.com/user-attachments/assets/e1bd4962-0ba4-4bbb-b80d-fa91be2bb52b" alt="로그인, 회원가입, 유효성검사">
+    <img src="./images/login.png" alt="로그인, 회원가입, 유효성검사">
     <ul>
       <li>Vue, Spring Security - 로그인, 회원가입, PW 암호화</li>
       <li>Daum API - 우편번호 검색</li>
@@ -37,7 +37,7 @@
   </li>
   <li>
     <p>오픈예정/진행중 펀딩목록 출력, 검색</p>
-    <img src="https://github.com/user-attachments/assets/4363ba33-e3cb-48a1-b776-55d1b078c5a9" alt="오픈예정/진행중 펀딩목록, 검색 화면">
+    <img src="./images/list.png" alt="오픈예정/진행중 펀딩목록, 검색 화면">
     <ul>
       <li>Vue, MyBatis - 알림 설정, 분류별 목록 출력</li>
       <li>Inline View - 페이징</li>
@@ -46,14 +46,14 @@
   </li>
   <li>
     <p>상세페이지/커뮤니티</p>
-    <img src="https://github.com/user-attachments/assets/f0a93ea7-f85a-4f50-935d-0c45b016580d" alt="상세페이지, 상세커뮤니티페이지">
+    <img src="./images/detail.png" alt="상세페이지, 상세커뮤니티페이지">
     <ul>
       <li>Vue - 댓글형 게시판 CRUD, 위시리스트</li>
     </ul>
   </li>
   <li>
     <p>배송/결제</p>
-    <img src="https://github.com/user-attachments/assets/427ff074-5258-484d-af94-666d302d628e" alt="배송/결제페이지">
+    <img src="./images/pay.png" alt="배송/결제페이지">
     <ul>
       <li>Vue - 결제금액 계산, 회원정보 출력, 결제</li>
     </ul>
